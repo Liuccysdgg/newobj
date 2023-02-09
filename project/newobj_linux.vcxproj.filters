@@ -1,0 +1,950 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{a976ae42-18d1-4f25-b641-cc32369a7d5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\public">
+      <UniqueIdentifier>{dcb9c662-ccd3-4f13-9c1e-659ff1f03117}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{7d399afe-4fd9-4f43-8158-750479b4e74e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\algorithm">
+      <UniqueIdentifier>{dbf8bdce-1ab0-4951-8238-c4f5f9ad2aa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\log">
+      <UniqueIdentifier>{11db1f61-67fa-460e-8111-4f979743b4b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgr">
+      <UniqueIdentifier>{19e7461c-a565-4943-81bb-2c28612e16e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\other">
+      <UniqueIdentifier>{81b230e4-b5ca-4151-8616-a94ad5238978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk">
+      <UniqueIdentifier>{5e836336-a08a-4e89-a2ff-93ba3e76ea51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\template">
+      <UniqueIdentifier>{44bbca5b-a427-4469-aab3-69a40f362209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\aliyun">
+      <UniqueIdentifier>{9364e868-410f-4012-8f7c-9cb3f73fec74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\codec">
+      <UniqueIdentifier>{c9ae01de-9d94-4fa4-952a-92c5f09c6eb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\debug">
+      <UniqueIdentifier>{777a2021-a4e8-4f0c-bf24-7b436733c1d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\ftp">
+      <UniqueIdentifier>{eafd2e2f-c1a0-47af-9c89-6955c7a0a71f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\image">
+      <UniqueIdentifier>{5b16b499-abec-435c-881a-1517889a43b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\mem">
+      <UniqueIdentifier>{f6439f1b-2b32-4b24-bd5c-0bbc6e5bf6a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\safe">
+      <UniqueIdentifier>{7a779bc2-02cd-4de0-aadf-9a56a9ed4f70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\text">
+      <UniqueIdentifier>{f1fb87d1-7af5-43fc-9348-8856b3a13299}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\text\htmlcxx">
+      <UniqueIdentifier>{972e347e-d1dd-408b-94ce-c0c81ed251f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\text\tinyxml">
+      <UniqueIdentifier>{d101ff22-a3af-476c-9312-3e7093fc8780}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\warez">
+      <UniqueIdentifier>{f0fb7a7a-19a3-45a9-9425-f5dbe65f5c83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\zip">
+      <UniqueIdentifier>{d073e7dd-c95b-4cc5-8049-d6fc731b2087}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{dc09f8e9-b565-4064-9e1c-a11dd80503af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\openssl">
+      <UniqueIdentifier>{538a1cc3-9169-4389-b824-9482ffe73078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\openssl\1.0.2j">
+      <UniqueIdentifier>{7d78c765-d7e7-4ae4-a705-5fb67805a042}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\openssl\1.0.2j\openssl">
+      <UniqueIdentifier>{6ab6a21e-cfc4-409a-b059-5aaa7417123e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty">
+      <UniqueIdentifier>{f66bb67d-f4b2-427a-beb4-fe17010cf335}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty\hpsocket">
+      <UniqueIdentifier>{06195dbf-e33a-4f42-a84e-7453d7bb3448}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\algorithm\stl.hpp">
+      <Filter>src\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\log\log.h">
+      <Filter>src\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\log\log_define.h">
+      <Filter>src\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\log\log_no.h">
+      <Filter>src\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\log\log_slice.h">
+      <Filter>src\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgr\res_mgr.h">
+      <Filter>src\mgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\template\tp_pageing.h">
+      <Filter>src\template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\template\tp_sqlstatement.h">
+      <Filter>src\template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\template\tp_streamproc.hpp">
+      <Filter>src\template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\template\tp_tcpserver.hpp">
+      <Filter>src\template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\template\tp_urlparam.h">
+      <Filter>src\template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\aliyun\oss.h">
+      <Filter>src\sdk\aliyun</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\codec\base64.h">
+      <Filter>src\sdk\codec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\codec\gmult.h">
+      <Filter>src\sdk\codec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\codec\qaesencryption.h">
+      <Filter>src\sdk\codec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\debug\log.h">
+      <Filter>src\sdk\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\ftp\ftplib.h">
+      <Filter>src\sdk\ftp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\bitstream.h">
+      <Filter>src\sdk\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\config.h">
+      <Filter>src\sdk\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\mask.h">
+      <Filter>src\sdk\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\mmask.h">
+      <Filter>src\sdk\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\mqrspec.h">
+      <Filter>src\sdk\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\qrencode.h">
+      <Filter>src\sdk\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\qrencode_inner.h">
+      <Filter>src\sdk\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\qrinput.h">
+      <Filter>src\sdk\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\qrspec.h">
+      <Filter>src\sdk\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\rsecc.h">
+      <Filter>src\sdk\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\split.h">
+      <Filter>src\sdk\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\recognition\cjy\cjy.h">
+      <Filter>src\sdk\image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\mem\MemoryPool.h">
+      <Filter>src\sdk\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\zip\miniz.h">
+      <Filter>src\sdk\zip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\zip\zip.h">
+      <Filter>src\sdk\zip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\warez\vmprotect\vmprotect.h">
+      <Filter>src\sdk\warez</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\warez\vmprotect\VMProtectDDK.h">
+      <Filter>src\sdk\warez</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\warez\vmprotect\VMProtectSDK.h">
+      <Filter>src\sdk\warez</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\CharsetConverter.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\ci_string.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\css_lex.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\css_syntax.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\debug.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\Extensions.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\Node.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\parser.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\parser_pp.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\ParserDom.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\ParserSax.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\tld.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\tree.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\Uri.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\utils.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\wincstring.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\tinyxml\tinystr.h">
+      <Filter>src\sdk\text\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\tinyxml\tinyxml.h">
+      <Filter>src\sdk\text\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\safe\define.h">
+      <Filter>src\sdk\safe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\other\logic_run.h">
+      <Filter>src\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\other\node.h">
+      <Filter>src\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\other\or_core.hpp">
+      <Filter>src\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\other\or_perfrecord.h">
+      <Filter>src\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\other\or_program.h">
+      <Filter>src\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\other\or_task_handle.hpp">
+      <Filter>src\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\other\or_task_router.hpp">
+      <Filter>src\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\browser.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\build.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\bytes.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\cache.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\codec.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\compress.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\config.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\debug.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\desktop.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\file.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\forstring.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\html.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\idx_maker.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\json.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\keyboard.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\lock.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\map.hpp">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\math.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\md5.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\mem.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\mouse.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\network.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\package.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\point.hpp">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\pool.hpp">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\print.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\process.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\queue.hpp">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\system.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\thread.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\time.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\timeout.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\util.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\vector.hpp">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\verify.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\window.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\zip_test.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\base.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\boolean.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\buffer.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\decimal.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\define.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\environment.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\exception.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\extra_data.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\integer.hpp">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\nobject.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\public.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\qwebengine.hpp">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\string.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\struct.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\var.h">
+      <Filter>src\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\aes.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\asn1.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\asn1_mac.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\asn1t.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\bio.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\blowfish.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\bn.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\buffer.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\camellia.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\cast.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\cmac.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\cms.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\comp.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\conf.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\conf_api.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\crypto.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\des.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\des_old.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\dh.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\dsa.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\dso.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\dtls1.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\e_os2.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ebcdic.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ec.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ecdh.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ecdsa.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\engine.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\err.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\evp.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\hmac.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\idea.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\krb5_asn.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\kssl.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\lhash.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\md4.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\md5.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\mdc2.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\modes.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\obj_mac.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\objects.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ocsp.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\opensslconf.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\opensslv.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ossl_typ.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\pem.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\pem2.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\pkcs7.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\pkcs12.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\pqueue.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\rand.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\rc2.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\rc4.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ripemd.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\rsa.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\safestack.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\seed.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\sha.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\srp.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\srtp.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ssl.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ssl2.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ssl3.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ssl23.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\stack.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\symhacks.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\tls1.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ts.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\txt_db.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ui.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ui_compat.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\whrlpool.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\x509.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\x509_vfy.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\x509v3.h">
+      <Filter>include\openssl\1.0.2j\openssl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\hpsocket\hpsocket.h">
+      <Filter>thirdparty\hpsocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\GlobalDef.h">
+      <Filter>thirdparty\hpsocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\GlobalErrno.h">
+      <Filter>thirdparty\hpsocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\HPSocket.h">
+      <Filter>thirdparty\hpsocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\HPSocket4C.h">
+      <Filter>thirdparty\hpsocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\HPSocket4C-SSL.h">
+      <Filter>thirdparty\hpsocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\HPSocket-SSL.h">
+      <Filter>thirdparty\hpsocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\HPTypeDef.h">
+      <Filter>thirdparty\hpsocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\SocketInterface.h">
+      <Filter>thirdparty\hpsocket</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\log\log_no.cpp">
+      <Filter>src\log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\log\log_slice.cpp">
+      <Filter>src\log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgr\res_mgr.cpp">
+      <Filter>src\mgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\template\tp_pageing.cpp">
+      <Filter>src\template</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\template\tp_sqlstatement.cpp">
+      <Filter>src\template</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\template\tp_urlparam.cpp">
+      <Filter>src\template</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\aliyun\oss.cpp">
+      <Filter>src\sdk\aliyun</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\codec\base64.cpp">
+      <Filter>src\sdk\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\codec\gmult.c">
+      <Filter>src\sdk\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\codec\qaesencryption.cpp">
+      <Filter>src\sdk\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\debug\log.cpp">
+      <Filter>src\sdk\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\ftp\ftplib.cpp">
+      <Filter>src\sdk\ftp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\bitstream.c">
+      <Filter>src\sdk\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\mask.c">
+      <Filter>src\sdk\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\mmask.c">
+      <Filter>src\sdk\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\mqrspec.c">
+      <Filter>src\sdk\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\qrencode.c">
+      <Filter>src\sdk\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\qrinput.c">
+      <Filter>src\sdk\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\qrspec.c">
+      <Filter>src\sdk\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\rsecc.c">
+      <Filter>src\sdk\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\split.c">
+      <Filter>src\sdk\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\recognition\cjy\cjy.cpp">
+      <Filter>src\sdk\image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\zip\zip.cpp">
+      <Filter>src\sdk\zip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\CharsetConverter.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\css_lex.c">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\css_syntax.c">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\Extensions.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\Node.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\parser.c">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\parser_pp.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\ParserDom.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\ParserSax.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\Uri.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\utils.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinystr.cpp">
+      <Filter>src\sdk\text\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinyxml.cpp">
+      <Filter>src\sdk\text\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinyxmlerror.cpp">
+      <Filter>src\sdk\text\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinyxmlparser.cpp">
+      <Filter>src\sdk\text\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\other\logic_run.cpp">
+      <Filter>src\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\other\node.cpp">
+      <Filter>src\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\other\perfrecord.cpp">
+      <Filter>src\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\other\program.cpp">
+      <Filter>src\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\browser.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\build.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\bytes.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\cache.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\codec.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\codec_des.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\compress.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\config.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\debug.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\desktop.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\file.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\forstring.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\html.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\idx_maker.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\json.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\keyboard.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\lock.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\math.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\md5.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\mem.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\mouse.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\network.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\obj.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\package.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\print.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\process.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\system.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\thread.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\time.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\timeout.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\verify.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\window.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\zip_test.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\boolean.cpp">
+      <Filter>src\public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\buffer.cpp">
+      <Filter>src\public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\decimal.cpp">
+      <Filter>src\public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\environment.cpp">
+      <Filter>src\public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\exception.cpp">
+      <Filter>src\public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\extra_data.cpp">
+      <Filter>src\public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\nobject.cpp">
+      <Filter>src\public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\string.cpp">
+      <Filter>src\public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\var.cpp">
+      <Filter>src\public</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\sdk\mem\MemoryPool.tcc">
+      <Filter>src\sdk\mem</Filter>
+    </None>
+    <None Include="..\src\sdk\text\htmlcxx\ParserSax.tcc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </None>
+    <None Include="..\src\other\or_core_config_json_template.json">
+      <Filter>src\other</Filter>
+    </None>
+    <None Include="..\src\util\util_lock.cpp.autosave">
+      <Filter>src\util</Filter>
+    </None>
+    <None Include="..\src\public\exception.h.save-failed">
+      <Filter>src\public</Filter>
+    </None>
+  </ItemGroup>
+</Project>

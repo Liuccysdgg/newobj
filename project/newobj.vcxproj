@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="D_2019|Win32">
+      <Configuration>D_2019</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D_2010|Win32">
+      <Configuration>D_2010</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D_2010|x64">
+      <Configuration>D_2010</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="R_2010_MT|Win32">
+      <Configuration>R_2010_MT</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="R_2010_MT|x64">
+      <Configuration>R_2010_MT</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="R_2019_MT|Win32">
+      <Configuration>R_2019_MT</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="R_2019_MT|x64">
+      <Configuration>R_2019_MT</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="R_2019|Win32">
+      <Configuration>R_2019</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D_2019|x64">
+      <Configuration>D_2019</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="R_2019|x64">
+      <Configuration>R_2019</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="R_2010|Win32">
+      <Configuration>R_2010</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="R_2010|x64">
+      <Configuration>R_2010</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\algorithm\stl.hpp" />
+    <ClInclude Include="..\src\db\db.h" />
+    <ClInclude Include="..\src\db\db_gen.hpp" />
+    <ClInclude Include="..\src\db\db_sqlite3.h" />
+    <ClInclude Include="..\src\log\log_define.h" />
+    <ClInclude Include="..\src\log\log_no.h" />
+    <ClInclude Include="..\src\log\log_slice.h" />
+    <ClInclude Include="..\src\mgr\res_mgr.h" />
+    <ClInclude Include="..\src\other\or_core.hpp" />
+    <ClInclude Include="..\src\other\or_perfrecord.h" />
+    <ClInclude Include="..\src\other\or_program.h" />
+    <ClInclude Include="..\src\other\or_task_router.hpp" />
+    <ClInclude Include="..\src\other\or_task_handle.hpp" />
+    <ClInclude Include="..\src\public\base.h" />
+    <ClInclude Include="..\src\public\boolean.h" />
+    <ClInclude Include="..\src\public\buffer.h" />
+    <ClInclude Include="..\src\public\decimal.h" />
+    <ClInclude Include="..\src\public\define.h" />
+    <ClInclude Include="..\src\public\exception.h" />
+    <ClInclude Include="..\src\public\extra_data.h" />
+    <ClInclude Include="..\src\public\environment.h" />
+    <ClInclude Include="..\src\public\Integer.hpp" />
+    <ClInclude Include="..\src\public\nobject.h" />
+    <ClInclude Include="..\src\public\public.h" />
+    <ClInclude Include="..\src\public\string.h" />
+    <ClInclude Include="..\src\public\struct.h" />
+    <ClInclude Include="..\src\public\var.h" />
+    <ClInclude Include="..\src\sdk\aliyun\oss.h" />
+    <ClInclude Include="..\src\sdk\codec\base64.h" />
+    <ClInclude Include="..\src\sdk\codec\qaesencryption.h" />
+    <ClInclude Include="..\src\sdk\debug\log.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\bitstream.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\config.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\mask.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\mmask.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\mqrspec.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\qrencode.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\qrencode_inner.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\qrinput.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\qrspec.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\rsecc.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\split.h" />
+    <ClInclude Include="..\src\sdk\libcurl\libcurl.hpp" />
+    <ClInclude Include="..\src\sdk\mem\MemoryPool.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\ci_string.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\debug.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\Extensions.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\Node.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\ParserDom.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\ParserSax.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\tld.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\tree.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\Uri.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\utils.h" />
+    <ClInclude Include="..\src\sdk\text\tinyxml\tinystr.h" />
+    <ClInclude Include="..\src\sdk\text\tinyxml\tinyxml.h" />
+    <ClInclude Include="..\src\sdk\warez\vmprotect\vmprotect.h" />
+    <ClInclude Include="..\src\sdk\zip\miniz.h" />
+    <ClInclude Include="..\src\sdk\zip\zip.h" />
+    <ClInclude Include="..\src\template\tp_pageing.h" />
+    <ClInclude Include="..\src\template\tp_streamproc.hpp" />
+    <ClInclude Include="..\src\template\tp_sqlstatement.h" />
+    <ClInclude Include="..\src\template\tp_tcpserver.hpp" />
+    <ClInclude Include="..\src\template\tp_urlparam.h" />
+    <ClInclude Include="..\src\util\browser.h" />
+    <ClInclude Include="..\src\util\build.h" />
+    <ClInclude Include="..\src\util\cache.h" />
+    <ClInclude Include="..\src\util\compress.h" />
+    <ClInclude Include="..\src\util\debug.h" />
+    <ClInclude Include="..\src\util\html.h" />
+    <ClInclude Include="..\src\util\json.h" />
+    <ClInclude Include="..\src\util\keyboard.h" />
+    <ClInclude Include="..\src\util\md5.h" />
+    <ClInclude Include="..\src\util\mouse.h" />
+    <ClInclude Include="..\src\util\package.h" />
+    <ClInclude Include="..\src\util\point_pool.hpp" />
+    <ClInclude Include="..\src\util\pool.hpp" />
+    <ClInclude Include="..\src\util\process.h" />
+    <ClInclude Include="..\src\util\util.h" />
+    <ClInclude Include="..\src\util\bytes.h" />
+    <ClInclude Include="..\src\util\codec.h" />
+    <ClInclude Include="..\src\util\desktop.h" />
+    <ClInclude Include="..\src\util\file.h" />
+    <ClInclude Include="..\src\util\idx_maker.h" />
+    <ClInclude Include="..\src\util\config.h" />
+    <ClInclude Include="..\src\util\print.h" />
+    <ClInclude Include="..\src\util\lock.h" />
+    <ClInclude Include="..\src\util\map.hpp" />
+    <ClInclude Include="..\src\util\math.h" />
+    <ClInclude Include="..\src\util\mem.h" />
+    <ClInclude Include="..\src\util\point.hpp" />
+    <ClInclude Include="..\src\util\queue.hpp" />
+    <ClInclude Include="..\src\util\forstring.h" />
+    <ClInclude Include="..\src\util\system.h" />
+    <ClInclude Include="..\src\util\thread.h" />
+    <ClInclude Include="..\src\util\time.h" />
+    <ClInclude Include="..\src\util\timeout.h" />
+    <ClInclude Include="..\src\util\vector.hpp" />
+    <ClInclude Include="..\src\util\verify.h" />
+    <ClInclude Include="..\src\util\window.h" />
+    <ClInclude Include="..\src\util\zip_test.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\db\db_sqlite3.cpp" />
+    <ClCompile Include="..\src\log\log_define.cpp" />
+    <ClCompile Include="..\src\log\log_no.cpp" />
+    <ClCompile Include="..\src\log\log_slice.cpp" />
+    <ClCompile Include="..\src\mgr\res_mgr.cpp" />
+    <ClCompile Include="..\src\other\perfrecord.cpp" />
+    <ClCompile Include="..\src\other\program.cpp" />
+    <ClCompile Include="..\src\public\boolean.cpp" />
+    <ClCompile Include="..\src\public\buffer.cpp" />
+    <ClCompile Include="..\src\public\decimal.cpp" />
+    <ClCompile Include="..\src\public\exception.cpp" />
+    <ClCompile Include="..\src\public\extra_data.cpp" />
+    <ClCompile Include="..\src\public\environment.cpp" />
+    <ClCompile Include="..\src\public\nobject.cpp" />
+    <ClCompile Include="..\src\public\string.cpp" />
+    <ClCompile Include="..\src\public\var.cpp" />
+    <ClCompile Include="..\src\sdk\aliyun\oss.cpp" />
+    <ClCompile Include="..\src\sdk\codec\base64.cpp" />
+    <ClCompile Include="..\src\sdk\codec\qaesencryption.cpp" />
+    <ClCompile Include="..\src\sdk\debug\log.cpp" />
+    <ClCompile Include="..\src\sdk\image\qrencode\bitstream.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\mask.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\mmask.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\mqrspec.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\qrencode.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\qrinput.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\qrspec.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\rsecc.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\split.c" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\Extensions.cc" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\Node.cc" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\ParserDom.cc" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\ParserSax.cc" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\Uri.cc" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\utils.cc" />
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinystr.cpp" />
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="..\src\sdk\zip\zip.cpp" />
+    <ClCompile Include="..\src\template\tp_pageing.cpp" />
+    <ClCompile Include="..\src\template\tp_sqlstatement.cpp" />
+    <ClCompile Include="..\src\template\tp_urlparam.cpp" />
+    <ClCompile Include="..\src\util\browser.cpp" />
+    <ClCompile Include="..\src\util\build.cpp" />
+    <ClCompile Include="..\src\util\bytes.cpp" />
+    <ClCompile Include="..\src\util\cache.cpp" />
+    <ClCompile Include="..\src\util\codec.cpp" />
+    <ClCompile Include="..\src\util\codec_des.cpp" />
+    <ClCompile Include="..\src\util\compress.cpp" />
+    <ClCompile Include="..\src\util\config.cpp" />
+    <ClCompile Include="..\src\util\debug.cpp" />
+    <ClCompile Include="..\src\util\desktop.cpp" />
+    <ClCompile Include="..\src\util\file.cpp" />
+    <ClCompile Include="..\src\util\html.cpp" />
+    <ClCompile Include="..\src\util\idx_maker.cpp" />
+    <ClCompile Include="..\src\util\json.cpp" />
+    <ClCompile Include="..\src\util\keyboard.cpp" />
+    <ClCompile Include="..\src\util\mouse.cpp" />
+    <ClCompile Include="..\src\util\package.cpp" />
+    <ClCompile Include="..\src\util\print.cpp" />
+    <ClCompile Include="..\src\util\lock.cpp" />
+    <ClCompile Include="..\src\util\math.cpp" />
+    <ClCompile Include="..\src\util\md5.cpp" />
+    <ClCompile Include="..\src\util\mem.cpp" />
+    <ClCompile Include="..\src\util\process.cpp" />
+    <ClCompile Include="..\src\util\forstring.cpp" />
+    <ClCompile Include="..\src\util\system.cpp" />
+    <ClCompile Include="..\src\util\thread.cpp" />
+    <ClCompile Include="..\src\util\time.cpp" />
+    <ClCompile Include="..\src\util\timeout.cpp" />
+    <ClCompile Include="..\src\util\verify.cpp" />
+    <ClCompile Include="..\src\util\window.cpp" />
+    <ClCompile Include="..\src\util\zip_test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.gitignore" />
+    <None Include="..\build\build.sh" />
+    <None Include="..\README.md" />
+    <None Include="..\src\other\or_core_config_json_template.json" />
+    <None Include="..\src\sdk\mem\MemoryPool.tcc" />
+    <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\CMakeLists.txt" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{7FC39ECA-9124-4CC0-AB37-5781B88B7701}</ProjectGuid>
+    <RootNamespace>publiclinux</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_2019|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PreferredToolArchitecture>x86</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_2010|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v100</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PreferredToolArchitecture>x86</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PreferredToolArchitecture>x86</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PreferredToolArchitecture>x86</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2010|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PreferredToolArchitecture>x86</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2010_MT|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v100</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PreferredToolArchitecture>x86</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_2019|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_2010|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2010|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141_xp</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2010_MT|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141_xp</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='D_2019|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='D_2010|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='R_2019|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='R_2010|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='R_2010_MT|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='D_2019|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='D_2010|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='R_2019|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='R_2010|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='R_2010_MT|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_2019|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin</OutDir>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <TargetName>$(ProjectName)_$(PlatformToolset)_debug_$(PlatformTarget)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_2010|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin</OutDir>
+    <IntDir>$(SolutionDir)obj\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <TargetName>$(ProjectName)_$(PlatformToolset)_debug_$(PlatformTarget)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin</OutDir>
+    <IntDir>$(SolutionDir)obj\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <TargetName>$(ProjectName)_$(PlatformToolset)_release_$(PlatformTarget)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin</OutDir>
+    <IntDir>$(SolutionDir)obj\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <TargetName>$(ProjectName)_$(PlatformToolset)_mt_release_$(PlatformTarget)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2010|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <TargetName>$(ProjectName)_$(PlatformToolset)_release_$(PlatformTarget)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2010_MT|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <TargetName>$(ProjectName)_$(PlatformToolset)_mt_release_$(PlatformTarget)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_2019|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin</OutDir>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <TargetName>$(ProjectName)_$(PlatformToolset)_debug_$(PlatformTarget)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_2010|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)obj\Windows\$(Platform)\$(Configuration)</IntDir>
+    <TargetName>libnewobj_win10_v142_x64_debug</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin</OutDir>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <TargetName>$(ProjectName)_$(PlatformToolset)_release_$(PlatformTarget)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin</OutDir>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2010|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)</OutDir>
+    <IntDir>$(SolutionDir)obj\Windows\$(Platform)\$(Configuration)</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2010_MT|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)</OutDir>
+    <IntDir>$(SolutionDir)obj\Windows\$(Platform)\$(Configuration)</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='D_2019|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NEWOBJ_STATIC;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DisableSpecificWarnings>4819;4996;4091</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>psapi.lib;winInet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\Windows\$(Platform)\;$(SolutionDir)bin</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='D_2010|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;MSVC_2010;%(PreprocessorDefinitions);NEWOBJ_STATIC</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;C:\Qt\4.8.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <DisableSpecificWarnings>4819;4996;4091</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>psapi.lib;winInet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\Windows\$(Platform)\</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_2019|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions);NEWOBJ_STATIC</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4996;4091</DisableSpecificWarnings>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\Windows\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Iphlpapi.lib;psapi.lib;winInet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NEWOBJ_STATIC;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;D:\NH\lib\newobj\include\qt\5.9.9_static;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4996;4091</DisableSpecificWarnings>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\Windows\$(Platform)\;$(SolutionDir)bin</AdditionalLibraryDirectories>
+      <AdditionalDependencies>psapi.lib;winInet.lib;ws2_32.lib;thirdparty_mimalloc_$(PlatformToolset)_mt_release_$(PlatformTarget).lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_2010|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;MSVC_2010;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;C:\Qt\4.8.5\include;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4996;4091</DisableSpecificWarnings>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\Windows\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Iphlpapi.lib;psapi.lib;winInet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_2010_MT|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions);MSVC_2010;NEWOBJ_STATIC</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\4.8.5_static;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819;4996;4091</DisableSpecificWarnings>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\Windows\$(Platform)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Iphlpapi.lib;psapi.lib;winInet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='D_2019|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;LIB_HPSOCKET;LIB_QT;QT5;WIN32;HPSOCKET_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>Iphlpapi.lib;psapi.lib;winInet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\Windows\$(Platform)\;E:\NH\lib\boost_1_76_0\lib64-msvc-14.2</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='D_2010|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>LIB_DB_MYSQL;USE_BOOST;USE_LOG;LIB_CURL;LIB_CURL_DLL;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>Iphlpapi.lib;psapi.lib;winInet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\Windows\$(Platform)\;E:\NH\lib\boost_1_76_0\lib64-msvc-14.2</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_2019|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;LIB_HPSOCKET;LIB_QT;QT5;WIN32;HPSOCKET_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>HPSocket.lib;Iphlpapi.lib;psapi.lib;winInet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\Windows\$(Platform)\;E:\NH\lib\boost_1_76_0\lib64-msvc-14.2</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>LIB_DB_MYSQL;USE_BOOST;USE_LOG;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>HPSocket.lib;Iphlpapi.lib;psapi.lib;winInet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\Windows\$(Platform)\;E:\NH\lib\boost_1_76_0\lib64-msvc-14.2</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_2010|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>LIB_DB_MYSQL;USE_BOOST;USE_LOG;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>HPSocket.lib;Iphlpapi.lib;psapi.lib;winInet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\Windows\$(Platform)\;E:\NH\lib\boost_1_76_0\lib64-msvc-14.2</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_2010_MT|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>LIB_DB_MYSQL;USE_BOOST;USE_LOG;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>HPSocket.lib;Iphlpapi.lib;psapi.lib;winInet.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\Windows\$(Platform)\;E:\NH\lib\boost_1_76_0\lib64-msvc-14.2</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

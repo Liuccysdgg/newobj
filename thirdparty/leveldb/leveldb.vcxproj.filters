@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="db\builder.cc" />
+    <ClCompile Include="db\c.cc" />
+    <ClCompile Include="db\db_impl.cc" />
+    <ClCompile Include="db\db_iter.cc" />
+    <ClCompile Include="db\dbformat.cc" />
+    <ClCompile Include="db\dumpfile.cc" />
+    <ClCompile Include="db\filename.cc" />
+    <ClCompile Include="db\log_reader.cc" />
+    <ClCompile Include="db\log_test.cc" />
+    <ClCompile Include="db\log_writer.cc" />
+    <ClCompile Include="db\memtable.cc" />
+    <ClCompile Include="db\repair.cc" />
+    <ClCompile Include="db\table_cache.cc" />
+    <ClCompile Include="db\version_edit.cc" />
+    <ClCompile Include="db\version_set.cc" />
+    <ClCompile Include="db\write_batch.cc" />
+    <ClCompile Include="helpers\memenv\memenv.cc" />
+    <ClCompile Include="table\block.cc" />
+    <ClCompile Include="table\block_builder.cc" />
+    <ClCompile Include="table\filter_block.cc" />
+    <ClCompile Include="table\format.cc" />
+    <ClCompile Include="table\iterator.cc" />
+    <ClCompile Include="table\merger.cc" />
+    <ClCompile Include="table\table.cc" />
+    <ClCompile Include="table\table_builder.cc" />
+    <ClCompile Include="table\two_level_iterator.cc" />
+    <ClCompile Include="util\arena.cc" />
+    <ClCompile Include="util\bloom.cc" />
+    <ClCompile Include="util\cache.cc" />
+    <ClCompile Include="util\coding.cc" />
+    <ClCompile Include="util\comparator.cc" />
+    <ClCompile Include="util\crc32c.cc" />
+    <ClCompile Include="util\env.cc" />
+    <ClCompile Include="util\env_windows.cc" />
+    <ClCompile Include="util\filter_policy.cc" />
+    <ClCompile Include="util\hash.cc" />
+    <ClCompile Include="util\histogram.cc" />
+    <ClCompile Include="util\logging.cc" />
+    <ClCompile Include="util\options.cc" />
+    <ClCompile Include="util\status.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="db\builder.h" />
+    <ClInclude Include="db\db_impl.h" />
+    <ClInclude Include="db\db_iter.h" />
+    <ClInclude Include="db\dbformat.h" />
+    <ClInclude Include="db\filename.h" />
+    <ClInclude Include="db\log_format.h" />
+    <ClInclude Include="db\log_reader.h" />
+    <ClInclude Include="db\log_writer.h" />
+    <ClInclude Include="db\memtable.h" />
+    <ClInclude Include="db\skiplist.h" />
+    <ClInclude Include="db\snapshot.h" />
+    <ClInclude Include="db\table_cache.h" />
+    <ClInclude Include="db\version_edit.h" />
+    <ClInclude Include="db\version_set.h" />
+    <ClInclude Include="db\write_batch_internal.h" />
+    <ClInclude Include="helpers\memenv\memenv.h" />
+    <ClInclude Include="port\port.h" />
+    <ClInclude Include="port\port_example.h" />
+    <ClInclude Include="port\port_stdcxx.h" />
+    <ClInclude Include="port\thread_annotations.h" />
+    <ClInclude Include="table\block.h" />
+    <ClInclude Include="table\block_builder.h" />
+    <ClInclude Include="table\filter_block.h" />
+    <ClInclude Include="table\format.h" />
+    <ClInclude Include="table\iterator_wrapper.h" />
+    <ClInclude Include="table\merger.h" />
+    <ClInclude Include="table\two_level_iterator.h" />
+    <ClInclude Include="util\arena.h" />
+    <ClInclude Include="util\coding.h" />
+    <ClInclude Include="util\crc32c.h" />
+    <ClInclude Include="util\env_windows_test_helper.h" />
+    <ClInclude Include="util\hash.h" />
+    <ClInclude Include="util\histogram.h" />
+    <ClInclude Include="util\logging.h" />
+    <ClInclude Include="util\no_destructor.h" />
+    <ClInclude Include="util\posix_logger.h" />
+    <ClInclude Include="util\random.h" />
+    <ClInclude Include="util\windows_logger.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="port\port_config.h.in" />
+    <None Include="port\README.md" />
+  </ItemGroup>
+</Project>

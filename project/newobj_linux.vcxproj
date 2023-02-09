@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{39dee145-808a-465d-a6ce-54292628436d}</ProjectGuid>
+    <Keyword>Linux</Keyword>
+    <RootNamespace>newobj_linux</RootNamespace>
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+    <ApplicationType>Linux</ApplicationType>
+    <ApplicationTypeRevision>1.0</ApplicationTypeRevision>
+    <TargetLinuxPlatform>Generic</TargetLinuxPlatform>
+    <LinuxProjectType>{FC1A4D80-50E9-41DA-9192-61C0DBAA00D2}</LinuxProjectType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <RemoteProjectRelDir>newobj</RemoteProjectRelDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <NMakeIncludeSearchPath>$(ProjectDir)..\src;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\aes.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\asn1.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\asn1t.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\asn1_mac.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\bio.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\blowfish.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\bn.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\buffer.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\camellia.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\cast.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\cmac.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\cms.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\comp.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\conf.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\conf_api.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\crypto.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\des.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\des_old.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\dh.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\dsa.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\dso.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\dtls1.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ebcdic.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ec.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ecdh.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ecdsa.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\engine.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\err.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\evp.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\e_os2.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\hmac.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\idea.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\krb5_asn.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\kssl.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\lhash.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\md4.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\md5.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\mdc2.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\modes.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\objects.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\obj_mac.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ocsp.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\opensslconf.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\opensslv.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ossl_typ.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\pem.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\pem2.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\pkcs12.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\pkcs7.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\pqueue.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\rand.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\rc2.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\rc4.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ripemd.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\rsa.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\safestack.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\seed.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\sha.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\srp.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\srtp.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ssl.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ssl2.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ssl23.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ssl3.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\stack.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\symhacks.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\tls1.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ts.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\txt_db.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ui.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\ui_compat.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\whrlpool.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\x509.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\x509v3.h" />
+    <ClInclude Include="..\include\openssl\1.0.2j\openssl\x509_vfy.h" />
+    <ClInclude Include="..\src\algorithm\stl.hpp" />
+    <ClInclude Include="..\src\log\log.h" />
+    <ClInclude Include="..\src\log\log_define.h" />
+    <ClInclude Include="..\src\log\log_no.h" />
+    <ClInclude Include="..\src\log\log_slice.h" />
+    <ClInclude Include="..\src\mgr\res_mgr.h" />
+    <ClInclude Include="..\src\other\logic_run.h" />
+    <ClInclude Include="..\src\other\node.h" />
+    <ClInclude Include="..\src\other\or_core.hpp" />
+    <ClInclude Include="..\src\other\or_perfrecord.h" />
+    <ClInclude Include="..\src\other\or_program.h" />
+    <ClInclude Include="..\src\other\or_task_handle.hpp" />
+    <ClInclude Include="..\src\other\or_task_router.hpp" />
+    <ClInclude Include="..\src\public\base.h" />
+    <ClInclude Include="..\src\public\boolean.h" />
+    <ClInclude Include="..\src\public\buffer.h" />
+    <ClInclude Include="..\src\public\decimal.h" />
+    <ClInclude Include="..\src\public\define.h" />
+    <ClInclude Include="..\src\public\environment.h" />
+    <ClInclude Include="..\src\public\exception.h" />
+    <ClInclude Include="..\src\public\extra_data.h" />
+    <ClInclude Include="..\src\public\integer.hpp" />
+    <ClInclude Include="..\src\public\nobject.h" />
+    <ClInclude Include="..\src\public\public.h" />
+    <ClInclude Include="..\src\public\qwebengine.hpp" />
+    <ClInclude Include="..\src\public\string.h" />
+    <ClInclude Include="..\src\public\struct.h" />
+    <ClInclude Include="..\src\public\var.h" />
+    <ClInclude Include="..\src\sdk\aliyun\oss.h" />
+    <ClInclude Include="..\src\sdk\codec\base64.h" />
+    <ClInclude Include="..\src\sdk\codec\gmult.h" />
+    <ClInclude Include="..\src\sdk\codec\qaesencryption.h" />
+    <ClInclude Include="..\src\sdk\debug\log.h" />
+    <ClInclude Include="..\src\sdk\ftp\ftplib.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\bitstream.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\config.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\mask.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\mmask.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\mqrspec.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\qrencode.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\qrencode_inner.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\qrinput.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\qrspec.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\rsecc.h" />
+    <ClInclude Include="..\src\sdk\image\qrencode\split.h" />
+    <ClInclude Include="..\src\sdk\image\recognition\cjy\cjy.h" />
+    <ClInclude Include="..\src\sdk\mem\MemoryPool.h" />
+    <ClInclude Include="..\src\sdk\safe\define.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\CharsetConverter.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\ci_string.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\css_lex.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\css_syntax.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\debug.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\Extensions.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\Node.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\parser.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\ParserDom.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\ParserSax.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\parser_pp.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\tld.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\tree.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\Uri.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\utils.h" />
+    <ClInclude Include="..\src\sdk\text\htmlcxx\wincstring.h" />
+    <ClInclude Include="..\src\sdk\text\tinyxml\tinystr.h" />
+    <ClInclude Include="..\src\sdk\text\tinyxml\tinyxml.h" />
+    <ClInclude Include="..\src\sdk\warez\vmprotect\vmprotect.h" />
+    <ClInclude Include="..\src\sdk\warez\vmprotect\VMProtectDDK.h" />
+    <ClInclude Include="..\src\sdk\warez\vmprotect\VMProtectSDK.h" />
+    <ClInclude Include="..\src\sdk\zip\miniz.h" />
+    <ClInclude Include="..\src\sdk\zip\zip.h" />
+    <ClInclude Include="..\src\template\tp_pageing.h" />
+    <ClInclude Include="..\src\template\tp_sqlstatement.h" />
+    <ClInclude Include="..\src\template\tp_streamproc.hpp" />
+    <ClInclude Include="..\src\template\tp_tcpserver.hpp" />
+    <ClInclude Include="..\src\template\tp_urlparam.h" />
+    <ClInclude Include="..\src\util\browser.h" />
+    <ClInclude Include="..\src\util\build.h" />
+    <ClInclude Include="..\src\util\bytes.h" />
+    <ClInclude Include="..\src\util\cache.h" />
+    <ClInclude Include="..\src\util\codec.h" />
+    <ClInclude Include="..\src\util\compress.h" />
+    <ClInclude Include="..\src\util\config.h" />
+    <ClInclude Include="..\src\util\debug.h" />
+    <ClInclude Include="..\src\util\desktop.h" />
+    <ClInclude Include="..\src\util\file.h" />
+    <ClInclude Include="..\src\util\forstring.h" />
+    <ClInclude Include="..\src\util\html.h" />
+    <ClInclude Include="..\src\util\idx_maker.h" />
+    <ClInclude Include="..\src\util\json.h" />
+    <ClInclude Include="..\src\util\keyboard.h" />
+    <ClInclude Include="..\src\util\lock.h" />
+    <ClInclude Include="..\src\util\map.hpp" />
+    <ClInclude Include="..\src\util\math.h" />
+    <ClInclude Include="..\src\util\md5.h" />
+    <ClInclude Include="..\src\util\mem.h" />
+    <ClInclude Include="..\src\util\mouse.h" />
+    <ClInclude Include="..\src\util\network.h" />
+    <ClInclude Include="..\src\util\package.h" />
+    <ClInclude Include="..\src\util\point.hpp" />
+    <ClInclude Include="..\src\util\pool.hpp" />
+    <ClInclude Include="..\src\util\print.h" />
+    <ClInclude Include="..\src\util\process.h" />
+    <ClInclude Include="..\src\util\queue.hpp" />
+    <ClInclude Include="..\src\util\system.h" />
+    <ClInclude Include="..\src\util\thread.h" />
+    <ClInclude Include="..\src\util\time.h" />
+    <ClInclude Include="..\src\util\timeout.h" />
+    <ClInclude Include="..\src\util\util.h" />
+    <ClInclude Include="..\src\util\vector.hpp" />
+    <ClInclude Include="..\src\util\verify.h" />
+    <ClInclude Include="..\src\util\window.h" />
+    <ClInclude Include="..\src\util\zip_test.h" />
+    <ClInclude Include="..\thirdparty\hpsocket\hpsocket.h" />
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\GlobalDef.h" />
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\GlobalErrno.h" />
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\HPSocket-SSL.h" />
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\HPSocket.h" />
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\HPSocket4C-SSL.h" />
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\HPSocket4C.h" />
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\HPTypeDef.h" />
+    <ClInclude Include="..\thirdparty\hpsocket\linux\include\SocketInterface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\log\log_no.cpp" />
+    <ClCompile Include="..\src\log\log_slice.cpp" />
+    <ClCompile Include="..\src\mgr\res_mgr.cpp" />
+    <ClCompile Include="..\src\other\logic_run.cpp" />
+    <ClCompile Include="..\src\other\node.cpp" />
+    <ClCompile Include="..\src\other\perfrecord.cpp" />
+    <ClCompile Include="..\src\other\program.cpp" />
+    <ClCompile Include="..\src\public\boolean.cpp" />
+    <ClCompile Include="..\src\public\buffer.cpp" />
+    <ClCompile Include="..\src\public\decimal.cpp" />
+    <ClCompile Include="..\src\public\environment.cpp" />
+    <ClCompile Include="..\src\public\exception.cpp" />
+    <ClCompile Include="..\src\public\extra_data.cpp" />
+    <ClCompile Include="..\src\public\nobject.cpp" />
+    <ClCompile Include="..\src\public\string.cpp" />
+    <ClCompile Include="..\src\public\var.cpp" />
+    <ClCompile Include="..\src\sdk\aliyun\oss.cpp" />
+    <ClCompile Include="..\src\sdk\codec\base64.cpp" />
+    <ClCompile Include="..\src\sdk\codec\gmult.c" />
+    <ClCompile Include="..\src\sdk\codec\qaesencryption.cpp" />
+    <ClCompile Include="..\src\sdk\debug\log.cpp" />
+    <ClCompile Include="..\src\sdk\ftp\ftplib.cpp" />
+    <ClCompile Include="..\src\sdk\image\qrencode\bitstream.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\mask.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\mmask.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\mqrspec.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\qrencode.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\qrinput.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\qrspec.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\rsecc.c" />
+    <ClCompile Include="..\src\sdk\image\qrencode\split.c" />
+    <ClCompile Include="..\src\sdk\image\recognition\cjy\cjy.cpp" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\CharsetConverter.cc" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\css_lex.c" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\css_syntax.c" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\Extensions.cc" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\Node.cc" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\parser.c" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\ParserDom.cc" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\ParserSax.cc" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\parser_pp.cc" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\Uri.cc" />
+    <ClCompile Include="..\src\sdk\text\htmlcxx\utils.cc" />
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinystr.cpp" />
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="..\src\sdk\zip\zip.cpp" />
+    <ClCompile Include="..\src\template\tp_pageing.cpp" />
+    <ClCompile Include="..\src\template\tp_sqlstatement.cpp" />
+    <ClCompile Include="..\src\template\tp_urlparam.cpp" />
+    <ClCompile Include="..\src\util\browser.cpp" />
+    <ClCompile Include="..\src\util\build.cpp" />
+    <ClCompile Include="..\src\util\bytes.cpp" />
+    <ClCompile Include="..\src\util\cache.cpp" />
+    <ClCompile Include="..\src\util\codec.cpp" />
+    <ClCompile Include="..\src\util\codec_des.cpp" />
+    <ClCompile Include="..\src\util\compress.cpp" />
+    <ClCompile Include="..\src\util\config.cpp" />
+    <ClCompile Include="..\src\util\debug.cpp" />
+    <ClCompile Include="..\src\util\desktop.cpp" />
+    <ClCompile Include="..\src\util\file.cpp" />
+    <ClCompile Include="..\src\util\forstring.cpp" />
+    <ClCompile Include="..\src\util\html.cpp" />
+    <ClCompile Include="..\src\util\idx_maker.cpp" />
+    <ClCompile Include="..\src\util\json.cpp" />
+    <ClCompile Include="..\src\util\keyboard.cpp" />
+    <ClCompile Include="..\src\util\lock.cpp" />
+    <ClCompile Include="..\src\util\math.cpp" />
+    <ClCompile Include="..\src\util\md5.cpp" />
+    <ClCompile Include="..\src\util\mem.cpp" />
+    <ClCompile Include="..\src\util\mouse.cpp" />
+    <ClCompile Include="..\src\util\network.cpp" />
+    <ClCompile Include="..\src\util\obj.cpp" />
+    <ClCompile Include="..\src\util\package.cpp" />
+    <ClCompile Include="..\src\util\print.cpp" />
+    <ClCompile Include="..\src\util\process.cpp" />
+    <ClCompile Include="..\src\util\system.cpp" />
+    <ClCompile Include="..\src\util\thread.cpp" />
+    <ClCompile Include="..\src\util\time.cpp" />
+    <ClCompile Include="..\src\util\timeout.cpp" />
+    <ClCompile Include="..\src\util\verify.cpp" />
+    <ClCompile Include="..\src\util\window.cpp" />
+    <ClCompile Include="..\src\util\zip_test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\other\or_core_config_json_template.json" />
+    <None Include="..\src\public\exception.h.save-failed" />
+    <None Include="..\src\sdk\mem\MemoryPool.tcc" />
+    <None Include="..\src\sdk\text\htmlcxx\ParserSax.tcc" />
+    <None Include="..\src\util\util_lock.cpp.autosave" />
+  </ItemGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\src;$(ProjectDir)..\include\openssl\1.0.2j;$(ProjectDir)..\thirdparty;$(ProjectDir)..;$(ProjectDir)..\hpsocket;/root/projects;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++14</CppLanguageStandard>
+      <PreprocessorDefinitions>LIB_HPSOCKET</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

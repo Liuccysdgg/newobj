@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="D_2019|Win32">
+      <Configuration>D_2019</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="R_2019_MT|Win32">
+      <Configuration>R_2019_MT</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="R_2019_MT|x64">
+      <Configuration>R_2019_MT</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="R_2019|Win32">
+      <Configuration>R_2019</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="D_2019|x64">
+      <Configuration>D_2019</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="R_2019|x64">
+      <Configuration>R_2019</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="core\lapi.c" />
+    <ClCompile Include="core\lauxlib.c" />
+    <ClCompile Include="core\lbaselib.c" />
+    <ClCompile Include="core\lcode.c" />
+    <ClCompile Include="core\lcorolib.c" />
+    <ClCompile Include="core\lctype.c" />
+    <ClCompile Include="core\ldblib.c" />
+    <ClCompile Include="core\ldebug.c" />
+    <ClCompile Include="core\ldo.c" />
+    <ClCompile Include="core\ldump.c" />
+    <ClCompile Include="core\lfunc.c" />
+    <ClCompile Include="core\lgc.c" />
+    <ClCompile Include="core\linit.c" />
+    <ClCompile Include="core\liolib.c" />
+    <ClCompile Include="core\llex.c" />
+    <ClCompile Include="core\lmathlib.c" />
+    <ClCompile Include="core\lmem.c" />
+    <ClCompile Include="core\loadlib.c" />
+    <ClCompile Include="core\lobject.c" />
+    <ClCompile Include="core\lopcodes.c" />
+    <ClCompile Include="core\loslib.c" />
+    <ClCompile Include="core\lparser.c" />
+    <ClCompile Include="core\lstate.c" />
+    <ClCompile Include="core\lstring.c" />
+    <ClCompile Include="core\lstrlib.c" />
+    <ClCompile Include="core\ltable.c" />
+    <ClCompile Include="core\ltablib.c" />
+    <ClCompile Include="core\ltm.c" />
+    <ClCompile Include="core\lua.c" />
+    <ClCompile Include="core\luac.c" />
+    <ClCompile Include="core\lundump.c" />
+    <ClCompile Include="core\lutf8lib.c" />
+    <ClCompile Include="core\lvm.c" />
+    <ClCompile Include="core\lzio.c" />
+    <ClCompile Include="lua.cpp" />
+    <ClCompile Include="module\file.cpp" />
+    <ClCompile Include="module\forstring.cpp" />
+    <ClCompile Include="module\ini.cpp" />
+    <ClCompile Include="module\json.cpp" />
+    <ClCompile Include="module\algorithm.cpp" />
+    <ClCompile Include="module\system.cpp" />
+    <ClCompile Include="module\time.cpp" />
+    <ClCompile Include="module\vector_int.cpp" />
+    <ClCompile Include="module\vector_string.cpp" />
+    <ClCompile Include="module\verify.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\lapi.h" />
+    <ClInclude Include="core\lauxlib.h" />
+    <ClInclude Include="core\lcode.h" />
+    <ClInclude Include="core\lctype.h" />
+    <ClInclude Include="core\ldebug.h" />
+    <ClInclude Include="core\ldo.h" />
+    <ClInclude Include="core\lfunc.h" />
+    <ClInclude Include="core\lgc.h" />
+    <ClInclude Include="core\ljumptab.h" />
+    <ClInclude Include="core\llex.h" />
+    <ClInclude Include="core\llimits.h" />
+    <ClInclude Include="core\lmem.h" />
+    <ClInclude Include="core\lobject.h" />
+    <ClInclude Include="core\lopcodes.h" />
+    <ClInclude Include="core\lopnames.h" />
+    <ClInclude Include="core\lparser.h" />
+    <ClInclude Include="core\lprefix.h" />
+    <ClInclude Include="core\lstate.h" />
+    <ClInclude Include="core\lstring.h" />
+    <ClInclude Include="core\ltable.h" />
+    <ClInclude Include="core\ltm.h" />
+    <ClInclude Include="core\lua.h" />
+    <ClInclude Include="core\lua.hpp" />
+    <ClInclude Include="core\luaconf.h" />
+    <ClInclude Include="core\lualib.h" />
+    <ClInclude Include="core\lundump.h" />
+    <ClInclude Include="core\lvm.h" />
+    <ClInclude Include="core\lzio.h" />
+    <ClInclude Include="kaguya\another_binding_api.hpp" />
+    <ClInclude Include="kaguya\compatibility.hpp" />
+    <ClInclude Include="kaguya\config.hpp" />
+    <ClInclude Include="kaguya\detail\lua_function_def.hpp" />
+    <ClInclude Include="kaguya\detail\lua_ref_impl.hpp" />
+    <ClInclude Include="kaguya\detail\lua_table_def.hpp" />
+    <ClInclude Include="kaguya\detail\lua_variant_def.hpp" />
+    <ClInclude Include="kaguya\error_handler.hpp" />
+    <ClInclude Include="kaguya\exception.hpp" />
+    <ClInclude Include="kaguya\function_tuple_def.hpp" />
+    <ClInclude Include="kaguya\kaguya.hpp" />
+    <ClInclude Include="kaguya\lua_ref.hpp" />
+    <ClInclude Include="kaguya\lua_ref_function.hpp" />
+    <ClInclude Include="kaguya\lua_ref_table.hpp" />
+    <ClInclude Include="kaguya\metatable.hpp" />
+    <ClInclude Include="kaguya\native_function.hpp" />
+    <ClInclude Include="kaguya\native_function_cxx03.hpp" />
+    <ClInclude Include="kaguya\native_function_cxx11.hpp" />
+    <ClInclude Include="kaguya\object.hpp" />
+    <ClInclude Include="kaguya\optional.hpp" />
+    <ClInclude Include="kaguya\preprocess.hpp" />
+    <ClInclude Include="kaguya\preprocess_repeate.hpp" />
+    <ClInclude Include="kaguya\push_any.hpp" />
+    <ClInclude Include="kaguya\push_tuple.hpp" />
+    <ClInclude Include="kaguya\ref_tuple.hpp" />
+    <ClInclude Include="kaguya\state.hpp" />
+    <ClInclude Include="kaguya\traits.hpp" />
+    <ClInclude Include="kaguya\type.hpp" />
+    <ClInclude Include="kaguya\utility.hpp" />
+    <ClInclude Include="kaguya\utility_cxx03.hpp" />
+    <ClInclude Include="kaguya\utility_cxx11.hpp" />
+    <ClInclude Include="lua.h" />
+    <ClInclude Include="module\define.h" />
+    <ClInclude Include="module\file.h" />
+    <ClInclude Include="module\forstring.h" />
+    <ClInclude Include="module\ini.h" />
+    <ClInclude Include="module\json.h" />
+    <ClInclude Include="module\algorithm.h" />
+    <ClInclude Include="module\system.h" />
+    <ClInclude Include="module\time.h" />
+    <ClInclude Include="module\vector_int.h" />
+    <ClInclude Include="module\vector_string.h" />
+    <ClInclude Include="module\verify.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{5FDD5E30-017D-4CEC-AECC-4047824BCDA0}</ProjectGuid>
+    <RootNamespace>rpclib</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_2019|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_2019|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='D_2019|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='R_2019|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='D_2019|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='R_2019|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_2019|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin</OutDir>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <TargetName>thirdparty_$(ProjectName)_$(PlatformToolset)_debug_$(PlatformTarget)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <TargetName>thirdparty_$(ProjectName)_$(PlatformToolset)_release_$(PlatformTarget)</TargetName>
+    <OutDir>$(SolutionDir)bin</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <TargetName>thirdparty_$(ProjectName)_$(PlatformToolset)_mt_release_$(PlatformTarget)</TargetName>
+    <OutDir>$(SolutionDir)bin</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='D_2019|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)bin</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)bin</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\$(ProjectName)\$(PlatformToolset)\$(Configuration)</IntDir>
+    <OutDir>$(SolutionDir)bin</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='D_2019|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>.;include;$(SolutionDir)\src;$(SolutionDir)include\qt\5.9.9</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_2019|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="Release";NEWOBJ_STATIC</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>.;include;$(SolutionDir)\src;$(SolutionDir)include\qt\5.9.9</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>.;include;$(SolutionDir)\src;$(SolutionDir)include\qt\5.9.9</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='D_2019|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>dependencies\include;include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_2019|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>dependencies\include;include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='R_2019_MT|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>dependencies\include;include</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="db\builder.h" />
+    <ClInclude Include="db\dbformat.h" />
+    <ClInclude Include="db\db_impl.h" />
+    <ClInclude Include="db\db_iter.h" />
+    <ClInclude Include="db\filename.h" />
+    <ClInclude Include="db\log_format.h" />
+    <ClInclude Include="db\log_reader.h" />
+    <ClInclude Include="db\log_writer.h" />
+    <ClInclude Include="db\memtable.h" />
+    <ClInclude Include="db\skiplist.h" />
+    <ClInclude Include="db\snapshot.h" />
+    <ClInclude Include="db\table_cache.h" />
+    <ClInclude Include="db\version_edit.h" />
+    <ClInclude Include="db\version_set.h" />
+    <ClInclude Include="db\write_batch_internal.h" />
+    <ClInclude Include="define.h" />
+    <ClInclude Include="dirent.h" />
+    <ClInclude Include="helpers\memenv\memenv.h" />
+    <ClInclude Include="include\gtest\gtest-assertion-result.h" />
+    <ClInclude Include="include\gtest\gtest-death-test.h" />
+    <ClInclude Include="include\gtest\gtest-matchers.h" />
+    <ClInclude Include="include\gtest\gtest-message.h" />
+    <ClInclude Include="include\gtest\gtest-param-test.h" />
+    <ClInclude Include="include\gtest\gtest-printers.h" />
+    <ClInclude Include="include\gtest\gtest-spi.h" />
+    <ClInclude Include="include\gtest\gtest-test-part.h" />
+    <ClInclude Include="include\gtest\gtest-typed-test.h" />
+    <ClInclude Include="include\gtest\gtest.h" />
+    <ClInclude Include="include\gtest\gtest_pred_impl.h" />
+    <ClInclude Include="include\gtest\gtest_prod.h" />
+    <ClInclude Include="include\gtest\internal\custom\gtest-port.h" />
+    <ClInclude Include="include\gtest\internal\custom\gtest-printers.h" />
+    <ClInclude Include="include\gtest\internal\custom\gtest.h" />
+    <ClInclude Include="include\gtest\internal\gtest-death-test-internal.h" />
+    <ClInclude Include="include\gtest\internal\gtest-filepath.h" />
+    <ClInclude Include="include\gtest\internal\gtest-internal.h" />
+    <ClInclude Include="include\gtest\internal\gtest-param-util.h" />
+    <ClInclude Include="include\gtest\internal\gtest-port-arch.h" />
+    <ClInclude Include="include\gtest\internal\gtest-port.h" />
+    <ClInclude Include="include\gtest\internal\gtest-string.h" />
+    <ClInclude Include="include\gtest\internal\gtest-type-util.h" />
+    <ClInclude Include="include\leveldb\c.h" />
+    <ClInclude Include="include\leveldb\cache.h" />
+    <ClInclude Include="include\leveldb\comparator.h" />
+    <ClInclude Include="include\leveldb\db.h" />
+    <ClInclude Include="include\leveldb\dumpfile.h" />
+    <ClInclude Include="include\leveldb\env.h" />
+    <ClInclude Include="include\leveldb\export.h" />
+    <ClInclude Include="include\leveldb\filter_policy.h" />
+    <ClInclude Include="include\leveldb\iterator.h" />
+    <ClInclude Include="include\leveldb\options.h" />
+    <ClInclude Include="include\leveldb\slice.h" />
+    <ClInclude Include="include\leveldb\status.h" />
+    <ClInclude Include="include\leveldb\table.h" />
+    <ClInclude Include="include\leveldb\table_builder.h" />
+    <ClInclude Include="include\leveldb\write_batch.h" />
+    <ClInclude Include="port\port.h" />
+    <ClInclude Include="port\port_example.h" />
+    <ClInclude Include="port\port_stdcxx.h" />
+    <ClInclude Include="port\thread_annotations.h" />
+    <ClInclude Include="table\block.h" />
+    <ClInclude Include="table\block_builder.h" />
+    <ClInclude Include="table\filter_block.h" />
+    <ClInclude Include="table\format.h" />
+    <ClInclude Include="table\iterator_wrapper.h" />
+    <ClInclude Include="table\merger.h" />
+    <ClInclude Include="table\two_level_iterator.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\gtest-assertion-result.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\gtest-death-test.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\gtest-matchers.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\gtest-message.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\gtest-param-test.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\gtest-printers.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\gtest-spi.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\gtest-test-part.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\gtest-typed-test.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\gtest.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\gtest_pred_impl.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\gtest_prod.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\internal\custom\gtest-port.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\internal\custom\gtest-printers.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\internal\custom\gtest.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\internal\gtest-death-test-internal.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\internal\gtest-filepath.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\internal\gtest-internal.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\internal\gtest-param-util.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\internal\gtest-port-arch.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\internal\gtest-port.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\internal\gtest-string.h" />
+    <ClInclude Include="third_party\googletest\googletest\include\gtest\internal\gtest-type-util.h" />
+    <ClInclude Include="util\arena.h" />
+    <ClInclude Include="util\coding.h" />
+    <ClInclude Include="util\crc32c.h" />
+    <ClInclude Include="util\hash.h" />
+    <ClInclude Include="util\histogram.h" />
+    <ClInclude Include="util\logging.h" />
+    <ClInclude Include="util\mutexlock.h" />
+    <ClInclude Include="util\no_destructor.h" />
+    <ClInclude Include="util\posix_logger.h" />
+    <ClInclude Include="util\random.h" />
+    <ClInclude Include="util\testutil.h" />
+    <ClInclude Include="util\windows_logger.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="db\builder.cc" />
+    <ClCompile Include="db\c.cc" />
+    <ClCompile Include="db\dbformat.cc" />
+    <ClCompile Include="db\db_impl.cc" />
+    <ClCompile Include="db\db_iter.cc" />
+    <ClCompile Include="db\dumpfile.cc" />
+    <ClCompile Include="db\filename.cc" />
+    <ClCompile Include="db\log_reader.cc" />
+    <ClCompile Include="db\log_test.cc" />
+    <ClCompile Include="db\log_writer.cc" />
+    <ClCompile Include="db\memtable.cc" />
+    <ClCompile Include="db\repair.cc" />
+    <ClCompile Include="db\table_cache.cc" />
+    <ClCompile Include="db\version_edit.cc" />
+    <ClCompile Include="db\version_set.cc" />
+    <ClCompile Include="db\write_batch.cc" />
+    <ClCompile Include="helpers\memenv\memenv.cc" />
+    <ClCompile Include="table\block.cc" />
+    <ClCompile Include="table\block_builder.cc" />
+    <ClCompile Include="table\filter_block.cc" />
+    <ClCompile Include="table\format.cc" />
+    <ClCompile Include="table\iterator.cc" />
+    <ClCompile Include="table\merger.cc" />
+    <ClCompile Include="table\table.cc" />
+    <ClCompile Include="table\table_builder.cc" />
+    <ClCompile Include="table\two_level_iterator.cc" />
+    <ClCompile Include="util\arena.cc" />
+    <ClCompile Include="util\bloom.cc" />
+    <ClCompile Include="util\cache.cc" />
+    <ClCompile Include="util\coding.cc" />
+    <ClCompile Include="util\comparator.cc" />
+    <ClCompile Include="util\crc32c.cc" />
+    <ClCompile Include="util\env.cc" />
+    <ClCompile Include="util\filter_policy.cc" />
+    <ClCompile Include="util\hash.cc" />
+    <ClCompile Include="util\histogram.cc" />
+    <ClCompile Include="util\logging.cc" />
+    <ClCompile Include="util\options.cc" />
+    <ClCompile Include="util\status.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\gtest\internal\custom\README.md" />
+    <None Include="port\port_config.h.in" />
+    <None Include="port\README.md" />
+    <None Include="third_party\googletest\googletest\include\gtest\internal\custom\README.md" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D585CBA0-735F-41BC-B044-2C6D0DD043EE}</ProjectGuid>
+    <Keyword>Linux</Keyword>
+    <RootNamespace>newobj_linux</RootNamespace>
+    <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
+    <ApplicationType>Linux</ApplicationType>
+    <ApplicationTypeRevision>1.0</ApplicationTypeRevision>
+    <TargetLinuxPlatform>Generic</TargetLinuxPlatform>
+    <LinuxProjectType>{FC1A4D80-50E9-41DA-9192-61C0DBAA00D2}</LinuxProjectType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <NMakeIncludeSearchPath>$(ProjectDir)..\src;$(NMakeIncludeSearchPath)</NMakeIncludeSearchPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++14</CppLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

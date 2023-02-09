@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ui">
+      <UniqueIdentifier>{39ea031b-42a6-4e3b-bc50-e603a19bc68e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{fba4c639-f514-4c73-9270-ce11010d2caa}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ui\button.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\checkbox.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\highlighter.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\image.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\label.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\lineedit.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="util\file.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\ui.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="util\system.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\comobox.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\radio.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ui\button.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\checkbox.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\highlighter.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\image.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\label.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\lineedit.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\topbar.hpp">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\widget.hpp">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="util\file.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\ui.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="util\system.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\comobox.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\radio.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

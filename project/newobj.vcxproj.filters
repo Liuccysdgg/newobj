@@ -1,0 +1,686 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{11cf8e04-f710-408d-9bfa-d26677039744}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{d784e582-f1fc-492a-9335-a87642c19b2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\include">
+      <UniqueIdentifier>{5f321c99-b582-4403-9d47-2de2ccf0532b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\src">
+      <UniqueIdentifier>{6e2cc913-48f6-471e-a9b9-090fc71fc9f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\template">
+      <UniqueIdentifier>{4c3c40ef-031d-4df5-98de-06be19b25171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\template\src">
+      <UniqueIdentifier>{2a7bfa38-2ab7-4041-a1cf-ba04877d851b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\template\include">
+      <UniqueIdentifier>{80736456-0a11-4ffa-9a42-d205ab726224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk">
+      <UniqueIdentifier>{78814aa9-2bea-446b-8b59-35700d949a65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\aliyun">
+      <UniqueIdentifier>{ddfff90f-60fe-45da-aba5-3c414a118402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\aliyun\include">
+      <UniqueIdentifier>{efcf1b62-6395-4938-bb81-2d43e459b13b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\aliyun\src">
+      <UniqueIdentifier>{22e69383-37f9-4585-a8c2-73b753063745}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\public">
+      <UniqueIdentifier>{005a42f3-2083-4fed-b1b4-205fcb292d67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\public\include">
+      <UniqueIdentifier>{f6111d13-3fee-423b-9132-359866191bfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\public\src">
+      <UniqueIdentifier>{1cf94775-5eb3-4560-9619-449034ed775d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\log">
+      <UniqueIdentifier>{ad9740fd-ac3e-4cd7-b43d-ed1945bc7153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\log\include">
+      <UniqueIdentifier>{63aa45c3-0816-40dd-906f-c32c38bb89e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\log\src">
+      <UniqueIdentifier>{1782a173-fc29-40f8-9664-8978f39a1806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\db">
+      <UniqueIdentifier>{6995fc7a-2a16-40c1-ae01-1636c3cdbae7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\db\include">
+      <UniqueIdentifier>{24380667-63d2-4e65-b4c3-488846358c7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\db\src">
+      <UniqueIdentifier>{6b316150-8ac5-45e6-8603-02b8f7986734}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\algorithm">
+      <UniqueIdentifier>{702a646a-924b-4e6c-b610-c3478bdf6a64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\algorithm\include">
+      <UniqueIdentifier>{9a411faa-4496-483c-960e-5f8bc0982178}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\algorithm\src">
+      <UniqueIdentifier>{985f5ed3-1219-46fc-93bf-652458afc7cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\codec">
+      <UniqueIdentifier>{11e23909-3dab-40a3-a7ab-94c6dc9c5623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\libcurl">
+      <UniqueIdentifier>{39e561ce-b260-4cec-b4cd-cdc1abb215d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\image">
+      <UniqueIdentifier>{3b7e954f-5e69-4554-99bd-d50f7ea55b24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\image\qrencode">
+      <UniqueIdentifier>{bdb95118-153c-4ca9-a99b-55a031e54088}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\warez">
+      <UniqueIdentifier>{4fba260c-e486-470f-af5f-9088459691b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\warez\vmprotect">
+      <UniqueIdentifier>{226d2938-24d9-44ad-aa5b-5863c9b60a2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\other">
+      <UniqueIdentifier>{66fce7b8-fc62-49a1-abd7-a4bd30694859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\other\include">
+      <UniqueIdentifier>{0438e8b5-130d-4119-aeec-5766aa021be6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\other\src">
+      <UniqueIdentifier>{54060c43-8022-4527-afff-c4362b7f7453}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgr">
+      <UniqueIdentifier>{f692ea06-cc60-4206-8347-65db160d43ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgr\include">
+      <UniqueIdentifier>{314d8498-2f9f-4a48-b7b4-a3c8bfc9864c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgr\src">
+      <UniqueIdentifier>{150eef17-6174-4879-8a7b-9f2de0813ab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\image\recognition">
+      <UniqueIdentifier>{1e1445a9-42c3-476d-8352-4baded648b35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\text">
+      <UniqueIdentifier>{acc2f151-d2b2-4a37-b945-76ed1e96ac64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\text\htmlcxx">
+      <UniqueIdentifier>{30b74d72-a948-45d4-966e-0f67e5afe528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\text\tinyxml">
+      <UniqueIdentifier>{714616ad-7367-4bfd-bb6c-4746be002065}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\debug">
+      <UniqueIdentifier>{0d8af4a3-0152-4300-8aa1-0c42e75defd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\include\compress">
+      <UniqueIdentifier>{a2dac8a6-6b25-4a1c-8f51-c5973160ca28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\src\compress">
+      <UniqueIdentifier>{eda005db-722d-4d73-af04-8bba69696db7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\zip">
+      <UniqueIdentifier>{5ccabf0f-a826-4915-a8f2-3482c53ae229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\sdk\mem">
+      <UniqueIdentifier>{0d50e57f-00cb-4235-a66b-707e3b7e24c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="build">
+      <UniqueIdentifier>{9ac236e8-1a67-44f7-8d15-97a6f8af58de}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\log\log_define.h">
+      <Filter>src\log\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\util.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\bytes.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\codec.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\file.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\idx_maker.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\print.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\lock.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\map.hpp">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\math.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\mem.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\point.hpp">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\queue.hpp">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\forstring.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\system.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\thread.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\timeout.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\verify.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\template\tp_pageing.h">
+      <Filter>src\template\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\template\tp_sqlstatement.h">
+      <Filter>src\template\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\template\tp_urlparam.h">
+      <Filter>src\template\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\base.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\boolean.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\buffer.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\decimal.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\define.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\exception.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\string.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\var.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\other\or_core.hpp">
+      <Filter>src\other\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\other\or_perfrecord.h">
+      <Filter>src\other\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\template\tp_streamproc.hpp">
+      <Filter>src\template\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\template\tp_tcpserver.hpp">
+      <Filter>src\template\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\window.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\nobject.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\public.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\aliyun\oss.h">
+      <Filter>src\sdk\aliyun\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\db\db_gen.hpp">
+      <Filter>src\db\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\other\or_task_router.hpp">
+      <Filter>src\other\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\other\or_task_handle.hpp">
+      <Filter>src\other\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\Integer.hpp">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\time.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\log\log_slice.h">
+      <Filter>src\log\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\config.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\other\or_program.h">
+      <Filter>src\other\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\desktop.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\build.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\md5.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\db\db.h">
+      <Filter>src\db\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\json.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\algorithm\stl.hpp">
+      <Filter>src\algorithm\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\process.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\vector.hpp">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\codec\base64.h">
+      <Filter>src\sdk\codec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\libcurl\libcurl.hpp">
+      <Filter>src\sdk\libcurl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\extra_data.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\log\log_no.h">
+      <Filter>src\log\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\bitstream.h">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\mask.h">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\mmask.h">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\mqrspec.h">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\qrencode.h">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\qrencode_inner.h">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\qrinput.h">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\qrspec.h">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\rsecc.h">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\split.h">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\image\qrencode\config.h">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\warez\vmprotect\vmprotect.h">
+      <Filter>src\sdk\warez\vmprotect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\codec\qaesencryption.h">
+      <Filter>src\sdk\codec</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgr\res_mgr.h">
+      <Filter>src\mgr\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\environment.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\package.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\compress.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\html.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\ci_string.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\debug.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\Extensions.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\Node.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\ParserDom.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\ParserSax.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\tld.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\tree.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\Uri.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\htmlcxx\utils.h">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\tinyxml\tinystr.h">
+      <Filter>src\sdk\text\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\text\tinyxml\tinyxml.h">
+      <Filter>src\sdk\text\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\debug\log.h">
+      <Filter>src\sdk\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\keyboard.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\mouse.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\struct.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\db\db_sqlite3.h">
+      <Filter>src\db\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\zip_test.h">
+      <Filter>src\util\include\compress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\browser.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\debug.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\zip\zip.h">
+      <Filter>src\sdk\zip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\zip\miniz.h">
+      <Filter>src\sdk\zip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sdk\mem\MemoryPool.h">
+      <Filter>src\sdk\mem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\cache.h">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\pool.hpp">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\point_pool.hpp">
+      <Filter>src\util\include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\log\log_define.cpp">
+      <Filter>src\log\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\bytes.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\codec.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\file.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\idx_maker.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\print.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\lock.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\math.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\md5.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\mem.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\forstring.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\system.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\thread.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\timeout.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\verify.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\template\tp_pageing.cpp">
+      <Filter>src\template\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\template\tp_sqlstatement.cpp">
+      <Filter>src\template\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\template\tp_urlparam.cpp">
+      <Filter>src\template\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\boolean.cpp">
+      <Filter>src\public\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\buffer.cpp">
+      <Filter>src\public\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\exception.cpp">
+      <Filter>src\public\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\string.cpp">
+      <Filter>src\public\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\other\perfrecord.cpp">
+      <Filter>src\other\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\codec_des.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\window.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\decimal.cpp">
+      <Filter>src\public\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\nobject.cpp">
+      <Filter>src\public\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\aliyun\oss.cpp">
+      <Filter>src\sdk\aliyun\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\time.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\log\log_slice.cpp">
+      <Filter>src\log\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\config.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\other\program.cpp">
+      <Filter>src\other\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\desktop.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\build.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\json.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\process.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\codec\base64.cpp">
+      <Filter>src\sdk\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\extra_data.cpp">
+      <Filter>src\public\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\log\log_no.cpp">
+      <Filter>src\log\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\bitstream.c">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\mask.c">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\mmask.c">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\mqrspec.c">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\qrencode.c">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\qrinput.c">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\qrspec.c">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\rsecc.c">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\image\qrencode\split.c">
+      <Filter>src\sdk\image\qrencode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\codec\qaesencryption.cpp">
+      <Filter>src\sdk\codec</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgr\res_mgr.cpp">
+      <Filter>src\mgr\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\environment.cpp">
+      <Filter>src\public\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\package.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\compress.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\html.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\Extensions.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\Node.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\ParserDom.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\ParserSax.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\Uri.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\htmlcxx\utils.cc">
+      <Filter>src\sdk\text\htmlcxx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinystr.cpp">
+      <Filter>src\sdk\text\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinyxml.cpp">
+      <Filter>src\sdk\text\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinyxmlerror.cpp">
+      <Filter>src\sdk\text\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\text\tinyxml\tinyxmlparser.cpp">
+      <Filter>src\sdk\text\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\debug\log.cpp">
+      <Filter>src\sdk\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\keyboard.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\mouse.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\public\var.cpp">
+      <Filter>src\sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\zip_test.cpp">
+      <Filter>src\util\src\compress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\browser.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sdk\zip\zip.cpp">
+      <Filter>src\sdk\zip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\debug.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\cache.cpp">
+      <Filter>src\util\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\db\db_sqlite3.cpp">
+      <Filter>src\db\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\other\or_core_config_json_template.json">
+      <Filter>src\other\include</Filter>
+    </None>
+    <None Include="..\README.md" />
+    <None Include="cpp.hint" />
+    <None Include="..\.gitignore" />
+    <None Include="..\src\sdk\mem\MemoryPool.tcc">
+      <Filter>src\sdk\mem</Filter>
+    </None>
+    <None Include="..\build\build.sh">
+      <Filter>build</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\CMakeLists.txt" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,56 @@
+#include "util_lock.h"
+
+newobj::util::AutoMutex::AutoMutex()
+{
+    
+}
+
+newobj::util::AutoMutex::AutoMutex(std::mutex *mutex, bool lock)
+{
+    if(lock)
+        mutex->lock();
+    this->m_mutex = mutex;
+    m_islock = lock;
+}
+
+newobj::util::AutoMutex::~AutoMutex()
+{
+    if(m_islock)
+        this->m_mutex->unlock();
+}
+
+bool newobj::util::AutoMutex::IsLock()
+{
+    return m_islock;
+}
+
+bool newobj::util::AutoMutex::UnLock()
+{
+    if(!m_islock)
+        return false;
+    this->m_mutex->unlock();
+    return true;
+}
+
+bool newobj::util::AutoMutex::Lock()
+{
+    if(m_islock)
+        return false;
+    this->m_mutex->lock();
+    return true;
+}
+
+std::mutex *newobj::util::AutoMutex::Get()
+{
+    return this->m_mutex;
+}
+
+std::mutex *newobj::util::AutoMutex::operator=(std::mutex *mutex)
+{
+    if(mutex != NULL){
+        if(this->m_mutex != NULL)
+            UnLock();
+        this->m_mutex = mutex;
+    }
+    return this->m_mutex;
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="noui">
+      <UniqueIdentifier>{aca50769-675c-4a59-90af-db33d7a0b285}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="noui\noui.html">
+      <Filter>noui</Filter>
+    </None>
+    <None Include="noui\noui.js">
+      <Filter>noui</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="noui\noui_core.cpp">
+      <Filter>noui</Filter>
+    </ClCompile>
+    <ClCompile Include="noui\noui_file.cpp">
+      <Filter>noui</Filter>
+    </ClCompile>
+    <ClCompile Include="noui\noui_indev.cpp">
+      <Filter>noui</Filter>
+    </ClCompile>
+    <ClCompile Include="noui\noui_ini.cpp">
+      <Filter>noui</Filter>
+    </ClCompile>
+    <ClCompile Include="noui\noui_system.cpp">
+      <Filter>noui</Filter>
+    </ClCompile>
+    <ClCompile Include="noui\noui_miniblink.cpp">
+      <Filter>noui</Filter>
+    </ClCompile>
+    <ClCompile Include="miniblink.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="noui\noui_core.h">
+      <Filter>noui</Filter>
+    </ClInclude>
+    <ClInclude Include="noui\noui_file.h">
+      <Filter>noui</Filter>
+    </ClInclude>
+    <ClInclude Include="noui\noui_indev.h">
+      <Filter>noui</Filter>
+    </ClInclude>
+    <ClInclude Include="noui\noui_ini.h">
+      <Filter>noui</Filter>
+    </ClInclude>
+    <ClInclude Include="noui\noui_system.h">
+      <Filter>noui</Filter>
+    </ClInclude>
+    <ClInclude Include="noui\wke.h">
+      <Filter>noui</Filter>
+    </ClInclude>
+    <ClInclude Include="miniblink.h" />
+    <ClInclude Include="noui\noui_miniblink.h">
+      <Filter>noui</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

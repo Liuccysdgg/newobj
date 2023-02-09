@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="newobj" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/newobj" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add option="-DMINGW" />
+					<Add directory="../src" />
+					<Add directory="../include" />
+					<Add directory="../include/qt" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/newobj" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="../src/db/db.h" />
+		<Unit filename="../src/db/db_gen.hpp" />
+		<Unit filename="../src/db/db_mysql.cpp" />
+		<Unit filename="../src/db/db_mysql.h" />
+		<Unit filename="../src/db/db_redis.cpp" />
+		<Unit filename="../src/db/db_redis.h" />
+		<Unit filename="../src/log/log.h" />
+		<Unit filename="../src/log/log_4cpp.cpp" />
+		<Unit filename="../src/log/log_4cpp.h" />
+		<Unit filename="../src/log/log_slice.cpp" />
+		<Unit filename="../src/log/log_slice.h" />
+		<Unit filename="../src/network/can.cpp" />
+		<Unit filename="../src/network/can.h" />
+		<Unit filename="../src/network/ftp_client.cpp" />
+		<Unit filename="../src/network/ftp_client.h" />
+		<Unit filename="../src/network/http_client.cpp" />
+		<Unit filename="../src/network/http_client.h" />
+		<Unit filename="../src/network/http_controller.cpp" />
+		<Unit filename="../src/network/http_controller.h" />
+		<Unit filename="../src/network/http_define.h" />
+		<Unit filename="../src/network/http_parser.cpp" />
+		<Unit filename="../src/network/http_parser.h" />
+		<Unit filename="../src/network/http_request.cpp" />
+		<Unit filename="../src/network/http_request.h" />
+		<Unit filename="../src/network/http_response.cpp" />
+		<Unit filename="../src/network/http_response.h" />
+		<Unit filename="../src/network/http_server.cpp" />
+		<Unit filename="../src/network/http_server.h" />
+		<Unit filename="../src/network/http_server_lst.cpp" />
+		<Unit filename="../src/network/http_server_lst.h" />
+		<Unit filename="../src/network/http_session.cpp" />
+		<Unit filename="../src/network/http_session.h" />
+		<Unit filename="../src/network/iclient.cpp" />
+		<Unit filename="../src/network/iclient.h" />
+		<Unit filename="../src/network/ictl.h" />
+		<Unit filename="../src/network/inet.cpp" />
+		<Unit filename="../src/network/inet.h" />
+		<Unit filename="../src/network/iserver.cpp" />
+		<Unit filename="../src/network/iserver.h" />
+		<Unit filename="../src/network/network.h" />
+		<Unit filename="../src/network/tcp_client.cpp" />
+		<Unit filename="../src/network/tcp_client.h" />
+		<Unit filename="../src/network/tcp_client_lst.cpp" />
+		<Unit filename="../src/network/tcp_client_lst.h" />
+		<Unit filename="../src/network/tcp_server.cpp" />
+		<Unit filename="../src/network/tcp_server.h" />
+		<Unit filename="../src/network/tcp_server_lst.cpp" />
+		<Unit filename="../src/network/tcp_server_lst.h" />
+		<Unit filename="../src/network/udp_node.h" />
+		<Unit filename="../src/network/udp_node_lst.cpp" />
+		<Unit filename="../src/network/udp_node_lst.h" />
+		<Unit filename="../src/network/udp_onde.cpp" />
+		<Unit filename="../src/other/logic_run.cpp" />
+		<Unit filename="../src/other/logic_run.h" />
+		<Unit filename="../src/other/node.cpp" />
+		<Unit filename="../src/other/node.h" />
+		<Unit filename="../src/other/or_core.hpp" />
+		<Unit filename="../src/other/or_perfrecord.h" />
+		<Unit filename="../src/other/or_program.h" />
+		<Unit filename="../src/other/or_task_handle.hpp" />
+		<Unit filename="../src/other/or_task_router.hpp" />
+		<Unit filename="../src/other/perfrecord.cpp" />
+		<Unit filename="../src/other/program.cpp" />
+		<Unit filename="../src/public/Boolean.cpp" />
+		<Unit filename="../src/public/Boolean.h" />
+		<Unit filename="../src/public/Decimal.cpp" />
+		<Unit filename="../src/public/Integer.hpp" />
+		<Unit filename="../src/public/NObject.cpp" />
+		<Unit filename="../src/public/NObject.h" />
+		<Unit filename="../src/public/base.h" />
+		<Unit filename="../src/public/buffer.cpp" />
+		<Unit filename="../src/public/buffer.h" />
+		<Unit filename="../src/public/decimal.h" />
+		<Unit filename="../src/public/define.h" />
+		<Unit filename="../src/public/exception.cpp" />
+		<Unit filename="../src/public/exception.h" />
+		<Unit filename="../src/public/public.h" />
+		<Unit filename="../src/public/qwebengine.hpp" />
+		<Unit filename="../src/public/string.cpp" />
+		<Unit filename="../src/public/string.h" />
+		<Unit filename="../src/public/var.cpp" />
+		<Unit filename="../src/public/var.h" />
+		<Unit filename="../src/sdk/aliyun/oss.cpp" />
+		<Unit filename="../src/sdk/aliyun/oss.h" />
+		<Unit filename="../src/template/tp_pageing.cpp" />
+		<Unit filename="../src/template/tp_pageing.h" />
+		<Unit filename="../src/template/tp_sqlstatement.cpp" />
+		<Unit filename="../src/template/tp_sqlstatement.h" />
+		<Unit filename="../src/template/tp_streamproc.hpp" />
+		<Unit filename="../src/template/tp_tcpserver.hpp" />
+		<Unit filename="../src/template/tp_urlparam.cpp" />
+		<Unit filename="../src/template/tp_urlparam.h" />
+		<Unit filename="../src/ui/button.cpp" />
+		<Unit filename="../src/ui/button.h" />
+		<Unit filename="../src/ui/highlighter.cpp" />
+		<Unit filename="../src/ui/highlighter.h" />
+		<Unit filename="../src/ui/image.cpp" />
+		<Unit filename="../src/ui/image.h" />
+		<Unit filename="../src/ui/parent.cpp" />
+		<Unit filename="../src/ui/parent.h" />
+		<Unit filename="../src/util/build.cpp" />
+		<Unit filename="../src/util/build.h" />
+		<Unit filename="../src/util/bytes.cpp" />
+		<Unit filename="../src/util/bytes.h" />
+		<Unit filename="../src/util/codec.cpp" />
+		<Unit filename="../src/util/codec.h" />
+		<Unit filename="../src/util/codec_des.cpp" />
+		<Unit filename="../src/util/config.cpp" />
+		<Unit filename="../src/util/config.h" />
+		<Unit filename="../src/util/desktop.cpp" />
+		<Unit filename="../src/util/desktop.h" />
+		<Unit filename="../src/util/file.cpp" />
+		<Unit filename="../src/util/file.h" />
+		<Unit filename="../src/util/forstring.cpp" />
+		<Unit filename="../src/util/forstring.h" />
+		<Unit filename="../src/util/http.cpp" />
+		<Unit filename="../src/util/http.h" />
+		<Unit filename="../src/util/idx_maker.cpp" />
+		<Unit filename="../src/util/idx_maker.h" />
+		<Unit filename="../src/util/json.cpp" />
+		<Unit filename="../src/util/json.h" />
+		<Unit filename="../src/util/lock.cpp" />
+		<Unit filename="../src/util/lock.h" />
+		<Unit filename="../src/util/map.hpp" />
+		<Unit filename="../src/util/math.cpp" />
+		<Unit filename="../src/util/math.h" />
+		<Unit filename="../src/util/md5.cpp" />
+		<Unit filename="../src/util/md5.h" />
+		<Unit filename="../src/util/mem.cpp" />
+		<Unit filename="../src/util/mem.h" />
+		<Unit filename="../src/util/network.cpp" />
+		<Unit filename="../src/util/network.h" />
+		<Unit filename="../src/util/obj.cpp" />
+		<Unit filename="../src/util/point.hpp" />
+		<Unit filename="../src/util/print.cpp" />
+		<Unit filename="../src/util/print.h" />
+		<Unit filename="../src/util/qt_gen.cpp" />
+		<Unit filename="../src/util/qt_gen.h" />
+		<Unit filename="../src/util/qt_httpclient.cpp" />
+		<Unit filename="../src/util/qt_httpclient.h" />
+		<Unit filename="../src/util/queue.hpp" />
+		<Unit filename="../src/util/system.cpp" />
+		<Unit filename="../src/util/system.h" />
+		<Unit filename="../src/util/thread.cpp" />
+		<Unit filename="../src/util/thread.h" />
+		<Unit filename="../src/util/time.cpp" />
+		<Unit filename="../src/util/time.h" />
+		<Unit filename="../src/util/timeout.cpp" />
+		<Unit filename="../src/util/timeout.h" />
+		<Unit filename="../src/util/util.h" />
+		<Unit filename="../src/util/util_md5.h" />
+		<Unit filename="../src/util/verify.cpp" />
+		<Unit filename="../src/util/verify.h" />
+		<Unit filename="../src/util/window.cpp" />
+		<Unit filename="../src/util/window.h" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>

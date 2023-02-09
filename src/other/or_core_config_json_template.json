@@ -1,0 +1,53 @@
+{
+  "server": {
+    "tcp": [
+      {
+        //????
+        "name": "test_tcp_1",
+        //????IP
+        "ipaddress": "0.0.0.0",
+        //???????
+        "port": 9001,
+        //???? type=[pull\pack\gen] ???????????HPSocket??????,??? gen(???)
+        "type": "pull",
+      }
+    ]
+  },
+  "mysql": [
+    {
+      "name": "sql1",
+      "ipaddress": "127.0.0.1",
+      "port": 3306,
+      "username": "root",
+      "password": "root",
+      "database": "wd_game",
+      "poolsize": 10,
+      //????
+      "reconnect": true,
+      //???SSL
+      "ssl": false,
+      //????????????§Õ???????????
+      "log": "gen"
+    }
+  ],
+  "redis": [
+    {
+      "name": "redis1",
+      "ipaddress": "127.0.0.1",
+      "port": 6379,
+      "password": "",
+      "poolsize": 10,
+      "timout_connect_sec": 3,
+      "timeout_io_sec": 5
+    }
+  ],
+  "log": [
+    {
+      "name": "gen",
+      //???¡¤????[data] = ??????? ??: run2021.2.22.log
+      "filepath": "run.[data].log",
+      //????????????????
+      "everyday": true
+    }
+  ]
+}

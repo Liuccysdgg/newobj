@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{3b157ba5-fd84-4851-9b56-35ed0144fe8c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="windows\src\ArqHelper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\BufferPool.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\BufferPtr.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\CriticalSection.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\crypto\crypto.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\Event.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\FuncHelper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\GeneralHelper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\HPSocket.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\HPSocket-SSL.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\HPThreadPool.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\HttpAgent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\HttpClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\HttpCookie.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\HttpHelper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\HttpServer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\kcp\ikcp.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\http\llhttp_api.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\http\llhttp_internal.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\http\llhttp_support.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\http\llhttp_url.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\MiscHelper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\PrivateHeap.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\RingBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\RWLock.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\Semaphore.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\SocketHelper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\SSLAgent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\SSLClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\SSLHelper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\SSLServer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\stdafx.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\SysHelper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\TcpAgent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\TcpClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\TcpPackAgent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\TcpPackClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\TcpPackServer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\TcpPullAgent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\TcpPullClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\TcpPullServer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\TcpServer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\Thread.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\UdpArqClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\UdpArqServer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\UdpCast.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\UdpClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\UdpNode.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\UdpServer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\WaitFor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\src\Common\debug\win32_crtdbg.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="windows\src\ArqHelper.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\BufferPool.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\BufferPtr.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\CriticalSection.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\crypto\crypto.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\Event.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\framework.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\FuncHelper.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\GeneralHelper.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\HPThreadPool.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\HttpAgent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\HttpClient.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\HttpCookie.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\HttpHelper.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\HttpServer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\kcp\ikcp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\InternalDef.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\http\llhttp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\http\llhttp_url.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\MiscHelper.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\PrivateHeap.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\RingBuffer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\RWLock.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\SE.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\Semaphore.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\Singleton.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\SocketHelper.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\SSLAgent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\SSLClient.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\SSLHelper.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\SSLServer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\stdafx.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\STLHelper.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\SysHelper.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\TcpAgent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\TcpClient.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\TcpPackAgent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\TcpPackClient.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\TcpPackServer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\TcpPullAgent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\TcpPullClient.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\TcpPullServer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\TcpServer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\Thread.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\UdpArqClient.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\UdpArqServer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\UdpCast.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\UdpClient.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\UdpNode.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\UdpServer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\WaitFor.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\debug\win32_crtdbg.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="windows\src\Common\Win32Helper.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

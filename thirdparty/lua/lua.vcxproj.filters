@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="core">
+      <UniqueIdentifier>{b8590506-ade0-47db-b674-2932cd286248}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="kaguya">
+      <UniqueIdentifier>{8d074be6-caab-4b4a-baeb-adad79aa067a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module">
+      <UniqueIdentifier>{68fe1aae-275c-43b0-aef7-7498a09d6f8a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="core\lapi.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lauxlib.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lbaselib.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lcode.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lcorolib.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lctype.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\ldblib.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\ldebug.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\ldo.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\ldump.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lfunc.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lgc.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\linit.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\liolib.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\llex.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lmathlib.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lmem.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\loadlib.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lobject.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lopcodes.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\loslib.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lparser.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lstate.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lstring.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lstrlib.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\ltable.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\ltablib.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\ltm.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lua.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\luac.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lundump.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lutf8lib.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lvm.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\lzio.c">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="module\file.cpp">
+      <Filter>module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\ini.cpp">
+      <Filter>module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\json.cpp">
+      <Filter>module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\system.cpp">
+      <Filter>module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\time.cpp">
+      <Filter>module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\verify.cpp">
+      <Filter>module</Filter>
+    </ClCompile>
+    <ClCompile Include="lua.cpp" />
+    <ClCompile Include="module\vector_int.cpp">
+      <Filter>module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\algorithm.cpp">
+      <Filter>module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\forstring.cpp">
+      <Filter>module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\vector_string.cpp">
+      <Filter>module</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\lapi.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lauxlib.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lcode.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lctype.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ldebug.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ldo.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lfunc.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lgc.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ljumptab.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\llex.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\llimits.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lmem.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lobject.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lopcodes.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lopnames.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lparser.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lprefix.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lstate.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lstring.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ltable.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ltm.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lua.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lua.hpp">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\luaconf.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lualib.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lundump.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lvm.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\lzio.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\detail\lua_function_def.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\detail\lua_ref_impl.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\detail\lua_table_def.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\detail\lua_variant_def.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\another_binding_api.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\compatibility.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\config.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\error_handler.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\exception.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\function_tuple_def.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\kaguya.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\lua_ref.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\lua_ref_function.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\lua_ref_table.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\metatable.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\native_function.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\native_function_cxx03.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\native_function_cxx11.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\object.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\optional.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\preprocess.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\preprocess_repeate.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\push_any.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\push_tuple.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\ref_tuple.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\state.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\traits.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\type.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\utility.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\utility_cxx03.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="kaguya\utility_cxx11.hpp">
+      <Filter>kaguya</Filter>
+    </ClInclude>
+    <ClInclude Include="module\define.h">
+      <Filter>module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\file.h">
+      <Filter>module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\ini.h">
+      <Filter>module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\json.h">
+      <Filter>module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\system.h">
+      <Filter>module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\time.h">
+      <Filter>module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\verify.h">
+      <Filter>module</Filter>
+    </ClInclude>
+    <ClInclude Include="lua.h" />
+    <ClInclude Include="module\vector_int.h">
+      <Filter>module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\algorithm.h">
+      <Filter>module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\forstring.h">
+      <Filter>module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\vector_string.h">
+      <Filter>module</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

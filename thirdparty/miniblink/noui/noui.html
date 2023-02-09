@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>1</title>
+
+<style type="text/css">
+
+</style>
+
+
+
+
+
+</head>
+<body style="background-color:#666666;">
+    <div id="topbar" style="background-color: red;height: 100px;width:auto;"> 
+    </div>
+    <button onclick="on_minimize()">最小化</button><br>
+    <span id="window_height"></span><br>
+    <span id="window_width"></span><br>
+    <span id="window_x"></span><br>
+    <span id="window_y"></span><br>
+    <span id="cursor_x"></span><br>
+    <span id="cursor_y"></span><br>
+</body>
+<script src="jquery.min.js"></script>
+<script src="jquery.base64.js"></script>
+<script src="noui.js"></script>
+
+<script type="text/javascript">
+    var topbar_in = false;
+    var topbar_clicked = true;
+    var topbar_clicke_x = 0;
+    var topbar_clicke_y = 0;
+    var topbar_loop;
+	function on_minimize() {nui.frame.minimize()}
+
+
+    $(document).ready(function () {
+        $("#topbar").mouseup(function(e){
+            topbar_clicked = false;
+        });
+        $("#topbar").mousedown(function(e){
+            topbar_clicke_x = e.pageX;
+            topbar_clicke_y = e.pageY;
+            topbar_clicked = true;
+            /*鼠标按下*/
+            topbar_loop = setInterval(function () {
+                nui.frame.resize(
+                    nui.indev.cursor_x()-topbar_clicke_x,
+                    nui.indev.cursor_y()-topbar_clicke_y,
+                    nui.frame.width(),
+                    nui.frame.height()
+                );
+                if(topbar_clicked == false){
+                    clearInterval(topbar_loop);
+                    return;
+                }
+            }, 10);
+        });
+    });
+    var miniblink = true;
+    $(document).ready(function () {
+        if(miniblink){
+            // 隐藏标题栏
+            nui.frame.topbar_hide();
+            // 显示窗口
+            nui.frame.show();
+
+            setInterval(function () {
+                $("#window_height").text("窗口高度:"+nui.frame.height());
+                $("#window_width").text("窗口宽度:"+nui.frame.width());
+                $("#window_x").text("窗口x:"+nui.frame.y());
+                $("#window_y").text("窗口y:"+nui.frame.x());
+                $("#cursor_x").text("鼠标x:"+nui.indev.cursor_x());
+                $("#cursor_y").text("鼠标y:"+nui.indev.cursor_y());
+            }, 100);
+			
+            console.log(nui.file.read_ex("E:\\old.txt"));
+            nui.file.write_ex("E:\\js_create.txt","dashabi");
+
+        }
+    });
+</script>
+</html>
