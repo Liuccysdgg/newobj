@@ -159,6 +159,11 @@ newobj 是一个支持全面的开发库，可满足通用开发需求。
 
 
 ## 构建编译
+
+链接本库请添加宏
+linux：-DNEWOBJ_STATIC 
+windows：NEWOBJ_STATIC
+
 **功能开关 **
 
 修改 src/public/define.h 头文件
