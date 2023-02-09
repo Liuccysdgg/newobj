@@ -1,4 +1,4 @@
-# newobj 通用开发库
+# newobj c++ 跨平台开发库
 
 newobj 是一个支持全面的开发库，可满足通用开发需求。
 
@@ -16,6 +16,8 @@ newobj 是一个支持全面的开发库，可满足通用开发需求。
 **开源协议:** 暂无
 
 **平台支持:** Windows、Linux 32及64位
+
+**项目下载:** https://github.com/Liuccysdgg/newobj.git
 
 **项目结构:** 
 
