@@ -272,7 +272,7 @@ cp ./thirdparty/HP-Socket/Linux/lib/hpsocket/x64/libhpsocket.so ./bin/
 cp ./thirdparty/HP-Socket/Linux/lib/hpsocket/x64/libhpsocket_d.so ./bin/
 
 # 构建 newobj 
-git clone https://gitee.com/nianhua_1/newobj.git
+git clone https://github.com/Liuccysdgg/newobj.git
 chmod 777 ./newobj/build/build.sh
 cd ./newobj/build
 ./build.sh
