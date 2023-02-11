@@ -1,560 +1,387 @@
-#include "tp_sqlstatement.h"
+#include "template/tp_sqlstatement.h"
 #include "public/exception.h"
+#include "util/time.h"
 #include <iostream>
-#if 1
+inline size_t sets(newobj::mysql_plus::prepare_statement *ppst,size_t start_index,const std::vector<std::any>& values){
+    size_t index =start_index;
+    for(size_t i=0;i<values.size();i++){
+        if(typeid(nstring) == values[i].type())
+            ppst->set_string(index++,std::any_cast<nstring>(values[i]));
+        else if(typeid(int32) == values[i].type())
+            ppst->set_int32(index++,std::any_cast<int32>(values[i]));
+        else if(typeid(uint32) == values[i].type())
+            ppst->set_string(index++,std::any_cast<uint32>(values[i]));
+        else if(typeid(nstring) == values[i].type())
+            ppst->set_string(index++,std::any_cast<int64>(values[i]));
+        else if(typeid(nstring) == values[i].type())
+            ppst->set_string(index++,std::any_cast<uint64>(values[i]));
+        else if(typeid(float) == values[i].type())
+            ppst->set_double(index++,std::any_cast<float>(values[i]));
+        else if(typeid(double) == values[i].type())
+            ppst->set_double(index++,std::any_cast<double>(values[i]));
+        else if(typeid(int64) == values[i].type())
+            ppst->set_bigint(index++,nstring::from(std::any_cast<int64>(values[i])));
+        else if(typeid(uint64) == values[i].type())
+            ppst->set_bigint(index++,nstring::from(std::any_cast<uint64>(values[i])));
+        else if(typeid(time::datetime) == values[i].type())
+        {
+            time::datetime dt = std::any_cast<time::datetime>(values[i]);
+            ppst->set_datetime(index++,time::format(newobj::time::to_ts(dt)));
+        }
 
-//#ifdef LIB_DB_MYSQL
-#if 1
-//#include "core/Core.h"
-//#include "core/global.h"
-newobj::insert::insert(newobj::db::mysql::pool* pool):isqlstatement(pool)
-{
+        else if(typeid(bool) == values[i].type())
+            ppst->set_boolean(index++,std::any_cast<bool>(values[i]));
+        else if(typeid(void) == values[i].type())
+        {
+            std::cout<<"index:"<<index<<" std::any is void"<<std::endl;
+        }
+        else
+        {
+            trw_str("unknown type");
+        }
+    }
+    return index;
 }
+inline void make_where(nstring& sql,const std::vector<sql::where>& wheres)
+{
+    if(wheres.size() != 0)
+    {
+        bool insert_where = false; 
+        sql.append(" WHERE ");
+        for(size_t i=0;i<wheres.size();i++)
+        {
+            if(wheres[i].value.type() == typeid(void))
+                continue;
+        
+            if(insert_where)
+                sql.append(",");
+            insert_where = true;
+            sql.append(wheres[i].name);
+            sql.append(wheres[i].code);
+            sql.append("?");
+        }
+    }
 
-newobj::insert::~insert()
+}
+newobj::sql::insert::insert()
 {
 
 }
-
-newobj::insert& newobj::insert::table(const nstring& table)
+newobj::sql::insert::~insert()
 {
-	// TODO: 在此处插入 return 语句
+
+}
+newobj::sql::insert& newobj::sql::insert::table(const nstring& table)
+{
 	this->m_table = table;
 	return *this;
 }
-
-newobj::insert& newobj::insert::field(const std::initializer_list<nstring>& fields)
+newobj::sql::insert& newobj::sql::insert::field(const std::initializer_list<nstring>& fields)
 {
-	// TODO: 在此处插入 return 语句
 	this->m_fields = fields;
 	return *this;
 }
 
-newobj::insert& newobj::insert::value(const std::initializer_list<newobj::nvar>& values)
+newobj::sql::insert& newobj::sql::insert::value(const std::initializer_list<std::any>& values)
 {
-	// TODO: 在此处插入 return 语句
-	this->m_values = values;
+	this->m_values.push_back(values);
 	return *this;
 }
 
-bool newobj::insert::exec()
+newobj::sql::insert& newobj::sql::insert::exec(newobj::mysql_plus::conn* conn)
 {
 	if (m_table.empty())
 	{
-		trw_str("The table name is empty");
+		trw_str("table name is empty");
 	}
 	if (m_fields.size() == 0)
 	{
-		trw_str("The fields is empty");
+		trw_str("fields is empty");
 	}
 	if (m_values.size() == 0)
 	{
-		trw_str("The values is empty");
+		trw_str("values is empty");
 	}
-	if (m_values.size() != m_fields.size())
-	{
-		trw_str("The number of fields and values is inconsistent");
-	}
-
-
-	int i = 1;
 	nstring fields_str;
-	nstring wenCode;
-	
+	nstring value_code;
 	/*字段*/
-	for (auto field : this->m_fields)
-	{
-		if (i == this->m_fields.size())
-			fields_str += field;
-		else
-			fields_str += field + ",";
-		i++;
-	}
+    for (size_t i=0;i<m_fields.size();i++){
+        fields_str.append(m_fields[i]);
+        fields_str.append(',');
+    }
+        
 	/*内容*/
-	for_l (p,this->m_values.size())
+	for (size_t i=0;i<this->m_values.size();i++)
 	{
-		if (p+1 == this->m_values.size())
-			wenCode +="?";
-		else
-			wenCode += "?, ";
+        if(!value_code.empty())
+            value_code.append(',');
+        value_code.append('(');
+        auto sig = this->m_values[i];
+        for(size_t f=0;f<sig.size();f++){
+            if(f+1 == sig.size())
+    		    value_code +="?";
+            else
+                value_code += "?,";
+        }
+        value_code.append(')');
 	}
+    fields_str = fields_str.trim_end(',');
+    nstring sql(fields_str.length()+value_code.length()+100);
 
+    sql.append("INSERT INTO ");
+    sql.append(this->m_table);
+    sql.append("(");
+    sql.append(fields_str);
+    sql.append(")VALUES");
+    sql.append(value_code);
 
-	newobj::db::mysql::prepared_statement* pptt = m_conn->sql("INSERT INTO " + this->m_table + "(" + fields_str + ")VALUES(" + wenCode + ")");
-	sets(pptt, this->m_values);
-	return pptt->update() == 1;
+    auto ppst = conn->setsql(sql);
+    size_t index = 1;
+    for(size_t i=0;i<m_values.size();i++)
+        index = sets(ppst,index, this->m_values[i]);
+    this->m_affected_count =  ppst->update();
+    return *this;
 }
 
-void newobj::insert::clear()
+void newobj::sql::insert::clear()
 {
 	this->m_table = "";
 	this->m_fields.clear();
 	this->m_values.clear();
+    this->m_affected_count = 0;
 }
 
-uint64 newobj::insert::last_insert_id()
-{
-	return m_conn->last_insert_id();
-}
 
-newobj::update::update(newobj::db::mysql::pool* pool):isqlstatement(pool)
+newobj::sql::update::update()
 {
 
 }
-
-newobj::update::~update()
+newobj::sql::update::~update()
 {
+
 }
-
-newobj::update& newobj::update::table(const nstring& table)
+newobj::sql::update& newobj::sql::update::table(const nstring& table)
 {
-	// TODO: 在此处插入 return 语句
-	this->m_table = table;
-	return *this;
+    this->m_table = table;
+    return *this;
 }
-
-newobj::update& newobj::update::field(const std::initializer_list<nstring>& fields)
+newobj::sql::update& newobj::sql::update::field(const std::initializer_list<nstring>& fields)
 {
-	// TODO: 在此处插入 return 语句
-	this->m_fields = fields;
-	return *this;
+
+    this->m_fields = fields;
+    return *this;
 }
-
-newobj::update& newobj::update::set(const std::initializer_list<nstring>& sets)
+newobj::sql::update& newobj::sql::update::where(const std::initializer_list<sql::where>& wheres)
 {
-	// TODO: 在此处插入 return 语句
-	this->m_sets = sets;
-	return *this;
+
+    this->m_wheres = wheres;
+    return *this;
 }
-
-newobj::update& newobj::update::value(const std::initializer_list<newobj::nvar>& values)
+newobj::sql::update& newobj::sql::update::set(const std::initializer_list<sql::value>& values)
 {
-	// TODO: 在此处插入 return 语句
-	this->m_values = values;
-	return *this;
+    this->m_values = values;
+    return *this;
 }
-
-newobj::update& newobj::update::where(const newobj::where& where)
+newobj::sql::update& newobj::sql::update::limit(uint64 start,uint64 len)
 {
-	// TODO: 在此处插入 return 语句
-	this->m_where = where;
-	return *this;
+    this->m_limit.start = start;
+    this->m_limit.count = len;
+    return *this;
 }
-
-newobj::update& newobj::update::limit(uint32 start, int32 len)
+newobj::sql::update& newobj::sql::update::exec(newobj::mysql_plus::conn* conn)
 {
-	// TODO: 在此处插入 return 语句
-	this->m_limit = " LIMIT " + nstring::from(start) + (len == -2 ? "" : nstring::from(len));
-	return *this;
+    nstring sql(1024);
+    sql.append("UPDATE ");
+    sql.append(m_table);
+    sql.append("SET ");
+    for(size_t i=0;i<m_values.size();i++)
+    {
+        sql.append(m_values[i].name);
+        sql.append("=?");
+    }
+    make_where(sql,m_wheres);
+    if(m_limit.count != 0)
+        sql.append(" LIMIT "+nstring::from(m_limit.start)+","+nstring::from(m_limit.count));
+
+    std::vector<std::any> any_value;
+    std::vector<std::any> any_where;
+    for(size_t i=0;i<m_values.size();i++)
+        any_value.push_back(m_values[i].value);
+    for(size_t i=0;i<m_wheres.size();i++)
+    {
+        if(m_wheres[i].value.type() == typeid(void))
+            continue;
+        any_where.push_back(m_wheres[i].value);
+    }
+    auto ppts = conn->setsql(sql);
+    size_t index = sets(ppts,0,any_value);
+    sets(ppts,index,any_where);
+    m_affected_count =  ppts->update();
+    return *this;
 }
-
-uint64 newobj::update::exec()
+void newobj::sql::update::clear()
 {
-	if (m_table.empty())
-	{
-		trw_str("The table name is empty");
-	}
+    m_affected_count = 0;
+    m_fields.clear();
+    m_table.clear();
+    m_limit.start = 0;
+    m_limit.count = 0;
+    m_values.clear();
+    m_wheres.clear();
 
-	int i = 1;
-	nstring field_str;
-	nstring set_str;
-	nstring where_str;
-
-	
-	/*字段*/
-	for (auto field : this->m_fields)
-	{
-		if (i == this->m_fields.size())
-			field_str += field==""?"":(field+"=?");
-		else
-			field_str += field == "" ? "" : (field + "=?,");
-		i++;
-	}
-	/*Set*/
-	for (auto set : this->m_sets)
-	{
-		if (i == this->m_sets.size())
-			set_str += set+" ";
-		else
-			set_str += set+" ";
-		i++;
-	}
-	/*查询条件*/
-	if (this->m_where.sql != "")
-	{
-		where_str = "WHERE " + this->m_where.sql;
-	}
-
-	db::mysql::prepared_statement* pptt = m_conn->sql("UPDATE  " + this->m_table + " SET " + " " + field_str + " " + set_str + " " + where_str + " " + m_limit);
-	sets(pptt, this->m_values);
-	sets(pptt, this->m_where.fill, this->m_values.size()+1);
-	return pptt->update();
-}
-
-void newobj::update::clear()
-{
-	this->m_table = "";
-	this->m_fields.clear();
-	this->m_values.clear();
-	this->m_where.sql = "";
-	this->m_where.fill = {};
-	this->m_limit = "";
-}
-
-newobj::query::query(newobj::db::mysql::pool* pool):isqlstatement(pool)
-{
-}
-
-newobj::query::~query()
-{
-}
-
-newobj::query& newobj::query::table(const nstring& table)
-{
-	// TODO: 在此处插入 return 语句
-	this->m_table = table;
-	return *this;
-}
-
-//sql::Query& sql::Query::Field(const std::initializer_list<nstring>& fields)
-//{
-//	// TODO: 在此处插入 return 语句
-//	this->m_fields = fields;
-//	return *this;
-//}
-newobj::query& newobj::query::field(const std::vector<nstring>& fields)
-{
-	// TODO: 在此处插入 return 语句
-	this->m_fields = fields;
-	return *this;
-}
-//sql::Query& sql::Query::Where(const sql::Where& where)
-//{
-//	// TODO: 在此处插入 return 语句
-//	this->m_where.fill = where.fill;
-//	this->m_where.sql = where.sql;
-//	return *this;
-//}
-
-newobj::query& newobj::query::where(const where2& where)
-{
-	// TODO: 在此处插入 return 语句
-	this->m_where = where;
-	return *this;
-}
-
-newobj::query& newobj::query::limit(uint64 start, int len)
-{
-	// TODO: 在此处插入 return 语句
-	this->m_limit = " LIMIT " + nstring::from(start)+(len == -2?"":","+nstring::from(len));
-	return *this;
-}
-
-newobj::query& newobj::query::orderby(const nstring& orderBy, sort_type sort)
-{
-	// TODO: 在此处插入 return 语句
-	this->m_sort = { orderBy,sort };
-	return *this;
-}
-
-uint64 newobj::query::exec()
-{
-	if (m_table.empty())
-	{
-		trw_str("The table name is empty");
-	}
-	if (m_fields.size() == 0)
-	{
-		trw_str("The fields is empty");
-	}
-
-	int i = 1;
-	nstring field_str;
-	nstring where_str;
-
-
-	/*字段*/
-	for (auto field : this->m_fields)
-	{
-		if (i == this->m_fields.size())
-			field_str += field;
-		else
-			field_str += field+",";
-		i++;
-	}
-	/*查询条件*/
-	if (this->m_where.sql != "")
-	{
-		where_str = "WHERE " + this->m_where.sql;
-	}
-	/*排序*/
-	nstring sort;
-	if (this->m_sort.field != "")
-	{
-		sort = " ORDER BY " + this->m_sort.field + " " + (this->m_sort.type == DESC ? "DESC" : "ASC");
-	}
-	m_pptt = m_conn->sql("SELECT  " + field_str + " FROM " + this->m_table + " " + where_str + " " + sort + " " + m_limit);
-	sets(m_pptt, this->m_where.fill);
-	m_result = m_pptt->query();
-	return m_result->row();
-}
-
-bool newobj::query::next()
-{
-	return m_result->next();
-}
-
-uint64 newobj::query::row()
-{
-	return m_result->row();
-}
-
-nstring newobj::query::to_string(uint32 index)
-{
-	return m_result->to_string(index);
-}
-
-int64 newobj::query::to_int64(uint32 index)
-{
-	return m_result->to_int64(index);
-}
-
-int32 newobj::query::to_int32(uint32 index)
-{
-	return m_result->to_int32(index);
-}
-uint64 newobj::query::to_uint64(uint32 index)
-{
-	return m_result->to_uint64(index);
-}
-uint32 newobj::query::to_uint32(uint32 index)
-{
-	return m_result->to_uint32(index);
-}
-double newobj::query::to_double(uint32 index)
-{
-	return m_result->to_double(index);
-}
-
-
-json newobj::query::to_json(uint32 index)
-{
-
-	newobj::json result;
-	result.parse(to_string(index));
-	return result;
 }
 
 
 
-nstring newobj::query::to_string(const nstring& name)
+newobj::sql::query::query()
 {
-	return m_result->to_string(name);
+
+}
+newobj::sql::query::~query()
+{
+
+}
+newobj::sql::query& newobj::sql::query::table(const nstring& table)
+{
+    this->m_table = table;
+    return *this;
+}
+newobj::sql::query& newobj::sql::query::field(const std::initializer_list<nstring>& fields)
+{
+
+    this->m_fields = fields;
+    return *this;
+}
+newobj::sql::query& newobj::sql::query::where(const std::initializer_list<sql::where>& wheres)
+{
+
+    this->m_wheres = wheres;
+    return *this;
+}
+newobj::sql::query& newobj::sql::query::limit(uint64 start,uint64 len)
+{
+    this->m_limit.start = start;
+    this->m_limit.count = len;
+    return *this;
+}
+newobj::sql::query& newobj::sql::query::orderby(const std::initializer_list<sql::orderby>& bys)
+{
+    m_orderbys = bys;
+    return *this;
+}
+newobj::sql::query& newobj::sql::query::exec(newobj::mysql_plus::conn* conn)
+{
+    nstring sql(1024);
+    sql.append("SELECT ");
+    for(size_t i=0;i<m_fields.size();i++)
+    {
+        if(i+1 == m_fields.size())
+            sql.append(m_fields[i]);
+        else
+            sql.append(m_fields[i]+",");
+    }
+    sql.append(" FROM ");
+    sql.append(m_table);
+    if(m_orderbys.size() != 0){
+        sql.append(" ORDER BY ");
+        for(size_t i=0;i<m_orderbys.size();i++)
+        {
+            sql.append(" "+m_orderbys[i].name+" "+(m_orderbys[i].type == sql::orderby::ASC?"ASC":"DESC"));
+            if(i+1 != m_orderbys.size())
+                sql.append(",");
+        }
+    }
+    make_where(sql,m_wheres);
+    if(m_limit.count != 0)
+        sql.append(" LIMIT "+nstring::from(m_limit.start)+","+nstring::from(m_limit.count));
+
+    std::vector<std::any> any_where;
+    for(size_t i=0;i<m_wheres.size();i++)
+    {
+        if(m_wheres[i].value.type() == typeid(void))
+            continue;
+        any_where.push_back(m_wheres[i].value);
+    }
+    auto ppts = conn->setsql(sql);
+    sets(ppts,1,any_where);
+    m_result = ppts->query();
+    return *this;
+}
+newobj::mysql_plus::result* newobj::sql::query::result()
+{
+    return m_result;
+}
+void newobj::sql::query::clear()
+{
+    m_fields.clear();
+    m_table.clear();
+    m_limit.start = 0;
+    m_limit.count = 0;
+    m_wheres.clear();
+    m_orderbys.clear();
+    m_result = nullptr;
 }
 
-int64 newobj::query::to_int64(const nstring& name)
+
+
+
+
+
+newobj::sql::del::del()
 {
-	return m_result->to_int64(name);
+
+}
+newobj::sql::del::~del()
+{
+
+}
+newobj::sql::del& newobj::sql::del::table(const nstring& table)
+{
+    this->m_table = table;
+    return *this;
+}
+newobj::sql::del& newobj::sql::del::where(const std::initializer_list<sql::where>& wheres)
+{
+
+    this->m_wheres = wheres;
+    return *this;
+}
+newobj::sql::del& newobj::sql::del::limit(uint64 start,uint64 len)
+{
+    this->m_limit.start = start;
+    this->m_limit.count = len;
+    return *this;
+}
+newobj::sql::del& newobj::sql::del::exec(newobj::mysql_plus::conn* conn)
+{
+    nstring sql(1024);
+    sql.append("DELETE FROM ");
+    sql.append(m_table);
+    make_where(sql,m_wheres);
+    if(m_limit.count != 0)
+        sql.append(" LIMIT "+nstring::from(m_limit.start)+","+nstring::from(m_limit.count));
+
+    std::vector<std::any> any_where;
+    for(size_t i=0;i<m_wheres.size();i++)
+    {
+        if(m_wheres[i].value.type() == typeid(void))
+            continue;
+        any_where.push_back(m_wheres[i].value);
+    }
+    auto ppts = conn->setsql(sql);
+    sets(ppts,1,any_where);
+    m_affected_count =  ppts->update();
+    return *this;
+}
+void newobj::sql::del::clear()
+{
+    m_affected_count = 0;
+    m_fields.clear();
+    m_table.clear();
+    m_limit.start = 0;
+    m_limit.count = 0;
+    m_wheres.clear();
+
 }
 
-int32 newobj::query::to_int32(const nstring& name)
-{
-	return m_result->to_int32(name);
-}
 
-uint64 newobj::query::to_uint64(const nstring& name)
-{
-	return m_result->to_uint64(name);
-}
-
-uint32 newobj::query::to_uint32(const nstring& name)
-{
-	return m_result->to_uint32(name);
-}
-
-double newobj::query::to_double(const nstring& name)
-{
-	return m_result->to_double(name);
-}
-json newobj::query::to_json(const nstring& name)
-{
-	newobj::json result;
-	result.parse(to_string(name));
-	return result;
-}
-
-void newobj::query::first()
-{
-	m_result->first();
-}
-
-void newobj::query::to_json_array(newobj::json& jsonArray)
-{
-	jsonArray = newobj::json::array;
-	if (m_result->row() == 0)
-		return;
-	if (m_result->first() == false)
-	{
-		trw_str("Failed to execute the first() function");
-	}
-	do
-	{
-		json line;
-		for(uint32 x = 0;x< m_result->column();x++)
-		{
-			NVarType field_type = m_result->column_type(x + 1);
-			if (field_type == NVT_Int)
-				line[m_result->column_name(x + 1)] = m_result->to_int32(x + 1);
-			else if (field_type == NVT_LLong)
-				line[m_result->column_name(x + 1)] = m_result->to_int64(x + 1);
-			else if (field_type == NVT_UInt)
-				line[m_result->column_name(x + 1)] = m_result->to_int32(x + 1);
-			else if (field_type == NVT_ULLong)
-				line[m_result->column_name(x + 1)] = m_result->to_uint64(x + 1);
-			else if (field_type == NVT_String)
-				line[m_result->column_name(x + 1)] = m_result->to_string(x + 1);
-			else if (field_type == NVT_Double || field_type == NVT_Float)
-				line[m_result->column_name(x + 1)] = m_result->to_double(x + 1);
-			else if (field_type == NVT_Boolean)
-				line[m_result->column_name(x + 1)] = m_result->to_boolean(x + 1);
-		}
-		jsonArray.push_back(line);
-	} while (m_result->next());
-	
-}
-
-void newobj::query::to_json_line(json& jsonObj)
-{
-	for(uint32 x=0;x<m_result->column();x++)
-	{
-		NVarType field_type = m_result->column_type(x + 1);
-		if (field_type == NVT_Int)
-			jsonObj[m_result->column_name(x + 1)] = m_result->to_int32(x + 1);
-		else if (field_type == NVT_LLong)
-			jsonObj[m_result->column_name(x + 1)] = m_result->to_int64(x + 1);
-		else if (field_type == NVT_UInt)
-			jsonObj[m_result->column_name(x + 1)] = m_result->to_uint32(x + 1);
-		else if (field_type == NVT_ULLong)
-			jsonObj[m_result->column_name(x + 1)] = m_result->to_uint64(x + 1);
-		else if (field_type == NVT_String)
-			jsonObj[m_result->column_name(x + 1)] = m_result->to_string(x + 1);
-		else if (field_type == NVT_Double || field_type == NVT_Float)
-			jsonObj[m_result->column_name(x + 1)] = m_result->to_double(x + 1);
-		else if (field_type == NVT_Boolean)
-			jsonObj[m_result->column_name(x + 1)] = m_result->to_boolean(x + 1);
-	}
-}
-
-uint32 newobj::query::column()
-{
-	return m_result->column();
-}
-
-nstring newobj::query::column_name(uint32 index)
-{
-	return m_result->column_name(index);
-}
-
-void newobj::query::clear()
-{
-	this->m_table = "";
-	this->m_fields.clear();
-	this->m_where.sql = "";
-	this->m_where.fill = {};
-	this->m_limit = "";
-	this->m_sort.field = "";
-}
-
-newobj::del::del(newobj::db::mysql::pool* pool):isqlstatement(pool)
-{
-}
-
-newobj::del::~del()
-{
-}
-
-newobj::del& newobj::del::table(const nstring& table)
-{
-	// TODO: 在此处插入 return 语句
-	this->m_table = table;
-	return *this;
-}
-
-newobj::del& newobj::del::where(const newobj::where& where)
-{
-	// TODO: 在此处插入 return 语句
-	this->m_where = where;
-	return *this;
-}
-
-newobj::del& newobj::del::limit(uint32 start, int32 len)
-{
-	// TODO: 在此处插入 return 语句
-	this->m_limit = " LIMIT " + nstring::from(start) + (len == -2 ? "" : nstring::from(len));
-	return *this;
-}
-
-uint64 newobj::del::exec()
-{
-	if (m_table.empty())
-	{
-		trw_str("The table name is empty");
-	}
-
-
-	nstring where_str;
-
-	/*查询条件*/
-	if (this->m_where.sql != "")
-	{
-		where_str = "WHERE " + this->m_where.sql;
-	}
-
-	newobj::db::mysql::prepared_statement* pptt = m_conn->sql("DELETE FROM  " + this->m_table + " " + where_str + " " + m_limit);
-	sets(pptt,this->m_where.fill);
-	return pptt->update();
-}
-
-void newobj::del::clear()
-{
-}
-
-void newobj::sets(newobj::db::mysql::prepared_statement* pptt, const std::vector<newobj::nvar>& m_values,int32 start)
-{
-	for (auto value : m_values)
-	{
-		switch (value.type())
-		{
-		case NVT_Int:
-			pptt->set_int32(start, value);
-			break;
-		case NVT_LLong:
-			pptt->set_int64(start, value);
-			break;
-		case NVT_UInt:
-			pptt->set_uint32(start, value);
-			break;
-		case NVT_ULLong:
-			pptt->set_uint64(start, value);
-			break;
-		case NVT_Float:
-		case NVT_Double:
-			pptt->set_double(start, value);
-			break;
-		case NVT_String:
-			pptt->set_string(start, value);
-			break;
-		default:
-			start--;
-		};
-		start++;
-	}
-}
-newobj::isqlstatement::isqlstatement(newobj::db::mysql::pool* pool)
-{
-	m_conn.reset(pool->get());
-}
-
-#endif
-
-#endif

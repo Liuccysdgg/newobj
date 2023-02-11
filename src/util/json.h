@@ -2,7 +2,6 @@
 #include "public/string.h"
 #include "public/define.h"
 #include "public/buffer.h"
-#include "public/var.h"
 #include <map>
 #include <assert.h>
 #include "util/vector.hpp"

@@ -226,7 +226,10 @@ void nstring::append(char value, size_t length)
 	append(temp_mem, length);
 	mem::free(temp_mem);
 }
-
+void nstring::append(char value)
+{
+    append(&value,1);
+}
 void nstring::append(const char* value)
 {
 	// TODO: 在此处插入 return 语句
@@ -829,6 +832,8 @@ void nstring::append(const char* data, size_t length)
 {
 	if (length == 0 || data == nullptr)
 		return;
+    // 初始化object
+    init_obj();
 	if (m_mem_length >= m_data_length + length + 1)
 	{
 		memcpy((void*)(m_data+m_data_length),data,length);

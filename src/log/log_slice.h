@@ -49,7 +49,7 @@ namespace newobj
 			slice::Type m_type;
 			newobj::mutex m_mutex;
 			file m_file;
-			time::Time m_pre_date;
+			time::datetime m_pre_date;
 		};
 	}
 }

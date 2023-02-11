@@ -1,4 +1,5 @@
 #include "package.h"
+#if 0
 #include "util/bytes.h"
 #include "util/codec.h"
 #define CHECK_DATA_LENGTH(DATA,LENGTH) if (DATA->length() < (LENGTH))return false;
@@ -238,3 +239,4 @@ void newobj::package::clear()
 {
 	free();
 }
+#endif

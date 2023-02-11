@@ -1,6 +1,7 @@
 #pragma once
 #include "public/define.h"
 #include "public/decimal.h"
+#include "public/object.hpp"
 #include <string>
 #include <vector>
 
@@ -22,7 +23,7 @@ namespace newobj
 	class file;
 }
 #endif 
-class NEWOBJ_API nstring
+class NEWOBJ_API nstring:public object
 {
 public:
 	nstring();

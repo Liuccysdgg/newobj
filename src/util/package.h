@@ -1,4 +1,5 @@
 #pragma once
+#if 0
 #include "public/var.h"
 #include "public/buffer.h"
 #include "util/map.hpp"
@@ -40,3 +41,4 @@ namespace newobj
 	};
 }
 
+#endif

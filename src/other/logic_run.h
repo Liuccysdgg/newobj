@@ -1,3 +1,4 @@
+#if 0
 #pragma once
 #include "util/map.hpp"
 #include "public/var.h"
@@ -97,3 +98,4 @@ namespace newobj
 			map<nstring, nvar> m_flags;
 		};
 }
+#endif

@@ -1,5 +1,5 @@
 #include <string>
-#include "timeout.h"
+#include "util/timeout.h"
 #include "system.h"
 #include "time.h"
 #include "public/exception.h"
@@ -291,68 +291,5 @@ namespace newobj
 		}
 		system::sleep_msec(100);
 		return true;
-	}
-	
-	itimer::itimer()
-	{
-		// 延迟时间
-		m_msec = 0;
-		// 标志：0=无状态 1=已启动 2=关闭信号
-		m_idx = 0;
-	}
-
-	itimer::~itimer()
-	{
-	}
-
-	void itimer::start(uint32 msec)
-	{
-		m_msec = msec;
-		if (m_idx == 0)
-			::ithread::start();
-	}
-	void itimer::stop()
-	{
-		m_idx = 2;
-		while (m_idx != 0)
-			system::sleep_msec(1);
-		return;
-	}
-	bool itimer::run()
-	{
-		if (m_msec <= 100)
-		{
-			system::sleep_msec(m_msec);
-			return on_timer();
-		}
-
-		for (size_t i = 0; i < m_msec; i += 100)
-		{
-			system::sleep_msec(100);
-			if (m_idx == 2)
-			{
-				// 退出定时器
-				m_idx = 0;
-				return false;
-			}
-		}
-		return on_timer();
-	}
-	void timer::on_callback(nobject* recver, CALLBACK_TIMER pfun_timer)
-	{
-		m_recver = recver;
-		m_pfun = pfun_timer;
-	}
-	timer::timer()
-	{
-		m_pfun = nullptr;
-		m_recver = nullptr;
-	}
-	timer::~timer()
-	{
-	}
-	bool timer::on_timer()
-	{
-		return (m_recver->*m_pfun)();
 	}
 }

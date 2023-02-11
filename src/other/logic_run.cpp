@@ -1,3 +1,4 @@
+#if 0
 #include "logic_run.h"
 #include "util/system.h"
 #include "util/time.h"
@@ -126,4 +127,5 @@ void newobj::logic_run::timeout(const nstring& name, std::function<void(nvar)> w
 	conf->logic_run = this;
 	this->m_timeout.add(__logic_run__callback__, timeout_msec, (ptr)conf);
 }
+#endif
 #endif

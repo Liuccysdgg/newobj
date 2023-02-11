@@ -12,7 +12,7 @@
 #define LIB_HPSOCKET_SSL
 
 // QT
-#define LIB_QT
+//#define LIB_QT
 #ifdef LIB_QT
 #ifdef MSVC_2010
 // QT4
@@ -68,27 +68,6 @@ using namespace newobj;
 
 
 
-enum NVarType
-{
-	NVT_Int = 0,
-	NVT_UInt = 1,
-	NVT_String = 2,
-	NVT_Short = 3,
-	NVT_UShort = 4,
-	NVT_Long = 5,
-	NVT_ULong = 6,
-	NVT_LLong = 7,
-	NVT_ULLong = 8,
-	NVT_Float = 9,
-	NVT_Double = 10,
-	NVT_Char = 11,
-	NVT_UChar = 12,
-	NVT_Ptr = 13,
-	NVT_Null = 14,
-	NVT_Boolean = 15,
-	NVT_Array = 16,
-	NVT_NotFound = 100
-};
 
 //#define MSVC_VER _MSC_VER 
 //#define MSVC_2010 1600

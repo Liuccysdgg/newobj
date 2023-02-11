@@ -96,7 +96,7 @@ timestamp newobj::time::to_ts(const nstring& timestr, const nstring& formart)
     return mktime(&tm);
 }
 
-timestamp  newobj::time::to_ts(Time& datetime)
+timestamp  newobj::time::to_ts(struct newobj::time::datetime& datetime)
 {
     timestamp result = 0;
     struct tm tm;
@@ -192,7 +192,7 @@ nstring  newobj::time::format(timestamp time, const nstring& format)
     return ch;
 }
 
-void  newobj::time::format(timestamp time, Time& systime)
+void  newobj::time::format(timestamp time, newobj::time::datetime& systime)
 {
     if (time > 9999999999L)
         time = (uint64)nstring::from((int64)time).left(10).to_uint64();
@@ -210,15 +210,13 @@ void  newobj::time::format(timestamp time, Time& systime)
 
     systime.month = tm.tm_mon + 1;
     systime.day = tm.tm_mday;
-    systime.weekday = tm.tm_wday;
     systime.hour = tm.tm_hour;// +now_zone();
     systime.minute = tm.tm_min;
     systime.second = tm.tm_sec;
 }
-
-newobj::time::Time  newobj::time::now_time2()
+struct newobj::time::datetime newobj::time::now_time2()
 {
-    newobj::time::Time result;
+    newobj::time::datetime result;
     tm tm;
     time_t tt = ::time(nullptr);
     tt += time::now_zone() * 60 * 60 ;
@@ -229,10 +227,8 @@ newobj::time::Time  newobj::time::now_time2()
 #endif
     nstring str;
     result.year = tm.tm_year + 1900;
-
     result.month = tm.tm_mon + 1;
     result.day = tm.tm_mday;
-
     result.hour = tm.tm_hour;
     result.minute = tm.tm_min;
     result.second = tm.tm_sec;

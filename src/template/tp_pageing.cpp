@@ -1,3 +1,4 @@
+#if 0
 #include "tp_pageing.h"
 #include "public/exception.h"
 #ifndef MSVC_2010
@@ -135,5 +136,6 @@ nvar newobj::web::pageing::param(const nstring& name, NVarType varType)
 	return var;
 }
 
+#endif
 #endif
 #endif

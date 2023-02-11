@@ -6,24 +6,22 @@ namespace newobj
 	
 	namespace time
 	{
-			struct Time
+			struct datetime
 			{
-				Time() {
+				datetime() {
 					year = 0;
 					month = 0;
 					day = 0;
 					hour = 0;
 					minute = 0;
 					second = 0;
-					weekday = 0;
 				}
-				uint32 year;
-				uint32 month;
-				uint32 day;
-				uint32 hour;
-				uint32 minute;
-				uint32 second;
-				uint32 weekday;
+				short year;
+				char month;
+				char day;
+				char hour;
+				char minute;
+				char second;
 			};
 
 			/*网络时间*/
@@ -31,7 +29,7 @@ namespace newobj
 
 			/*标准字符串时间转时间戳*/
 			timestamp NEWOBJ_API to_ts(const nstring& timestr, const nstring& formart = "%d-%d-%d %d:%d:%d");
-			timestamp  NEWOBJ_API to_ts(Time& datetime);
+			timestamp  NEWOBJ_API to_ts(struct newobj::time::datetime& datetime);
 			/*当前时间戳*/
 			uint32 NEWOBJ_API now_sec();
 			timestamp NEWOBJ_API now_msec();
@@ -80,11 +78,12 @@ namespace newobj
 
 			nstring  NEWOBJ_API format(timestamp time,const nstring& format = "%Y-%m-%d %H:%M:%S");
 
-			void  NEWOBJ_API format(timestamp time, Time& datetime);
+			void NEWOBJ_API format(timestamp time, struct newobj::time::datetime& datetime);
+
 
 			
 
-			Time  NEWOBJ_API now_time2();
+            newobj::time::datetime  NEWOBJ_API now_time2();
 
 			/*获取当前时区*/
 			int32  NEWOBJ_API now_zone();

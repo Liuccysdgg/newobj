@@ -6,7 +6,6 @@
 #include<map>
 #include <list>
 #include "public/define.h"
-#include "public/nobject.h"
 #include <array>
 #include "public/string.h"
 #include "lock.h"
@@ -159,25 +158,6 @@ namespace newobj
 	private:
 		// 通过 Thread 继承
 		virtual bool run() override;
-
-	};
-
-	typedef bool(nobject::* CALLBACK_TIMER)();
-	/****************************************************
-	 * Class：定时器
-	 ****************************************************/
-	class NEWOBJ_API timer :public itimer
-	{
-	public:
-		timer();
-		~timer();
-		void on_callback(nobject* recver, CALLBACK_TIMER pfun_timer);
-	private:
-		CALLBACK_TIMER m_pfun ;
-		nobject* m_recver ;
-	private:
-		// 通过 ITimer 继承
-		virtual bool on_timer() override;
 
 	};
 }

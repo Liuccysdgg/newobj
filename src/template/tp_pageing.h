@@ -1,4 +1,5 @@
 #pragma once
+#if 0
 
 #include "util/forstring.h"
 #include "public/var.h"
@@ -65,5 +66,6 @@ namespace newobj
 }
 
 
+#endif
 #endif
 #endif
