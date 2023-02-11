@@ -36,7 +36,7 @@ nstring newobj::log::no::make(const nstring& type, const nstring& value, const n
 
 	if(type == "succ")
 		newobj::print::com_str(line_type,64, "[" +type  + "]\t",CONSOLE_GREEN, CONSOLE_BG_BLACK, 0);
-	else if (type == "gen")
+	else if (type == "info")
 		newobj::print::com_str(line_type, 64, "[" + type + "]\t", CONSOLE_CYANBLUE, CONSOLE_BG_BLACK, 0);
 	else if (type == "warn")
 		newobj::print::com_str(line_type, 64, "[" + type + "]\t", CONSOLE_YELLOW, CONSOLE_BG_BLACK, 0);
@@ -66,31 +66,42 @@ nstring newobj::log::no::make(const nstring& type, const nstring& value, const n
 	return result;
 }
 
-newobj::log::no& newobj::log::no::succ(const nstring& value)
+newobj::log::no& newobj::log::no::succ(const nstring& value,bool _write)
 {
-	write(make("succ", value, "", CONSOLE_GREEN, CONSOLE_BG_BLACK, 0));
+    nstring log = make("succ", value, "", CONSOLE_GREEN, CONSOLE_BG_BLACK, 0);
+    if(_write)
+        write(log);
 	return *this;
 }
-newobj::log::no& newobj::log::no::warn(const nstring& value)
+newobj::log::no& newobj::log::no::warn(const nstring& value,bool _write)
 {
 	// TODO: 在此处插入 return 语句
-	write(make("warn", value, "", CONSOLE_YELLOW, CONSOLE_BG_BLACK, 0));
+	nstring log = make("warn", value, "", CONSOLE_YELLOW, CONSOLE_BG_BLACK, 0);
+    if(_write)
+        write(log);
 	return *this;
 }
 
-newobj::log::no& newobj::log::no::info(const nstring& value)
+newobj::log::no& newobj::log::no::info(const nstring& value,bool _write)
 {
 	// TODO: 在此处插入 return 语句
-	write(make("info", value, "", CONSOLE_CYANBLUE, CONSOLE_BG_BLACK, 0));
+	nstring log = make("info", value, "", CONSOLE_CYANBLUE, CONSOLE_BG_BLACK, 0);
+    if(_write)
+        write(log);
+
 	return *this;
 }
-newobj::log::no& newobj::log::no::error(const nstring& value, const nstring& location_code_info)
+newobj::log::no& newobj::log::no::error(const nstring& value, const nstring& location_code_info,bool _write)
 {
-	write(make("error", value, location_code_info, CONSOLE_RED, CONSOLE_BG_BLACK, 0));
+	nstring log = make("error", value, location_code_info, CONSOLE_RED, CONSOLE_BG_BLACK, 0);
+    if(_write)
+        write(log);
 	return *this;
 }
-void newobj::log::no::exp(const nstring& value, const nstring& location_code_info)
+void newobj::log::no::exp(const nstring& value, const nstring& location_code_info,bool _write)
 {
-	write(make("exp", value, location_code_info, CONSOLE_RED, CONSOLE_BG_BLACK, 0));
+    nstring log = make("exp", value, location_code_info, CONSOLE_RED, CONSOLE_BG_BLACK, 0);
+    if(_write)
+        write(log);
 	trw_str(value);
 }

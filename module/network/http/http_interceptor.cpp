@@ -1,4 +1,9 @@
 #include "http_interceptor.h"
+#include "http_reqpack.h"
+#include "http_request.h"
+#include <iostream>
+#include "http_center.h"
+#include "util/time.h"
 #if USE_NET_HTTP_WEBSITE
 network::http::interceptor::interceptor()
 {
@@ -8,29 +13,28 @@ network::http::interceptor::~interceptor()
 {
 
 }
-bool network::http::interceptor::add(const nstring& path, std::function<bool(network::http::reqpack* rp)> callback)
+size_t network::http::interceptor::add(const nstring& express, std::function<bool(network::http::reqpack* rp)> callback)
 {
-	return m_values.set(path,callback,true);
-}
-bool network::http::interceptor::remove(const nstring& path)
-{
-	return m_values.del(path);
+    network::http::interceptor_info *info = new network::http::interceptor_info;
+    info->express = std::regex(express.c_str());
+    info->callback = callback;
+    info->express_string = express;
+    return m_array.append(info);
 }
 bool network::http::interceptor::trigger(const nstring& url, network::http::reqpack* rp)
 {
-	t_ret_t(m_values.size() == 0);
-	m_values.lock();
-	auto stdmap = m_values.parent();
-	for_iter(iter, (*stdmap))
+	t_ret_t(m_array.m_count == 0);
+	for(size_t i=0;i<m_array.m_count;i++)
 	{
-		if (url.left(iter->first.length()) == iter->first)
-		{
-			auto callback = iter->second;
-			m_values.unlock();
-			return callback(rp);
-		}
-	}
-	m_values.unlock();
-	return true;
+        auto info = m_array.get(i);
+        if(std::regex_match(url.c_str(),info->express)){
+            bool result = info->callback(rp);
+            if(result == false){
+                center()->log()->warn("[interceptor]["+rp->exec_msec()+" ms] false url:"+url+"\t"+" express:"+info->express_string+" ip:"+rp->request()->remote_ipaddress(true));
+            }
+            return result;
+        }
+    }
+    return true;
 }
 #endif

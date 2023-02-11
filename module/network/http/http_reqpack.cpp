@@ -4,6 +4,7 @@
 
 #include "http_request.h"
 #include "http_response.h"
+#include "util/time.h"
 #define HPSERVER 
 static newobj::point_pool<newobj::network::http::reqpack> m_queue_point("reqpack", POINT_QUEUE_REQPACK_CLEAR_MAX, POINT_QUEUE_REQPACK_CLEAR_SEC);
 newobj::network::http::reqpack* newobj::network::http::reqpack::create()
@@ -38,7 +39,7 @@ void newobj::network::http::reqpack::destory(reqpack* p)
     p->m_server = nullptr;
     p->m_connid = 0;
     p->m_website = nullptr;
-
+    p->m_begin_msec = 0;
 
     m_queue_point.destory(p);
 }
@@ -62,6 +63,7 @@ void newobj::network::http::reqpack::init(const nstring& url, newobj::buffer* da
     m_server = server;
     m_connid = connid;
     m_website = nullptr;
+    m_begin_msec = time::now_msec();
 }
 
 network::http::request *network::http::reqpack::request()

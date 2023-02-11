@@ -8,6 +8,7 @@
 #include "hpsocket/hpsocket.h"
 #include "http_server.h"
 #include "util/point_pool.hpp"
+#include "util/time.h"
 namespace newobj {
     namespace network {
         namespace http {
@@ -93,6 +94,12 @@ namespace newobj {
                 inline void website(network::http::website* website) {
                     m_website = website;
                 }
+                inline timestamp begin_msec(){
+                    return m_begin_msec;
+                }
+                inline nstring exec_msec(){
+                    return nstring::from(time::now_msec()-m_begin_msec);
+                }
             private:
                 // 请求主机
                 nstring m_host;
@@ -112,6 +119,8 @@ namespace newobj {
                 newobj::buffer* m_data;
                 // URL
                 nstring m_url;
+                // 请求发起时间
+                timestamp m_begin_msec;
             private:
                 network::http::request* m_request;
                 network::http::response* m_response;

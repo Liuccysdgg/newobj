@@ -9,6 +9,8 @@
 #include "http_interface.h"
 #include "util/queue.hpp"
 #include "util/point_pool.hpp"
+#include "util/vector.hpp"
+#include <regex>
 class IHPThreadPool;
 namespace newobj {
     namespace network {
@@ -29,7 +31,7 @@ namespace newobj {
                     controller_function = nullptr;
                 }
                 // 请求路径
-                nstring path;
+                std::regex express;
                 // 请求类型
                 network::http::method method;
                 // 回调函数
@@ -73,10 +75,7 @@ namespace newobj {
                 /******************************************************************
                  * function：拦截器
                  ******************************************************************/
-                inline network::http::interceptor* interceptor()
-                {
-                    return m_interceptor;
-                }
+                network::http::interceptor* interceptor();
                 /******************************************************************
                  * function：订阅
                  * desc：浏览器请求会首先触发订阅，订阅未找到符合项则触发 other 传入函数。
@@ -87,14 +86,14 @@ namespace newobj {
                  * return：
                  *      同一地址不允许订阅两次
                  ******************************************************************/
-                bool subscribe(
+                void subscribe(
                         const nstring& path,
                         network::http::method method,
                         std::function<void(network::http::request*,network::http::response*)> callback
                 );
 #define SUBSCRIBE(ROUTER,CONTROLLER,FUNCTION,PATH,METHOD) ROUTER->subscribe([]()->void*{return new CONTROLLER;},(network::http::HTTP_CTR_FUNCTION)&CONTROLLER::FUNCTION,PATH,METHOD)
 
-                bool subscribe(
+                void subscribe(
                     std::function<void* ()> create_controller_callback,
                     network::http::HTTP_CTR_FUNCTION function,
                     nstring path,
@@ -138,8 +137,9 @@ namespace newobj {
                 // 是否为代理任务
                 bool is_proxy(reqpack* rp);
             private:
+
                 // 订阅列表
-                newobj::map<nstring,network::http::subscribe_info> m_subscribe;
+                newobj::nolock_array<network::http::subscribe_info*> m_subscribe;
                 // 线程池
                 IHPThreadPool* m_threadpool;
                 // [回调] 未订阅请求

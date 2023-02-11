@@ -14,11 +14,11 @@ namespace newobj
 			void print(bool param);
 			bool print();
 
-			newobj::log::no& succ(const nstring& value);
-			newobj::log::no& warn(const nstring& value);
-			newobj::log::no& info(const nstring& value);
-			newobj::log::no& error(const nstring& value, const nstring& location_code_info = "");
-			void exp(const nstring& value, const nstring& location_code_info);
+			newobj::log::no& succ(const nstring& value,bool _write = true);
+			newobj::log::no& warn(const nstring& value,bool _write = true);
+			newobj::log::no& info(const nstring& value,bool _write = true);
+			newobj::log::no& error(const nstring& value, const nstring& location_code_info = "",bool _write = true);
+			void exp(const nstring& value, const nstring& location_code_info,bool _write = true);
 		private:
 			nstring make(const nstring& type,const nstring& value,const nstring& location_code_info,int32 color,int32 color_bg,int32 attr);
 		private:

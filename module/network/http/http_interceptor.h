@@ -7,11 +7,18 @@
 #include "util/lock.h"
 #include "util/map.hpp"
 #include <functional>
+#include <regex>
 #include "http_interface.h"
 namespace newobj {
     namespace network {
         namespace http {
             class reqpack;
+
+            struct interceptor_info{
+                std::regex express;
+                nstring express_string;
+                std::function<bool(network::http::reqpack* rp)> callback;
+            };
             /******************************************************
              * class£ºÀ¹½ØÆ÷
              ******************************************************/
@@ -20,11 +27,11 @@ namespace newobj {
             public:
                 interceptor();
                 ~interceptor();
-                bool add(const nstring& path,std::function<bool(network::http::reqpack* rp)> callback);
-                bool remove(const nstring& path);
+                size_t add(const nstring& regex_express,std::function<bool(network::http::reqpack* rp)> callback);
+                void remove(size_t index);
                 bool trigger(const nstring& url,network::http::reqpack* rp);
             private:
-                newobj::map<nstring, std::function<bool(network::http::reqpack* rp)>> m_values;
+                newobj::nolock_array<interceptor_info*> m_array;
             };
         }
     }

@@ -5,7 +5,7 @@
 #include "public/buffer.h"
 #include "public/string.h"
 #include "network/define.h"
-
+#include <regex>
 #define POINT_QUEUE_REQUEST_CLEAR_MAX 1000
 #define POINT_QUEUE_REQUEST_CLEAR_SEC 60
 
@@ -132,6 +132,25 @@ namespace newobj
                 OTHER = 4,
                 ALL = 100
             };
+            inline nstring method_to_string(enum method m){
+                switch(m){
+                    case GET:
+                        return "GET";
+                    case POST:
+                        return "POST";
+                    case PUT:
+                        return "PUT";
+                    case DEL:
+                        return "DEL";
+                    case OTHER:
+                        return "OTHER";
+                    case ALL:
+                        return "ALL";
+                    default:
+                        return "unknown";
+                }
+                return "";
+            };
             /*控制器内返回结果*/
             enum response_type
             {
@@ -155,7 +174,6 @@ namespace newobj
                 SVT_VERIFY_CLIENT_ONCE = 0x03
 
             };
-
         }
 
     }

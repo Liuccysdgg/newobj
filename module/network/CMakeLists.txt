@@ -27,7 +27,7 @@ else()
 	set(NAME_X64 "_x86")
 	set(FLAGS_X64 "-m32")
 endif()
-set(FLAGS_GEN "-DNEWOBJ_STATIC")
+set(FLAGS_GEN "-DNEWOBJ_STATIC -DLINUX")
 ########################  ������  ########################  
 SET(CMAKE_SYSTEM_NAME Linux)
 #SET(CMAKE_C_COMPILER "arm-linux-gnueabihf-gcc")

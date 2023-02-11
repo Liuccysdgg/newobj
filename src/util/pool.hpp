@@ -17,7 +17,6 @@ namespace newobj {
     public:
         void recover(void* example)
         {
-		std::cout<<"[push]:"<<std::hex<<example<<std::endl;
             if(example == NULL)
                 return;
             ((newobj::example_core*)example)->recover();

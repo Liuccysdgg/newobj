@@ -18,6 +18,14 @@ namespace newobj
 {
     namespace clickhouse
     {
+         template<typename T,typename Z>
+         inline Z nullable_to(const ::clickhouse::Block& block,int field_index,size_t count_index){
+            auto value = block[field_index]->As<::clickhouse::ColumnNullable>();
+            if (value->IsNull(count_index) == false) {
+                return value->Nested()->As<T>()->At(count_index);
+            }
+            return Z();
+         } 
         struct conn_info
         {
             conn_info()

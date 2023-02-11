@@ -1,9 +1,10 @@
 #include "tp_sqlstatement.h"
 #include "public/exception.h"
 #include <iostream>
-#ifndef MSVC_2010
+#if 1
 
-#ifdef LIB_DB_MYSQL
+//#ifdef LIB_DB_MYSQL
+#if 1
 //#include "core/Core.h"
 //#include "core/global.h"
 newobj::insert::insert(newobj::db::mysql::pool* pool):isqlstatement(pool)

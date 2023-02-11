@@ -65,33 +65,36 @@ void network::http::router::close()
     }
     
 }
-bool network::http::router::subscribe(const nstring &path, network::http::method method, std::function<void(network::http::request*,network::http::response*)> callback)
-{
-    network::http::subscribe_info svie;
-    svie.controller = false;
-    svie.method = method;
-    svie.path = path;
-    svie.callback = callback;
-    t_ret_f(m_subscribe.exist(path));
-    m_subscribe.add(path,svie);
-    return true;
+network::http::interceptor* network::http::router::interceptor(){
+    m_interceptor->center(center());
+    return m_interceptor;
 }
-bool network::http::router::subscribe(
+
+void network::http::router::subscribe(const nstring &path, network::http::method method, std::function<void(network::http::request*,network::http::response*)> callback)
+{
+    center()->log()->info("[router][subscribe][func] express:"+path+" method:"+method_to_string(method));
+    network::http::subscribe_info *svie = new network::http::subscribe_info;
+    svie->controller = false;
+    svie->method = method;
+    svie->express = std::regex(path.c_str());
+    svie->callback = callback;
+    m_subscribe.append(svie);
+}
+void network::http::router::subscribe(
     std::function<void* ()> create_controller_callback,
     network::http::HTTP_CTR_FUNCTION function,
     nstring path,
     network::http::method method
 )
 {
-    network::http::subscribe_info svie;
-    svie.controller = true;
-    svie.method = method;
-    svie.path = path;
-    svie.create_controller_callback = create_controller_callback;
-    svie.controller_function = function;
-    t_ret_f(m_subscribe.exist(path));
-    m_subscribe.add(path, svie);
-    return true;
+    center()->log()->info("[router][subscribe][ctl] express:"+path+" method:"+method_to_string(method));
+    network::http::subscribe_info *svie = new network::http::subscribe_info;
+    svie->controller = true;
+    svie->method = method;
+    svie->express = std::regex(path.c_str());
+    svie->create_controller_callback = create_controller_callback;
+    svie->controller_function = function;
+    m_subscribe.append(svie);
 };
 void network::http::router::other(std::function<void(network::http::request*,network::http::response*)> callback)
 {
@@ -113,7 +116,7 @@ VOID __HP_CALL TaskProc_function(PVOID pvArg)
     reqpack::destory(tp_info->reqpack);
     tp_info->router->m_threadparam_queue->destory(tp_info);
 
-    //delete tp_info->reqpack;
+//delete tp_info->reqpack;
     //delete tp_info;
 
 }
@@ -121,56 +124,58 @@ void newobj::network::http::router::__thread_callback(reqpack* rp)
 {
 
     /*===============正常请求=================*/
-    network::http::subscribe_info sub_info;
-    ///*拦截器过滤*/
-    //{
-    //    if (m_interceptor->trigger(rp->filepath(), rp) == false)
-    //    {
-    //        // 已拒绝继续执行
-    //        return;
-    //    }
-    //}
-    
-
-    //else
-    if (m_subscribe.get(rp->filepath(), sub_info))
+    //*拦截器过滤*/
     {
-        try
+        if (m_interceptor->trigger(rp->filepath(), rp) == false)
         {
-            /*开始回调*/
-
-            if (sub_info.controller)
-            {
-                /*controller 类型回调*/
-                std::unique_ptr<network::http::controller> controller((network::http::controller*)sub_info.create_controller_callback());
-                controller->m_reqpack = rp;
-                controller->center(center());
-                // 调用处理函数
-                (controller.get()->*sub_info.controller_function)();
-            }
-            else
-            {
-                /*普通回调*/
-                sub_info.callback(rp->request(), rp->response());
-            }
+            // 已拒绝继续执行
+            return;
         }
-        catch (const std::exception& e)
-        {
-            // 通用异常返回
-            std::cout << e.what() << std::endl;
-            center()->log()->error("Business processing exception：" + nstring(e.what()) + ", Filepath：" + rp->filepath(), CURR_LOCATION);
-            rp->response()->send((nstring)e.what(), 500, "Internal Server Error");
-        }
-
     }
-    else
-    {
+    bool execed = false;
+    for(size_t i=0;i<m_subscribe.m_count;i++){
+        auto sub = m_subscribe.get(i);
+        if (std::regex_match(rp->filepath().c_str(),sub->express) && (sub->method == rp->method() || sub->method == network::http::ALL))
         {
-            /*其它回调*/
-            if (m_callback_other != nullptr) {
-                m_callback_other(rp->request(), rp->response());
+            execed = true;
+            try
+            {
+                /*开始回调*/
+                if (sub->controller)
+                {
+                    /*controller 类型回调*/
+                    std::unique_ptr<network::http::controller> controller((network::http::controller*)sub->create_controller_callback());
+                    controller->m_reqpack = rp;
+                    controller->center(center());
+                    //调用处理函数
+                    (controller.get()->*sub->controller_function)();
+                }
+                else
+                {
+                    /*普通回调*/
+                    sub->callback(rp->request(), rp->response());
+                }
+                center()->log()->info("[router]["+rp->exec_msec()+" ms] controller url:"+rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true)); 
             }
+            catch (const std::exception& e)
+            {
+                // 通用异常返回
+                center()->log()->error("business processing exception:" + nstring(e.what()) + ", url:" + rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true), CURR_LOCATION);
+                rp->response()->send((nstring)e.what(), 500, "Internal Server Error");
+            }
+            break;
+
         }
+        
+    }
+    if(execed == false){
+        /*其它回调*/
+        if (m_callback_other != nullptr) {
+            m_callback_other(rp->request(), rp->response());
+        }else{
+            rp->response()->send((nstring)"The request will not be processed",410,"Gone");
+        }
+        center()->log()->warn("[router]["+rp->exec_msec()+" ms] other url:"+rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true)); 
     }
 }
 size_t newobj::network::http::router::queue_size()
