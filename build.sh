@@ -41,6 +41,8 @@ help_pr(){
     print purple "./build re        :       清理并重新编译"
     print purple "./build           :       编译release和debug版本"
 }
+cd build
+pwd
 if [ "$#" -eq "0"  ];then
     build "Debug"
     build "Release"
