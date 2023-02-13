@@ -12,15 +12,23 @@ namespace newobj
 	*/
 	class extra_data
 	{
-	public:
-        template<typename T>
-        bool extra(const nstring& name, const std::any& data){
+    public:
+        extra_data()
+        {
+
+        }
+        ~extra_data()
+        {
+
+        }
+        void extra(const nstring& name, const std::any& data){
             m_map.set(name,data,true);
         }
         template<typename T>
-        std::any extra(const nstring& name){
+        T extra(const nstring& name){
+            std::any data;
             m_map.get(name, data);
-            return data;
+            return std::any_cast<T>(data);
         }
 	private:
         newobj::map<nstring,std::any> m_map;
