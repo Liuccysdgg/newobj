@@ -22,7 +22,7 @@ build(){
     print blue "***************** Build [$1] Waiting... *****************"
     cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=$1
     make -j8
-    cp ../bin/* ../../bin/
+    cp ../lib/* ../../lib
 }
 clear_build(){
     print yellow "***************** Clear  *****************"
