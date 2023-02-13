@@ -222,9 +222,6 @@
     <ClInclude Include="..\src\public\string.h">
       <Filter>src\public\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\public\var.h">
-      <Filter>src\public\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\other\or_core.hpp">
       <Filter>src\other\include</Filter>
     </ClInclude>
@@ -239,9 +236,6 @@
     </ClInclude>
     <ClInclude Include="..\src\util\window.h">
       <Filter>src\util\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\public\nobject.h">
-      <Filter>src\public\include</Filter>
     </ClInclude>
     <ClInclude Include="..\src\public\public.h">
       <Filter>src\public\include</Filter>
@@ -302,9 +296,6 @@
     </ClInclude>
     <ClInclude Include="..\src\sdk\libcurl\libcurl.hpp">
       <Filter>src\sdk\libcurl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\public\extra_data.h">
-      <Filter>src\public\include</Filter>
     </ClInclude>
     <ClInclude Include="..\src\log\log_no.h">
       <Filter>src\log\include</Filter>
@@ -441,6 +432,12 @@
     <ClInclude Include="..\src\util\point_pool.hpp">
       <Filter>src\util\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\public\extra_data.hpp">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\object.hpp">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\log\log_define.cpp">
@@ -521,9 +518,6 @@
     <ClCompile Include="..\src\public\decimal.cpp">
       <Filter>src\public\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\public\nobject.cpp">
-      <Filter>src\public\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\sdk\aliyun\oss.cpp">
       <Filter>src\sdk\aliyun\src</Filter>
     </ClCompile>
@@ -553,9 +547,6 @@
     </ClCompile>
     <ClCompile Include="..\src\sdk\codec\base64.cpp">
       <Filter>src\sdk\codec</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\public\extra_data.cpp">
-      <Filter>src\public\src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\log\log_no.cpp">
       <Filter>src\log\src</Filter>
@@ -643,9 +634,6 @@
     </ClCompile>
     <ClCompile Include="..\src\util\mouse.cpp">
       <Filter>src\util\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\public\var.cpp">
-      <Filter>src\sdk</Filter>
     </ClCompile>
     <ClCompile Include="..\src\util\zip_test.cpp">
       <Filter>src\util\src\compress</Filter>

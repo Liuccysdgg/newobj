@@ -70,14 +70,13 @@
     <ClInclude Include="..\src\public\decimal.h" />
     <ClInclude Include="..\src\public\define.h" />
     <ClInclude Include="..\src\public\exception.h" />
-    <ClInclude Include="..\src\public\extra_data.h" />
     <ClInclude Include="..\src\public\environment.h" />
+    <ClInclude Include="..\src\public\extra_data.hpp" />
     <ClInclude Include="..\src\public\Integer.hpp" />
-    <ClInclude Include="..\src\public\nobject.h" />
+    <ClInclude Include="..\src\public\object.hpp" />
     <ClInclude Include="..\src\public\public.h" />
     <ClInclude Include="..\src\public\string.h" />
     <ClInclude Include="..\src\public\struct.h" />
-    <ClInclude Include="..\src\public\var.h" />
     <ClInclude Include="..\src\sdk\aliyun\oss.h" />
     <ClInclude Include="..\src\sdk\codec\base64.h" />
     <ClInclude Include="..\src\sdk\codec\qaesencryption.h" />
@@ -165,11 +164,8 @@
     <ClCompile Include="..\src\public\buffer.cpp" />
     <ClCompile Include="..\src\public\decimal.cpp" />
     <ClCompile Include="..\src\public\exception.cpp" />
-    <ClCompile Include="..\src\public\extra_data.cpp" />
     <ClCompile Include="..\src\public\environment.cpp" />
-    <ClCompile Include="..\src\public\nobject.cpp" />
     <ClCompile Include="..\src\public\string.cpp" />
-    <ClCompile Include="..\src\public\var.cpp" />
     <ClCompile Include="..\src\sdk\aliyun\oss.cpp" />
     <ClCompile Include="..\src\sdk\codec\base64.cpp" />
     <ClCompile Include="..\src\sdk\codec\qaesencryption.cpp" />
@@ -509,6 +505,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819;4996;4091</DisableSpecificWarnings>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -536,6 +533,7 @@
       <DisableSpecificWarnings>4819;4996;4091</DisableSpecificWarnings>
       <TreatWarningAsError>true</TreatWarningAsError>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
