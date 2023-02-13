@@ -24,6 +24,8 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty)
 include_directories(${PROJECT_SOURCE_DIR}/module)
 include_directories(${PROJECT_SOURCE_DIR}/include)
+
+include_directories(${PROJECT_SOURCE_DIR}/../include)
 ########################  源文件  ########################  
 aux_source_directory(ALGORITHM_SRC ${PROJECT_SOURCE_DIR}/src/algorithm/*.cpp)
 aux_source_directory(DB_SRC ${PROJECT_SOURCE_DIR}/src/db/*.cpp)
