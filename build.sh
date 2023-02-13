@@ -63,6 +63,6 @@ elif [ "$#" -eq "1" ]; then
 else
     help_pr
 fi
-
+cd ..
 
 

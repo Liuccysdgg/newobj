@@ -48,7 +48,7 @@ file(GLOB SDK_CODEC_SRC "src/sdk/codec/*.*")
 file(GLOB MGR_SRC "src/mgr/*.*")
 
 ########################  生成路径  ########################  
-set(LIBRARY_OUTPUT_PATH  ${PROJECT_SOURCE_DIR}/bin/)    
+set(LIBRARY_OUTPUT_PATH  ${PROJECT_SOURCE_DIR}/lib/)    
 #######################  生成目标  ########################  
 add_library(
     "${PROJECT_NAME}_${CMAKE_BUILD_TYPE}"
