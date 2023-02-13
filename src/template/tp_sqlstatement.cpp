@@ -206,7 +206,7 @@ newobj::sql::update& newobj::sql::update::exec(newobj::mysql_plus::conn* conn)
     std::vector<std::any> any_value;
     std::vector<std::any> any_where;
     for(size_t i=0;i<m_values.size();i++)
-        any_value.push_back(m_values[i].value);
+        any_value.push_back(m_values[i].val);
     for(size_t i=0;i<m_wheres.size();i++)
     {
         if(m_wheres[i].value.type() == typeid(void))

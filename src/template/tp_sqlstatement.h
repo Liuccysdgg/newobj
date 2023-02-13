@@ -30,7 +30,7 @@ namespace newobj
             // Ãû³Æ
             nstring name;
             // Öµ
-            std::any value;
+            std::any val;
         };
         // ÅÅÐò
         struct NEWOBJ_API orderby{

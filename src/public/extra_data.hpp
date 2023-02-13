@@ -4,6 +4,7 @@
 #include "public/define.h"
 #include "public/string.h"
 #include "util/map.hpp"
+#include <any>
 namespace newobj
 {
 	/*
@@ -13,27 +14,15 @@ namespace newobj
 	{
 	public:
         template<typename T>
-        bool extra(const nstring& name, const newobj::var<T>& data){
-            newobj::var<T> *temp_var = nullptr;
-            object* temp_obj = nullptr;
-            m_map.lock();
-            if(m_map.get(name,temp_obj,false)){
-                delete (newobj::var<T>*)temp_obj;
-            }
-            temp_var = new newobj::var<T>();
-            *temp_var = data;
-            m_map.add(name,temp_var,false);
-            m_map.unlock();
+        bool extra(const nstring& name, const std::any& data){
+            m_map.set(name,data,true);
         }
         template<typename T>
-        newobj::var<T> extra(const nstring& name){
-            object* temp_obj = nullptr;
-            if(m_map.get(name,temp_obj) ==false)
-                return newobj::var<T>();
-            return *((newobj::var<T>*)temp_obj);
-
+        std::any extra(const nstring& name){
+            m_map.get(name, data);
+            return data;
         }
 	private:
-        newobj::map<nstring,object*> m_map;
+        newobj::map<nstring,std::any> m_map;
 	};
 }
