@@ -16,7 +16,7 @@
 #include "util/map.hpp"
 #include <QtCore/qvariant.h>
 #include <functional>
-#include "public/extra_data.h"
+#include "public/extra_data.hpp"
 #include <QtGui/qmovie.h>
 namespace newobj
 {

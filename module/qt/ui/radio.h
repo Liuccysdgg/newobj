@@ -19,7 +19,7 @@
 #include "util/map.hpp"
 
 #include <functional>
-#include "public/extra_data.h"
+#include "public/extra_data.hpp"
 namespace newobj
 {
 	namespace ui

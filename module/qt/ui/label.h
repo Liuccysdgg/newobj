@@ -18,7 +18,7 @@
 #include "util/map.hpp"
 
 #include <functional>
-#include "public/extra_data.h"
+#include "public/extra_data.hpp"
 #include "public/buffer.h"
 namespace newobj
 {
