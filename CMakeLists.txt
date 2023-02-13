@@ -7,11 +7,11 @@ set(PROJECT_NAME newobj)
 project(${PROJECT_NAME})
 
 
-
 if(CMAKE_BUILD_TYPE AND (CMAKE_BUILD_TYPE STREQUAL "Debug"))                                                                                                                                                    
+    set(BUILD_TYPE "debug")
     set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g")
 elseif(CMAKE_BUILD_TYPE AND (CMAKE_BUILD_TYPE STREQUAL "Release"))
-
+    set(BUILD_TYPE "release")
 endif()
 
 
@@ -53,7 +53,7 @@ file(GLOB MGR_SRC "src/mgr/*.*")
 set(LIBRARY_OUTPUT_PATH  ${PROJECT_SOURCE_DIR}/lib/)    
 #######################  生成目标  ########################  
 add_library(
-    "${PROJECT_NAME}_${CMAKE_BUILD_TYPE}"
+    "${PROJECT_NAME}_${BUILD_TYPE}"
 	STATIC ${DB_SRC} ${LOG_SRC} ${NETWORK_SRC} ${PUBLIC_SRC} ${UTIL_SRC} ${TEMPLATE_SRC} ${OTHER_SRC} ${MGR_SRC} ${SDK_SRC} ${SDK_CODEC_SRC})
 #######################  其它项目  ########################  
 add_subdirectory(module/network)

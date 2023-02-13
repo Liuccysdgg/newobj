@@ -9,6 +9,6 @@ file(GLOB SRC_CORE "${PROJECT_SOURCE_DIR}/thirdparty/clickhouse/*.*")
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty/clickhouse/include)
 
 add_library(
-	"${LIBRARY_NAME}_${CMAKE_BUILD_TYPE}"
+	"${LIBRARY_NAME}_${BUILD_TYPE}"
 	STATIC "${SRC_CORE}")
 	

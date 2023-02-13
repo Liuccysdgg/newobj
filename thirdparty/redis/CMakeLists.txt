@@ -12,6 +12,6 @@ file(GLOB SRC_CORE "${PROJECT_SOURCE_DIR}/thirdparty/redis/*.*")
 
 
 add_library(
-	"${LIBRARY_NAME}_${CMAKE_BUILD_TYPE}"
+	"${LIBRARY_NAME}_${BUILD_TYPE}"
 	STATIC "${SRC_CORE}")
 	

@@ -2,9 +2,24 @@
 #include "util/print.h"
 #include "public/exception.h"
 #include <string.h>
+#include "log4cplus/log4cplus.h"
+/*
+#include <log4cplus/logger.h>
+#include <log4cplus/loggingmacros.h>
+#include <log4cplus/configurator.h>
+#include <log4cplus/initializer.h>
+*/
 newobj::log::no::no(const nstring& dirpath, bool only_filepath, bool print):slice(dirpath, only_filepath==true?newobj::log::slice::ST_ONLY_FILE:newobj::log::slice::ST_DAY,"%Y-%m-%d.log")
 {
-	m_path = dirpath;
+    /*
+    log4cplus::Initializer init;
+    log4cplus::BasicConfigurator config;
+    config.configure();
+
+    log4cplus::Logger logger = log4cplus::Logger::getInstance(LOG4CPLUS_TEXT("main"));
+    LOG4CPLUS_WARN(logger,LOG4CPLUS_TEXT("run log"));
+	+/
+    m_path = dirpath;
 	m_print = print;
 }
 
