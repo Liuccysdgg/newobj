@@ -3,7 +3,9 @@
 #include "public/exception.h"
 #include <string.h>
 #ifndef MSVC_2010
+#if 0
 #include "log4cplus/log4cplus.h"
+#endif
 #endif
 /*
 #include <log4cplus/logger.h>

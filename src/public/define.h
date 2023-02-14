@@ -12,7 +12,7 @@
 #define LIB_HPSOCKET_SSL
 
 // QT
-//#define LIB_QT
+#define LIB_QT
 #ifdef LIB_QT
 #ifdef MSVC_2010
 // QT4

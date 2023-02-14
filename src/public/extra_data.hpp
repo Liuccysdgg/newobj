@@ -4,12 +4,15 @@
 #include "public/define.h"
 #include "public/string.h"
 #include "util/map.hpp"
-#if defined(_WIN32) && defined(MSVC_2010)
+#ifdef MSVC_2010
 #define EXTRA_DATA_VALUE nstring
 #else
 #define EXTRA_DATA_VALUE std::any
 #endif
+
+#ifndef MSVC_2010
 #include <any>
+#endif
 namespace newobj
 {
 	/*
@@ -32,6 +35,8 @@ namespace newobj
 #ifndef MSVC_2010
         template<typename T>
         T 
+#else
+        EXTRA_DATA_VALUE
 #endif
         extra(const nstring& name){
             EXTRA_DATA_VALUE data;
@@ -43,6 +48,6 @@ namespace newobj
 #endif
         }
 	private:
-        newobj::map<nstring,std::any> m_map;
+        newobj::map<nstring, EXTRA_DATA_VALUE> m_map;
 	};
 }
