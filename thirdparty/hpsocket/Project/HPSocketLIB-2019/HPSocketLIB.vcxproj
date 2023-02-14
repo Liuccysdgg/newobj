@@ -329,7 +329,7 @@
     </Link>
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>$(SolutionDir)thirdparty\hpsocket\Dependent\brotli\100\$(PlatformTarget)\lib\brotlid.lib;$(SolutionDir)thirdparty\hpsocket_src\Dependent\openssl\100\$(PlatformTarget)\lib\libssl.lib;$(SolutionDir)thirdparty\hpsocket_src\Dependent\openssl\100\$(PlatformTarget)\lib\libcrypto.lib;ws2_32.lib;crypt32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)thirdparty\hpsocket\Dependent\brotli\100\$(PlatformTarget)\lib\brotlid.lib;$(SolutionDir)thirdparty\hpsocket\Dependent\openssl\100\$(PlatformTarget)\lib\libssl.lib;$(SolutionDir)thirdparty\hpsocket\Dependent\openssl\100\$(PlatformTarget)\lib\libcrypto.lib;ws2_32.lib;crypt32.lib</AdditionalDependencies>
       <AdditionalOptions>/ignore:4006 /ignore:4221 /ignore:4099 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Lib</AdditionalLibraryDirectories>
     </Lib>
@@ -514,7 +514,7 @@
     </Link>
     <Lib>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>$(SolutionDir)thirdparty\hpsocket_src\Dependent\brotli\100\$(PlatformTarget)\lib\brotli.lib;$(SolutionDir)thirdparty\hpsocket_src\Dependent\openssl\100\$(PlatformTarget)\lib\libssl.lib;$(SolutionDir)thirdparty\hpsocket_src\Dependent\openssl\100\$(PlatformTarget)\lib\libcrypto.lib;ws2_32.lib;crypt32.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)thirdparty\hpsocket\Dependent\brotli\100\$(PlatformTarget)\lib\brotli.lib;$(SolutionDir)thirdparty\hpsocket\Dependent\openssl\100\$(PlatformTarget)\lib\libssl.lib;$(SolutionDir)thirdparty\hpsocket\Dependent\openssl\100\$(PlatformTarget)\lib\libcrypto.lib;ws2_32.lib;crypt32.lib</AdditionalDependencies>
       <AdditionalOptions>/ignore:4006 /ignore:4221 /ignore:4099 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Lib</AdditionalLibraryDirectories>
     </Lib>

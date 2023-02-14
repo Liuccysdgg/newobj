@@ -2,6 +2,7 @@
 #include "public/exception.h"
 #include "util/time.h"
 #include <iostream>
+#ifndef MSVC_2010
 inline size_t sets(newobj::mysql_plus::prepare_statement *ppst,size_t start_index,const std::vector<std::any>& values){
     size_t index =start_index;
     for(size_t i=0;i<values.size();i++){
@@ -385,3 +386,4 @@ void newobj::sql::del::clear()
 }
 
 
+#endif

@@ -5,6 +5,7 @@
 #include "public/string.h"
 #include "util/json.h"
 #include "mysql/mysql_plus.h"
+#ifndef MSVC_2010
 #include <any>
 namespace newobj
 {
@@ -136,3 +137,4 @@ namespace newobj
 
     }
 }
+#endif

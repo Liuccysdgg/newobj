@@ -2,7 +2,9 @@
 #include "util/print.h"
 #include "public/exception.h"
 #include <string.h>
+#ifndef MSVC_2010
 #include "log4cplus/log4cplus.h"
+#endif
 /*
 #include <log4cplus/logger.h>
 #include <log4cplus/loggingmacros.h>
@@ -18,7 +20,7 @@ newobj::log::no::no(const nstring& dirpath, bool only_filepath, bool print):slic
 
     log4cplus::Logger logger = log4cplus::Logger::getInstance(LOG4CPLUS_TEXT("main"));
     LOG4CPLUS_WARN(logger,LOG4CPLUS_TEXT("run log"));
-	+/
+	*/
     m_path = dirpath;
 	m_print = print;
 }
