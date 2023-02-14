@@ -9,7 +9,6 @@
 #include "public/buffer.h"
 
 #include <functional>
-#include "log/log_no.h"
 
 
 namespace newobj {
@@ -69,8 +68,6 @@ namespace newobj {
                 network::http::server* server(ushort port);
 
                 network::http::website* website(const nstring& host);
-
-                newobj::log::no* log();
             private:
                 /*所有监听端口*/
                 std::vector<ushort> listen_ports();
@@ -83,8 +80,6 @@ namespace newobj {
                 std::vector<network::http::website*> m_website;
                 // 配置缓存
                 newobj::map<nstring,nstring> m_config;
-                // 日志服务
-                newobj::log::no *m_log;
                 // JSON配置
                 newobj::json m_json_config;
             public:

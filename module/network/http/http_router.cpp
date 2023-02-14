@@ -72,7 +72,7 @@ network::http::interceptor* network::http::router::interceptor(){
 
 void network::http::router::subscribe(const nstring &path, network::http::method method, std::function<void(network::http::request*,network::http::response*)> callback)
 {
-    center()->log()->info("[router][subscribe][func] express:"+path+" method:"+method_to_string(method));
+    newobj::log->info("[subscribe][func] express:"+path+" method:"+method_to_string(method),"router");
     network::http::subscribe_info *svie = new network::http::subscribe_info;
     svie->controller = false;
     svie->method = method;
@@ -87,7 +87,7 @@ void network::http::router::subscribe(
     network::http::method method
 )
 {
-    center()->log()->info("[router][subscribe][ctl] express:"+path+" method:"+method_to_string(method));
+    newobj::log->info("[subscribe][ctl] express:"+path+" method:"+method_to_string(method),"router");
     network::http::subscribe_info *svie = new network::http::subscribe_info;
     svie->controller = true;
     svie->method = method;
@@ -155,12 +155,12 @@ void newobj::network::http::router::__thread_callback(reqpack* rp)
                     /*普通回调*/
                     sub->callback(rp->request(), rp->response());
                 }
-                center()->log()->info("[router]["+rp->exec_msec()+" ms] controller url:"+rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true)); 
+                newobj::log->info("["+rp->exec_msec()+" ms] controller url:"+rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true),"router"); 
             }
             catch (const std::exception& e)
             {
                 // 通用异常返回
-                center()->log()->error("business processing exception:" + nstring(e.what()) + ", url:" + rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true), CURR_LOCATION);
+                newobj::log->error("business processing exception:" + nstring(e.what()) + ", url:" + rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true),"router");
                 rp->response()->send((nstring)e.what(), 500, "Internal Server Error");
             }
             break;
@@ -175,7 +175,7 @@ void newobj::network::http::router::__thread_callback(reqpack* rp)
         }else{
             rp->response()->send((nstring)"The request will not be processed",410,"Gone");
         }
-        center()->log()->warn("[router]["+rp->exec_msec()+" ms] other url:"+rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true)); 
+        newobj::log->warn("["+rp->exec_msec()+" ms] other url:"+rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true),"router"); 
     }
 }
 size_t newobj::network::http::router::queue_size()
@@ -287,7 +287,7 @@ bool newobj::network::http::router::run()
                 nstring ipaddress;
                 ushort port = 0;
                 tp_info->reqpack->server()->remote(rp->connid(), ipaddress, port);
-                center()->log()->error("Thread posting failed,Remote: "+ ipaddress+",Filepath: " + rp->filepath(), CURR_LOCATION);
+                newobj::log->error("Thread posting failed,Remote: "+ ipaddress+",Filepath: " + rp->filepath(),"router");
                 // 发送繁忙回复
                 ((IHttpServer*)tp_info->reqpack->server()->hpserver())->SendResponse((CONNID)rp->connid(), 503, "Service Unavailable");
                 // 销毁资源

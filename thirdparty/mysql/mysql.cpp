@@ -4,7 +4,6 @@
 #include "util/forstring.h" 
 #include "util/codec.h"
 #include "public/exception.h"
-#include "log/log_define.h"
 #ifdef _WIN32
 #define MYSQL_VERSION_5_7_38
 #ifdef MYSQL_VERSION_5_7_38

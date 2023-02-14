@@ -1,5 +1,4 @@
 #include "system.h"
-#include "log/log_define.h"
 #include "forstring.h"
 #include "util/bytes.h"
 #include "util/json.h"

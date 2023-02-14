@@ -5,7 +5,7 @@
 #include "public/string.h"
 #include "public/base.h"
 #include "util/lock.h"
-#include "log/log_no.h"
+#include "util/json.h"
 #include <functional>
 #include "http_interface.h"
 #include <map>
@@ -50,8 +50,6 @@ namespace newobj {
                 network::http::router* m_router;
                 // 配置信息
                 struct website_info m_info;
-                // 日志服务
-                newobj::log::no* m_log;
                 // HOST
                 std::vector<network::http::host*> m_hosts;
                 // HTTPS

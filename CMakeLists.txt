@@ -14,6 +14,9 @@ elseif(CMAKE_BUILD_TYPE AND (CMAKE_BUILD_TYPE STREQUAL "Release"))
     set(BUILD_TYPE "release")
 endif()
 
+if(CMAKE_HOST_SYSTEM_NAME AND (CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux"))                                                                                                                                                    
+endif()
+
 
 
 add_definitions(-DNEWOBJ_STATIC -std=c++17 -Wall)

@@ -1,7 +1,6 @@
 #include "http_server_lst.h"
 #if USE_NET_HTTP_WEBSITE
 #include "util/forstring.h"
-#include "log/log_define.h"
 #include "http_server.h"
 #include "hpsocket/hpsocket.h"
 #include <algorithm>

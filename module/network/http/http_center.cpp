@@ -7,7 +7,6 @@
 #include "network/http/http_util.h"
 network::http::center::center()
 {
-    m_log = new newobj::log::no(".\\log",false,true);
     for (uint32 i = 0; i < 10; i++)
         m_temp[i] = 0;
 }
@@ -127,10 +126,6 @@ network::http::website* newobj::network::http::center::website(const nstring& ho
     return nullptr;
 }
 
-newobj::log::no* newobj::network::http::center::log()
-{
-    return m_log;
-}
 
 std::vector<ushort> newobj::network::http::center::listen_ports()
 {

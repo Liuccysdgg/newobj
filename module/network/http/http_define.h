@@ -5,6 +5,7 @@
 #include "public/buffer.h"
 #include "public/string.h"
 #include "network/define.h"
+#include "public/environment.h"
 #include <regex>
 #define POINT_QUEUE_REQUEST_CLEAR_MAX 1000
 #define POINT_QUEUE_REQUEST_CLEAR_SEC 60

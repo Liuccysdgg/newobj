@@ -11,8 +11,12 @@
 // HPSocket 支持SSL
 #define LIB_HPSOCKET_SSL
 
-// QT
+#ifdef _WIN32
 #define LIB_QT
+#else
+// Linux平台请设置CMakeLists.txt,默认关闭QT链接
+#endif
+// QT
 #ifdef LIB_QT
 #ifdef MSVC_2010
 // QT4
