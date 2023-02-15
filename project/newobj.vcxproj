@@ -223,7 +223,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore" />
-    <None Include="..\build\build.sh" />
+    <None Include="..\build.sh" />
     <None Include="..\README.md" />
     <None Include="..\src\other\or_core_config_json_template.json" />
     <None Include="..\src\sdk\mem\MemoryPool.tcc" />

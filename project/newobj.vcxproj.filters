@@ -121,9 +121,6 @@
     <Filter Include="src\sdk\mem">
       <UniqueIdentifier>{0d50e57f-00cb-4235-a66b-707e3b7e24c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="build">
-      <UniqueIdentifier>{9ac236e8-1a67-44f7-8d15-97a6f8af58de}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\util\util.h">
@@ -640,9 +637,7 @@
     <None Include="..\src\sdk\mem\MemoryPool.tcc">
       <Filter>src\sdk\mem</Filter>
     </None>
-    <None Include="..\build\build.sh">
-      <Filter>build</Filter>
-    </None>
+    <None Include="..\build.sh" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\CMakeLists.txt" />
