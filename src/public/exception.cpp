@@ -1,7 +1,6 @@
 #include "exception.h"
 #include <iostream>
 #include <string>
-#include "log/log_define.h"
 #include "util/forstring.h"
 
 newobj::exception::exception(const nstring& e)

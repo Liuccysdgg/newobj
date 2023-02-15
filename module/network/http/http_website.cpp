@@ -60,7 +60,7 @@ bool newobj::network::http::website::start(const newobj::json& config)
             newobj::json ssl_config = find_ssl(host);
 
             if (ssl_config["enable"].to<bool>() == false)
-                center()->log()->warn("The certificate is not open or does not exist, Host:"+ host);
+                newobj::log->warn("The certificate is not open or does not exist, Host:"+ host);
             else
             {
                 ssl = new network::http::ssl(
@@ -72,7 +72,7 @@ bool newobj::network::http::website::start(const newobj::json& config)
                 /*×¢²áSSL*/
                 if (ssl->regist() == false)
                 {
-                    center()->log()->warn(ssl->last_error());
+                    newobj::log->warn(ssl->last_error());
                     delete ssl;
                     ssl = nullptr;
                 }
@@ -81,7 +81,7 @@ bool newobj::network::http::website::start(const newobj::json& config)
                     /*°ó¶¨SSL*/
                     if (ssl->bind(host) == false)
                     {
-                        center()->log()->warn(ssl->last_error());
+                        newobj::log->warn(ssl->last_error());
                         delete ssl;
                         ssl = nullptr;
                     }

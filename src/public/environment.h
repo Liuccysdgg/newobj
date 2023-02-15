@@ -3,6 +3,7 @@
 #include "util/json.h"
 #include "util/file.h"
 #include "public/string.h"
+#include "util/log4.h"
 #include <map>
 
 namespace newobj
@@ -60,4 +61,5 @@ namespace newobj
 namespace newobj
 {
     NEWOBJ_API extern newobj::environment *env;
+    NEWOBJ_API extern newobj::log4 *log;
 }

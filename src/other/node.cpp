@@ -1,5 +1,4 @@
 #include "node.h"
-#include "log/log_define.h"
 #include "util/forstring.h"
 #include <string>
 #include "util/codec.h"

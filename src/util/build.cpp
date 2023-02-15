@@ -1,6 +1,5 @@
 #include "build.h"
 #include "system.h"
-#include "log/log_define.h"
 #include "util/forstring.h"
 #ifndef MSVC_2010
 bool  build::build(const nstring& cl_path, const nstring& src, const nstring& dst_path, const std::vector<nstring>& param, const std::vector<nstring>& include, nstring& strResult)

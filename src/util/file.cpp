@@ -18,7 +18,6 @@
 #ifdef LIB_QT
 #include <QtCore/qfile.h>
 #endif
-#include "log/log_define.h"
 #include "public/exception.h"
 namespace newobj
 {

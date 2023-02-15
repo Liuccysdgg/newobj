@@ -6,7 +6,6 @@
 #include "http_session.h"
 #include "http_server.h"
 #include "public/exception.h"
-#include "log/log_define.h"
 #include "http_reqpack.h"
 #include "http_center.h"
 #include "http_website.h"
