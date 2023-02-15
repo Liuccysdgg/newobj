@@ -371,3 +371,95 @@ typedef CLocalTryLock<CMTX>					CMutexTryLock;
 typedef CLocalTryLock<CSpinGuard>			CSpinTryLock;
 typedef CLocalTryLock<CReentrantSpinGuard>	CReentrantSpinTryLock;
 typedef	CLocalTryLock<CFakeGuard>			CFakeTryLock;
+
+template<typename T> class CSafeCounterT
+{
+public:
+	T Increment()				{return IncrementImpl<sizeof(T)>();}
+	T Decrement()				{return DecrementImpl<sizeof(T)>();}
+	T FetchAdd(T iCount)		{return FetchAddImpl<sizeof(T)>(iCount);}
+	T FetchSub(T iCount)		{return FetchSubImpl<sizeof(T)>(iCount);}
+	T AddFetch(T iCount)		{return FetchAdd(iCount) + iCount;}
+	T SubFetch(T iCount)		{return FetchSub(iCount) - iCount;}
+
+	T SetCount(T iCount)		{return (m_iCount = iCount);}
+	T ResetCount()				{return SetCount(0);}
+	T GetCount()				{return m_iCount;}
+
+	T operator ++ ()			{return Increment();}
+	T operator -- ()			{return Decrement();}
+	T operator ++ (int)			{return FetchAdd(1);}
+	T operator -- (int)			{return FetchSub(1);}
+	T operator += (T iCount)	{return AddFetch(iCount);}
+	T operator -= (T iCount)	{return SubFetch(iCount);}
+	T operator  = (T iCount)	{return SetCount(iCount);}
+	operator T	  ()			{return GetCount();}
+
+public:
+	CSafeCounterT(T iCount = 0) : m_iCount(iCount) {}
+
+private:
+	template<SIZE_T> T IncrementImpl()			{return (T)::InterlockedIncrement((volatile LONG*)&m_iCount);}
+	template<SIZE_T> T DecrementImpl()			{return (T)::InterlockedDecrement((volatile LONG*)&m_iCount);}
+	template<SIZE_T> T FetchAddImpl(T iCount)	{return (T)::InterlockedExchangeAdd((volatile LONG*)&m_iCount, iCount);}
+	template<SIZE_T> T FetchSubImpl(T iCount)	{return (T)::InterlockedExchangeAdd((volatile LONG*)&m_iCount, -iCount);}
+
+#if _WIN32_WINNT >= _WIN32_WINNT_VISTA
+	template<> T IncrementImpl<8>()				{return (T)::InterlockedIncrement64((volatile LONGLONG*)&m_iCount);}
+	template<> T DecrementImpl<8>()				{return (T)::InterlockedDecrement64((volatile LONGLONG*)&m_iCount);}
+	template<> T FetchAddImpl<8>(T iCount)		{return (T)::InterlockedExchangeAdd64((volatile LONGLONG*)&m_iCount, iCount);}
+	template<> T FetchSubImpl<8>(T iCount)		{return (T)::InterlockedExchangeAdd64((volatile LONGLONG*)&m_iCount, -iCount);}
+#endif
+
+protected:
+	volatile T m_iCount;
+};
+
+template<typename T> class CUnsafeCounterT
+{
+public:
+	T Increment()				{return ++m_iCount;}
+	T Decrement()				{return --m_iCount;}
+	T AddFetch(T iCount)		{return m_iCount += iCount;}
+	T SubFetch(T iCount)		{return m_iCount -= iCount;}
+	T FetchAdd(T iCount)		{T rs = m_iCount; m_iCount += iCount; return rs;}
+	T FetchSub(T iCount)		{T rs = m_iCount; m_iCount -= iCount; return rs;}
+
+	T SetCount(T iCount)		{return (m_iCount = iCount);}
+	T ResetCount()				{return SetCount(0);}
+	T GetCount()				{return m_iCount;}
+
+	T operator ++ ()			{return Increment();}
+	T operator -- ()			{return Decrement();}
+	T operator ++ (int)			{return FetchAdd(1);}
+	T operator -- (int)			{return FetchSub(1);}
+	T operator += (T iCount)	{return AddFetch(iCount);}
+	T operator -= (T iCount)	{return SubFetch(iCount);}
+	T operator  = (T iCount)	{return SetCount(iCount);}
+	operator T	  ()			{return GetCount();}
+
+public:
+	CUnsafeCounterT(T iCount = 0) : m_iCount(iCount) {}
+
+protected:
+	T m_iCount;
+};
+
+template<class CCounter> class CLocalCounter
+{
+public:
+	CLocalCounter(CCounter& obj) : m_counter(obj) {m_counter.Increment();}
+	~CLocalCounter() {m_counter.Decrement();}
+private:
+	CCounter& m_counter;
+};
+
+typedef CSafeCounterT<INT>					CSafeCounter;
+typedef CSafeCounterT<LONGLONG>				CSafeBigCounter;
+typedef CUnsafeCounterT<INT>				CUnsafeCounter;
+typedef CUnsafeCounterT<LONGLONG>			CUnsafeBigCounter;
+
+typedef CLocalCounter<CSafeCounter>			CLocalSafeCounter;
+typedef CLocalCounter<CSafeBigCounter>		CLocalSafeBigCounter;
+typedef CLocalCounter<CUnsafeCounter>		CLocalUnsafeCounter;
+typedef CLocalCounter<CUnsafeBigCounter>	CLocalUnsafeBigCounter;

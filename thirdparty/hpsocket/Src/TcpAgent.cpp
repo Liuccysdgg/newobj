@@ -84,9 +84,6 @@ EnHandleResult CTcpAgent::TriggerFireSend(TSocketObj* pSocketObj, TBufferObj* pB
 		ASSERT(FALSE);
 	}
 
-	if(pBufferObj->ReleaseSendCounter() == 0)
-		AddFreeBufferObj(pBufferObj);
-
 	return rs;
 }
 
@@ -369,13 +366,13 @@ BOOL CTcpAgent::InvalidSocketObj(TSocketObj* pSocketObj)
 	return TSocketObj::InvalidSocketObj(pSocketObj);
 }
 
-void CTcpAgent::AddClientSocketObj(CONNID dwConnID, TSocketObj* pSocketObj, const HP_SOCKADDR& remoteAddr, LPCTSTR lpszRemoteAddress, PVOID pExtra)
+void CTcpAgent::AddClientSocketObj(CONNID dwConnID, TSocketObj* pSocketObj, const HP_SOCKADDR& remoteAddr, LPCTSTR lpszRemoteHostName, PVOID pExtra)
 {
 	ASSERT(FindSocketObj(dwConnID) == nullptr);
 
 	pSocketObj->connTime	= ::TimeGetTime();
 	pSocketObj->activeTime	= pSocketObj->connTime;
-	pSocketObj->host		= lpszRemoteAddress;
+	pSocketObj->host		= lpszRemoteHostName;
 	pSocketObj->extra		= pExtra;
 
 	remoteAddr.Copy(pSocketObj->remoteAddr);
@@ -878,22 +875,20 @@ UINT WINAPI CTcpAgent::WorkerThreadProc(LPVOID pv)
 		{
 			DWORD dwFlag	= 0;
 			DWORD dwSysCode = ::GetLastError();
+			dwErrorCode		= dwSysCode;
 
 			if(pAgent->HasStarted())
 			{
 				SOCKET sock	= pBufferObj->client;
-				result		= ::WSAGetOverlappedResult(sock, &pBufferObj->ov, &dwBytes, FALSE, &dwFlag);
 
-				if (!result)
+				if (!::WSAGetOverlappedResult(sock, &pBufferObj->ov, &dwBytes, FALSE, &dwFlag))
 				{
 					dwErrorCode = ::WSAGetLastError();
 					TRACE("GetQueuedCompletionStatus error (<A-CNNID: %Iu> SYS: %d, SOCK: %d, FLAG: %d)\n", dwConnID, dwSysCode, dwErrorCode, dwFlag);
 				}
 			}
-			else
-				dwErrorCode = dwSysCode;
 
-			ASSERT(dwSysCode != 0 && dwErrorCode != 0);
+			ASSERT(dwSysCode != NO_ERROR && dwErrorCode != NO_ERROR);
 		}
 
 		pAgent->HandleIo(dwConnID, pSocketObj, pBufferObj, dwBytes, dwErrorCode);
@@ -933,22 +928,26 @@ void CTcpAgent::HandleIo(CONNID dwConnID, TSocketObj* pSocketObj, TBufferObj* pB
 	ASSERT(pBufferObj != nullptr);
 	ASSERT(pSocketObj != nullptr);
 
+	EnSocketOperation enOperation = pBufferObj->operation;
+
 	if(dwErrorCode != NO_ERROR)
 	{
 		HandleError(dwConnID, pSocketObj, pBufferObj, dwErrorCode);
-		return;
+
+		goto END_HANDLE_IO;
 	}
 
-	if(dwBytes == 0 && pBufferObj->operation != SO_CONNECT)
+	if(dwBytes == 0 && enOperation != SO_CONNECT)
 	{
 		AddFreeSocketObj(pSocketObj, SCF_CLOSE);
 		AddFreeBufferObj(pBufferObj);
-		return;
+
+		goto END_HANDLE_IO;
 	}
 
 	pBufferObj->buff.len = dwBytes;
 
-	switch(pBufferObj->operation)
+	switch(enOperation)
 	{
 	case SO_CONNECT:
 		HandleConnect(dwConnID, pSocketObj, pBufferObj);
@@ -962,6 +961,11 @@ void CTcpAgent::HandleIo(CONNID dwConnID, TSocketObj* pSocketObj, TBufferObj* pB
 	default:
 		ASSERT(FALSE);
 	}
+
+END_HANDLE_IO:
+
+	if(enOperation != SO_CONNECT)
+		pSocketObj->Decrement();
 }
 
 void CTcpAgent::HandleError(CONNID dwConnID, TSocketObj* pSocketObj, TBufferObj* pBufferObj, DWORD dwErrorCode)
@@ -974,6 +978,8 @@ void CTcpAgent::HandleError(CONNID dwConnID, TSocketObj* pSocketObj, TBufferObj*
 
 void CTcpAgent::HandleConnect(CONNID dwConnID, TSocketObj* pSocketObj, TBufferObj* pBufferObj)
 {
+	CLocalSafeCounter localcounter(*pSocketObj);
+
 	::SSO_UpdateConnectContext(pSocketObj->socket, 0);
 
 	pSocketObj->SetConnected();
@@ -989,60 +995,57 @@ void CTcpAgent::HandleConnect(CONNID dwConnID, TSocketObj* pSocketObj, TBufferOb
 
 void CTcpAgent::HandleSend(CONNID dwConnID, TSocketObj* pSocketObj, TBufferObj* pBufferObj)
 {
-	long iLength = -(long)(pBufferObj->buff.len);
-
-	switch(m_enSendPolicy)
+	if(TSocketObj::IsValid(pSocketObj))
 	{
-	case SP_PACK:
+		long iLength = -(long)(pBufferObj->buff.len);
+
+		switch(m_enSendPolicy)
 		{
+		case SP_PACK:
 			::InterlockedExchangeAdd(&pSocketObj->sndCount, iLength);
-
 			TriggerFireSend(pSocketObj, pBufferObj);
-
 			DoSendPack(pSocketObj);
-		}
-
-		break;
-	case SP_SAFE:
-		{
+			break;
+		case SP_SAFE:
 			::InterlockedExchangeAdd(&pSocketObj->sndCount, iLength);
-
 			TriggerFireSend(pSocketObj, pBufferObj);
-
 			DoSendSafe(pSocketObj);
-		}
-
-		break;
-	case SP_DIRECT:
-		{
+			break;
+		case SP_DIRECT:
 			::InterlockedExchangeAdd(&pSocketObj->pending, iLength);
-
 			TriggerFireSend(pSocketObj, pBufferObj);
+			break;
+		default:
+			ASSERT(FALSE);
 		}
-
-		break;
-	default:
-		ASSERT(FALSE);
 	}
+
+	if(pBufferObj->ReleaseSendCounter() == 0)
+		AddFreeBufferObj(pBufferObj);
 }
 
 void CTcpAgent::HandleReceive(CONNID dwConnID, TSocketObj* pSocketObj, TBufferObj* pBufferObj)
 {
-	if(m_bMarkSilence) pSocketObj->activeTime = ::TimeGetTime();
+	EnHandleResult hr = TSocketObj::IsValid(pSocketObj) ? HR_OK : (EnHandleResult)HR_CLOSED;
 
-	EnHandleResult hr = TriggerFireReceive(pSocketObj, pBufferObj);
-
-	if(hr == HR_OK || hr == HR_IGNORE)
+	if(hr == HR_OK)
 	{
-		if(::ContinueReceive(this, pSocketObj, pBufferObj, hr))
+		if(m_bMarkSilence) pSocketObj->activeTime = ::TimeGetTime();
+
+		hr = TriggerFireReceive(pSocketObj, pBufferObj);
+
+		if(hr == HR_OK || hr == HR_IGNORE)
 		{
+			if(::ContinueReceive(this, pSocketObj, pBufferObj, hr))
 			{
-				CSpinLock locallock(pSocketObj->sgPause);
+				{
+					CSpinLock locallock(pSocketObj->sgPause);
 
-				pSocketObj->recving = FALSE;
+					pSocketObj->recving = FALSE;
+				}
+
+				DoReceive(pSocketObj, pBufferObj);
 			}
-
-			DoReceive(pSocketObj, pBufferObj);
 		}
 	}
 
@@ -1157,7 +1160,9 @@ BOOL CTcpAgent::Connect(LPCTSTR lpszRemoteAddress, USHORT usPort, CONNID* pdwCon
 		result = ERROR_INVALID_STATE;
 	else
 	{
-		result = CreateClientSocket(lpszRemoteAddress, usPort, lpszLocalAddress, usLocalPort, soClient, addr);
+		HP_SCOPE_HOST host(lpszRemoteAddress);
+
+		result = CreateClientSocket(host.addr, usPort, lpszLocalAddress, usLocalPort, soClient, addr);
 
 		if(result == NO_ERROR)
 		{
@@ -1165,7 +1170,7 @@ BOOL CTcpAgent::Connect(LPCTSTR lpszRemoteAddress, USHORT usPort, CONNID* pdwCon
 
 			if(result == NO_ERROR)
 			{
-				result	 = ConnectToServer(*pdwConnID, lpszRemoteAddress, soClient, addr, pExtra);
+				result	 = ConnectToServer(*pdwConnID, host.name, soClient, addr, pExtra);
 				soClient = INVALID_SOCKET;
 			}
 		}
@@ -1249,14 +1254,14 @@ DWORD CTcpAgent::PrepareConnect(CONNID& dwConnID, SOCKET soClient)
 	return NO_ERROR;
 }
 
-DWORD CTcpAgent::ConnectToServer(CONNID dwConnID, LPCTSTR lpszRemoteAddress, SOCKET soClient, const HP_SOCKADDR& addr, PVOID pExtra)
+DWORD CTcpAgent::ConnectToServer(CONNID dwConnID, LPCTSTR lpszRemoteHostName, SOCKET soClient, const HP_SOCKADDR& addr, PVOID pExtra)
 {
 	TBufferObj* pBufferObj = GetFreeBufferObj();
 	TSocketObj* pSocketObj = GetFreeSocketObj(dwConnID, soClient);
 
 	CCriSecLock locallock(pSocketObj->csRecv);
 
-	AddClientSocketObj(dwConnID, pSocketObj, addr, lpszRemoteAddress, pExtra);
+	AddClientSocketObj(dwConnID, pSocketObj, addr, lpszRemoteHostName, pExtra);
 
 	DWORD result	= NO_ERROR;
 	BOOL bNeedFree	= TRUE;
@@ -1349,6 +1354,7 @@ BOOL CTcpAgent::DoSendPackets(TSocketObj* pSocketObj, const WSABUF pBuffers[], i
 
 	if(pBuffers && iCount > 0)
 	{
+		CLocalSafeCounter localcounter(*pSocketObj);
 		CCriSecLock locallock(pSocketObj->csSend);
 
 		if(TSocketObj::IsValid(pSocketObj))
@@ -1461,14 +1467,11 @@ int CTcpAgent::DoSend(CONNID dwConnID)
 {
 	TSocketObj* pSocketObj = FindSocketObj(dwConnID);
 
-	if(TSocketObj::IsValid(pSocketObj))
-		return DoSend(pSocketObj);
+	if(!TSocketObj::IsValid(pSocketObj))
+		return ERROR_OBJECT_NOT_FOUND;
 
-	return ERROR_OBJECT_NOT_FOUND;
-}
+	CLocalSafeCounter localcounter(*pSocketObj);
 
-int CTcpAgent::DoSend(TSocketObj* pSocketObj)
-{
 	switch(m_enSendPolicy)
 	{
 	case SP_PACK:			return DoSendPack(pSocketObj);

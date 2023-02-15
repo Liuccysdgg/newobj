@@ -87,9 +87,6 @@ EnHandleResult CUdpServer::TriggerFireSend(TUdpSocketObj* pSocketObj, TUdpBuffer
 		ASSERT(FALSE);
 	}
 
-	if(pBufferObj->ReleaseSendCounter() == 0)
-		AddFreeBufferObj(pBufferObj);
-
 	return rs;
 }
 
@@ -487,7 +484,7 @@ TUdpBufferObj* CUdpServer::GetFreeBufferObj(int iLen)
 {
 	ASSERT(iLen >= -1 && iLen <= (int)m_dwMaxDatagramSize);
 
-	TUdpBufferObj* pBufferObj		= m_bfObjPool.PickFreeItem();;
+	TUdpBufferObj* pBufferObj		= m_bfObjPool.PickFreeItem();
 	if(iLen < 0) iLen				= m_dwMaxDatagramSize;
 	pBufferObj->buff.len			= iLen;
 	pBufferObj->remoteAddr.family	= m_usFamily;
@@ -934,21 +931,18 @@ UINT WINAPI CUdpServer::WorkerThreadProc(LPVOID pv)
 		{
 			DWORD dwFlag	= 0;
 			DWORD dwSysCode = ::GetLastError();
+			dwErrorCode		= dwSysCode;
 
 			if(pServer->HasStarted())
 			{
-				result = ::WSAGetOverlappedResult((SOCKET)ulCompKey, &pBufferObj->ov, &dwBytes, FALSE, &dwFlag);
-
-				if (!result)
+				if (!::WSAGetOverlappedResult((SOCKET)ulCompKey, &pBufferObj->ov, &dwBytes, FALSE, &dwFlag))
 				{
 					dwErrorCode = ::WSAGetLastError();
 					TRACE("GetQueuedCompletionStatus error (<S-CNNID: %Iu> SYS: %d, SOCK: %d, FLAG: %d)\n", dwConnID, dwSysCode, dwErrorCode, dwFlag);
 				}
 			}
-			else
-				dwErrorCode = dwSysCode;
 
-			ASSERT(dwSysCode != 0 && dwErrorCode != 0);
+			ASSERT(dwSysCode != NO_ERROR && dwErrorCode != NO_ERROR);
 		}
 
 		pServer->HandleIo(dwConnID, pBufferObj, dwBytes, dwErrorCode);
@@ -1099,47 +1093,35 @@ void CUdpServer::HandleSend(CONNID dwConnID, TUdpBufferObj* pBufferObj)
 {
 	TUdpSocketObj* pSocketObj = FindSocketObj(dwConnID);
 
-	if(!TUdpSocketObj::IsValid(pSocketObj))
+	if(TUdpSocketObj::IsValid(pSocketObj))
 	{
-		AddFreeBufferObj(pBufferObj);
-		return;
-	}
+		CLocalSafeCounter localcounter(*pSocketObj);
 
-	long iLength = -(long)(pBufferObj->buff.len);
+		long iLength = -(long)(pBufferObj->buff.len);
 
-	switch(m_enSendPolicy)
-	{
-	case SP_PACK:
+		switch(m_enSendPolicy)
 		{
+		case SP_PACK:
 			::InterlockedExchangeAdd(&pSocketObj->sndCount, iLength);
-
 			TriggerFireSend(pSocketObj, pBufferObj);
-
 			DoSendPack(pSocketObj);
-		}
-
-		break;
-	case SP_SAFE:
-		{
+			break;
+		case SP_SAFE:
 			::InterlockedExchangeAdd(&pSocketObj->sndCount, iLength);
-
 			TriggerFireSend(pSocketObj, pBufferObj);
-
 			DoSendSafe(pSocketObj);
-		}
-
-		break;
-	case SP_DIRECT:
-		{
+			break;
+		case SP_DIRECT:
 			::InterlockedExchangeAdd(&pSocketObj->pending, iLength);
-
 			TriggerFireSend(pSocketObj, pBufferObj);
+			break;
+		default:
+			ASSERT(FALSE);
 		}
-
-		break;
-	default:
-		ASSERT(FALSE);
 	}
+
+	if(pBufferObj->ReleaseSendCounter() == 0)
+		AddFreeBufferObj(pBufferObj);
 }
 
 void CUdpServer::HandleReceive(CONNID dwConnID, TUdpBufferObj* pBufferObj)
@@ -1161,6 +1143,8 @@ void CUdpServer::ProcessReceive(CONNID dwConnID, TUdpBufferObj* pBufferObj)
 
 		if(TUdpSocketObj::IsValid(pSocketObj))
 		{
+			CLocalSafeCounter localcounter(*pSocketObj);
+
 			pSocketObj->detectFails = 0;
 			if(m_bMarkSilence) pSocketObj->activeTime = ::TimeGetTime();
 
@@ -1255,7 +1239,7 @@ BOOL CUdpServer::SendPackets(CONNID dwConnID, const WSABUF pBuffers[], int iCoun
 	ASSERT(pBuffers && iCount > 0);
 
 	if(!pBuffers || iCount <= 0)
-		return ERROR_INVALID_PARAMETER;;
+		return ERROR_INVALID_PARAMETER;
 
 	TUdpSocketObj* pSocketObj = FindSocketObj(dwConnID);
 
@@ -1305,6 +1289,7 @@ int CUdpServer::SendInternal(TUdpSocketObj* pSocketObj, TUdpBufferObjPtr& bufPtr
 	int result = NO_ERROR;
 
 	{
+		CLocalSafeCounter localcounter(*pSocketObj);
 		CCriSecLock locallock(pSocketObj->csSend);
 
 		if(!TUdpSocketObj::IsValid(pSocketObj))
@@ -1375,14 +1360,11 @@ int CUdpServer::DoSend(CONNID dwConnID)
 {
 	TUdpSocketObj* pSocketObj = FindSocketObj(dwConnID);
 
-	if(TUdpSocketObj::IsValid(pSocketObj))
-		return DoSend(pSocketObj);
+	if(!TSocketObj::IsValid(pSocketObj))
+		return ERROR_OBJECT_NOT_FOUND;
 
-	return ERROR_OBJECT_NOT_FOUND;
-}
+	CLocalSafeCounter localcounter(*pSocketObj);
 
-int CUdpServer::DoSend(TUdpSocketObj* pSocketObj)
-{
 	switch(m_enSendPolicy)
 	{
 	case SP_PACK:			return DoSendPack(pSocketObj);

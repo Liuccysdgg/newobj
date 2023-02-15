@@ -241,7 +241,7 @@ HPSOCKET_API int SYS_GetSocketOption(SOCKET sock, int level, int name, LPVOID va
 	return ::SSO_GetSocketOption(sock, level, name, val, len);
 }
 
-HPSOCKET_API int SYS_IoctlSocket(SOCKET sock, long cmd, u_long* arg)
+HPSOCKET_API int SYS_IoctlSocket(SOCKET sock, long cmd, ULONG* arg)
 {
 	return ::SSO_IoctlSocket(sock, cmd, arg);
 }
@@ -306,7 +306,7 @@ HPSOCKET_API BOOL SYS_GetSocketRemoteAddress(SOCKET socket, TCHAR lpszAddress[],
 	return ::GetSocketRemoteAddress(socket, lpszAddress, iAddressLen, usPort);
 }
 
-HPSOCKET_API BOOL SYS_EnumHostIPAddresses(LPCTSTR lpszHost, EnIPAddrType enType, __out LPTIPAddr** lpppIPAddr, __out int& iIPAddrCount)
+HPSOCKET_API BOOL SYS_EnumHostIPAddresses(LPCTSTR lpszHost, EnIPAddrType enType, LPTIPAddr** lpppIPAddr, int& iIPAddrCount)
 {
 	return ::EnumHostIPAddresses(lpszHost, enType, lpppIPAddr, iIPAddrCount);
 }
@@ -374,6 +374,46 @@ HPSOCKET_API LPVOID SYS_Calloc(int number, int size)
 HPSOCKET_API LPBYTE SYS_Alloca(int size)
 {
 	return CreateLocalObjects(BYTE, size);
+}
+
+HPSOCKET_API BOOL SYS_CodePageToUnicodeEx(int iCodePage, const char szSrc[], int iSrcLength, WCHAR szDest[], int& iDestLength)
+{
+	return ::CodePageToUnicodeEx(iCodePage, szSrc, iSrcLength, szDest, iDestLength);
+}
+
+HPSOCKET_API BOOL SYS_UnicodeToCodePageEx(int iCodePage, const WCHAR szSrc[], int iSrcLength, char szDest[], int& iDestLength)
+{
+	return ::UnicodeToCodePageEx(iCodePage, szSrc, iSrcLength, szDest, iDestLength);
+}
+
+HPSOCKET_API BOOL SYS_GbkToUnicodeEx(const char szSrc[], int iSrcLength, WCHAR szDest[], int& iDestLength)
+{
+	return ::GbkToUnicodeEx(szSrc, iSrcLength, szDest, iDestLength);
+}
+
+HPSOCKET_API BOOL SYS_UnicodeToGbkEx(const WCHAR szSrc[], int iSrcLength, char szDest[], int& iDestLength)
+{
+	return ::UnicodeToGbkEx(szSrc, iSrcLength, szDest, iDestLength);
+}
+
+HPSOCKET_API BOOL SYS_Utf8ToUnicodeEx(const char szSrc[], int iSrcLength, WCHAR szDest[], int& iDestLength)
+{
+	return ::Utf8ToUnicodeEx(szSrc, iSrcLength, szDest, iDestLength);
+}
+
+HPSOCKET_API BOOL SYS_UnicodeToUtf8Ex(const WCHAR szSrc[], int iSrcLength, char szDest[], int& iDestLength)
+{
+	return ::UnicodeToUtf8Ex(szSrc, iSrcLength, szDest, iDestLength);
+}
+
+HPSOCKET_API BOOL SYS_GbkToUtf8Ex(const char szSrc[], int iSrcLength, char szDest[], int& iDestLength)
+{
+	return ::GbkToUtf8Ex(szSrc, iSrcLength, szDest, iDestLength);
+}
+
+HPSOCKET_API BOOL SYS_Utf8ToGbkEx(const char szSrc[], int iSrcLength, char szDest[], int& iDestLength)
+{
+	return ::Utf8ToGbkEx(szSrc, iSrcLength, szDest, iDestLength);
 }
 
 HPSOCKET_API BOOL SYS_CodePageToUnicode(int iCodePage, const char szSrc[], WCHAR szDest[], int& iDestLength)
@@ -672,3 +712,55 @@ HPSOCKET_API void HP_Destroy_SocketTaskObj(LPTSocketTask pTask)
 {
 	::DestroySocketTaskObj(pTask);
 }
+
+/*****************************************************************************************************************************************************/
+/********************************************************* Compressor / Decompressor Exports *********************************************************/
+/*****************************************************************************************************************************************************/
+
+HPSOCKET_API void HP_Destroy_Compressor(IHPCompressor* pCompressor)
+{
+	::DestroyCompressor(pCompressor);
+}
+
+HPSOCKET_API void HP_Destroy_Decompressor(IHPDecompressor* pDecompressor)
+{
+	::DestroyDecompressor(pDecompressor);
+}
+
+#ifdef _ZLIB_SUPPORT
+
+HPSOCKET_API IHPCompressor* HP_Create_ZLibCompressor(Fn_CompressDataCallback fnCallback, int iWindowBits, int iLevel, int iMethod, int iMemLevel, int iStrategy, DWORD dwBuffSize)
+{
+	return ::CreateZLibCompressor(fnCallback, iWindowBits, iLevel, iMethod, iMemLevel, iStrategy, dwBuffSize);
+}
+
+HPSOCKET_API IHPCompressor* HP_Create_GZipCompressor(Fn_CompressDataCallback fnCallback, int iLevel, int iMethod, int iMemLevel, int iStrategy, DWORD dwBuffSize)
+{
+	return ::CreateGZipCompressor(fnCallback, iLevel, iMethod, iMemLevel, iStrategy, dwBuffSize);
+}
+
+HPSOCKET_API IHPDecompressor* HP_Create_ZLibDecompressor(Fn_DecompressDataCallback fnCallback, int iWindowBits, DWORD dwBuffSize)
+{
+	return ::CreateZLibDecompressor(fnCallback, iWindowBits, dwBuffSize);
+}
+
+HPSOCKET_API IHPDecompressor* HP_Create_GZipDecompressor(Fn_DecompressDataCallback fnCallback, DWORD dwBuffSize)
+{
+	return ::CreateGZipDecompressor(fnCallback, dwBuffSize);
+}
+
+#endif
+
+#ifdef _BROTLI_SUPPORT
+
+HPSOCKET_API IHPCompressor* HP_Create_BrotliCompressor(Fn_CompressDataCallback fnCallback, int iQuality, int iWindow, int iMode, DWORD dwBuffSize)
+{
+	return ::CreateBrotliCompressor(fnCallback, iQuality, iWindow, iMode, dwBuffSize);
+}
+
+HPSOCKET_API IHPDecompressor* HP_Create_BrotliDecompressor(Fn_DecompressDataCallback fnCallback, DWORD dwBuffSize)
+{
+	return ::CreateBrotliDecompressor(fnCallback, dwBuffSize);
+}
+
+#endif

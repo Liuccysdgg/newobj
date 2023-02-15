@@ -243,6 +243,51 @@ typedef struct hp_sockaddr
 
 } HP_SOCKADDR, *HP_PSOCKADDR;
 
+typedef struct hp_scope_host
+{
+	LPCTSTR addr;
+	LPCTSTR name;
+
+	BOOL bNeedFree;
+
+	hp_scope_host(LPCTSTR lpszOriginAddress)
+	{
+		ASSERT(lpszOriginAddress != nullptr);
+
+		LPCTSTR lpszFind = ::StrChr(lpszOriginAddress, HOST_SEPARATOR_CHAR);
+
+		if(lpszFind == nullptr)
+		{
+			addr		= lpszOriginAddress;
+			name		= lpszOriginAddress;
+			bNeedFree	= FALSE;
+		}
+		else
+		{
+			int i			= (int)(lpszFind - lpszOriginAddress);
+			int iSize		= (int)lstrlen(lpszOriginAddress) + 1;
+			LPTSTR lpszCopy	= new TCHAR[iSize];
+
+			::memcpy((PVOID)lpszCopy, (PVOID)lpszOriginAddress, iSize * sizeof(TCHAR));
+
+			lpszCopy[i]	= 0;
+			addr		= lpszCopy;
+			name		= lpszCopy + i + 1;
+			bNeedFree	= TRUE;
+
+			if(::IsStrEmpty(name))
+				name = addr;
+		}
+	}
+
+	~hp_scope_host()
+	{
+		if(bNeedFree)
+			delete[] addr;
+	}
+
+} HP_SCOPE_HOST, *HP_PSCOPE_HOST;
+
 /* Server 组件和 Agent 组件内部使用的事件处理结果常量 */
 
 // 连接已关闭
@@ -404,7 +449,7 @@ typedef TItemPtrT<TBufferObj>			TBufferObjPtr;
 typedef TItemPtrT<TUdpBufferObj>		TUdpBufferObjPtr;
 
 /* Socket 缓冲区基础结构 */
-struct TSocketObjBase
+struct TSocketObjBase : public CSafeCounter
 {
 	CPrivateHeap& heap;
 
@@ -413,7 +458,6 @@ struct TSocketObjBase
 	PVOID		extra;
 	PVOID		reserved;
 	PVOID		reserved2;
-	BOOL		valid;
 
 	union
 	{
@@ -423,6 +467,7 @@ struct TSocketObjBase
 
 	DWORD		activeTime;
 
+	volatile BOOL	valid;
 	volatile BOOL	smooth;
 	volatile long	pending;
 	volatile long	sndCount;
@@ -437,7 +482,7 @@ struct TSocketObjBase
 		{return pSocketObj != nullptr;}
 
 	static BOOL IsValid(TSocketObjBase* pSocketObj)
-		{return pSocketObj != nullptr && pSocketObj->valid;}
+		{return (IsExist(pSocketObj) && pSocketObj->valid == TRUE);}
 
 	static void Invalid(TSocketObjBase* pSocketObj)
 		{ASSERT(IsExist(pSocketObj)); pSocketObj->valid = FALSE;}
@@ -463,6 +508,8 @@ struct TSocketObjBase
 
 	void Reset(CONNID dwConnID)
 	{
+		ResetCount();
+
 		connID		= dwConnID;
 		connected	= FALSE;
 		valid		= TRUE;
@@ -916,6 +963,23 @@ int NoBlockReceiveFromNotCheck(SOCKET sock, TUdpBufferObj* pBufferObj);
 BOOL SetMultiCastSocketOptions(SOCKET sock, const HP_SOCKADDR& bindAddr, const HP_SOCKADDR& castAddr, int iMCTtl, BOOL bMCLoop);
 
 // CP_XXX -> UNICODE
+BOOL CodePageToUnicodeEx(int iCodePage, const char szSrc[], int iSrcLength, WCHAR szDest[], int& iDestLength);
+// UNICODE -> CP_XXX
+BOOL UnicodeToCodePageEx(int iCodePage, const WCHAR szSrc[], int iSrcLength, char szDest[], int& iDestLength);
+// GBK -> UNICODE
+BOOL GbkToUnicodeEx(const char szSrc[], int iSrcLength, WCHAR szDest[], int& iDestLength);
+// UNICODE -> GBK
+BOOL UnicodeToGbkEx(const WCHAR szSrc[], int iSrcLength, char szDest[], int& iDestLength);
+// UTF8 -> UNICODE
+BOOL Utf8ToUnicodeEx(const char szSrc[], int iSrcLength, WCHAR szDest[], int& iDestLength);
+// UNICODE -> UTF8
+BOOL UnicodeToUtf8Ex(const WCHAR szSrc[], int iSrcLength, char szDest[], int& iDestLength);
+// GBK -> UTF8
+BOOL GbkToUtf8Ex(const char szSrc[], int iSrcLength, char szDest[], int& iDestLength);
+// UTF8 -> GBK
+BOOL Utf8ToGbkEx(const char szSrc[], int iSrcLength, char szDest[], int& iDestLength);
+
+// CP_XXX -> UNICODE
 BOOL CodePageToUnicode(int iCodePage, const char szSrc[], WCHAR szDest[], int& iDestLength);
 // UNICODE -> CP_XXX
 BOOL UnicodeToCodePage(int iCodePage, const WCHAR szSrc[], char szDest[], int& iDestLength);
@@ -950,7 +1014,60 @@ int UrlEncode(BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwDestLen);
 // URL 解码（返回值：0 -> 成功，-3 -> 输入数据不正确，-5 -> 输出缓冲区不足）
 int UrlDecode(BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwDestLen);
 
+/* 销毁压缩器对象 */
+void DestroyCompressor(IHPCompressor* pCompressor);
+/* 销毁解压器对象 */
+void DestroyDecompressor(IHPDecompressor* pDecompressor);
+
 #ifdef _ZLIB_SUPPORT
+
+/* ZLib 压缩器 */
+class CHPZLibCompressor : public IHPCompressor
+{
+public:
+	virtual BOOL Process(const BYTE* pData, int iLength, BOOL bLast, PVOID pContext = nullptr);
+	virtual BOOL ProcessEx(const BYTE* pData, int iLength, BOOL bLast, BOOL bFlush = FALSE, PVOID pContext = nullptr);
+	virtual BOOL IsValid() {return m_bValid;}
+	virtual BOOL Reset();
+
+public:
+	CHPZLibCompressor(Fn_CompressDataCallback fnCallback, int iWindowBits = DEF_WBITS, int iLevel = Z_DEFAULT_COMPRESSION, int iMethod = Z_DEFLATED, int iMemLevel = DEF_MEM_LEVEL, int iStrategy = Z_DEFAULT_STRATEGY, DWORD dwBuffSize = DEFAULT_COMPRESS_BUFFER_SIZE);
+	virtual ~CHPZLibCompressor();
+
+private:
+	Fn_CompressDataCallback m_fnCallback;
+	z_stream m_Stream;
+	BOOL m_bValid;
+	DWORD m_dwBuffSize;
+};
+
+/* ZLib 解压器 */
+class CHPZLibDecompressor : public IHPDecompressor
+{
+public:
+	virtual BOOL Process(const BYTE* pData, int iLength, PVOID pContext = nullptr);
+	virtual BOOL IsValid() {return m_bValid;}
+	virtual BOOL Reset();
+
+public:
+	CHPZLibDecompressor(Fn_DecompressDataCallback fnCallback, int iWindowBits = DEF_WBITS, DWORD dwBuffSize = DEFAULT_COMPRESS_BUFFER_SIZE);
+	virtual ~CHPZLibDecompressor();
+
+private:
+	Fn_DecompressDataCallback m_fnCallback;
+	z_stream m_Stream;
+	BOOL m_bValid;
+	DWORD m_dwBuffSize;
+};
+
+/* 创建 ZLib 压缩器对象 */
+IHPCompressor* CreateZLibCompressor(Fn_CompressDataCallback fnCallback, int iWindowBits = DEF_WBITS, int iLevel = Z_DEFAULT_COMPRESSION, int iMethod = Z_DEFLATED, int iMemLevel = DEF_MEM_LEVEL, int iStrategy = Z_DEFAULT_STRATEGY, DWORD dwBuffSize = DEFAULT_COMPRESS_BUFFER_SIZE);
+/* 创建 GZip 压缩器对象 */
+IHPCompressor* CreateGZipCompressor(Fn_CompressDataCallback fnCallback, int iLevel = Z_DEFAULT_COMPRESSION, int iMethod = Z_DEFLATED, int iMemLevel = DEF_MEM_LEVEL, int iStrategy = Z_DEFAULT_STRATEGY, DWORD dwBuffSize = DEFAULT_COMPRESS_BUFFER_SIZE);
+/* 创建 ZLib 解压器对象 */
+IHPDecompressor* CreateZLibDecompressor(Fn_DecompressDataCallback fnCallback, int iWindowBits = DEF_WBITS, DWORD dwBuffSize = DEFAULT_COMPRESS_BUFFER_SIZE);
+/* 创建 GZip 解压器对象 */
+IHPDecompressor* CreateGZipDecompressor(Fn_DecompressDataCallback fnCallback, DWORD dwBuffSize = DEFAULT_COMPRESS_BUFFER_SIZE);
 
 // 普通压缩（返回值：0 -> 成功，-3 -> 输入数据不正确，-5 -> 输出缓冲区不足）
 int Compress(const BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwDestLen);
@@ -974,10 +1091,58 @@ DWORD GZipGuessUncompressBound(const BYTE* lpszSrc, DWORD dwSrcLen);
 
 #ifdef _BROTLI_SUPPORT
 
+/* Brotli 压缩器 */
+class CHPBrotliCompressor : public IHPCompressor
+{
+public:
+	virtual BOOL Process(const BYTE* pData, int iLength, BOOL bLast, PVOID pContext = nullptr);
+	virtual BOOL ProcessEx(const BYTE* pData, int iLength, BOOL bLast, BOOL bFlush = FALSE, PVOID pContext = nullptr);
+	virtual BOOL IsValid() {return m_bValid;}
+	virtual BOOL Reset();
+
+public:
+	CHPBrotliCompressor(Fn_CompressDataCallback fnCallback, int iQuality = BROTLI_DEFAULT_QUALITY, int iWindow = BROTLI_DEFAULT_WINDOW, int iMode = BROTLI_DEFAULT_MODE, DWORD dwBuffSize = DEFAULT_COMPRESS_BUFFER_SIZE);
+	virtual ~CHPBrotliCompressor();
+
+private:
+	Fn_CompressDataCallback m_fnCallback;
+	BrotliEncoderState* m_pState;
+	BOOL m_bValid;
+
+	int m_iQuality;
+	int m_iWindow;
+	int m_iMode;
+	DWORD m_dwBuffSize;
+};
+
+/* Brotli 解压器 */
+class CHPBrotliDecompressor : public IHPDecompressor
+{
+public:
+	virtual BOOL Process(const BYTE* pData, int iLength, PVOID pContext = nullptr);
+	virtual BOOL IsValid() {return m_bValid;}
+	virtual BOOL Reset();
+
+public:
+	CHPBrotliDecompressor(Fn_DecompressDataCallback fnCallback, DWORD dwBuffSize = DEFAULT_COMPRESS_BUFFER_SIZE);
+	virtual ~CHPBrotliDecompressor();
+
+private:
+	Fn_DecompressDataCallback m_fnCallback;
+	BrotliDecoderState* m_pState;
+	BOOL m_bValid;
+	DWORD m_dwBuffSize;
+};
+
+/* 创建 Brotli 压缩器对象 */
+IHPCompressor* CreateBrotliCompressor(Fn_CompressDataCallback fnCallback, int iQuality = BROTLI_DEFAULT_QUALITY, int iWindow = BROTLI_DEFAULT_WINDOW, int iMode = BROTLI_DEFAULT_MODE, DWORD dwBuffSize = DEFAULT_COMPRESS_BUFFER_SIZE);
+/* 创建 Brotli 解压器对象 */
+IHPDecompressor* CreateBrotliDecompressor(Fn_DecompressDataCallback fnCallback, DWORD dwBuffSize = DEFAULT_COMPRESS_BUFFER_SIZE);
+
 // Brotli 压缩（返回值：0 -> 成功，-3 -> 输入数据不正确，-5 -> 输出缓冲区不足）
 int BrotliCompress(const BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwDestLen);
 // Brotli 高级压缩（返回值：0 -> 成功，-3 -> 输入数据不正确，-5 -> 输出缓冲区不足）
-int BrotliCompressEx(const BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwDestLen, int iQuality = BROTLI_DEFAULT_QUALITY, int iWindow = BROTLI_DEFAULT_WINDOW, BrotliEncoderMode enMode = BROTLI_DEFAULT_MODE);
+int BrotliCompressEx(const BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwDestLen, int iQuality = BROTLI_DEFAULT_QUALITY, int iWindow = BROTLI_DEFAULT_WINDOW, int iMode = BROTLI_DEFAULT_MODE);
 // Brotli 解压（返回值：0 -> 成功，-3 -> 输入数据不正确，-5 -> 输出缓冲区不足）
 int BrotliUncompress(const BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwDestLen);
 // Brotli 推测压缩结果长度

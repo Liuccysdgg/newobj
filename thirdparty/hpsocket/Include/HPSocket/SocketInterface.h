@@ -36,7 +36,7 @@
 描述：定义双接口转换方法
 ************************************************************************/
 
-#if 0
+#if FALSE
 
 #define __DUAL_VPTR_GAP__	sizeof(PVOID)
 
@@ -996,7 +996,7 @@ public:
 	* 
 	* 返回值：无
 	*/
-	virtual void CleanupSSLContext()					= 0;
+	virtual void CleanupSSLContext()		= 0;
 
 	/*
 	* 名称：启动 SSL 握手
@@ -1005,7 +1005,7 @@ public:
 	* 返回值：	TRUE	-- 成功
 	*			FALSE	-- 失败，可通过 SYS_GetLastError() 获取失败原因
 	*/
-	virtual BOOL StartSSLHandShake()					= 0;
+	virtual BOOL StartSSLHandShake()		= 0;
 
 #endif
 
@@ -2115,7 +2115,7 @@ public:
 	* 返回值：	TRUE			-- 成功
 	*			FALSE			-- 失败
 	*/
-	virtual BOOL SendRequest(CONNID dwConnID, LPCSTR lpszMethod, LPCSTR lpszPath, const THeader lpHeaders[] = nullptr, int iHeaderCount = 0, const BYTE* pBody = nullptr, int iLength = 0)				= 0;
+	virtual BOOL SendRequest(CONNID dwConnID, LPCSTR lpszMethod, LPCSTR lpszPath, const THeader lpHeaders[] = nullptr, int iHeaderCount = 0, const BYTE* pBody = nullptr, int iLength = 0)	= 0;
 
 	/*
 	* 名称：发送本地文件
@@ -3012,4 +3012,96 @@ public:
 	virtual void OnShutdown(IHPThreadPool* pThreadPool)								{}
 	virtual void OnWorkerThreadStart(IHPThreadPool* pThreadPool, THR_ID dwThreadID)	{}
 	virtual void OnWorkerThreadEnd(IHPThreadPool* pThreadPool, THR_ID dwThreadID)	{}
+};
+
+/************************************************************************
+名称：压缩器接口
+描述：定义压缩器的所有操作方法和属性访问方法
+************************************************************************/
+class IHPCompressor
+{
+public:
+
+	/***********************************************************************/
+	/***************************** 组件操作方法 *****************************/
+
+	/*
+	* 名称：执行压缩
+	* 描述：可循环调用以压缩流式或分段数据
+	*		
+	* 参数：		pData		-- 待压缩数据缓冲区
+	*			iLength		-- 待压缩数据长度
+	*			bLast		-- 是否最后一段待压缩数据
+	*			pContext	-- 压缩回调函数 Fn_CompressDataCallback 的上下文参数
+	*
+	* 返回值：	TRUE	-- 成功
+	*			FALSE	-- 失败，可通过 SYS_GetLastError() 获取错误代码
+	*/
+	virtual BOOL Process(const BYTE* pData, int iLength, BOOL bLast, PVOID pContext = nullptr)	= 0;
+
+	/*
+	* 名称：执行压缩
+	* 描述：可循环调用以压缩流式或分段数据
+	*		
+	* 参数：		pData		-- 待压缩数据缓冲区
+	*			iLength		-- 待压缩数据长度
+	*			bLast		-- 是否最后一段待压缩数据
+	*			bFlush		-- 是否强制刷新（强制刷新会降低压缩效率，但可对数据进行分段压缩）
+	*			pContext	-- 压缩回调函数 Fn_CompressDataCallback 的上下文参数
+	*
+	* 返回值：	TRUE	-- 成功
+	*			FALSE	-- 失败，可通过 SYS_GetLastError() 获取错误代码
+	*/
+	virtual BOOL ProcessEx(const BYTE* pData, int iLength, BOOL bLast, BOOL bFlush = FALSE, PVOID pContext = nullptr)	= 0;
+
+	/* 重置压缩器 */
+	virtual BOOL Reset()																		= 0;
+
+	/***********************************************************************/
+	/***************************** 属性访问方法 *****************************/
+
+	/* 检测压缩器是否可用 */
+	virtual BOOL IsValid()																		= 0;
+
+public:
+	virtual ~IHPCompressor() {};
+};
+
+/************************************************************************
+名称：解压器接口
+描述：定义解压器的所有操作方法和属性访问方法
+************************************************************************/
+class IHPDecompressor
+{
+public:
+
+	/***********************************************************************/
+	/***************************** 组件操作方法 *****************************/
+
+	/*
+	* 名称：执行解压
+	* 描述：可循环调用以解压流式或分段数据
+	*		
+	* 参数：		pData		-- 待解压数据缓冲区
+	*			iLength		-- 待解压数据长度
+	*			pContext	-- 解压回调函数 Fn_DecompressDataCallback 的上下文参数
+	*
+	* 返回值：	TRUE	-- 成功
+	*			FALSE	-- 失败，可通过 SYS_GetLastError() 获取错误代码
+	*/
+	virtual BOOL Process(const BYTE* pData, int iLength, PVOID pContext = nullptr)	= 0;
+
+	/* 重置解压器 */
+	virtual BOOL Reset()															= 0;
+
+public:
+
+	/***********************************************************************/
+	/***************************** 属性访问方法 *****************************/
+
+	/* 检测解压器是否可用 */
+	virtual BOOL IsValid()															= 0;
+
+public:
+	virtual ~IHPDecompressor() {};
 };

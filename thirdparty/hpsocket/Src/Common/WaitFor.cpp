@@ -27,6 +27,8 @@
 #include "CriticalSection.h"
 
 #include <MmSystem.h>
+#pragma comment(lib, "Winmm")
+
 static CEvt _s_evWait;
 
 DWORD TimeGetTime()

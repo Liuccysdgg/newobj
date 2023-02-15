@@ -436,10 +436,13 @@
 	#pragma comment(linker, "/EXPORT:SYS_Base64Decode=_SYS_Base64Decode@16")
 	#pragma comment(linker, "/EXPORT:SYS_Base64Encode=_SYS_Base64Encode@16")
 	#pragma comment(linker, "/EXPORT:SYS_CodePageToUnicode=_SYS_CodePageToUnicode@16")
+	#pragma comment(linker, "/EXPORT:SYS_CodePageToUnicodeEx=_SYS_CodePageToUnicodeEx@20")
 	#pragma comment(linker, "/EXPORT:SYS_EnumHostIPAddresses=_SYS_EnumHostIPAddresses@16")
 	#pragma comment(linker, "/EXPORT:SYS_FreeHostIPAddresses=_SYS_FreeHostIPAddresses@4")
 	#pragma comment(linker, "/EXPORT:SYS_GbkToUnicode=_SYS_GbkToUnicode@12")
+	#pragma comment(linker, "/EXPORT:SYS_GbkToUnicodeEx=_SYS_GbkToUnicodeEx@16")
 	#pragma comment(linker, "/EXPORT:SYS_GbkToUtf8=_SYS_GbkToUtf8@12")
+	#pragma comment(linker, "/EXPORT:SYS_GbkToUtf8Ex=_SYS_GbkToUtf8Ex@16")
 	#pragma comment(linker, "/EXPORT:SYS_GetIPAddress=_SYS_GetIPAddress@16")
 	#pragma comment(linker, "/EXPORT:SYS_GetLastError=_SYS_GetLastError@0")
 	#pragma comment(linker, "/EXPORT:SYS_GetSocketLocalAddress=_SYS_GetSocketLocalAddress@16")
@@ -467,12 +470,17 @@
 	#pragma comment(linker, "/EXPORT:SYS_SSO_SendTimeOut=_SYS_SSO_SendTimeOut@8")
 	#pragma comment(linker, "/EXPORT:SYS_SetSocketOption=_SYS_SetSocketOption@20")
 	#pragma comment(linker, "/EXPORT:SYS_UnicodeToCodePage=_SYS_UnicodeToCodePage@16")
+	#pragma comment(linker, "/EXPORT:SYS_UnicodeToCodePageEx=_SYS_UnicodeToCodePageEx@20")
 	#pragma comment(linker, "/EXPORT:SYS_UnicodeToGbk=_SYS_UnicodeToGbk@12")
+	#pragma comment(linker, "/EXPORT:SYS_UnicodeToGbkEx=_SYS_UnicodeToGbkEx@16")
 	#pragma comment(linker, "/EXPORT:SYS_UnicodeToUtf8=_SYS_UnicodeToUtf8@12")
+	#pragma comment(linker, "/EXPORT:SYS_UnicodeToUtf8Ex=_SYS_UnicodeToUtf8Ex@16")
 	#pragma comment(linker, "/EXPORT:SYS_UrlDecode=_SYS_UrlDecode@16")
 	#pragma comment(linker, "/EXPORT:SYS_UrlEncode=_SYS_UrlEncode@16")
 	#pragma comment(linker, "/EXPORT:SYS_Utf8ToGbk=_SYS_Utf8ToGbk@12")
+	#pragma comment(linker, "/EXPORT:SYS_Utf8ToGbkEx=_SYS_Utf8ToGbkEx@16")
 	#pragma comment(linker, "/EXPORT:SYS_Utf8ToUnicode=_SYS_Utf8ToUnicode@12")
+	#pragma comment(linker, "/EXPORT:SYS_Utf8ToUnicodeEx=_SYS_Utf8ToUnicodeEx@16")
 	#pragma comment(linker, "/EXPORT:SYS_WSAGetLastError=_SYS_WSAGetLastError@0")
 	#pragma comment(linker, "/EXPORT:SYS_WSAIoctl=_SYS_WSAIoctl@28")
 	#pragma comment(linker, "/EXPORT:SYS_Malloc=_SYS_Malloc@4")
@@ -725,6 +733,34 @@
 	#pragma comment(linker, "/EXPORT:HP_ThreadPool_GetThreadCount=_HP_ThreadPool_GetThreadCount@4")
 	#pragma comment(linker, "/EXPORT:HP_ThreadPool_GetMaxQueueSize=_HP_ThreadPool_GetMaxQueueSize@4")
 	#pragma comment(linker, "/EXPORT:HP_ThreadPool_GetRejectedPolicy=_HP_ThreadPool_GetRejectedPolicy@4")
+
+	#pragma comment(linker, "/EXPORT:Destroy_HP_Compressor=_Destroy_HP_Compressor@4")
+	#pragma comment(linker, "/EXPORT:Destroy_HP_Decompressor=_Destroy_HP_Decompressor@4")
+	#pragma comment(linker, "/EXPORT:HP_Compressor_Process=_HP_Compressor_Process@20")
+	#pragma comment(linker, "/EXPORT:HP_Compressor_ProcessEx=_HP_Compressor_ProcessEx@24")
+	#pragma comment(linker, "/EXPORT:HP_Compressor_Reset=_HP_Compressor_Reset@4")
+	#pragma comment(linker, "/EXPORT:HP_Compressor_IsValid=_HP_Compressor_IsValid@4")
+	#pragma comment(linker, "/EXPORT:HP_Decompressor_Process=_HP_Decompressor_Process@16")
+	#pragma comment(linker, "/EXPORT:HP_Decompressor_Reset=_HP_Decompressor_Reset@4")
+	#pragma comment(linker, "/EXPORT:HP_Decompressor_IsValid=_HP_Decompressor_IsValid@4")
+
+#ifdef _ZLIB_SUPPORT
+	#pragma comment(linker, "/EXPORT:Create_HP_ZLibCompressor=_Create_HP_ZLibCompressor@4")
+	#pragma comment(linker, "/EXPORT:Create_HP_ZLibCompressorEx=_Create_HP_ZLibCompressorEx@28")
+	#pragma comment(linker, "/EXPORT:Create_HP_GZipCompressor=_Create_HP_GZipCompressor@4")
+	#pragma comment(linker, "/EXPORT:Create_HP_GZipCompressorEx=_Create_HP_GZipCompressorEx@24")
+	#pragma comment(linker, "/EXPORT:Create_HP_ZLibDecompressor=_Create_HP_ZLibDecompressor@4")
+	#pragma comment(linker, "/EXPORT:Create_HP_ZLibDecompressorEx=_Create_HP_ZLibDecompressorEx@12")
+	#pragma comment(linker, "/EXPORT:Create_HP_GZipDecompressor=_Create_HP_GZipDecompressor@4")
+	#pragma comment(linker, "/EXPORT:Create_HP_GZipDecompressorEx=_Create_HP_GZipDecompressorEx@8")
+#endif
+
+#ifdef _BROTLI_SUPPORT
+	#pragma comment(linker, "/EXPORT:Create_HP_BrotliCompressor=_Create_HP_BrotliCompressor@4")
+	#pragma comment(linker, "/EXPORT:Create_HP_BrotliCompressorEx=_Create_HP_BrotliCompressorEx@20")
+	#pragma comment(linker, "/EXPORT:Create_HP_BrotliDecompressor=_Create_HP_BrotliDecompressor@4")
+	#pragma comment(linker, "/EXPORT:Create_HP_BrotliDecompressorEx=_Create_HP_BrotliDecompressorEx@8")
+#endif
 
 #endif
 
@@ -2785,7 +2821,7 @@ HPSOCKET_API int __HP_CALL SYS_GetSocketOption(SOCKET sock, int level, int name,
 	return ::SSO_GetSocketOption(sock, level, name, val, len);
 }
 
-HPSOCKET_API int __HP_CALL SYS_IoctlSocket(SOCKET sock, long cmd, u_long* arg)
+HPSOCKET_API int __HP_CALL SYS_IoctlSocket(SOCKET sock, long cmd, ULONG* arg)
 {
 	return ::SSO_IoctlSocket(sock, cmd, arg);
 }
@@ -2918,6 +2954,46 @@ HPSOCKET_API LPVOID __HP_CALL SYS_Calloc(int number, int size)
 HPSOCKET_API LPBYTE __HP_CALL SYS_Alloca(int size)
 {
 	return CreateLocalObjects(BYTE, size);
+}
+
+HPSOCKET_API BOOL __HP_CALL SYS_CodePageToUnicodeEx(int iCodePage, const char szSrc[], int iSrcLength, WCHAR szDest[], int* piDestLength)
+{
+	return ::CodePageToUnicodeEx(iCodePage, szSrc, iSrcLength, szDest, *piDestLength);
+}
+
+HPSOCKET_API BOOL __HP_CALL SYS_UnicodeToCodePageEx(int iCodePage, const WCHAR szSrc[], int iSrcLength, char szDest[], int* piDestLength)
+{
+	return ::UnicodeToCodePageEx(iCodePage, szSrc, iSrcLength, szDest, *piDestLength);
+}
+
+HPSOCKET_API BOOL __HP_CALL SYS_GbkToUnicodeEx(const char szSrc[], int iSrcLength, WCHAR szDest[], int* piDestLength)
+{
+	return ::GbkToUnicodeEx(szSrc, iSrcLength, szDest, *piDestLength);
+}
+
+HPSOCKET_API BOOL __HP_CALL SYS_UnicodeToGbkEx(const WCHAR szSrc[], int iSrcLength, char szDest[], int* piDestLength)
+{
+	return ::UnicodeToGbkEx(szSrc, iSrcLength, szDest, *piDestLength);
+}
+
+HPSOCKET_API BOOL __HP_CALL SYS_Utf8ToUnicodeEx(const char szSrc[], int iSrcLength, WCHAR szDest[], int* piDestLength)
+{
+	return ::Utf8ToUnicodeEx(szSrc, iSrcLength, szDest, *piDestLength);
+}
+
+HPSOCKET_API BOOL __HP_CALL SYS_UnicodeToUtf8Ex(const WCHAR szSrc[], int iSrcLength, char szDest[], int* piDestLength)
+{
+	return ::UnicodeToUtf8Ex(szSrc, iSrcLength, szDest, *piDestLength);
+}
+
+HPSOCKET_API BOOL __HP_CALL SYS_GbkToUtf8Ex(const char szSrc[], int iSrcLength, char szDest[], int* piDestLength)
+{
+	return ::GbkToUtf8Ex(szSrc, iSrcLength, szDest, *piDestLength);
+}
+
+HPSOCKET_API BOOL __HP_CALL SYS_Utf8ToGbkEx(const char szSrc[], int iSrcLength, char szDest[], int* piDestLength)
+{
+	return ::Utf8ToGbkEx(szSrc, iSrcLength, szDest, *piDestLength);
 }
 
 HPSOCKET_API BOOL __HP_CALL SYS_CodePageToUnicode(int iCodePage, const char szSrc[], WCHAR szDest[], int* piDestLength)
@@ -3053,7 +3129,7 @@ HPSOCKET_API int __HP_CALL SYS_BrotliCompress(const BYTE* lpszSrc, DWORD dwSrcLe
 
 HPSOCKET_API int __HP_CALL SYS_BrotliCompressEx(const BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD* pdwDestLen, int iQuality, int iWindow, int iMode)
 {
-	return ::BrotliCompressEx(lpszSrc, dwSrcLen, lpszDest, *pdwDestLen, iQuality, iWindow , (BrotliEncoderMode)iMode);
+	return ::BrotliCompressEx(lpszSrc, dwSrcLen, lpszDest, *pdwDestLen, iQuality, iWindow , iMode);
 }
 
 HPSOCKET_API int __HP_CALL SYS_BrotliUncompress(const BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD* pdwDestLen)
@@ -4254,4 +4330,130 @@ HPSOCKET_API DWORD __HP_CALL HP_ThreadPool_GetMaxQueueSize(HP_ThreadPool pThread
 HPSOCKET_API En_HP_RejectedPolicy __HP_CALL HP_ThreadPool_GetRejectedPolicy(HP_ThreadPool pThreadPool)
 {
 	return ((IHPThreadPool*)pThreadPool)->GetRejectedPolicy();
+}
+
+/*****************************************************************************************************************************************************/
+/********************************************************* Compressor / Decompressor Exports *********************************************************/
+/*****************************************************************************************************************************************************/
+
+/****************************************************/
+/******************* 对象创建函数 ********************/
+
+HPSOCKET_API void __HP_CALL Destroy_HP_Compressor(HP_Compressor pCompressor)
+{
+	::DestroyCompressor((IHPCompressor*)pCompressor);
+}
+
+HPSOCKET_API void __HP_CALL Destroy_HP_Decompressor(HP_Decompressor pDecompressor)
+{
+	::DestroyDecompressor((IHPDecompressor*)pDecompressor);
+}
+
+#ifdef _ZLIB_SUPPORT
+
+HPSOCKET_API HP_Compressor __HP_CALL Create_HP_ZLibCompressor(HP_Fn_CompressDataCallback fnCallback)
+{
+	return ::CreateZLibCompressor(fnCallback);
+}
+
+HPSOCKET_API HP_Compressor __HP_CALL Create_HP_ZLibCompressorEx(HP_Fn_CompressDataCallback fnCallback, int iWindowBits, int iLevel, int iMethod, int iMemLevel, int iStrategy, DWORD dwBuffSize)
+{
+	return ::CreateZLibCompressor(fnCallback, iWindowBits, iLevel, iMethod, iMemLevel, iStrategy, dwBuffSize);
+}
+
+HPSOCKET_API HP_Compressor __HP_CALL Create_HP_GZipCompressor(HP_Fn_CompressDataCallback fnCallback)
+{
+	return ::CreateGZipCompressor(fnCallback);
+}
+
+HPSOCKET_API HP_Compressor __HP_CALL Create_HP_GZipCompressorEx(HP_Fn_CompressDataCallback fnCallback, int iLevel, int iMethod, int iMemLevel, int iStrategy, DWORD dwBuffSize)
+{
+	return ::CreateGZipCompressor(fnCallback, iLevel, iMethod, iMemLevel, iStrategy, dwBuffSize);
+}
+
+HPSOCKET_API HP_Decompressor __HP_CALL Create_HP_ZLibDecompressor(HP_Fn_DecompressDataCallback fnCallback)
+{
+	return ::CreateZLibDecompressor(fnCallback);
+}
+
+HPSOCKET_API HP_Decompressor __HP_CALL Create_HP_ZLibDecompressorEx(HP_Fn_DecompressDataCallback fnCallback, int iWindowBits, DWORD dwBuffSize)
+{
+	return ::CreateZLibDecompressor(fnCallback, iWindowBits, dwBuffSize);
+}
+
+HPSOCKET_API HP_Decompressor __HP_CALL Create_HP_GZipDecompressor(HP_Fn_DecompressDataCallback fnCallback)
+{
+	return ::CreateGZipDecompressor(fnCallback);
+}
+
+HPSOCKET_API HP_Decompressor __HP_CALL Create_HP_GZipDecompressorEx(HP_Fn_DecompressDataCallback fnCallback, DWORD dwBuffSize)
+{
+	return ::CreateGZipDecompressor(fnCallback, dwBuffSize);
+}
+
+#endif
+
+#ifdef _BROTLI_SUPPORT
+
+HPSOCKET_API HP_Compressor __HP_CALL Create_HP_BrotliCompressor(HP_Fn_CompressDataCallback fnCallback)
+{
+	return ::CreateBrotliCompressor(fnCallback);
+}
+
+HPSOCKET_API HP_Compressor __HP_CALL Create_HP_BrotliCompressorEx(HP_Fn_CompressDataCallback fnCallback, int iQuality, int iWindow, int iMode, DWORD dwBuffSize)
+{
+	return ::CreateBrotliCompressor(fnCallback, iQuality, iWindow, iMode, dwBuffSize);
+}
+
+HPSOCKET_API HP_Decompressor __HP_CALL Create_HP_BrotliDecompressor(HP_Fn_DecompressDataCallback fnCallback)
+{
+	return ::CreateBrotliDecompressor(fnCallback);
+}
+
+HPSOCKET_API HP_Decompressor __HP_CALL Create_HP_BrotliDecompressorEx(HP_Fn_DecompressDataCallback fnCallback, DWORD dwBuffSize)
+{
+	return ::CreateBrotliDecompressor(fnCallback, dwBuffSize);
+}
+
+#endif
+
+/***********************************************************************/
+/***************************** 组件操作方法 *****************************/
+
+HPSOCKET_API BOOL __HP_CALL HP_Compressor_Process(HP_Compressor pCompressor, const BYTE* pData, int iLength, BOOL bLast, PVOID pContext)
+{
+	return ((IHPCompressor*)pCompressor)->Process(pData, iLength, bLast, pContext);
+}
+
+HPSOCKET_API BOOL __HP_CALL HP_Compressor_ProcessEx(HP_Compressor pCompressor, const BYTE* pData, int iLength, BOOL bLast, BOOL bFlush, PVOID pContext)
+{
+	return ((IHPCompressor*)pCompressor)->ProcessEx(pData, iLength, bLast, bFlush, pContext);
+}
+
+HPSOCKET_API BOOL __HP_CALL HP_Compressor_Reset(HP_Compressor pCompressor)
+{
+	return ((IHPCompressor*)pCompressor)->Reset();
+}
+
+HPSOCKET_API BOOL __HP_CALL HP_Decompressor_Process(HP_Decompressor pDecompressor, const BYTE* pData, int iLength, PVOID pContext)
+{
+	return ((IHPDecompressor*)pDecompressor)->Process(pData, iLength, pContext);
+}
+
+HPSOCKET_API BOOL __HP_CALL HP_Decompressor_Reset(HP_Decompressor pDecompressor)
+{
+	return ((IHPDecompressor*)pDecompressor)->Reset();
+}
+
+/***********************************************************************/
+/***************************** 属性访问方法 *****************************/
+
+HPSOCKET_API BOOL __HP_CALL HP_Compressor_IsValid(HP_Compressor pCompressor)
+{
+	return ((IHPCompressor*)pCompressor)->IsValid();
+}
+
+HPSOCKET_API BOOL __HP_CALL HP_Decompressor_IsValid(HP_Decompressor pDecompressor)
+{
+	return ((IHPDecompressor*)pDecompressor)->IsValid();
 }

@@ -102,6 +102,10 @@
 /* TCP Pack 包头默认标识值 */
 #define TCP_PACK_DEFAULT_HEADER_FLAG			0x000000
 
+/* 默认压缩/解压数据缓冲器长度 */
+#define DEFAULT_COMPRESS_BUFFER_SIZE			(16 * 1024)
+
+#define HOST_SEPARATOR_CHAR						'^'
 #define PORT_SEPARATOR_CHAR						':'
 #define IPV6_ADDR_BEGIN_CHAR					'['
 #define IPV6_ADDR_END_CHAR						']'

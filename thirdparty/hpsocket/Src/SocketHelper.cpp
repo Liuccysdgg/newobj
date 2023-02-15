@@ -27,6 +27,8 @@
 #include "SocketHelper.h"
 
 #include <mstcpip.h>
+#pragma comment(lib, "ws2_32")
+
 #if !defined(stscanf_s)
 	#ifdef _UNICODE
 		#define stscanf_s	swscanf_s
@@ -865,6 +867,7 @@ int PostSendNotCheck(TSocketObj* pSocketObj, TBufferObj* pBufferObj)
 	pBufferObj->operation	= SO_SEND;
 
 	pBufferObj->ResetSendCounter();
+	pSocketObj->Increment();
 
 	if(::WSASend(
 					pBufferObj->client,
@@ -877,6 +880,9 @@ int PostSendNotCheck(TSocketObj* pSocketObj, TBufferObj* pBufferObj)
 				) == SOCKET_ERROR)
 	{
 		result = ::WSAGetLastError();
+
+		if(result != WSA_IO_PENDING)
+			pSocketObj->Decrement();
 	}
 
 	return result;
@@ -900,6 +906,8 @@ int PostReceiveNotCheck(TSocketObj* pSocketObj, TBufferObj* pBufferObj)
 	pBufferObj->client		= pSocketObj->socket;
 	pBufferObj->operation	= SO_RECEIVE;
 
+	pSocketObj->Increment();
+
 	if(::WSARecv(
 					pBufferObj->client,
 					&pBufferObj->buff,
@@ -911,6 +919,9 @@ int PostReceiveNotCheck(TSocketObj* pSocketObj, TBufferObj* pBufferObj)
 				) == SOCKET_ERROR)
 	{
 		result = ::WSAGetLastError();
+
+		if(result != WSA_IO_PENDING)
+			pSocketObj->Decrement();
 	}
 
 	return result;
@@ -1148,11 +1159,11 @@ LPCTSTR GetSocketErrorDesc(EnSocketError enCode)
 	}
 }
 
-BOOL CodePageToUnicode(int iCodePage, const char szSrc[], WCHAR szDest[], int& iDestLength)
+BOOL CodePageToUnicodeEx(int iCodePage, const char szSrc[], int iSrcLength, WCHAR szDest[], int& iDestLength)
 {
 	ASSERT(szSrc);
 
-	int iSize = ::MultiByteToWideChar(iCodePage, 0, szSrc, -1, nullptr, 0);
+	int iSize = ::MultiByteToWideChar(iCodePage, 0, szSrc, iSrcLength, nullptr, 0);
 
 	if(iSize == 0 || iSize > iDestLength || !szDest || iDestLength == 0)
 	{
@@ -1160,86 +1171,126 @@ BOOL CodePageToUnicode(int iCodePage, const char szSrc[], WCHAR szDest[], int& i
 		return FALSE;
 	}
 
-	if(::MultiByteToWideChar(iCodePage, 0, szSrc, -1, szDest, iSize) != 0)
+	if(::MultiByteToWideChar(iCodePage, 0, szSrc, iSrcLength, szDest, iSize) != 0)
 		iDestLength = iSize;
 	else
 		iDestLength = 0;
 
 	return iDestLength != 0;
+}
+
+BOOL UnicodeToCodePageEx(int iCodePage, const WCHAR szSrc[], int iSrcLength, char szDest[], int& iDestLength)
+{
+	ASSERT(szSrc);
+
+	int iSize = ::WideCharToMultiByte(iCodePage, 0, szSrc, iSrcLength, nullptr, 0, nullptr, nullptr);
+
+	if(iSize == 0 || iSize > iDestLength || !szDest || iDestLength == 0)
+	{
+		iDestLength = iSize;
+		return FALSE;
+	}
+
+	if(::WideCharToMultiByte(iCodePage, 0, szSrc, iSrcLength, szDest, iSize, nullptr, nullptr) != 0)
+		iDestLength = iSize;
+	else
+		iDestLength = 0;
+
+	return iDestLength != 0;
+}
+
+BOOL GbkToUnicodeEx(const char szSrc[], int iSrcLength, WCHAR szDest[], int& iDestLength)
+{
+	return CodePageToUnicodeEx(CP_ACP, szSrc, iSrcLength, szDest, iDestLength);
+}
+
+BOOL UnicodeToGbkEx(const WCHAR szSrc[], int iSrcLength, char szDest[], int& iDestLength)
+{
+	return UnicodeToCodePageEx(CP_ACP, szSrc, iSrcLength, szDest, iDestLength);
+}
+
+BOOL Utf8ToUnicodeEx(const char szSrc[], int iSrcLength, WCHAR szDest[], int& iDestLength)
+{
+	return CodePageToUnicodeEx(CP_UTF8, szSrc, iSrcLength, szDest, iDestLength);
+}
+
+BOOL UnicodeToUtf8Ex(const WCHAR szSrc[], int iSrcLength, char szDest[], int& iDestLength)
+{
+	return UnicodeToCodePageEx(CP_UTF8, szSrc, iSrcLength, szDest, iDestLength);
+}
+
+BOOL GbkToUtf8Ex(const char szSrc[], int iSrcLength, char szDest[], int& iDestLength)
+{
+	int iMiddleLength = 0;
+	GbkToUnicodeEx(szSrc, iSrcLength, nullptr, iMiddleLength);
+
+	if(iMiddleLength == 0)
+	{
+		iDestLength = 0;
+		return FALSE;
+	}
+
+	unique_ptr<WCHAR[]> p(new WCHAR[iMiddleLength]);
+	ENSURE(GbkToUnicodeEx(szSrc, iSrcLength, p.get(), iMiddleLength));
+
+	return UnicodeToUtf8Ex(p.get(), iMiddleLength, szDest, iDestLength);
+}
+
+BOOL Utf8ToGbkEx(const char szSrc[], int iSrcLength, char szDest[], int& iDestLength)
+{
+	int iMiddleLength = 0;
+	Utf8ToUnicodeEx(szSrc, iSrcLength, nullptr, iMiddleLength);
+
+	if(iMiddleLength == 0)
+	{
+		iDestLength = 0;
+		return FALSE;
+	}
+
+	unique_ptr<WCHAR[]> p(new WCHAR[iMiddleLength]);
+	ENSURE(Utf8ToUnicodeEx(szSrc, iSrcLength, p.get(), iMiddleLength));
+
+	return UnicodeToGbkEx(p.get(), iMiddleLength, szDest, iDestLength);
+}
+
+BOOL CodePageToUnicode(int iCodePage, const char szSrc[], WCHAR szDest[], int& iDestLength)
+{
+	return CodePageToUnicodeEx(iCodePage, szSrc, -1, szDest, iDestLength);
 }
 
 BOOL UnicodeToCodePage(int iCodePage, const WCHAR szSrc[], char szDest[], int& iDestLength)
 {
-	ASSERT(szSrc);
-
-	int iSize = ::WideCharToMultiByte(iCodePage, 0, szSrc, -1, nullptr, 0, nullptr, nullptr);
-
-	if(iSize == 0 || iSize > iDestLength || !szDest || iDestLength == 0)
-	{
-		iDestLength = iSize;
-		return FALSE;
-	}
-
-	if(::WideCharToMultiByte(iCodePage, 0, szSrc, -1, szDest, iSize, nullptr, nullptr) != 0)
-		iDestLength = iSize;
-	else
-		iDestLength = 0;
-
-	return iDestLength != 0;
+	return UnicodeToCodePageEx(iCodePage, szSrc, -1, szDest, iDestLength);
 }
 
 BOOL GbkToUnicode(const char szSrc[], WCHAR szDest[], int& iDestLength)
 {
-	return CodePageToUnicode(CP_ACP, szSrc, szDest, iDestLength);
+	return GbkToUnicodeEx(szSrc, -1, szDest, iDestLength);
 }
 
 BOOL UnicodeToGbk(const WCHAR szSrc[], char szDest[], int& iDestLength)
 {
-	return UnicodeToCodePage(CP_ACP, szSrc, szDest, iDestLength);
+	return UnicodeToGbkEx(szSrc, -1, szDest, iDestLength);
 }
 
 BOOL Utf8ToUnicode(const char szSrc[], WCHAR szDest[], int& iDestLength)
 {
-	return CodePageToUnicode(CP_UTF8, szSrc, szDest, iDestLength);
+	return Utf8ToUnicodeEx(szSrc, -1, szDest, iDestLength);
 }
 
 BOOL UnicodeToUtf8(const WCHAR szSrc[], char szDest[], int& iDestLength)
 {
-	return UnicodeToCodePage(CP_UTF8, szSrc, szDest, iDestLength);
+	return UnicodeToUtf8Ex(szSrc, -1, szDest, iDestLength);
 }
 
 BOOL GbkToUtf8(const char szSrc[], char szDest[], int& iDestLength)
 {
-	int iMiddleLength = 0;
-	GbkToUnicode(szSrc, nullptr, iMiddleLength);
-
-	if(iMiddleLength == 0)
-	{
-		iDestLength = 0;
-		return FALSE;
-	}
-
-	unique_ptr<WCHAR[]> p(new WCHAR[iMiddleLength]);
-	ENSURE(GbkToUnicode(szSrc, p.get(), iMiddleLength));
-
-	return UnicodeToUtf8(p.get(), szDest, iDestLength);
+	return GbkToUtf8Ex(szSrc, -1, szDest, iDestLength);
 }
 
 BOOL Utf8ToGbk(const char szSrc[], char szDest[], int& iDestLength)
 {
-	int iMiddleLength = 0;
-	Utf8ToUnicode(szSrc, nullptr, iMiddleLength);
-
-	if(iMiddleLength == 0)
-	{
-		iDestLength = 0;
-		return FALSE;
-	}
-
-	unique_ptr<WCHAR[]> p(new WCHAR[iMiddleLength]);
-	ENSURE(Utf8ToUnicode(szSrc, p.get(), iMiddleLength));
-
-	return UnicodeToGbk(p.get(), szDest, iDestLength);
+	return Utf8ToGbkEx(szSrc, -1, szDest, iDestLength);
 }
 
 DWORD GuessBase64EncodeBound(DWORD dwSrcLen)
@@ -1425,11 +1476,11 @@ DWORD GuessUrlDecodeBound(const BYTE* lpszSrc, DWORD dwSrcLen)
 
 int UrlEncode(BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwDestLen)
 {
-	if(lpszDest == nullptr || dwDestLen == 0)
-		goto ERROR_DEST_LEN;
-
 	BYTE c;
 	DWORD j = 0;
+
+	if(lpszDest == nullptr || dwDestLen == 0)
+		goto ERROR_DEST_LEN;
 
 	for(DWORD i = 0; i < dwSrcLen; i++)
 	{
@@ -1469,11 +1520,11 @@ ERROR_DEST_LEN:
 
 int UrlDecode(BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwDestLen)
 {
-	if(lpszDest == nullptr || dwDestLen == 0)
-		goto ERROR_DEST_LEN;
-
 	char c;
 	DWORD j = 0;
+
+	if(lpszDest == nullptr || dwDestLen == 0)
+		goto ERROR_DEST_LEN;
 
 	for(DWORD i = 0; i < dwSrcLen; i++)
 	{
@@ -1513,7 +1564,206 @@ ERROR_DEST_LEN:
 	return -5;
 }
 
+void DestroyCompressor(IHPCompressor* pCompressor)
+{
+	delete pCompressor;
+}
+
+void DestroyDecompressor(IHPDecompressor* pDecompressor)
+{
+	delete pDecompressor;
+}
+
 #ifdef _ZLIB_SUPPORT
+
+CHPZLibCompressor::CHPZLibCompressor(Fn_CompressDataCallback fnCallback, int iWindowBits, int iLevel, int iMethod, int iMemLevel, int iStrategy, DWORD dwBuffSize)
+: m_fnCallback	(fnCallback)
+, m_dwBuffSize	(dwBuffSize)
+, m_bValid		(FALSE)
+{
+	ASSERT(m_fnCallback != nullptr);
+
+	::ZeroObject(m_Stream);
+
+	m_bValid = (::deflateInit2(&m_Stream, iLevel, iMethod, iWindowBits, iMemLevel, iStrategy) == Z_OK);
+}
+CHPZLibCompressor::~CHPZLibCompressor()
+{
+	if(m_bValid) ::deflateEnd(&m_Stream);
+}
+
+BOOL CHPZLibCompressor::Reset()
+{
+	return (m_bValid = (::deflateReset(&m_Stream) == Z_OK));
+}
+
+BOOL CHPZLibCompressor::Process(const BYTE* pData, int iLength, BOOL bLast, PVOID pContext)
+{
+	return ProcessEx(pData, iLength, bLast, FALSE, pContext);
+}
+
+BOOL CHPZLibCompressor::ProcessEx(const BYTE* pData, int iLength, BOOL bLast, BOOL bFlush, PVOID pContext)
+{
+	ASSERT(IsValid() && iLength > 0);
+
+	if(!IsValid())
+	{
+		::SetLastError(ERROR_INVALID_STATE);
+		return FALSE;
+	}
+
+	unique_ptr<BYTE[]> szBuff(new BYTE[m_dwBuffSize]);
+
+	m_Stream.next_in	= (z_const Bytef*)pData;
+	m_Stream.avail_in	= iLength;
+	
+	BOOL isOK	= TRUE;
+	int rs		= Z_OK;
+	int flush	= bLast ? Z_FINISH : (bFlush ? Z_SYNC_FLUSH : Z_NO_FLUSH);
+
+	while(m_Stream.avail_in > 0)
+	{
+		do
+		{
+			m_Stream.next_out  = szBuff.get();
+			m_Stream.avail_out = m_dwBuffSize;
+
+			rs = ::deflate(&m_Stream, flush);
+
+			if(rs == Z_STREAM_ERROR)
+			{
+				::SetLastError(ERROR_INVALID_DATA);
+				isOK = FALSE;
+				
+				goto ZLIB_COMPRESS_END;
+			}
+
+			int iRead = (int)(m_dwBuffSize - m_Stream.avail_out);
+
+			if(iRead == 0)
+				break;
+
+			if(!m_fnCallback(szBuff.get(), iRead, pContext))
+			{
+				::SetLastError(ERROR_CANCELLED);
+				isOK = FALSE;
+
+				goto ZLIB_COMPRESS_END;
+			}
+		} while(m_Stream.avail_out == 0);
+	}
+
+ZLIB_COMPRESS_END:
+
+	ASSERT(!isOK || (rs == Z_OK && !bLast) || (rs == Z_STREAM_END && bLast));
+
+	if(!isOK || bLast) Reset();
+
+	return isOK;
+}
+
+CHPZLibDecompressor::CHPZLibDecompressor(Fn_DecompressDataCallback fnCallback, int iWindowBits, DWORD dwBuffSize)
+: m_fnCallback	(fnCallback)
+, m_dwBuffSize	(dwBuffSize)
+, m_bValid		(FALSE)
+{
+	ASSERT(m_fnCallback != nullptr);
+
+	::ZeroObject(m_Stream);
+
+	m_bValid = (::inflateInit2(&m_Stream, iWindowBits) == Z_OK);
+}
+CHPZLibDecompressor::~CHPZLibDecompressor()
+{
+	if(m_bValid) ::inflateEnd(&m_Stream);
+}
+
+BOOL CHPZLibDecompressor::Reset()
+{
+	return (m_bValid = (::inflateReset(&m_Stream) == Z_OK));
+}
+
+BOOL CHPZLibDecompressor::Process(const BYTE* pData, int iLength, PVOID pContext)
+{
+	ASSERT(IsValid() && iLength > 0);
+
+	if(!IsValid())
+	{
+		::SetLastError(ERROR_INVALID_STATE);
+		return FALSE;
+	}
+
+	unique_ptr<BYTE[]> szBuff(new BYTE[m_dwBuffSize]);
+
+	m_Stream.next_in	= (z_const Bytef*)pData;
+	m_Stream.avail_in	= iLength;
+
+	BOOL isOK	= TRUE;
+	int rs		= Z_OK;
+
+	while(m_Stream.avail_in > 0)
+	{
+		do
+		{
+			m_Stream.next_out  = szBuff.get();
+			m_Stream.avail_out = m_dwBuffSize;
+
+			rs = ::inflate(&m_Stream, Z_NO_FLUSH);
+
+			if(rs != Z_OK && rs != Z_STREAM_END)
+			{
+				::SetLastError(ERROR_INVALID_DATA);
+				isOK = FALSE;
+
+				goto ZLIB_DECOMPRESS_END;
+			}
+
+			int iRead = (int)(m_dwBuffSize - m_Stream.avail_out);
+
+			if(iRead == 0)
+				break;
+
+			if(!m_fnCallback(szBuff.get(), iRead, pContext))
+			{
+				::SetLastError(ERROR_CANCELLED);
+				isOK = FALSE;
+
+				goto ZLIB_DECOMPRESS_END;
+			}
+		} while(m_Stream.avail_out == 0);
+
+		if(rs == Z_STREAM_END)
+			break;
+	}
+
+ZLIB_DECOMPRESS_END:
+
+	ASSERT(!isOK || rs == Z_OK || rs == Z_STREAM_END);
+
+	if(!isOK || rs == Z_STREAM_END) Reset();
+
+	return isOK;
+}
+
+IHPCompressor* CreateZLibCompressor(Fn_CompressDataCallback fnCallback, int iWindowBits, int iLevel, int iMethod, int iMemLevel, int iStrategy, DWORD dwBuffSize)
+{
+	return new CHPZLibCompressor(fnCallback, iWindowBits, iLevel, iMethod, iMemLevel, iStrategy, dwBuffSize);
+}
+
+IHPCompressor* CreateGZipCompressor(Fn_CompressDataCallback fnCallback, int iLevel, int iMethod, int iMemLevel, int iStrategy, DWORD dwBuffSize)
+{
+	return new CHPZLibCompressor(fnCallback, MAX_WBITS + 16, iLevel, iMethod, iMemLevel, iStrategy, dwBuffSize);
+}
+
+IHPDecompressor* CreateZLibDecompressor(Fn_DecompressDataCallback fnCallback, int iWindowBits, DWORD dwBuffSize)
+{
+	return new CHPZLibDecompressor(fnCallback, iWindowBits, dwBuffSize);
+}
+
+IHPDecompressor* CreateGZipDecompressor(Fn_DecompressDataCallback fnCallback, DWORD dwBuffSize)
+{
+	return new CHPZLibDecompressor(fnCallback, MAX_WBITS + 32, dwBuffSize);
+}
 
 int Compress(const BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwDestLen)
 {
@@ -1563,7 +1813,7 @@ int UncompressEx(const BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwD
 	z_stream stream;
 
 	stream.next_in	 = (z_const Bytef*)lpszSrc;
-	stream.avail_in	 = (uInt)dwSrcLen;
+	stream.avail_in	 = dwSrcLen;
 	stream.next_out	 = lpszDest;
 	stream.avail_out = dwDestLen;
 	stream.zalloc	 = nullptr;
@@ -1594,7 +1844,7 @@ DWORD GuessCompressBound(DWORD dwSrcLen, BOOL bGZip)
 {
 	DWORD dwBound = ::compressBound(dwSrcLen);
 
-	if(bGZip) dwBound += 11;
+	if(bGZip) dwBound += 16;
 
 	return dwBound;
 }
@@ -1621,15 +1871,209 @@ DWORD GZipGuessUncompressBound(const BYTE* lpszSrc, DWORD dwSrcLen)
 
 #ifdef _BROTLI_SUPPORT
 
+CHPBrotliCompressor::CHPBrotliCompressor(Fn_CompressDataCallback fnCallback, int iQuality, int iWindow, int iMode, DWORD dwBuffSize)
+: m_fnCallback	(fnCallback)
+, m_iQuality	(iQuality)
+, m_iWindow		(iWindow)
+, m_iMode		(iMode)
+, m_dwBuffSize	(dwBuffSize)
+, m_bValid		(FALSE)
+{
+	ASSERT(m_fnCallback != nullptr);
+
+	Reset();
+}
+
+CHPBrotliCompressor::~CHPBrotliCompressor()
+{
+	if(m_bValid) ::BrotliEncoderDestroyInstance(m_pState);
+}
+
+BOOL CHPBrotliCompressor::Reset()
+{
+	if(m_bValid) ::BrotliEncoderDestroyInstance(m_pState);
+	m_pState =   ::BrotliEncoderCreateInstance(nullptr, nullptr, nullptr);
+
+	if(m_pState != nullptr)
+	{
+		::BrotliEncoderSetParameter(m_pState, BROTLI_PARAM_QUALITY	, (UINT)m_iQuality);
+		::BrotliEncoderSetParameter(m_pState, BROTLI_PARAM_LGWIN	, (UINT)m_iWindow);
+		::BrotliEncoderSetParameter(m_pState, BROTLI_PARAM_MODE		, (UINT)m_iMode);
+
+		if (m_iWindow > BROTLI_MAX_WINDOW_BITS)
+			::BrotliEncoderSetParameter(m_pState, BROTLI_PARAM_LARGE_WINDOW, BROTLI_TRUE);
+	}
+
+	return (m_bValid = (m_pState != nullptr));
+}
+
+BOOL CHPBrotliCompressor::Process(const BYTE* pData, int iLength, BOOL bLast, PVOID pContext)
+{
+	return ProcessEx(pData, iLength, bLast, FALSE, pContext);
+}
+
+BOOL CHPBrotliCompressor::ProcessEx(const BYTE* pData, int iLength, BOOL bLast, BOOL bFlush, PVOID pContext)
+{
+	ASSERT(IsValid() && iLength > 0);
+
+	if(!IsValid())
+	{
+		::SetLastError(ERROR_INVALID_STATE);
+		return FALSE;
+	}
+
+	unique_ptr<BYTE[]> szBuff(new BYTE[m_dwBuffSize]);
+
+	const BYTE* pNextInData	= pData;
+	size_t iAvlInLen		= (SIZE_T)iLength;
+	BYTE* pNextOutData		= nullptr;
+	size_t iAvlOutLen		= 0;
+
+	BOOL isOK				  = TRUE;
+	BrotliEncoderOperation op = bLast ? BROTLI_OPERATION_FINISH : (bFlush ? BROTLI_OPERATION_FLUSH : BROTLI_OPERATION_PROCESS);
+
+	while(iAvlInLen > 0)
+	{
+		do
+		{
+			pNextOutData = szBuff.get();
+			iAvlOutLen	 = m_dwBuffSize;
+
+			if(!::BrotliEncoderCompressStream(m_pState, op, &iAvlInLen, &pNextInData, &iAvlOutLen, &pNextOutData, nullptr))
+			{
+				::SetLastError(ERROR_INVALID_DATA);
+				isOK = FALSE;
+
+				goto BROTLI_COMPRESS_END;
+			}
+
+			int iRead = (int)(m_dwBuffSize - iAvlOutLen);
+
+			if(iRead == 0)
+				break;
+
+			if(!m_fnCallback(szBuff.get(), iRead, pContext))
+			{
+				::SetLastError(ERROR_CANCELLED);
+				isOK = FALSE;
+				
+				goto BROTLI_COMPRESS_END;
+			}
+		} while (iAvlOutLen == 0);
+	}
+
+BROTLI_COMPRESS_END:
+
+	if(!isOK || bLast) Reset();
+
+	return isOK;
+}
+
+CHPBrotliDecompressor::CHPBrotliDecompressor(Fn_DecompressDataCallback fnCallback, DWORD dwBuffSize)
+: m_fnCallback	(fnCallback)
+, m_dwBuffSize	(dwBuffSize)
+, m_bValid		(FALSE)
+{
+	ASSERT(m_fnCallback != nullptr);
+
+	Reset();
+}
+
+CHPBrotliDecompressor::~CHPBrotliDecompressor()
+{
+	if(m_bValid) ::BrotliDecoderDestroyInstance(m_pState);
+}
+
+BOOL CHPBrotliDecompressor::Reset()
+{
+	if(m_bValid) ::BrotliDecoderDestroyInstance(m_pState);
+	m_pState =   ::BrotliDecoderCreateInstance(nullptr, nullptr, nullptr);
+
+	return (m_bValid = (m_pState != nullptr));
+}
+
+BOOL CHPBrotliDecompressor::Process(const BYTE* pData, int iLength, PVOID pContext)
+{
+	ASSERT(IsValid() && iLength > 0);
+
+	if(!IsValid())
+	{
+		::SetLastError(ERROR_INVALID_STATE);
+		return FALSE;
+	}
+
+	unique_ptr<BYTE[]> szBuff(new BYTE[m_dwBuffSize]);
+
+	const BYTE* pNextInData	= pData;
+	size_t iAvlInLen		= (SIZE_T)iLength;
+	BYTE* pNextOutData		= nullptr;
+	size_t iAvlOutLen		= 0;
+
+	BOOL isOK				= TRUE;
+	BrotliDecoderResult rs	= BROTLI_DECODER_RESULT_NEEDS_MORE_OUTPUT;
+
+	do
+	{
+		do
+		{
+			pNextOutData = szBuff.get();
+			iAvlOutLen	 = m_dwBuffSize;
+
+			rs = ::BrotliDecoderDecompressStream(m_pState, &iAvlInLen, &pNextInData, &iAvlOutLen, &pNextOutData, nullptr);
+
+			if(rs == BROTLI_DECODER_RESULT_ERROR)
+			{
+				::SetLastError(ERROR_INVALID_DATA);
+				isOK = FALSE;
+
+				goto BROTLI_DECOMPRESS_END;
+			}
+
+			int iRead = (int)(m_dwBuffSize - iAvlOutLen);
+
+			if(iRead == 0)
+				break;
+
+			if(!m_fnCallback(szBuff.get(), iRead, pContext))
+			{
+				::SetLastError(ERROR_CANCELLED);
+				isOK = FALSE;
+
+				goto BROTLI_DECOMPRESS_END;
+			}
+		} while (iAvlOutLen == 0);
+
+		if(rs == BROTLI_DECODER_RESULT_SUCCESS)
+			break;
+
+	} while(rs == BROTLI_DECODER_RESULT_NEEDS_MORE_OUTPUT);
+
+BROTLI_DECOMPRESS_END:
+
+	if(!isOK || rs == BROTLI_DECODER_RESULT_SUCCESS) Reset();
+
+	return isOK;
+}
+
+IHPCompressor* CreateBrotliCompressor(Fn_CompressDataCallback fnCallback, int iQuality, int iWindow, int iMode, DWORD dwBuffSize)
+{
+	return new CHPBrotliCompressor(fnCallback, iQuality, iWindow, iMode, dwBuffSize);
+}
+
+IHPDecompressor* CreateBrotliDecompressor(Fn_DecompressDataCallback fnCallback, DWORD dwBuffSize)
+{
+	return new CHPBrotliDecompressor(fnCallback, dwBuffSize);
+}
+
 int BrotliCompress(const BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwDestLen)
 {
 	return BrotliCompressEx(lpszSrc, dwSrcLen, lpszDest, dwDestLen, BROTLI_DEFAULT_QUALITY, BROTLI_DEFAULT_WINDOW, BROTLI_DEFAULT_MODE);
 }
 
-int BrotliCompressEx(const BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwDestLen, int iQuality, int iWindow, BrotliEncoderMode enMode)
+int BrotliCompressEx(const BYTE* lpszSrc, DWORD dwSrcLen, BYTE* lpszDest, DWORD& dwDestLen, int iQuality, int iWindow, int iMode)
 {
 	size_t stDestLen = (size_t)dwDestLen;
-	int rs = ::BrotliEncoderCompress(iQuality, iWindow, enMode, (size_t)dwSrcLen, lpszSrc, &stDestLen, lpszDest);
+	int rs = ::BrotliEncoderCompress(iQuality, iWindow, (BrotliEncoderMode)iMode, (size_t)dwSrcLen, lpszSrc, &stDestLen, lpszDest);
 	dwDestLen = (DWORD)stDestLen;
 
 	return (rs == 1) ? 0 : ((rs == 3) ? -5 : -3);

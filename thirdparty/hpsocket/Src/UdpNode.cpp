@@ -456,7 +456,7 @@ BOOL CUdpNode::DoSendPackets(HP_SOCKADDR& addrRemote, const WSABUF pBuffers[], i
 	ASSERT(pBuffers && iCount > 0);
 
 	if(!pBuffers || iCount <= 0)
-		return ERROR_INVALID_PARAMETER;;
+		return ERROR_INVALID_PARAMETER;
 
 	if(!IsValid())
 	{
@@ -567,21 +567,18 @@ UINT WINAPI CUdpNode::WorkerThreadProc(LPVOID pv)
 		{
 			DWORD dwFlag	= 0;
 			DWORD dwSysCode = ::GetLastError();
+			dwErrorCode		= dwSysCode;
 
 			if(pNode->HasStarted())
 			{
-				result = ::WSAGetOverlappedResult((SOCKET)ulCompKey, &pBufferObj->ov, &dwBytes, FALSE, &dwFlag);
-
-				if (!result)
+				if (!::WSAGetOverlappedResult((SOCKET)ulCompKey, &pBufferObj->ov, &dwBytes, FALSE, &dwFlag))
 				{
 					dwErrorCode = ::WSAGetLastError();
 					TRACE("GetQueuedCompletionStatus error (<NODE: 0x%X> SYS: %d, SOCK: %d, FLAG: %d)\n", pNode, dwSysCode, dwErrorCode, dwFlag);
 				}
 			}
-			else
-				dwErrorCode = dwSysCode;
 
-			ASSERT(dwSysCode != 0 && dwErrorCode != 0);
+			ASSERT(dwSysCode != NO_ERROR && dwErrorCode != NO_ERROR);
 		}
 
 		pNode->HandleIo(pBufferObj, dwBytes, dwErrorCode);
@@ -781,7 +778,7 @@ TUdpBufferObj* CUdpNode::GetFreeBufferObj(int iLen)
 {
 	ASSERT(iLen >= -1 && iLen <= (int)m_dwMaxDatagramSize);
 
-	TUdpBufferObj* pBufferObj		= m_bfObjPool.PickFreeItem();;
+	TUdpBufferObj* pBufferObj		= m_bfObjPool.PickFreeItem();
 	if(iLen < 0) iLen				= m_dwMaxDatagramSize;
 	pBufferObj->buff.len			= iLen;
 	pBufferObj->remoteAddr.family	= m_localAddr.family;
@@ -797,7 +794,7 @@ void CUdpNode::AddFreeBufferObj(TUdpBufferObj* pBufferObj)
 
 EnHandleResult CUdpNode::FireSend(TUdpBufferObj* pBufferObj)
 {
-	TCHAR szAddress[50];
+	TCHAR szAddress[60];
 	int iAddressLen = sizeof(szAddress) / sizeof(TCHAR);
 	ADDRESS_FAMILY usFamily;
 	USHORT usPort;
@@ -809,7 +806,7 @@ EnHandleResult CUdpNode::FireSend(TUdpBufferObj* pBufferObj)
 
 EnHandleResult CUdpNode::FireReceive(TUdpBufferObj* pBufferObj)
 {
-	TCHAR szAddress[50];
+	TCHAR szAddress[60];
 	int iAddressLen = sizeof(szAddress) / sizeof(TCHAR);
 	ADDRESS_FAMILY usFamily;
 	USHORT usPort;
@@ -821,7 +818,7 @@ EnHandleResult CUdpNode::FireReceive(TUdpBufferObj* pBufferObj)
 
 EnHandleResult CUdpNode::FireError(TUdpBufferObj* pBufferObj, int iErrorCode)
 {
-	TCHAR szAddress[50];
+	TCHAR szAddress[60];
 	int iAddressLen = sizeof(szAddress) / sizeof(TCHAR);
 	ADDRESS_FAMILY usFamily;
 	USHORT usPort;
