@@ -44,7 +44,17 @@ namespace newobj
 #ifdef MSVC_2010
             return data;
 #else
-            return std::any_cast<T>(data);
+            if (data.type() == typeid(void))
+                return T();
+            try
+            {
+                return std::any_cast<T>(data);
+            }
+            catch (const std::exception&)
+            {
+                
+            }
+            return T();
 #endif
         }
 	private:

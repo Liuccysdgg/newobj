@@ -55,9 +55,6 @@
     <ClInclude Include="..\src\db\db.h" />
     <ClInclude Include="..\src\db\db_gen.hpp" />
     <ClInclude Include="..\src\db\db_sqlite3.h" />
-    <ClInclude Include="..\src\log\log_define.h" />
-    <ClInclude Include="..\src\log\log_no.h" />
-    <ClInclude Include="..\src\log\log_slice.h" />
     <ClInclude Include="..\src\mgr\res_mgr.h" />
     <ClInclude Include="..\src\other\or_core.hpp" />
     <ClInclude Include="..\src\other\or_perfrecord.h" />
@@ -73,14 +70,15 @@
     <ClInclude Include="..\src\public\environment.h" />
     <ClInclude Include="..\src\public\extra_data.hpp" />
     <ClInclude Include="..\src\public\Integer.hpp" />
+    <ClInclude Include="..\src\public\macro.h" />
     <ClInclude Include="..\src\public\object.hpp" />
     <ClInclude Include="..\src\public\public.h" />
     <ClInclude Include="..\src\public\string.h" />
     <ClInclude Include="..\src\public\struct.h" />
+    <ClInclude Include="..\src\public\typedef.h" />
     <ClInclude Include="..\src\sdk\aliyun\oss.h" />
     <ClInclude Include="..\src\sdk\codec\base64.h" />
     <ClInclude Include="..\src\sdk\codec\qaesencryption.h" />
-    <ClInclude Include="..\src\sdk\debug\log.h" />
     <ClInclude Include="..\src\sdk\image\qrencode\bitstream.h" />
     <ClInclude Include="..\src\sdk\image\qrencode\config.h" />
     <ClInclude Include="..\src\sdk\image\qrencode\mask.h" />
@@ -154,9 +152,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\db\db_sqlite3.cpp" />
-    <ClCompile Include="..\src\log\log_define.cpp" />
-    <ClCompile Include="..\src\log\log_no.cpp" />
-    <ClCompile Include="..\src\log\log_slice.cpp" />
     <ClCompile Include="..\src\mgr\res_mgr.cpp" />
     <ClCompile Include="..\src\other\perfrecord.cpp" />
     <ClCompile Include="..\src\other\program.cpp" />
@@ -169,7 +164,6 @@
     <ClCompile Include="..\src\sdk\aliyun\oss.cpp" />
     <ClCompile Include="..\src\sdk\codec\base64.cpp" />
     <ClCompile Include="..\src\sdk\codec\qaesencryption.cpp" />
-    <ClCompile Include="..\src\sdk\debug\log.cpp" />
     <ClCompile Include="..\src\sdk\image\qrencode\bitstream.c" />
     <ClCompile Include="..\src\sdk\image\qrencode\mask.c" />
     <ClCompile Include="..\src\sdk\image\qrencode\mmask.c" />

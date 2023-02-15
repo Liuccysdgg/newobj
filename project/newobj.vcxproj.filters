@@ -43,15 +43,6 @@
     <Filter Include="src\public\src">
       <UniqueIdentifier>{1cf94775-5eb3-4560-9619-449034ed775d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\log">
-      <UniqueIdentifier>{ad9740fd-ac3e-4cd7-b43d-ed1945bc7153}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\log\include">
-      <UniqueIdentifier>{63aa45c3-0816-40dd-906f-c32c38bb89e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\log\src">
-      <UniqueIdentifier>{1782a173-fc29-40f8-9664-8978f39a1806}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\db">
       <UniqueIdentifier>{6995fc7a-2a16-40c1-ae01-1636c3cdbae7}</UniqueIdentifier>
     </Filter>
@@ -118,9 +109,6 @@
     <Filter Include="src\sdk\text\tinyxml">
       <UniqueIdentifier>{714616ad-7367-4bfd-bb6c-4746be002065}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\sdk\debug">
-      <UniqueIdentifier>{0d8af4a3-0152-4300-8aa1-0c42e75defd7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\util\include\compress">
       <UniqueIdentifier>{a2dac8a6-6b25-4a1c-8f51-c5973160ca28}</UniqueIdentifier>
     </Filter>
@@ -138,9 +126,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\log\log_define.h">
-      <Filter>src\log\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\util\util.h">
       <Filter>src\util\include</Filter>
     </ClInclude>
@@ -258,9 +243,6 @@
     <ClInclude Include="..\src\util\time.h">
       <Filter>src\util\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\log\log_slice.h">
-      <Filter>src\log\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\util\config.h">
       <Filter>src\util\include</Filter>
     </ClInclude>
@@ -296,9 +278,6 @@
     </ClInclude>
     <ClInclude Include="..\src\sdk\libcurl\libcurl.hpp">
       <Filter>src\sdk\libcurl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\log\log_no.h">
-      <Filter>src\log\include</Filter>
     </ClInclude>
     <ClInclude Include="..\src\sdk\image\qrencode\bitstream.h">
       <Filter>src\sdk\image\qrencode</Filter>
@@ -390,9 +369,6 @@
     <ClInclude Include="..\src\sdk\text\tinyxml\tinyxml.h">
       <Filter>src\sdk\text\tinyxml</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\sdk\debug\log.h">
-      <Filter>src\sdk\debug</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\util\keyboard.h">
       <Filter>src\util\include</Filter>
     </ClInclude>
@@ -438,11 +414,14 @@
     <ClInclude Include="..\src\public\object.hpp">
       <Filter>src\public\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\public\typedef.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\public\macro.h">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\log\log_define.cpp">
-      <Filter>src\log\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\util\bytes.cpp">
       <Filter>src\util\src</Filter>
     </ClCompile>
@@ -524,9 +503,6 @@
     <ClCompile Include="..\src\util\time.cpp">
       <Filter>src\util\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\log\log_slice.cpp">
-      <Filter>src\log\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\util\config.cpp">
       <Filter>src\util\src</Filter>
     </ClCompile>
@@ -547,9 +523,6 @@
     </ClCompile>
     <ClCompile Include="..\src\sdk\codec\base64.cpp">
       <Filter>src\sdk\codec</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\log\log_no.cpp">
-      <Filter>src\log\src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\sdk\image\qrencode\bitstream.c">
       <Filter>src\sdk\image\qrencode</Filter>
@@ -625,9 +598,6 @@
     </ClCompile>
     <ClCompile Include="..\src\sdk\text\tinyxml\tinyxmlparser.cpp">
       <Filter>src\sdk\text\tinyxml</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\sdk\debug\log.cpp">
-      <Filter>src\sdk\debug</Filter>
     </ClCompile>
     <ClCompile Include="..\src\util\keyboard.cpp">
       <Filter>src\util\src</Filter>

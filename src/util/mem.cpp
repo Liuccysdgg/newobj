@@ -13,6 +13,8 @@
 
 void* newobj::mem::malloc(size_t size)
 {
+    if (size > __big_size) { printf("[Warn] try to apply for too much memory, please note"); }
+
 #ifdef LIB_MIMALLOC
     void* result = mi_malloc(size);
 #else
