@@ -16,7 +16,7 @@ newobj::network::http::router::router()
     
     m_threadpool = nullptr;
     m_interceptor = new network::http::interceptor;
-    m_threadparam_queue = new newobj::point_pool<thread_param_info>("router",10000,60);
+    m_threadparam_queue = new newobj::object_pool<thread_param_info>("router",10000,60);
 }
 
 newobj::network::http::router::~router()

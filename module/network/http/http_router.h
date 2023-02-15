@@ -8,7 +8,7 @@
 #include "util/json.h"
 #include "http_interface.h"
 #include "util/queue.hpp"
-#include "util/point_pool.hpp"
+#include "util/object_pool.hpp"
 #include "util/vector.hpp"
 #include <regex>
 class IHPThreadPool;
@@ -130,7 +130,7 @@ namespace newobj {
                  ******************************************************************/
                 size_t queue_size();
 
-                newobj::point_pool<thread_param_info>* m_threadparam_queue;
+                newobj::object_pool<thread_param_info>* m_threadparam_queue;
             private:
                 // ÃÌº”»ŒŒÒ
                 void push(reqpack* rp);

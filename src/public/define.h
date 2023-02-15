@@ -14,6 +14,13 @@
 // HPSocket 支持SSL
 #define LIB_HPSOCKET_SSL
 
+// Log4cplus 开关
+#ifdef _WIN32
+#define LIB_LOG4CPLUS 0
+#else
+#define LIB_LOG4CPLUS 1
+#endif
+
 #ifdef _WIN32
 #define LIB_QT
 #else
@@ -27,6 +34,24 @@
 #else
 // QT5
 #define QT5
+#endif
+/****************************[ QT ]************************************/
+#ifdef LIB_QT
+#define QSENDER(TO_OBJ) qobject_cast<TO_OBJ>(sender())
+#define QT_WAIT(TIMEOUT_MSEC,LOGIC)                                     \
+            {                                                                                           \
+                QTime time;                                                                     \
+                    time.start();                                                                   \
+                while (time.elapsed() < (int)TIMEOUT_MSEC && (LOGIC))\
+                    QCoreApplication::processEvents();                              \
+            }
+#endif
+#ifdef LIB_QT
+#ifndef QT4
+#define QTSTR(TEXT) QStringLiteral(TEXT)
+#else
+#define QTSTR(TEXT) QObject::tr(TEXT)
+#endif
 #endif
 #endif
 

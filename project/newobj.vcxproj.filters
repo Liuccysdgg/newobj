@@ -405,7 +405,7 @@
     <ClInclude Include="..\src\util\pool.hpp">
       <Filter>src\util\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\util\point_pool.hpp">
+    <ClInclude Include="..\src\util\object_pool.hpp">
       <Filter>src\util\include</Filter>
     </ClInclude>
     <ClInclude Include="..\src\public\extra_data.hpp">
@@ -419,6 +419,9 @@
     </ClInclude>
     <ClInclude Include="..\src\public\macro.h">
       <Filter>src\public\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\log4.h">
+      <Filter>src\util\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -622,6 +625,9 @@
     </ClCompile>
     <ClCompile Include="..\src\db\db_sqlite3.cpp">
       <Filter>src\db\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\log4.cpp">
+      <Filter>src\util\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

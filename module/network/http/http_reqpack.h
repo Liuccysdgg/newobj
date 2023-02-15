@@ -7,7 +7,7 @@
 #include "public/buffer.h"
 #include "hpsocket/hpsocket.h"
 #include "http_server.h"
-#include "util/point_pool.hpp"
+#include "util/object_pool.hpp"
 #include "util/time.h"
 namespace newobj {
     namespace network {

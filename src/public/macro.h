@@ -130,24 +130,7 @@
 #define INSTANCE_END(CLASSTYPE)                                         \
     newobj::mutex CLASSTYPE::__instance_m_mutex;                           \
     ptr CLASSTYPE::__instance_m_instance = 0
-/****************************[ QT ]************************************/
-#ifdef LIB_QT
-#define QSENDER(TO_OBJ) qobject_cast<TO_OBJ>(sender())
-#define QT_WAIT(TIMEOUT_MSEC,LOGIC)                                     \
-            {                                                                                           \
-                QTime time;                                                                     \
-                    time.start();                                                                   \
-                while (time.elapsed() < (int)TIMEOUT_MSEC && (LOGIC))\
-                    QCoreApplication::processEvents();                              \
-            }
-#endif
-#ifdef LIB_QT
-#ifndef QT4
-#define QTSTR(TEXT) QStringLiteral(TEXT)
-#else
-#define QTSTR(TEXT) QObject::tr(TEXT)
-#endif
-#endif
+
 
 /****************************[ JSON ]************************************/
 #define J_INT(VAR) ((int)(VAR.empty()==true?0:VAR.get<int>()))

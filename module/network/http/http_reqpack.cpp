@@ -6,7 +6,7 @@
 #include "http_response.h"
 #include "util/time.h"
 #define HPSERVER 
-static newobj::point_pool<newobj::network::http::reqpack> m_queue_point("reqpack", POINT_QUEUE_REQPACK_CLEAR_MAX, POINT_QUEUE_REQPACK_CLEAR_SEC);
+static newobj::object_pool<newobj::network::http::reqpack> m_queue_point("reqpack", POINT_QUEUE_REQPACK_CLEAR_MAX, POINT_QUEUE_REQPACK_CLEAR_SEC);
 newobj::network::http::reqpack* newobj::network::http::reqpack::create()
 {
     return m_queue_point.create();

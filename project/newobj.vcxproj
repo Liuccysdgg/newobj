@@ -120,10 +120,11 @@
     <ClInclude Include="..\src\util\html.h" />
     <ClInclude Include="..\src\util\json.h" />
     <ClInclude Include="..\src\util\keyboard.h" />
+    <ClInclude Include="..\src\util\log4.h" />
     <ClInclude Include="..\src\util\md5.h" />
     <ClInclude Include="..\src\util\mouse.h" />
     <ClInclude Include="..\src\util\package.h" />
-    <ClInclude Include="..\src\util\point_pool.hpp" />
+    <ClInclude Include="..\src\util\object_pool.hpp" />
     <ClInclude Include="..\src\util\pool.hpp" />
     <ClInclude Include="..\src\util\process.h" />
     <ClInclude Include="..\src\util\util.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="..\src\util\idx_maker.cpp" />
     <ClCompile Include="..\src\util\json.cpp" />
     <ClCompile Include="..\src\util\keyboard.cpp" />
+    <ClCompile Include="..\src\util\log4.cpp" />
     <ClCompile Include="..\src\util\mouse.cpp" />
     <ClCompile Include="..\src\util\package.cpp" />
     <ClCompile Include="..\src\util\print.cpp" />
@@ -443,7 +445,7 @@
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;$(SolutionDir)thirdparty\log4cplus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DisableSpecificWarnings>4819;4996;4091</DisableSpecificWarnings>
@@ -496,7 +498,7 @@
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;$(SolutionDir)thirdparty\log4cplus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819;4996;4091</DisableSpecificWarnings>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -523,7 +525,7 @@
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;D:\NH\lib\newobj\include\qt\5.9.9_static;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;$(SolutionDir)thirdparty\log4cplus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819;4996;4091</DisableSpecificWarnings>
       <TreatWarningAsError>true</TreatWarningAsError>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
