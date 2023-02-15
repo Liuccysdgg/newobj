@@ -29,7 +29,7 @@ namespace newobj
         {
 
         }
-        void extra(const nstring& name, const EXTRA_DATA_VALUE& data){
+        void set_extra(const nstring& name, const EXTRA_DATA_VALUE& data){
             m_map.set(name,data,true);
         }
 #ifndef MSVC_2010
@@ -38,7 +38,7 @@ namespace newobj
 #else
         EXTRA_DATA_VALUE
 #endif
-        extra(const nstring& name){
+        get_extra(const nstring& name){
             EXTRA_DATA_VALUE data;
             m_map.get(name, data);
 #ifdef MSVC_2010

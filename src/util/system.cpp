@@ -676,7 +676,7 @@ Size newobj::system::screen::work_size()
     Size result;
 #ifdef WIN32
     result.width = GetSystemMetrics(SM_CXFULLSCREEN);
-    result.height = GetSystemMetrics(SM_CXFULLSCREEN);
+    result.height = GetSystemMetrics(SM_CYFULLSCREEN);
 #endif
     return result;
 }
