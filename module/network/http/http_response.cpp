@@ -146,7 +146,7 @@ namespace newobj
 			{
                 auto filepath2 = m_reqpack->website()->info()->rootdir + filepath;
 				t_ret_f(m_response == true);
-				m_response = true;
+				
 				ushort stateCode = 0;
 				nstring stateDesc;
 				long filesize = 0;
@@ -160,7 +160,8 @@ namespace newobj
 					filesize = statbuf.st_size;
 					last_modify_time = statbuf.st_mtime;
 				}
-
+				// 设置为已发送
+				m_response = true;
 				if (filesize != 0)
 				{
 					stateCode = 200;
