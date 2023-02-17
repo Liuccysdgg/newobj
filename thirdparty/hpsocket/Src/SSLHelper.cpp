@@ -255,7 +255,7 @@ int CSSLContext::AddContext(int iVerifyMode, BOOL bMemory, LPVOID lpPemCert, LPV
 
 	SSL_CTX_set_quiet_shutdown(sslCtx, 1);
 	SSL_CTX_set_verify(sslCtx, iVerifyMode, nullptr);
-
+	//printf("%s\t%d\r\n",m_strCipherList, iVerifyMode);
 	if(!SSL_CTX_set_cipher_list(sslCtx, T2CA(m_strCipherList)))
 		::SetLastError(ERROR_EMPTY);
 	else

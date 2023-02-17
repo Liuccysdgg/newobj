@@ -171,7 +171,14 @@ nstring newobj::network::tools::to_ip(const nstring& url)
 		WSACleanup();
 		return "";
 	}
-	WSACleanup();
+	struct hostent* p = gethostbyname(url.c_str());//根据主机名得到主机信息
+	if (p == NULL)
+	{
+		return "";
+	}
+	struct in_addr myaddr;
+	memcpy(&myaddr.s_addr, p->h_addr, sizeof(p->h_addr));
+    WSACleanup();
 	return inet_ntoa(myaddr);
 #else
     struct hostent *hptr;

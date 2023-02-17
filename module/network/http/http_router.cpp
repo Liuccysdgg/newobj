@@ -123,6 +123,9 @@ VOID __HP_CALL TaskProc_function(PVOID pvArg)
 void newobj::network::http::router::__thread_callback(reqpack* rp)
 {
 
+    /*======== ======代理请求==============*/
+    if (is_proxy(rp))
+        return;
     /*===============正常请求=================*/
     //*拦截器过滤*/
     {
@@ -197,9 +200,7 @@ void newobj::network::http::router::push(reqpack *rp)
        //     method = "[POST] ";
        // center()->log()->info(method + " Filepath：" + rp->filepath());
     }
-    /*是否为代理请求*/
-   // if (is_proxy(rp))
-   //     return;// 以上函数已处理代理任务
+
   
     
 }
@@ -229,33 +230,49 @@ bool newobj::network::http::router::is_proxy(reqpack* rp)
             tr = (temp_recv*)extra;
             tr->agent = rp->website()->agent();
         }
-        if (
-            ((network::http::agent*)tr->agent)->is_connected(tr->agent_connid) == false || 
-            nstring(proxy->remote_ipaddress+":" + nstring::from(proxy->remote_port)) != tr->ipaddress_port
-            )
-        {
-            if(tr->agent_connid != 0)
-                rp->website()->agent()->disconnect(tr->agent_connid);
-            tr->ipaddress_port = nstring(proxy->remote_ipaddress + nstring::from(proxy->remote_port));
-            // 连接
-            uint64 agent_connid = 0;
-            if (rp->website()->agent()->connect(
-                proxy->remote_ipaddress,
-                proxy->remote_port,
-                3000,
-                tr->agent_connid,
-                rp->connid(),
-                rp->server()
-            ) == false)
-            {
-                // delete rp;
-                 //abort();
-                std::cout << "proxy connect failed," << proxy->remote_ipaddress.c_str() << ":" << proxy->remote_port << std::endl;
-                return true;
-            }
-        }
-        // 发送
-        rp->website()->agent()->send(proxy, tr->agent_connid,rp);
+        timestamp begin_msec = time::now_msec();
+        rp->website()->agent()->request(proxy->remote_ipaddress,
+            proxy->remote_port,
+            3000,
+            tr->agent_connid,
+            rp->connid(),
+            rp->server(),
+            rp,
+            proxy
+            );
+        //if (
+        //    ((network::http::agent*)tr->agent)->is_connected(tr->agent_connid) == false || 
+        //    nstring(proxy->remote_ipaddress+":" + nstring::from(proxy->remote_port)) != tr->ipaddress_port
+        //    )
+        //{
+        //    if(tr->agent_connid != 0)
+        //        rp->website()->agent()->disconnect(tr->agent_connid);
+        //    tr->ipaddress_port = nstring(proxy->remote_ipaddress + nstring::from(proxy->remote_port));
+        //    // 连接
+        //    uint64 agent_connid = 0;
+        //    if (rp->website()->agent()->connect(
+        //        proxy->remote_ipaddress,
+        //        proxy->remote_port,
+        //        3000,
+        //        tr->agent_connid,
+        //        rp->connid(),
+        //        rp->server()
+        //    ) == false)
+        //    {
+        //        // delete rp;
+        //         //abort();
+        //        std::cout << "proxy connect failed," << proxy->remote_ipaddress.c_str() << ":" << proxy->remote_port << std::endl;
+        //        return true;
+        //    }
+        //}
+        //else
+        //{
+        //    std::cout << "IsConnect:" << tr->agent_connid << std::endl;
+        //}
+        //auto a = time::now_msec() - begin_msec;
+        //// 发送
+        //rp->website()->agent()->send(proxy, tr->agent_connid,rp);
+        //std::cout << a<<":"<< time::now_msec() - begin_msec << std::endl;
         return true;
     }
     return false;

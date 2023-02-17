@@ -463,6 +463,7 @@ bool newobj::network::http::client_plus::init()
 }
 bool newobj::network::http::client_plus::request()
 {
+	std::cout << CLIENT->GetSSLCipherList() << std::endl;
 	m_close = false;
 	m_listener->m_recv_state = 0;
 	const char* method;

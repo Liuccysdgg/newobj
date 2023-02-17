@@ -20,10 +20,15 @@ namespace newobj
 				bool stop();
 				bool connect(const nstring& ipaddress,ushort port, int32 wait_msec, uint64& connid,uint64 server_connid,network::http::server* server);
 				void disconnect(uint64 connid);
-				bool send(network::http::proxy* proxy, uint64 agent_connid, reqpack* rp);
+				//bool send(uint64 agent_connid, reqpack* rp);
 				bool is_connected(uint64 connid);
 				uint64 connect_count();
+
+				bool request(const nstring& ipaddress,ushort port,int32 wait_msec,uint64& connid,uint64 server_connid, network::http::server* server, reqpack* rp,network::http::proxy* proxy);
 			private:
+				void* get();
+			private:
+				//void* m_agent;
 				void* m_agent;
 				http_agent_listener* m_listener;
 				bool m_ssl;
