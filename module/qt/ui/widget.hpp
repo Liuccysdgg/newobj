@@ -10,7 +10,7 @@ namespace newobj
 		class widget:public ui::topbar<T>,public extra_data
 		{
 		public:
-			widget(QWidget* parent):ui::topbar<T>(parent)
+			widget<T>(QWidget* parent):ui::topbar<T>(parent)
 			{
 
 			}

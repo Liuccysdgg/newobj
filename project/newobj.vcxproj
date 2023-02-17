@@ -72,6 +72,7 @@
     <ClInclude Include="..\src\public\Integer.hpp" />
     <ClInclude Include="..\src\public\macro.h" />
     <ClInclude Include="..\src\public\object.hpp" />
+    <ClInclude Include="..\src\public\program.hpp" />
     <ClInclude Include="..\src\public\public.h" />
     <ClInclude Include="..\src\public\string.h" />
     <ClInclude Include="..\src\public\struct.h" />
@@ -155,7 +156,6 @@
     <ClCompile Include="..\src\db\db_sqlite3.cpp" />
     <ClCompile Include="..\src\mgr\res_mgr.cpp" />
     <ClCompile Include="..\src\other\perfrecord.cpp" />
-    <ClCompile Include="..\src\other\program.cpp" />
     <ClCompile Include="..\src\public\boolean.cpp" />
     <ClCompile Include="..\src\public\buffer.cpp" />
     <ClCompile Include="..\src\public\decimal.cpp" />
@@ -525,7 +525,7 @@
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;$(SolutionDir)thirdparty\log4cplus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9_static;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;$(SolutionDir)thirdparty\log4cplus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819;4996;4091</DisableSpecificWarnings>
       <TreatWarningAsError>true</TreatWarningAsError>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>

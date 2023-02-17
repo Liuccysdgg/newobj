@@ -42,8 +42,8 @@ namespace newobj
 			namespace aes
 			{
 				/*256 ECB*/
-				buffer NEWOBJ_API en(const buffer& src, const nstring& key_param);
-				buffer NEWOBJ_API de(const buffer& src, const nstring& key_param);
+				buffer NEWOBJ_API en(const buffer& src, const nstring& key_param,int type = 2/*0=128 1=192 2=256*/);
+				buffer NEWOBJ_API de(const buffer& src, const nstring& key_param,int type = 2/*0=128 1=192 2=256*/);
 			}
 
 			nstring uuid();

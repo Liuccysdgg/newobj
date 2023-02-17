@@ -22,7 +22,7 @@
 #endif
 
 #ifdef _WIN32
-#define LIB_QT
+#define LIB_QT 1
 #else
 // Linux平台请设置CMakeLists.txt,默认关闭QT链接
 #endif
@@ -30,10 +30,10 @@
 #ifdef LIB_QT
 #ifdef MSVC_2010
 // QT4
-#define QT4
+#define QT4 1
 #else
 // QT5
-#define QT5
+#define QT5 1
 #endif
 /****************************[ QT ]************************************/
 #ifdef LIB_QT

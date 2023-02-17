@@ -420,6 +420,9 @@
     <ClInclude Include="..\src\util\log4.h">
       <Filter>src\util\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\public\program.hpp">
+      <Filter>src\public\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\util\bytes.cpp">
@@ -505,9 +508,6 @@
     </ClCompile>
     <ClCompile Include="..\src\util\config.cpp">
       <Filter>src\util\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\other\program.cpp">
-      <Filter>src\other\src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\util\desktop.cpp">
       <Filter>src\util\src</Filter>

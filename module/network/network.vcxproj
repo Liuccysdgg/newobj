@@ -380,7 +380,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\src;$(SolutionDir)\module;$(SolutionDir)\thirdparty;$(SolutionDir)include\qt\5.9.9</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>

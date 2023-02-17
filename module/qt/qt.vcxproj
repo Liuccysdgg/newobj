@@ -62,6 +62,9 @@
     <ClCompile Include="util\file.cpp" />
     <ClCompile Include="util\system.cpp" />
     <ClCompile Include="util\ui.cpp" />
+    <ClCompile Include="webui\webui_center.cpp" />
+    <ClCompile Include="webui\webui_debug.cpp" />
+    <ClCompile Include="webui\webui_page.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ui\button.h" />
@@ -77,6 +80,10 @@
     <ClInclude Include="util\file.h" />
     <ClInclude Include="util\system.h" />
     <ClInclude Include="util\ui.h" />
+    <ClInclude Include="webui\webui_callback.hpp" />
+    <ClInclude Include="webui\webui_center.h" />
+    <ClInclude Include="webui\webui_debug.h" />
+    <ClInclude Include="webui\webui_page.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -276,7 +283,7 @@
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\src;$(SolutionDir)\include\qt\5.9.9;$(SolutionDir)\module\qt</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\src;$(SolutionDir)\include\qt\5.9.9;$(SolutionDir)\module\qt;$(SolutionDir)\module</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
@@ -314,9 +321,10 @@
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\src;$(SolutionDir)\include\qt\5.9.9</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\src;$(SolutionDir)\include\qt\5.9.9;$(SolutionDir)\module\qt;$(SolutionDir)\module</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -354,11 +362,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;NEWOBJ_STATIC;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;NEWOBJ_STATIC;QT_STATIC</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\src;D:\NH\lib\newobj\include\qt\5.9.9_static</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\src;$(SolutionDir)\include\qt\5.9.9_static;$(SolutionDir)\module\qt;$(SolutionDir)\module</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>

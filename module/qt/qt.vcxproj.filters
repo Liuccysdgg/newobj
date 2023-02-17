@@ -7,6 +7,9 @@
     <Filter Include="util">
       <UniqueIdentifier>{fba4c639-f514-4c73-9270-ce11010d2caa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="webui">
+      <UniqueIdentifier>{3afa010b-6e67-4e7a-8066-5b28c4e3516d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ui\button.cpp">
@@ -41,6 +44,15 @@
     </ClCompile>
     <ClCompile Include="ui\radio.cpp">
       <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="webui\webui_center.cpp">
+      <Filter>webui</Filter>
+    </ClCompile>
+    <ClCompile Include="webui\webui_page.cpp">
+      <Filter>webui</Filter>
+    </ClCompile>
+    <ClCompile Include="webui\webui_debug.cpp">
+      <Filter>webui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +94,18 @@
     </ClInclude>
     <ClInclude Include="ui\radio.h">
       <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="webui\webui_center.h">
+      <Filter>webui</Filter>
+    </ClInclude>
+    <ClInclude Include="webui\webui_page.h">
+      <Filter>webui</Filter>
+    </ClInclude>
+    <ClInclude Include="webui\webui_callback.hpp">
+      <Filter>webui</Filter>
+    </ClInclude>
+    <ClInclude Include="webui\webui_debug.h">
+      <Filter>webui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

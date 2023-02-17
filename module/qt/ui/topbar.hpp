@@ -23,12 +23,12 @@ namespace newobj
         class topbar : public T
         {
         public:
-            topbar(QWidget* parent):T(parent)
+            topbar<T>(QWidget* parent):T(parent)
             {
                 m_height = 0;
                 m_mousePres = false;
             }
-            ~topbar()
+            ~topbar<T>()
             {
 
             }

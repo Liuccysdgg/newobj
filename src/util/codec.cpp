@@ -265,7 +265,7 @@ nstring newobj::codec::uuid()
 #endif
 }
 #ifdef LIB_QT
-buffer  newobj::codec::aes::en(const buffer& src, const nstring& key_param)
+buffer  newobj::codec::aes::en(const buffer& src, const nstring& key_param, int type)
 {
     if(src.length() == 0)
         return src;
@@ -276,12 +276,12 @@ buffer  newobj::codec::aes::en(const buffer& src, const nstring& key_param)
         for (uint32 i = 0; i < 16 - lb; i++)
             en_data.append('\0');
     }
-    QAESEncryption encryption(QAESEncryption::AES_256, QAESEncryption::ECB, QAESEncryption::ZERO);
+    QAESEncryption encryption((QAESEncryption::Aes)type, QAESEncryption::ECB, QAESEncryption::ZERO);
     //QByteArray hashKey = QCryptographicHash::hash(key_param.operator QByteArray(), QCryptographicHash::Md5);
     return newobj::buffer(encryption.encode(en_data, key_param));
 }
 
-buffer  newobj::codec::aes::de(const buffer& src, const nstring& key_param)
+buffer  newobj::codec::aes::de(const buffer& src, const nstring& key_param, int type)
 {
     if (src.length() == 0)
         return src;
@@ -295,7 +295,7 @@ buffer  newobj::codec::aes::de(const buffer& src, const nstring& key_param)
         }
     }
 
-    QAESEncryption encryption(QAESEncryption::AES_256, QAESEncryption::ECB, QAESEncryption::ZERO);
+    QAESEncryption encryption((QAESEncryption::Aes)type, QAESEncryption::ECB, QAESEncryption::ZERO);
     //QByteArray hashKey2 = QCryptographicHash::hash(key_param, QCryptographicHash::Md5);
     auto result = encryption.decode(en_data, key_param);
     newobj::buffer r2;
