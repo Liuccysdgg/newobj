@@ -2,7 +2,7 @@
 #include "public/define.h"
 #include "public/string.h"
 #include "util/map.hpp"
-#if LIB_QT == 1 && !defined(QT_STATIC)
+#if LIB_QT == 1 && !defined(QT_STATIC) && !defined(MSVC_2010)
 #include "QtWidgets/qwidget.h"
 namespace newobj
 {

@@ -1,5 +1,5 @@
 #include "webui_debug.h"
-#if LIB_QT == 1 && !defined(QT_STATIC)
+#if LIB_QT == 1 && !defined(QT_STATIC) && !defined(MSVC_2010)
 #include "QtWidgets/qlayout.h"
 #include "ui/button.h"
 #include "webui_page.h"

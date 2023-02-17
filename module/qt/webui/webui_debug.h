@@ -1,8 +1,9 @@
 #pragma once
 #include "public/define.h"
 #include "public/string.h"
+
+#if LIB_QT == 1 && !defined(QT_STATIC) && !defined(MSVC_2010)
 #include "QtWidgets/qwidget.h"
-#if LIB_QT == 1 && !defined(QT_STATIC)
 #include "QtWebEngineWidgets/qwebengineview.h"
 namespace newobj
 {
