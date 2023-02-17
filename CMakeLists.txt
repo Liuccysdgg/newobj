@@ -12,6 +12,7 @@ if(CMAKE_BUILD_TYPE AND (CMAKE_BUILD_TYPE STREQUAL "Debug"))
     set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g")
 elseif(CMAKE_BUILD_TYPE AND (CMAKE_BUILD_TYPE STREQUAL "Release"))
     set(BUILD_TYPE "release")
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O2")
 endif()
 
 if(CMAKE_HOST_SYSTEM_NAME AND (CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux"))                                                                                                                                                    

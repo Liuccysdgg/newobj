@@ -171,18 +171,24 @@ nstring newobj::network::tools::to_ip(const nstring& url)
 		WSACleanup();
 		return "";
 	}
-#endif	
-	struct hostent* p = gethostbyname(url.c_str());//根据主机名得到主机信息
-	if (p == NULL)
-	{
-		return "";
-	}
-	struct in_addr myaddr;
-	memcpy(&myaddr.s_addr, p->h_addr, sizeof(p->h_addr));
-#ifdef _WIN32
 	WSACleanup();
-#endif
 	return inet_ntoa(myaddr);
+#else
+    struct hostent *hptr;
+    hptr = gethostbyname(url.c_str());
+    if (hptr == nullptr)
+        hstrerror(h_errno);
+        return "";
+    if (hptr->h_addrtype != AF_INET)
+        return "";
+    char **pptr = hptr->h_addr_list;
+    if (*pptr == nullptr)
+        return "";
+    char str[INET_ADDRSTRLEN+1];
+    memset(str,0,INET_ADDRSTRLEN+1);
+    inet_ntop(hptr->h_addrtype, hptr->h_addr, str, sizeof(str));
+    return str;
+#endif	
 }
 
 bool newobj::network::tools::tcp_status(ushort port, ulong& status)
