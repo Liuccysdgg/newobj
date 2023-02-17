@@ -13,21 +13,18 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
-struct AutoFreeAgentConnID_
+/*附加数据*/
+struct http_agent_extra
 {
-	uint64 connid;
-	newobj::map<uint64, int>* map;
-};
-struct HttpAgentExtra
-{
-	struct Request
+    // 请求体
+	struct request
 	{
-		Request()
+		request()
 		{
 			headers = nullptr;
 			headers_size = 0;
 		}
-		~Request()
+		~request()
 		{
 			clear();
 		}
@@ -49,40 +46,59 @@ struct HttpAgentExtra
 		nstring method;
 		// 请求数据
 		newobj::buffer data;
+        // HOST:PORT
+        nstring url_hout;
+
 	};
-	HttpAgentExtra()
+    // 接收
+    struct receive{
+        receive(){
+            clear();
+        }
+        void clear(){
+            data.clear();
+            transfer_encoding_length = -1;
+        }
+        // 回复数据
+        newobj::buffer data;
+        // check 类型数据头内容 默认=-1 即非该类型回复。
+        int32 transfer_encoding_length;
+    };
+	http_agent_extra()
 	{
 		connid = 0;
 		server = nullptr;
-		transfer_encoding_length = 0;
+        agent = nullptr;
 	}
-	uint64 connid;
-	network::http::server* server;
-	newobj::buffer recv;
-	int32 transfer_encoding_length;
-
+    // server 客户连接ID
+    uint64 connid;
+    // 绑定server
+    network::http::server* server;
 	// 请求
-	Request request;
+	request req;
+    // 接收
+    receive recv;
+    // 代理
+    IHttpAgent* agent;
 };
-
-#define AGENT ((IHttpAgent*)get())
-
+// 获取附加数据指针
+inline http_agent_extra* __get_extra_to__(ITcpAgent* client, CONNID dwConnID){
+    PVOID extra = 0;
+    client->GetConnectionExtra(dwConnID, &extra);
+    return (http_agent_extra*)extra;
+}
+#define GET_EXTRA __get_extra_to__(pSender,dwConnID)
 class http_agent_listener :public IHttpAgentListener
 {
 	public:
 	http_agent_listener()
 	{
-		m_agent = nullptr;
 	}
 	// 通过 IHttpAgentListener 继承
 	virtual EnHttpParseResult OnMessageBegin(IHttpAgent* pSender, CONNID dwConnID) override
 	{
-		//newobj::log->info("OnMessageBegin", "agent");
-
-		PVOID extra = 0;
-		pSender->GetConnectionExtra(dwConnID, &extra);
-		((HttpAgentExtra*)extra)->recv.clear();
-		((HttpAgentExtra*)extra)->transfer_encoding_length = -1;
+        auto extra = GET_EXTRA;
+		extra->recv.clear();
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnRequestLine(IHttpAgent* pSender, CONNID dwConnID, LPCSTR lpszMethod, LPCSTR lpszUrl) override
@@ -99,29 +115,19 @@ class http_agent_listener :public IHttpAgentListener
 	}
 	virtual EnHttpParseResult OnHeadersComplete(IHttpAgent* pSender, CONNID dwConnID) override
 	{
-		IHttpServer* server = nullptr;
-		CONNID remote_connid;
-		HttpAgentExtra* extra = nullptr;
-		{
-			PVOID extra_pv = 0;
-			pSender->GetConnectionExtra(dwConnID, &extra_pv);
-			extra = ((HttpAgentExtra*)extra_pv);
-			remote_connid = extra->connid;
-			server = (IHttpServer*)extra->server->hpserver();
-		}
+		http_agent_extra* extra = GET_EXTRA;
+		IHttpServer* server = (IHttpServer*)extra->server->hpserver();
 		THeader* local_header = nullptr;
 		DWORD local_hsize = 0;
 		// 取所有协议头
-		{
-			pSender->GetAllHeaders(dwConnID, local_header, local_hsize);
-			if (local_hsize == 0)
-				return HPR_OK;
-			local_header = new THeader[local_hsize];
-			pSender->GetAllHeaders(dwConnID, local_header, local_hsize);
-		}
+        pSender->GetAllHeaders(dwConnID, local_header, local_hsize);
+        if (local_hsize == 0)
+            return HPR_OK;
+        local_header = new THeader[local_hsize];
+        pSender->GetAllHeaders(dwConnID, local_header, local_hsize);
 		// 取请求方式
 		server->SendResponse(
-			remote_connid,
+			extra->connid,
 			pSender->GetStatusCode(dwConnID),
 			nullptr,
 			local_header,
@@ -140,79 +146,42 @@ class http_agent_listener :public IHttpAgentListener
 	}
 	virtual EnHttpParseResult OnBody(IHttpAgent* pSender, CONNID dwConnID, const BYTE* pData, int iLength) override
 	{
-		IHttpServer* server = nullptr;
-		CONNID remote_connid;
-		HttpAgentExtra* extra = nullptr;
-		{
-			PVOID extra_pv = 0;
-			pSender->GetConnectionExtra(dwConnID, &extra_pv);
-			extra = ((HttpAgentExtra*)extra_pv);
-			remote_connid = extra->connid;
-			server = (IHttpServer*)extra->server->hpserver();
-		}
-		if (extra->transfer_encoding_length != -1)
+        http_agent_extra* extra = GET_EXTRA;
+		IHttpServer* server = (IHttpServer*)extra->server->hpserver();
+		
+        if (extra->recv.transfer_encoding_length != -1)
 		{
 			nstring length = dec2hex(iLength)+"\r\n";
-			
 			// 分块长度
 			server->Send(
-				remote_connid,
+				extra->connid,
 				(const BYTE*)length.c_str(),
 				length.length());
-			// body数据
-			server->Send(
-				remote_connid,
-				pData,
-				iLength);
-		}
-		else
-		{
-			//std::cout << "[OnBody]:" << iLength << std::endl;
-			// body数据
-			server->Send(
-				remote_connid,
-				pData,
-				iLength);
-		}
 		
-		return HPR_OK;
+		}
+        server->Send(
+                     extra->connid,
+                     pData,
+                     iLength);
+        return HPR_OK;
 	}
 	virtual EnHttpParseResult OnChunkHeader(IHttpAgent* pSender, CONNID dwConnID, int iLength) override
 	{
-		HttpAgentExtra* extra = nullptr;
-		{
-			PVOID extra_pv = 0;
-			pSender->GetConnectionExtra(dwConnID, &extra_pv);
-			extra = ((HttpAgentExtra*)extra_pv);
-		}
-		extra->transfer_encoding_length = iLength;
+		
+		GET_EXTRA->recv.transfer_encoding_length = iLength;
 
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnChunkComplete(IHttpAgent* pSender, CONNID dwConnID) override
 	{
-		IHttpServer* server = nullptr;
-		HttpAgentExtra* extra = nullptr;
-		{
-			PVOID extra_pv = 0;
-			pSender->GetConnectionExtra(dwConnID, &extra_pv);
-			extra = ((HttpAgentExtra*)extra_pv);
-			server = (IHttpServer*)extra->server->hpserver();
-		}
-		
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnMessageComplete(IHttpAgent* pSender, CONNID dwConnID) override
 	{
-		HttpAgentExtra* extra = nullptr;
-		IHttpServer* server = nullptr;
-		{
-			PVOID extra_pv = 0;
-			pSender->GetConnectionExtra(dwConnID, &extra_pv);
-			extra = ((HttpAgentExtra*)extra_pv);
-			server = (IHttpServer*)extra->server->hpserver();
-		}
-		if (extra->transfer_encoding_length != -1)
+        http_agent_extra* extra = GET_EXTRA;
+		IHttpServer* server = (IHttpServer*)extra->server->hpserver();
+
+		if (extra->recv.transfer_encoding_length != -1)
 		{
 			// 分块长度
 			server->Send(
@@ -245,41 +214,23 @@ class http_agent_listener :public IHttpAgentListener
 	}
 	virtual EnHandleResult OnHandShake(ITcpAgent* pSender, CONNID dwConnID) override
 	{
-		newobj::log->info("OnHandShake", "agent");
-		HttpAgentExtra* extra = nullptr;
-		IHttpServer* server = nullptr;
-		{
-			PVOID extra_pv = 0;
-			pSender->GetConnectionExtra(dwConnID, &extra_pv);
-			extra = ((HttpAgentExtra*)extra_pv);
-			server = (IHttpServer*)extra->server->hpserver();
-		}
-		// 取所有协议头
-		// 请求协议头
-		THeader* local_header = nullptr;
-
-		//std::cout << "AgentId:" << rp->temprecv()->agent_connid <<"\t\t ConnId:"<< rp->connid() << std::endl;
-		//std::cout << "Method:" << method.c_str() << std::endl;
-		//std::cout << "Url:" << path.c_str() << std::endl;
-		//std::cout << "\r\n" << std::endl;
-		bool result = m_agent->SendRequest(
+		http_agent_extra* extra = GET_EXTRA;
+		// 发送请求
+        newobj::log->info(extra->req.method +"\t"+extra->req.url_hout,"http_agent");
+        THeader* local_header = nullptr;
+		bool result = extra->agent->SendRequest(
 			dwConnID,
-			extra->request.method.c_str(),
-			extra->request.path.c_str(),
-			extra->request.headers,
-			extra->request.headers_size,
-			(const BYTE*)extra->request.data.data(),
-			extra->request.data.length());
+			extra->req.method.c_str(),
+			extra->req.path.c_str(),
+			extra->req.headers,
+			extra->req.headers_size,
+			(const BYTE*)extra->req.data.data(),
+			extra->req.data.length());
 		delete[] local_header;
-		if (result == false)
-		{
-			std::cout << "agent send request failed," << SYS_GetLastError() << std::endl;
-		}
 		return HR_OK;
 	}
 	virtual EnHandleResult OnSend(ITcpAgent* pSender, CONNID dwConnID, const BYTE* pData, int iLength) override
 	{
-		newobj::log->info("OnSend", "agent");
 		return HR_OK;
 	}
 	virtual EnHandleResult OnReceive(ITcpAgent* pSender, CONNID dwConnID, const BYTE* pData, int iLength) override
@@ -293,18 +244,10 @@ class http_agent_listener :public IHttpAgentListener
 	}
 	virtual EnHandleResult OnClose(ITcpAgent* pSender, CONNID dwConnID, EnSocketOperation enOperation, int iErrorCode) override
 	{
-		newobj::log->info("OnClose", "agent");
-		//std::cout << "[OnClose]ConnectedCount:" << pSender->GetConnectionCount() << std::endl;
-		/*失败*/
-		// 断开服务端连接
-		{
-			PVOID extra = 0;
-			pSender->GetConnectionExtra(dwConnID,&extra);
-			auto e = ((HttpAgentExtra*)extra);
-			((IHttpServer*)e->server->hpserver())->Disconnect(e->connid);
-			delete ((HttpAgentExtra*)extra);
-		}
-
+        http_agent_extra* extra = GET_EXTRA;
+		IHttpServer* server = (IHttpServer*)extra->server->hpserver();
+        server->Disconnect(extra->connid);
+		delete extra;
 		return HR_OK;
 	}
 	virtual EnHandleResult OnShutdown(ITcpAgent* pSender) override
@@ -317,171 +260,128 @@ class http_agent_listener :public IHttpAgentListener
 	}
 	virtual EnHandleResult OnConnect(ITcpAgent* pSender, CONNID dwConnID) override
 	{
-		newobj::log->info("OnConnect", "agent");
-		//std::cout << "[OnConnect]ConnectedCount:" << pSender->GetConnectionCount() << std::endl;
 		return HR_OK;
 	}
-public:
-	IHttpAgent* m_agent;
 };
-uint64 newobj::network::http::agent::connect_count()
+bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network::http::proxy* proxy)
 {
-	return AGENT->GetConnectionCount();
-}
-bool newobj::network::http::agent::request(const nstring& ipaddress, ushort port, int32 wait_msec, uint64& connid, uint64 server_connid, network::http::server* server, reqpack* rp, network::http::proxy* proxy)
-{
-	HttpAgentExtra* extra = new HttpAgentExtra;
-	extra->connid = server_connid;
-	extra->server = server;
+	http_agent_extra* extra = new http_agent_extra;
+	extra->connid = rp->connid();
+	extra->server = rp->server();
+    if(proxy->ssl)
+        extra->agent = (IHttpAgent*)m_agent_ssl;
+    else
+        extra->agent = (IHttpAgent*)m_agent;
+
+    temp_recv *srv_extra = nullptr;
+    //Server Extra
+    {
+        // 临时附加数据
+        {
+            PVOID exts = 0;
+            if (((IHttpServer*)rp->server()->hpserver())->GetConnectionExtra(rp->connid(), &exts) == false)
+                return true;
+            srv_extra = (temp_recv*)exts;
+            srv_extra->agent = (void*)extra->agent;
+        }
+    }
+    // Agent ConnID
 	CONNID hpcid = 0;
 
-	extra->request.clear();
-	extra->request.path = proxy->dst + rp->filepath().right(rp->filepath().length() - proxy->src.length());
-	extra->request.data = *rp->data();
+	extra->req.clear();
+	extra->req.path = proxy->dst + rp->url().right(rp->url().length() - proxy->src.length());
+	extra->req.data = *rp->data();
+    extra->req.url_hout = proxy->remote_ipaddress+":"+nstring::from(proxy->remote_port)+extra->req.path;
 	// 构造请求内容
 	{
-		{
-			((IHttpServer*)server->hpserver())->GetAllHeaders(rp->connid(), extra->request.headers,extra->request.headers_size);
-			if (extra->request.headers_size == 0)
-				return false;
-			extra->request.headers = new THeader[extra->request.headers_size + proxy->headers.size()];
-			((IHttpServer*)server->hpserver())->GetAllHeaders(rp->connid(), extra->request.headers, extra->request.headers_size);
-			uint32 request_header_size = extra->request.headers_size;
-			// 查找并替换协议头
-			auto find_place_header = [&](const char* name, const char* value) {
-				bool find = false;
-				for (size_t i = 0; i < extra->request.headers_size; i++)
-				{
-					if (strcmp(extra->request.headers[i].name, name) == 0)
-					{
-						find = true;
-						extra->request.headers[i].value = value;
-						break;
-					}
-				}
-				if (find == false)
-				{
-					extra->request.headers[extra->request.headers_size].name = name;
-					extra->request.headers[extra->request.headers_size].value = value;
-					request_header_size++;
-				}
-			};
-			// 要求协议头
-			for_iter(iter, proxy->headers)
-				find_place_header(iter->first.c_str(), iter->second.c_str());
+        ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders(rp->connid(), extra->req.headers,extra->req.headers_size);
+        if (extra->req.headers_size == 0)
+            return false;
+        extra->req.headers = new THeader[extra->req.headers_size + proxy->headers.size()];
+        ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders(rp->connid(), extra->req.headers, extra->req.headers_size);
+        uint32 request_header_size = extra->req.headers_size;
+        // 查找并替换协议头
+        auto find_place_header = [&](const char* name, const char* value) {
+            bool find = false;
+            for (size_t i = 0; i < extra->req.headers_size; i++)
+            {
+                if (strcmp(extra->req.headers[i].name, name) == 0)
+                {
+                    find = true;
+                    extra->req.headers[i].value = value;
+                    break;
+                }
+            }
+            if (find == false)
+            {
+                extra->req.headers[extra->req.headers_size].name = name;
+                extra->req.headers[extra->req.headers_size].value = value;
+                request_header_size++;
+            }
+        };
+        // 要求协议头
+        for_iter(iter, proxy->headers)
+            find_place_header(iter->first.c_str(), iter->second.c_str());
 
-			extra->request.headers_size = request_header_size;
-		}
-		// 取请求方式
-		extra->request.method = ((IHttpServer*)server->hpserver())->GetMethod(server_connid);
+        extra->req.headers_size = request_header_size;
+        // 取请求方式
+		extra->req.method = ((IHttpServer*)rp->server()->hpserver())->GetMethod(rp->connid());
 	}
 	
-	if (AGENT->Connect(ipaddress.c_str(), port, &hpcid, (PVOID)extra) == false)
+	if (extra->agent->Connect(proxy->remote_ipaddress.c_str(), proxy->remote_port, &hpcid, (PVOID)extra) == false)
 	{
-		std::cout << SYS_GetLastError() << std::endl;
+        newobj::log->error("connect failed.\t"+extra->req.path,"http_agent");
 		delete extra;
 		return false;
 	}
-	connid = hpcid;
+	srv_extra->agent_connid = hpcid;
 	return true;
 }
 void* newobj::network::http::agent::get()
 {
-	//if (m_ssl)
-		return m_agent;
-	//return m_agent_ssl;
-	//return nullptr;
+    return m_agent;
 }
 newobj::network::http::agent::agent()
 {
 	m_listener = new http_agent_listener;
-	
-	m_agent = HP_Create_HttpsAgent(m_listener);
-	//m_agent_ssl = HP_Create_HttpsAgent(m_listener);
-	m_listener->m_agent = (IHttpAgent*)m_agent;
+	m_agent_ssl = HP_Create_HttpsAgent(m_listener);
+	m_agent = HP_Create_HttpAgent(m_listener);
 } 
 newobj::network::http::agent::~agent()
 {
-	
-	AGENT->Stop();
-	AGENT->Wait();
-	//AGENT_SSL->Stop();
-	//AGENT_SSL->Wait();
+	((IHttpAgent*)m_agent)->Stop();
+	((IHttpAgent*)m_agent_ssl)->Stop();
+	((IHttpAgent*)m_agent_ssl)->Wait();
+	((IHttpAgent*)m_agent_ssl)->Wait();
 }
 bool newobj::network::http::agent::start()
 {
 	
-	//AGENT->CleanupSSLContext();
-	//std::cout << AGENT->GetSSLCipherList() << std::endl;
-	// 
-	
-	AGENT->CleanupSSLContext();
-	//AGENT->SetSSLCipherList("DEFAULT:!aNULL:!eNULL:!SSLv3");
-	//AGEN
-	if (AGENT->SetupSSLContext() == false)
+	((IHttpAgent*)m_agent_ssl)->CleanupSSLContext();
+	if (((IHttpAgent*)m_agent_ssl)->SetupSSLContext() == false)
 	{
-		std::cout << "SetupSSLContextFailed, " << nstring::from((uint32)SYS_GetLastError()).c_str() << std::endl;
+		m_lastErrorDesc =  "SetupSSLContextFailed, " + nstring::from((uint32)SYS_GetLastError());
 		return false;
 	}
-	
+    if(((IHttpAgent*)m_agent_ssl)->Start() == false){
+        m_lastErrorDesc = "SSLHttpAgent start failed.";
+        return false;
+    }
+    if(((IHttpAgent*)m_agent)->Start() == false){
+        m_lastErrorDesc = "HttpAgent start failed.";
+        ((IHttpAgent*)m_agent_ssl)->Stop();
+        ((IHttpAgent*)m_agent_ssl)->Wait();
+        return false;
 
-	return AGENT->Start();//&& AGENT_SSL->Start();
+    }
+    return true;
+
 }
-
-bool newobj::network::http::agent::stop()
+void newobj::network::http::agent::disconnect(bool ssl,uint64 connid)
 {
-	return AGENT->Stop();//&& AGENT_SSL->Stop();
-}
-
-bool newobj::network::http::agent::connect(const nstring& ipaddress, ushort port, int32 wait_msec, uint64& connid, uint64 server_connid, network::http::server* server)
-{
-	/*auto ba = time::now_msec();
-	HttpAgentExtra* extra = new HttpAgentExtra;
-	extra->connid = server_connid;
-	extra->server = (network::http::server*)server;
-	CONNID hpcid = 0;
-
-	if (AGENT->Connect(ipaddress.c_str(), port, &hpcid, (PVOID)extra) == false)
-	{
-		std::cout << SYS_GetLastError() << std::endl;
-		delete extra;
-		return false;
-	}
-
-	std::cout << "Connect:" << time::now_msec() - ba << std::endl;
-	ba = time::now_msec();
-	connid = hpcid;
-	timestamp start_time = time::now_msec();
-	m_listener->m_map.set(hpcid, 0,true);
-	while (m_listener->m_map[hpcid] == 0)
-	{
-		if (wait_msec != -1)
-		{
-			if (time::now_msec() >start_time+  wait_msec)
-				break;
-		}
-		newobj::system::sleep_msec(10);
-	}
-	bool result = m_listener->m_map[hpcid] != 2;
-	m_listener->m_map.del(hpcid);
-	std::cout << "ConnectEnd:" <<time::now_msec()- ba << std::endl;
-	return result;*/
-	return false;
-}
-
-void newobj::network::http::agent::disconnect(uint64 connid)
-{
-	AGENT->Disconnect((CONNID)connid,TRUE);
-	//AGENT_SSL->Disconnect((CONNID)connid);
-}
-
-//bool newobj::network::http::agent::send(network::http::proxy* proxy,uint64 agent_connid,reqpack* rp)
-//{
-//	return true;
-//}
-
-bool newobj::network::http::agent::is_connected(uint64 connid)
-{
-	return AGENT->IsConnected(connid);
+	if(ssl)
+        ((IHttpAgent*)m_agent_ssl)->Disconnect((CONNID)connid,TRUE);
+    else
+        ((IHttpAgent*)m_agent)->Disconnect((CONNID)connid,TRUE);
 }
 #endif

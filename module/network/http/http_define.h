@@ -52,6 +52,7 @@ namespace newobj
                 proxy()
                 {
                     remote_port = 0;
+                    ssl = false;
                 }
                 // 拦截地址
                 nstring src;
@@ -67,6 +68,8 @@ namespace newobj
                 nstring host;
                 // 附加协议头
                 std::map<nstring, nstring> headers;
+                // SSL
+                bool ssl;
             };
             // httpserver代理后连接附加数据
             struct httpserver_proxy_extra

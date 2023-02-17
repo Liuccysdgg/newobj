@@ -221,58 +221,8 @@ bool newobj::network::http::router::is_proxy(reqpack* rp)
         bool accord = accord_proxy(proxy, rp->filepath());
         if (accord == false)
             continue;
-        // 临时附加数据
-        temp_recv* tr = nullptr;
-        {
-            PVOID extra = 0;
-            if (((IHttpServer*)rp->server()->hpserver())->GetConnectionExtra(rp->connid(), &extra) == false)
-                return true;
-            tr = (temp_recv*)extra;
-            tr->agent = rp->website()->agent();
-        }
-        timestamp begin_msec = time::now_msec();
-        rp->website()->agent()->request(proxy->remote_ipaddress,
-            proxy->remote_port,
-            3000,
-            tr->agent_connid,
-            rp->connid(),
-            rp->server(),
-            rp,
-            proxy
-            );
-        //if (
-        //    ((network::http::agent*)tr->agent)->is_connected(tr->agent_connid) == false || 
-        //    nstring(proxy->remote_ipaddress+":" + nstring::from(proxy->remote_port)) != tr->ipaddress_port
-        //    )
-        //{
-        //    if(tr->agent_connid != 0)
-        //        rp->website()->agent()->disconnect(tr->agent_connid);
-        //    tr->ipaddress_port = nstring(proxy->remote_ipaddress + nstring::from(proxy->remote_port));
-        //    // 连接
-        //    uint64 agent_connid = 0;
-        //    if (rp->website()->agent()->connect(
-        //        proxy->remote_ipaddress,
-        //        proxy->remote_port,
-        //        3000,
-        //        tr->agent_connid,
-        //        rp->connid(),
-        //        rp->server()
-        //    ) == false)
-        //    {
-        //        // delete rp;
-        //         //abort();
-        //        std::cout << "proxy connect failed," << proxy->remote_ipaddress.c_str() << ":" << proxy->remote_port << std::endl;
-        //        return true;
-        //    }
-        //}
-        //else
-        //{
-        //    std::cout << "IsConnect:" << tr->agent_connid << std::endl;
-        //}
-        //auto a = time::now_msec() - begin_msec;
-        //// 发送
-        //rp->website()->agent()->send(proxy, tr->agent_connid,rp);
-        //std::cout << a<<":"<< time::now_msec() - begin_msec << std::endl;
+                timestamp begin_msec = time::now_msec();
+        rp->website()->agent()->request(3000,rp,proxy);
         return true;
     }
     return false;

@@ -76,7 +76,7 @@ EnHandleResult newobj::network::http::http_server_lst::OnClose(ITcpServer* pSend
 			temp_recv* tr = (temp_recv*)extra;
 			if (tr->agent != nullptr)
 			{
-				((network::http::agent*)tr->agent)->disconnect(tr->agent_connid);
+				((IHttpAgent*)tr->agent)->Disconnect(tr->agent_connid);
 			}
 			delete (temp_recv*)extra;
 		}
@@ -137,7 +137,6 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnChunkHeader(IHttpSer
 {
 	return HPR_OK;
 }
-
 EnHttpParseResult newobj::network::http::http_server_lst::OnChunkComplete(IHttpServer* pSender, CONNID dwConnID)
 {
 	return HPR_OK;
@@ -184,13 +183,17 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageComplete(IHtt
         rp->init(tr->url,tr->data,(uint64)dwConnID,m_server);
 		tr->data = nullptr;
     }
-	
+	nstring logstr = nstring(pSender->GetMethod(dwConnID)) +" ("+rp->host()+") "+rp->url();
 	auto website = m_server->center()->website(rp->host());
 	if (website == nullptr)
 	{
+        logstr.append(" not website");
+        newobj::log->error(logstr,"http_server_lst");
 		delete rp;
 		return HPR_OK;
 	}
+
+    newobj::log->info(logstr,"http_server_lst");
 	rp->website(website);
 #if 0
 	rp->request();

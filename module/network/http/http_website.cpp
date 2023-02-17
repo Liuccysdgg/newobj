@@ -127,8 +127,9 @@ bool newobj::network::http::website::start(const newobj::json& config)
                     ushort http_port;
                     nstring http_urlfield;
                     newobj::network::tools::parse_url(proxy->remote_url, http_type, http_host, http_ipaddress, http_port, http_urlfield);
-                    proxy->remote_ipaddress = http_ipaddress;
+                    proxy->remote_ipaddress = http_host;
                     proxy->remote_port = http_port;
+                    proxy->ssl = http_type=="https://";
                 }
                 proxy->host = proxy_cj["host"].to<nstring>();
                 // ะญา้อท
