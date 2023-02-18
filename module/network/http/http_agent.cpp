@@ -22,8 +22,7 @@ struct http_agent_extra
 	{
 		request()
 		{
-			headers = nullptr;
-			headers_size = 0;
+            clear();
 		}
 		~request()
 		{
@@ -31,16 +30,12 @@ struct http_agent_extra
 		}
 		void clear()
 		{
-			if (headers != nullptr)
-				delete[] headers;
-			headers = nullptr;
-			headers_size = 0;
-			path.clear();
+			headers.clear();
+            path.clear();
 			data.clear();
 		}
 		// 请求头
-		THeader* headers;
-		DWORD headers_size;
+        std::map<nstring,nstring> headers;
 		// 请求路径
 		nstring path;
 		// 请求类型
@@ -207,13 +202,20 @@ class http_agent_listener :public IHttpAgentListener
 		http_agent_extra* extra = GET_EXTRA;
 		// 发送请求
         newobj::log->info("[request] "+extra->req.method +"\t"+extra->req.url_hout,"http_agent");
-        THeader* local_header = nullptr;
+        THeader* local_header = new THeader[extra->req.headers.size()];
+        size_t i= 0;
+        for_iter(iter,extra->req.headers){
+            local_header[i].name = iter->first.c_str();
+            local_header[i].value = iter->second.c_str();
+            i++;
+        }
+
 		bool result = extra->agent->SendRequest(
 			dwConnID,
 			extra->req.method.c_str(),
 			extra->req.path.c_str(),
-			extra->req.headers,
-			extra->req.headers_size,
+			local_header,
+			extra->req.headers.size(),
 			(const BYTE*)extra->req.data.data(),
 			extra->req.data.length());
 		delete[] local_header;
@@ -292,43 +294,31 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
     extra->req.url_hout = proxy->remote_ipaddress+":"+nstring::from(proxy->remote_port)+extra->req.path;
 	// 构造请求内容
 	{
-        ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders(rp->connid(), extra->req.headers,extra->req.headers_size);
-        if (extra->req.headers_size == 0)
+        THeader* header = nullptr;
+        DWORD header_size = 0;
+        ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders(rp->connid(), header,header_size);
+        if (header_size == 0)
             return false;
-        extra->req.headers = new THeader[extra->req.headers_size + proxy->headers.size()];
-        ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders(rp->connid(), extra->req.headers, extra->req.headers_size);
-        uint32 request_header_size = extra->req.headers_size;
-        // 查找并替换协议头
-        auto find_place_header = [&](const char* name, const char* value) {
-            bool find = false;
-            for (size_t i = 0; i < extra->req.headers_size; i++)
-            {
-                if (strcmp(extra->req.headers[i].name, name) == 0)
-                {
-                    find = true;
-                    extra->req.headers[i].value = value;
-                    break;
-                }
-            }
-            if (find == false)
-            {
-                extra->req.headers[extra->req.headers_size].name = name;
-                extra->req.headers[extra->req.headers_size].value = value;
-                request_header_size++;
-            }
-        };
+        header = new THeader[header_size];
+        ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders(rp->connid(), header,header_size);
+        // 浏览器真实IP
+        nstring ipaddress;
+        ushort port = 0;
+        rp->server()->remote(rp->connid(),ipaddress,port);
+        // 请求协议头
+        for(size_t i=0;i<header_size;i++)
+            extra->req.headers[header[i].name] = header[i].value;
         // 要求协议头
         for_iter(iter, proxy->headers){
             if(iter->first == "X-Real-IP"){
                 if(iter->second == "{client_ipaddress}"){
-                    find_place_header(iter->first.c_str(),rp->request()->remote_ipaddress().c_str());
+                    extra->req.headers[iter->first] = ipaddress;
                     continue;
                 }
             }
-            find_place_header(iter->first.c_str(),rp->request()->remote_ipaddress().c_str());
+            extra->req.headers[iter->first] = iter->second;
         }
-
-        extra->req.headers_size = request_header_size;
+        delete[] header;
         // 取请求方式
 		extra->req.method = ((IHttpServer*)rp->server()->hpserver())->GetMethod(rp->connid());
 	}
