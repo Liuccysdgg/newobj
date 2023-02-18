@@ -53,8 +53,9 @@ newobj::network::http::reqpack::~reqpack()
 
 }
 
-void newobj::network::http::reqpack::init(const nstring& url, newobj::buffer* data, uint64 connid, network::http::server* server)
+void newobj::network::http::reqpack::init(const nstring& url,const nstring& host, newobj::buffer* data, uint64 connid, network::http::server* server)
 {
+    m_host = host;
     m_url = url;
     m_method = network::http::ALL;
     m_request = nullptr;

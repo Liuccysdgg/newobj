@@ -45,6 +45,8 @@ namespace newobj
                 nstring url;
                 // 代理连接IP及端口
                 nstring ipaddress_port;
+                // Host
+                nstring host;
             };
             // 代理
             struct proxy

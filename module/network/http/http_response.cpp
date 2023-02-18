@@ -322,7 +322,7 @@ namespace newobj
 				newobj::buffer* newdata = new newobj::buffer;
 				 *newdata = *m_reqpack->data();
 				 network::http::reqpack* reqpack = network::http::reqpack::create();
-				reqpack->init(m_reqpack->url(), newdata, m_reqpack->connid(), m_reqpack->server());
+				reqpack->init(m_reqpack->url(),m_reqpack->host(),newdata, m_reqpack->connid(), m_reqpack->server());
                 reqpack->filepath(filepath);
 				m_reqpack->website()->router()->push(reqpack);
                 return true;

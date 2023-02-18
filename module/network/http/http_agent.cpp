@@ -8,6 +8,7 @@
 #include "util/timeout.h"
 #include "util/map.hpp"
 #include "http_server.h"
+#include "http_request.h"
 #include <string.h>
 #include <iostream>
 #include <sstream>
@@ -148,17 +149,6 @@ class http_agent_listener :public IHttpAgentListener
 	{
         http_agent_extra* extra = GET_EXTRA;
 		IHttpServer* server = (IHttpServer*)extra->server->hpserver();
-		
-        if (extra->recv.transfer_encoding_length != -1)
-		{
-			nstring length = dec2hex(iLength)+"\r\n";
-			// 分块长度
-			server->Send(
-				extra->connid,
-				(const BYTE*)length.c_str(),
-				length.length());
-		
-		}
         server->Send(
                      extra->connid,
                      pData,
@@ -167,29 +157,29 @@ class http_agent_listener :public IHttpAgentListener
 	}
 	virtual EnHttpParseResult OnChunkHeader(IHttpAgent* pSender, CONNID dwConnID, int iLength) override
 	{
-		
+        http_agent_extra* extra = GET_EXTRA;
+		IHttpServer* server = (IHttpServer*)extra->server->hpserver();
+		nstring length = dec2hex(iLength)+"\r\n";
+			// 分块长度
+		server->Send(
+				extra->connid,
+				(const BYTE*)length.c_str(),
+				length.length());
 		GET_EXTRA->recv.transfer_encoding_length = iLength;
-
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnChunkComplete(IHttpAgent* pSender, CONNID dwConnID) override
 	{
+        http_agent_extra* extra = GET_EXTRA;
+		IHttpServer* server = (IHttpServer*)extra->server->hpserver();
+        server->Send(
+				extra->connid,
+				(const BYTE*)"\r\n0\r\n\r\n\r\n",
+				9);
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnMessageComplete(IHttpAgent* pSender, CONNID dwConnID) override
 	{
-        http_agent_extra* extra = GET_EXTRA;
-		IHttpServer* server = (IHttpServer*)extra->server->hpserver();
-
-		if (extra->recv.transfer_encoding_length != -1)
-		{
-			// 分块长度
-			server->Send(
-				extra->connid,
-				(const BYTE*)"\r\n0\r\n\r\n\r\n",
-				9);
-		}
-		
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnUpgrade(IHttpAgent* pSender, CONNID dwConnID, EnHttpUpgradeType enUpgradeType) override
@@ -328,14 +318,23 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
             }
         };
         // 要求协议头
-        for_iter(iter, proxy->headers)
-            find_place_header(iter->first.c_str(), iter->second.c_str());
+        for_iter(iter, proxy->headers){
+            if(iter->first == "X-Real-IP"){
+                if(iter->second == "{client_ipaddress}"){
+                    find_place_header(iter->first.c_str(),rp->request()->remote_ipaddress().c_str());
+                    continue;
+                }
+            }
+            find_place_header(iter->first.c_str(),rp->request()->remote_ipaddress().c_str());
+        }
 
         extra->req.headers_size = request_header_size;
         // 取请求方式
 		extra->req.method = ((IHttpServer*)rp->server()->hpserver())->GetMethod(rp->connid());
 	}
-	
+//    for(size_t i=0;i<extra->req.headers_size;i++){
+//        std::cout<<extra->req.headers[i].name<<":\t"<<extra->req.headers[i].value<<std::endl;
+//    }
 	if (extra->agent->Connect(proxy->remote_ipaddress.c_str(), proxy->remote_port, &hpcid, (PVOID)extra) == false)
 	{
         newobj::log->error("connect failed.\t"+extra->req.path,"http_agent");

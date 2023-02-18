@@ -30,7 +30,7 @@ namespace newobj {
                 reqpack();
                 ~reqpack();
 
-                void init(const nstring& url, newobj::buffer* data, uint64 connid, network::http::server* server);
+                void init(const nstring& url,const nstring& host, newobj::buffer* data, uint64 connid, network::http::server* server);
                 void clear(){}
                 network::http::request* request();
                 network::http::response* response();
@@ -38,8 +38,6 @@ namespace newobj {
                 inline const nstring& host()
                 {
                     /*获取基本请求信息*/
-                    if (m_host.empty())
-                        m_host = ((IHttpServer*)m_server->hpserver())->GetHost((CONNID)m_connid);
                     return m_host;
                 }
                 inline network::http::method method()

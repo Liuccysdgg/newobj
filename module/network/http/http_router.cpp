@@ -176,8 +176,12 @@ void newobj::network::http::router::__thread_callback(reqpack* rp)
         if (m_callback_other != nullptr) {
             m_callback_other(rp->request(), rp->response());
         }else{
-            newobj::log->warn("["+rp->exec_msec()+" ms] other url:"+rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true),"router"); 
-            rp->response()->send((nstring)"The request will not be processed",410,"Gone");
+            nstring filepath = rp->request()->filepath();
+            if(filepath == "/")
+                filepath = "/index.html";
+            if(rp->response()->send_file(filepath) == false){
+                rp->response()->send((nstring)"404 Not found",404,"Not Found");        
+            }
         }
     }
 }
@@ -221,7 +225,7 @@ bool newobj::network::http::router::is_proxy(reqpack* rp)
         bool accord = accord_proxy(proxy, rp->filepath());
         if (accord == false)
             continue;
-                timestamp begin_msec = time::now_msec();
+        timestamp begin_msec = time::now_msec();
         rp->website()->agent()->request(3000,rp,proxy);
         return true;
     }

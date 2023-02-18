@@ -93,7 +93,7 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageBegin(IHttpSe
 	if (pSender->GetConnectionExtra(dwConnID, &extra))
 	{
 		if (extra != 0)
-		{
+        {
 			((temp_recv*)extra)->data = new newobj::buffer;
 		}
 	}
@@ -125,6 +125,18 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnStatusLine(IHttpServ
 
 EnHttpParseResult newobj::network::http::http_server_lst::OnHeader(IHttpServer* pSender, CONNID dwConnID, LPCSTR lpszName, LPCSTR lpszValue)
 {
+
+    if(strcmp(lpszName,"Host") == 0){
+        PVOID extra = 0;
+        if (pSender->GetConnectionExtra(dwConnID, &extra))
+        {
+            if (extra != 0)
+            {
+                ((temp_recv*)extra)->host = lpszValue;
+            }
+        }
+   
+    }
 	return HPR_OK;
 }
 
@@ -180,14 +192,15 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageComplete(IHtt
 		m_server->qps()->request(tr->data->length()); 
 
 		rp = reqpack::create();
-        rp->init(tr->url,tr->data,(uint64)dwConnID,m_server);
+        rp->init(tr->url,tr->host,tr->data,(uint64)dwConnID,m_server);
 		tr->data = nullptr;
     }
 	nstring logstr = nstring(pSender->GetMethod(dwConnID)) +" ("+rp->host()+") "+rp->url();
 	auto website = m_server->center()->website(rp->host());
 	if (website == nullptr)
 	{
-        logstr.append(" not website");
+	    pSender->SendResponse(dwConnID, 404, "Not Found", nullptr, 0, (const BYTE*)"No such site",12);
+        logstr.append(" not website:");
         newobj::log->error(logstr,"http_server_lst");
 		delete rp;
 		return HPR_OK;

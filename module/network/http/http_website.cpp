@@ -138,7 +138,6 @@ bool newobj::network::http::website::start(const newobj::json& config)
                 // –≠“ÈÕ∑
                 for (size_t h = 0; h < proxy_cj["headers"].size(); h++)
                     proxy->headers[proxy_cj["headers"][h]["key"].to<nstring>()] = proxy_cj["headers"][h]["value"].to<nstring>();
-
                 m_proxy.push_back(proxy);
             }
         }
