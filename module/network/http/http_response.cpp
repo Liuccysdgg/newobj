@@ -152,6 +152,7 @@ namespace newobj
 				long filesize = 0;
 				time_t last_modify_time = 0;
 
+                newobj::log->info(filepath2,"response");
 				/*取文件信息*/
 				{
 					struct stat statbuf;

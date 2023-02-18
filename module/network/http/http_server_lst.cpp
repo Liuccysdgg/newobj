@@ -12,7 +12,9 @@
 #include "http_center.h"
 #include "http_website.h"
 #include "http_agent.h"
+#include "http_util.h"
 #define BARE_HP 0
+        
 newobj::network::http::http_server_lst::http_server_lst(server* server)
 {
 	
@@ -195,18 +197,26 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageComplete(IHtt
         rp->init(tr->url,tr->host,tr->data,(uint64)dwConnID,m_server);
 		tr->data = nullptr;
     }
-	nstring logstr = nstring(pSender->GetMethod(dwConnID)) +" ("+rp->host()+") "+rp->url();
+    nstring size_name;
+    {
+        double size_ld = 0;
+        if(rp->data() != nullptr){
+            size_ld = rp->data()->length();
+        }
+        size_name = newobj::network::tools::size_name(size_ld,2);
+    }
+	nstring logstr = "[recv   ]\t"+rp->remote()+"\t("+nstring::from(rp->connid())+")" +"\t"+ nstring(pSender->GetMethod(dwConnID)) +"\t"+size_name+"\t"+rp->host()+rp->url();
 	auto website = m_server->center()->website(rp->host());
 	if (website == nullptr)
 	{
 	    pSender->SendResponse(dwConnID, 404, "Not Found", nullptr, 0, (const BYTE*)"No such site",12);
         logstr.append(" not website:");
-        newobj::log->error(logstr,"http_server_lst");
+        newobj::log->error(logstr,"http_server");
 		delete rp;
 		return HPR_OK;
 	}
 
-    newobj::log->info(logstr,"http_server_lst");
+    newobj::log->info(logstr,"http_server");
 	rp->website(website);
 #if 0
 	rp->request();

@@ -26,7 +26,7 @@ bool network::http::server::start()
 {
     //HPSERVER->SetAcceptSocketCount(10000);
     //HPSERVER->SetMaxConnectionCount(100000);
-    HPSERVER->SetWorkerThreadCount(20);
+//    HPSERVER->SetWorkerThreadCount(20);
     if (HPSERVER->Start("0.0.0.0", m_port) == false)
     {
 #ifndef _WIN32

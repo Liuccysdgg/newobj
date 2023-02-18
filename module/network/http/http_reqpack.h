@@ -98,6 +98,13 @@ namespace newobj {
                 inline nstring exec_msec(){
                     return nstring::from(time::now_msec()-m_begin_msec);
                 }
+                inline nstring& remote(){
+                    if(m_remote_ipaddress.empty()){
+                        ushort port;
+                        m_server->remote(connid(),m_remote_ipaddress,port);
+                    }
+                    return m_remote_ipaddress;
+                }
             private:
                 // 请求主机
                 nstring m_host;
@@ -119,6 +126,8 @@ namespace newobj {
                 nstring m_url;
                 // 请求发起时间
                 timestamp m_begin_msec;
+                // 远程IP
+                nstring m_remote_ipaddress;
             private:
                 network::http::request* m_request;
                 network::http::response* m_response;
