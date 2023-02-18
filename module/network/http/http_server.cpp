@@ -14,6 +14,8 @@ network::http::server::server()
     m_listener = nullptr;
     m_https = false;
     m_port = 0;
+
+    m_init_ssl = false;
 }
 
 network::http::server::~server()

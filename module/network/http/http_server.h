@@ -58,6 +58,8 @@ namespace newobj
                  ******************************************************************/
                 network::qps* qps();
                 inline const ushort port() { return m_port; }
+            public:
+                bool m_init_ssl;
             private:
                 friend class http_server_lst;
 			private:

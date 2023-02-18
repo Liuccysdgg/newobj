@@ -176,9 +176,9 @@ void newobj::network::http::router::__thread_callback(reqpack* rp)
         if (m_callback_other != nullptr) {
             m_callback_other(rp->request(), rp->response());
         }else{
+            newobj::log->warn("["+rp->exec_msec()+" ms] other url:"+rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true),"router"); 
             rp->response()->send((nstring)"The request will not be processed",410,"Gone");
         }
-        newobj::log->warn("["+rp->exec_msec()+" ms] other url:"+rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true),"router"); 
     }
 }
 size_t newobj::network::http::router::queue_size()

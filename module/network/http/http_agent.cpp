@@ -216,7 +216,7 @@ class http_agent_listener :public IHttpAgentListener
 	{
 		http_agent_extra* extra = GET_EXTRA;
 		// 发送请求
-        newobj::log->info(extra->req.method +"\t"+extra->req.url_hout,"http_agent");
+        newobj::log->info("[request] "+extra->req.method +"\t"+extra->req.url_hout,"http_agent");
         THeader* local_header = nullptr;
 		bool result = extra->agent->SendRequest(
 			dwConnID,
@@ -289,7 +289,15 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
 	CONNID hpcid = 0;
 
 	extra->req.clear();
-	extra->req.path = proxy->dst + rp->url().right(rp->url().length() - proxy->src.length());
+    // 拼接地址
+    {
+        nstring pjp = rp->url().right(rp->url().length() - proxy->src.length());
+        extra->req.path.append(proxy->dst);
+        if(proxy->dst.right(1) != "/" && pjp.left(1) != "/"){
+            extra->req.path.append("/");
+        }
+        extra->req.path.append(pjp);
+    }
 	extra->req.data = *rp->data();
     extra->req.url_hout = proxy->remote_ipaddress+":"+nstring::from(proxy->remote_port)+extra->req.path;
 	// 构造请求内容

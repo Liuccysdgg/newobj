@@ -118,6 +118,9 @@ bool newobj::network::http::website::start(const newobj::json& config)
                 proxy->src = proxy_cj["src"].to<nstring>();
                 proxy->dst = proxy_cj["dst"].to<nstring>();
 
+                if(proxy->dst == "/"){
+                    proxy->dst.clear();
+                }
                 // ½âÎöµØÖ·
                 {
                     proxy->remote_url = proxy_cj["remote"].to<nstring>();

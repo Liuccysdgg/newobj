@@ -27,15 +27,19 @@ bool newobj::network::http::ssl::bind(const nstring& host)
 }
 bool newobj::network::http::ssl::regist()
 {
-	if (HPSERVER->SetupSSLContextByMemory(
-		(EnSSLVerifyMode)m_verify_type,
-		m_pem_cert.c_str(),
-		m_pem_key.c_str(),
-		m_pem_password.c_str()) == false)
-	{
-		m_lastErrorDesc = "SetupSSLContextByMemory Failed, code:"+nstring::from((uint64)SYS_GetLastError());
-		return false;
-	}
+    if(m_server->m_init_ssl == false){
+        m_server->m_init_ssl = true;
+        if (HPSERVER->SetupSSLContextByMemory(
+                                              (EnSSLVerifyMode)m_verify_type,
+                                              m_pem_cert.c_str(),
+                                              m_pem_key.c_str(),
+                                              m_pem_password.c_str()) == false)
+        {
+            m_lastErrorDesc = "SetupSSLContextByMemory Failed, code:"+nstring::from((uint64)SYS_GetLastError());
+            return false;
+        }
+
+    }
 	m_index = HPSERVER->AddSSLContextByMemory((EnSSLVerifyMode)m_verify_type,
 		m_pem_cert.c_str(),
 		m_pem_key.c_str(),
