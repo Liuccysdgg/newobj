@@ -11,6 +11,8 @@
 #define HPSERVER ((IHttpServer*)m_server)
 network::http::server::server()
 {
+    m_extra_queue = new newobj::object_pool<temp_recv>("http_server_extra", 10000, 60);
+    m_extra_data_queue = new newobj::object_pool<buffer>("http_server_extra_data", 10000, 60);
     m_server = nullptr;
     m_listener = nullptr;
     m_https = false;
@@ -23,7 +25,10 @@ network::http::server::server()
 
 network::http::server::~server()
 {
+    close();
     delete m_agent;
+    delete m_extra_queue;
+    delete m_extra_data_queue;
 }
 bool network::http::server::start()
 {

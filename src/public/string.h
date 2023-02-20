@@ -15,7 +15,7 @@
 
 #endif
 
-#define NSTRING_BLOCKS_SIZE 32
+#define NSTRING_BLOCKS_SIZE 128
 //#define NSTRING_FILE
 #ifdef NSTRING_FILE
 namespace newobj

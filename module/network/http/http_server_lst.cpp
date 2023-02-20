@@ -14,7 +14,7 @@
 #include "http_agent.h"
 #include "http_util.h"
 #define BARE_HP 0
-#define HTTP_SERVER_DEBUG_PRINT 0
+#define HTTP_SERVER_DEBUG_PRINT 1
         
 newobj::network::http::http_server_lst::http_server_lst(server* server)
 {
@@ -35,7 +35,7 @@ EnHandleResult newobj::network::http::http_server_lst::OnAccept(ITcpServer* pSen
 {
 	//std::cout << "[OnAccept] HttpServerConnect:" << pSender->GetConnectionCount() << std::endl;
 #if BARE_HP == 0
-	pSender->SetConnectionExtra(dwConnID, (PVOID)new temp_recv);
+	pSender->SetConnectionExtra(dwConnID, (PVOID)m_server->m_extra_queue->create());
 #endif
 #if HTTP_SERVER_DEBUG_PRINT == 1
      newobj::log->info("OnAccept ("+nstring::from((uint64)dwConnID)+")","http_server");
@@ -98,7 +98,7 @@ EnHandleResult newobj::network::http::http_server_lst::OnClose(ITcpServer* pSend
 			{
                 m_server->agent()->disconnect(tr->agent_ssl,tr->agent_connid);
 			}
-			delete (temp_recv*)extra;
+			m_server->m_extra_queue->destory((temp_recv*)extra);
 		}
 			
 	}
@@ -117,7 +117,7 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageBegin(IHttpSe
 	{
 		if (extra != 0)
         {
-			((temp_recv*)extra)->data = new newobj::buffer;
+			((temp_recv*)extra)->data = m_server->m_extra_data_queue->create();
 		}
 	}
 #endif
@@ -257,14 +257,28 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageComplete(IHtt
             newobj::log->warn("GET have body:"+rp->data()->to_string(),"http_server");
         }*/
     }
-	nstring logstr = "[recv   ]\t"+rp->remote()+"\t("+nstring::from(rp->connid())+")" +"\t\t"+ nstring(pSender->GetMethod(dwConnID)) +"\t"+size_name+"\t"+rp->host()+rp->url();
+	// LOG
+	nstring logstr;
+	{
+		logstr.append("[recv   ]\t");
+		logstr.append(rp->remote());
+		logstr.append("\t(");
+		logstr.append(nstring::from(rp->connid()));
+		logstr.append(")\t\t");
+		logstr.append(nstring(pSender->GetMethod(dwConnID)));
+		logstr.append("\t");
+		logstr.append(size_name);
+		logstr.append("\t");
+		logstr.append(rp->host());
+		logstr.append(rp->url());
+	}
 	auto website = m_server->center()->website(rp->host());
 	if (website == nullptr)
 	{
 	    pSender->SendResponse(dwConnID, 404, "Not Found", nullptr, 0, (const BYTE*)"No such site",12);
         logstr.append(" not website:");
         newobj::log->error(logstr,"http_server");
-		delete rp;
+		reqpack::destory(rp);
 		return HPR_OK;
 	}
 

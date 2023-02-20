@@ -30,10 +30,9 @@ inline void append_log(log4cplus::LogLevel level,const char* name,const nstring&
     log4cplus::Logger::getInstance(name).log(level,value.c_str());
 }
 #else
-inline void append_log(const nstring& name, const nstring& value)
+inline void append_log(const char* name, const char* value)
 {
-    nstring log = time::now_time() +": "+value+"[" + name + "]";
-    log.println();
+    printf("%s: %s [%s]\r\n",time::now_time().c_str(), name, value);
 }
 #endif
 newobj::log4& newobj::log4::warn(const nstring& value,const nstring& name)
@@ -41,7 +40,7 @@ newobj::log4& newobj::log4::warn(const nstring& value,const nstring& name)
 #if LIB_LOG4CPLUS
     append_log(log4cplus::WARN_LOG_LEVEL,name.c_str(),value.c_str());
 #else
-    append_log(name, value);
+    append_log(name.c_str(), value.c_str());
 #endif
 	return *this;
 }
@@ -50,7 +49,7 @@ newobj::log4& newobj::log4::info(const nstring& value,const nstring& name)
 #if LIB_LOG4CPLUS
     append_log(log4cplus::INFO_LOG_LEVEL,name.c_str(),value.c_str());
 #else
-    append_log(name, value);
+    //append_log(name.c_str(), value.c_str());
 #endif
 	return *this;
 }
@@ -59,7 +58,7 @@ newobj::log4& newobj::log4::error(const nstring& value,const nstring& name)
 #if LIB_LOG4CPLUS
     append_log(log4cplus::ERROR_LOG_LEVEL,name.c_str(),value.c_str());
 #else
-    append_log(name, value);
+    append_log(name.c_str(), value.c_str());
 #endif
 	return *this;
 }
@@ -68,7 +67,7 @@ newobj::log4& newobj::log4::fatal(const nstring& value,const nstring& name)
 #if LIB_LOG4CPLUS
     append_log(log4cplus::FATAL_LOG_LEVEL,name.c_str(),value.c_str());
 #else
-    append_log(name, value);
+    append_log(name.c_str(), value.c_str());
 #endif
 	return *this;
 }
@@ -77,7 +76,7 @@ newobj::log4& newobj::log4::debug(const nstring& value,const nstring& name)
 #if LIB_LOG4CPLUS
     append_log(log4cplus::DEBUG_LOG_LEVEL,name.c_str(),value.c_str());
 #else
-    append_log(name, value);
+    append_log(name.c_str(), value.c_str());
 #endif
 	return *this;
 }

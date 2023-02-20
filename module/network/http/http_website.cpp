@@ -115,7 +115,8 @@ bool newobj::network::http::website::start(const newobj::json& config)
             {
                 newobj::json proxy_cj = config["proxy"][i];
                 network::http::proxy* proxy = new network::http::proxy;
-                proxy->src = proxy_cj["src"].to<nstring>();
+                proxy->src_str = proxy_cj["src"].to<nstring>();
+                proxy->src_express = std::regex(proxy->src_str.c_str());
                 proxy->dst = proxy_cj["dst"].to<nstring>();
 
                 if(proxy->dst == "/"){
@@ -138,7 +139,7 @@ bool newobj::network::http::website::start(const newobj::json& config)
                 // –≠“ÈÕ∑
                 for (size_t h = 0; h < proxy_cj["headers"].size(); h++)
                     proxy->headers[proxy_cj["headers"][h]["key"].to<nstring>()] = proxy_cj["headers"][h]["value"].to<nstring>();
-                m_proxy.push_back(proxy);
+                m_proxy.append(proxy);
             }
    //     }
      //   else
@@ -180,7 +181,7 @@ bool newobj::network::http::website::host(const nstring& host)
     return false;
 }
 
-std::vector<network::http::proxy*>* newobj::network::http::website::proxy()
+newobj::nolock_array<network::http::proxy*>* newobj::network::http::website::proxy()
 {
     return &m_proxy;
 }

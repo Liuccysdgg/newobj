@@ -12,6 +12,7 @@
 #include "util/lock.h"
 #include "http_interface.h"
 #include "network/qps.hpp"
+#include "util/object_pool.hpp"
 namespace newobj
 {
 	namespace network
@@ -62,6 +63,8 @@ namespace newobj
                 inline network::http::agent* agent(){return m_agent;}
             public:
                 bool m_init_ssl;
+                newobj::object_pool<temp_recv>* m_extra_queue;
+                newobj::object_pool<newobj::buffer>* m_extra_data_queue;
             private:
                 friend class http_server_lst;
 			private:

@@ -35,6 +35,15 @@ namespace newobj
                     data = nullptr;
                     agent_ssl = false;
                 }
+                void clear()
+                {
+                    data = nullptr;
+                    agent_connid = 0;
+                    agent_ssl = false;
+                    url.clear();
+                    ipaddress_port.clear();
+                    host.clear();
+                }
                 // 接收数据
                 newobj::buffer *data;
                 // 代理ID
@@ -56,8 +65,10 @@ namespace newobj
                     remote_port = 0;
                     ssl = false;
                 }
-                // 拦截地址
-                nstring src;
+                // 拦截地址正则
+                std::regex src_express;
+                // 拦截地址字符串
+                nstring src_str;
                 // 目标地址
                 nstring dst;
                 // 请求URL
@@ -72,6 +83,7 @@ namespace newobj
                 std::map<nstring, nstring> headers;
                 // SSL
                 bool ssl;
+                
             };
             // httpserver代理后连接附加数据
             struct httpserver_proxy_extra

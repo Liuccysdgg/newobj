@@ -452,12 +452,7 @@ namespace newobj
         return _path.substr(0, idx);
 	}
 
-	nstring  newobj::file::ext(const nstring& path)
-	{
-        int32 idx = path.rfind('.');
-        t_ret_str(idx == -1, path);
-        return path.right(path.length()-idx-1);
-	}
+	
 
 	nstring  file::filename(const nstring& path)
 	{

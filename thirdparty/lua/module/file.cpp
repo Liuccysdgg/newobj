@@ -117,7 +117,9 @@ std::string newobj::lua::module::file::pre_dir(const std::string& path)
 
 std::string newobj::lua::module::file::ext(const std::string& path)
 {
-	return newobj::file::ext(path);
+	nstring ext;
+	newobj::file::ext(path,ext);
+	return ext.c_str();
 }
 
 std::string newobj::lua::module::file::filename(const std::string& path)

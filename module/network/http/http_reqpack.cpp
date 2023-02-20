@@ -17,7 +17,7 @@ void newobj::network::http::reqpack::destory(reqpack* p)
     //return;
     if (p->m_data != nullptr)
     {
-        delete p->m_data;
+        p->server()->m_extra_data_queue->destory(p->m_data);
         p->m_data = nullptr;
     }
     if (p->m_request != nullptr)

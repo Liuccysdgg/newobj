@@ -137,7 +137,6 @@ namespace newobj {
                 // 是否为代理任务
                 bool is_proxy(reqpack* rp);
             private:
-
                 // 订阅列表
                 newobj::nolock_array<network::http::subscribe_info*> m_subscribe;
                 // 线程池

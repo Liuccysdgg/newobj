@@ -144,7 +144,9 @@ namespace newobj
 
 			bool response::send_file(const nstring& filepath, int32 downbaud)
 			{
-                auto filepath2 = m_reqpack->website()->info()->rootdir + filepath;
+				nstring filepath2;
+				filepath2.append(m_reqpack->website()->info()->rootdir);
+				filepath2.append(filepath);
 				t_ret_f(m_response == true);
 				
 				ushort stateCode = 0;
@@ -177,7 +179,7 @@ namespace newobj
 				/*合成必要头*/
 				nstring extName;
 				nstring content_type;
-				extName = file::ext(filepath2);
+				file::ext(filepath2, extName);
 				newobj::network::tools::content_type(extName, content_type);
 				//headers()->set("Content-Type", content_type,true);
 				//时间

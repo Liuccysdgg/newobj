@@ -1,7 +1,7 @@
 #include "mem.h"
 #include <string>
 
-//#define LIB_MIMALLOC
+#define LIB_MIMALLOC
 //#define PRINT_MEM_INFO
 #ifdef LIB_MIMALLOC
 #ifdef _WIN32

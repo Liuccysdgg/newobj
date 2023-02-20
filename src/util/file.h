@@ -117,7 +117,13 @@ namespace newobj
 			/*取上级目录*/
 			static nstring pre_dir(const nstring& path);
 			/*取扩展名*/
-			static nstring ext(const nstring& path);
+			static inline void ext(const nstring& path,nstring& ext)
+			{
+					int32 idx = path.rfind('.');
+					t_ret(idx == -1);
+					int32 sublen = path.length() - idx - 1;
+					ext.append(path.c_str()+path.length()-sublen,sublen);
+			}
 			/*取文件名*/
 			static nstring filename(const nstring& path);
 			/*

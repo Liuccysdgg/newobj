@@ -211,23 +211,17 @@ void newobj::network::http::router::push(reqpack *rp)
 
 bool newobj::network::http::router::is_proxy(reqpack* rp)
 {
-    auto accord_proxy = [](network::http::proxy* proxy,const nstring& filepath)->bool {
-        size_t src_length = proxy->src.length();
-        if (filepath.left(src_length) == proxy->src)
-            return true;
-        return false;
-    };
     /*获取请求首行，判断代理*/
     auto proxys = rp->website()->proxy();
-    for (size_t i = 0; i < proxys->size(); i++)
+    for (size_t i = 0; i < proxys->m_count; i++)
     {
-        network::http::proxy* proxy = proxys->at(i);
-        bool accord = accord_proxy(proxy, rp->filepath());
-        if (accord == false)
-            continue;
-        timestamp begin_msec = time::now_msec();
-        rp->server()->agent()->request(3000,rp,proxy);
-        return true;
+        network::http::proxy* proxy = proxys->get(i);
+
+        if (std::regex_match(rp->filepath().c_str(), proxy->src_express))
+        {
+            rp->server()->agent()->request(3000, rp, proxy);
+            return true;
+        }
     }
     return false;
 }

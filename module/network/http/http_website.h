@@ -9,6 +9,8 @@
 #include <functional>
 #include "http_interface.h"
 #include <map>
+#include <regex>
+#include "util/vector.hpp"
 namespace newobj {
     namespace network {
         namespace http {
@@ -40,7 +42,7 @@ namespace newobj {
                 network::http::router* router();
                 network::http::session_mgr* session();
                 bool host(const nstring& host);
-                std::vector<network::http::proxy*>* proxy();
+                newobj::nolock_array<network::http::proxy*>* proxy();
                 const network::http::website_info* info();
 /*                inline network::http::agent* agent() { return m_agent; }*/
             private:
@@ -55,9 +57,7 @@ namespace newobj {
                 // HTTPS
                 bool m_https;
                 // 反向代理
-                std::vector<network::http::proxy*> m_proxy;
-                // 代理服务
-/*                network::http::agent* m_agent;*/
+                newobj::nolock_array<network::http::proxy*> m_proxy;
             };
         }
     }

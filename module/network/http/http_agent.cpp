@@ -19,12 +19,12 @@
 /*附加数据*/
 struct http_agent_extra
 {
-    // 请求体
+	// 请求体
 	struct request
 	{
 		request()
 		{
-            clear();
+			clear();
 		}
 		~request()
 		{
@@ -33,51 +33,60 @@ struct http_agent_extra
 		void clear()
 		{
 			headers.clear();
-            path.clear();
+			path.clear();
 			data.clear();
 		}
 		// 请求头
-        std::vector<Kv> headers;
+		std::vector<Kv> headers;
 		// 请求路径
 		nstring path;
 		// 请求类型
 		nstring method;
 		// 请求数据
 		newobj::buffer data;
-        // HOST:PORT
-        nstring url_hout;
+		// HOST:PORT
+		nstring url_host;
 
 	};
-    // 接收
-    struct receive{
-        receive(){
-            clear();
-        }
-        void clear(){
-            data.clear();
-            transfer_encoding_length = -1;
-        }
-        // 回复数据
-        newobj::buffer data;
-        // check 类型数据头内容 默认=-1 即非该类型回复。
-        int32 transfer_encoding_length;
-    };
+	// 接收
+	struct receive {
+		receive() {
+			clear();
+		}
+		void clear() {
+			data.clear();
+			transfer_encoding_length = -1;
+		}
+		// 回复数据
+		newobj::buffer data;
+		// check 类型数据头内容 默认=-1 即非该类型回复。
+		int32 transfer_encoding_length;
+	};
 	http_agent_extra()
 	{
 		connid = 0;
 		server = nullptr;
-        agent = nullptr;
+		agent = nullptr;
 	}
-    // server 客户连接ID
-    uint64 connid;
-    // 绑定server
-    network::http::server* server;
+
+	void clear()
+	{
+		connid = 0;
+		server = nullptr;
+		req.clear();
+		recv.clear();
+		agent = nullptr;
+	}
+	// server 客户连接ID
+	uint64 connid;
+	// 绑定server
+	network::http::server* server;
 	// 请求
 	request req;
-    // 接收
-    receive recv;
-    // 代理
-    IHttpAgent* agent;
+	// 接收
+	receive recv;
+	// 代理
+	IHttpAgent* agent;
 };
 // 获取附加数据指针
 inline http_agent_extra* __get_extra_to__(ITcpAgent* client, CONNID dwConnID){
@@ -290,7 +299,7 @@ class http_agent_listener :public IHttpAgentListener
 
 		http_agent_extra* extra = GET_EXTRA;
 		// 发送请求
-        newobj::log->info("[request]\t\t\t(S:"+nstring::from(extra->connid)+"|A:"+nstring::from((uint64)dwConnID)+")\t" +extra->req.method +"\t"+newobj::network::tools::size_name((double)extra->req.data.length(),2)+"\t"+extra->req.url_hout,"http_agent ");
+        //newobj::log->info("[request]\t\t\t(S:"+nstring::from(extra->connid)+"|A:"+nstring::from((uint64)dwConnID)+")\t" +extra->req.method +"\t"+newobj::network::tools::size_name((double)extra->req.data.length(),2)+"\t"+extra->req.url_host,"http_agent ");
         THeader* local_header = new THeader[extra->req.headers.size()];
         size_t i= 0;
         for_iter(iter,extra->req.headers){
@@ -298,7 +307,7 @@ class http_agent_listener :public IHttpAgentListener
             local_header[i].value = iter->value.c_str();
             i++;
         }
-       // std::cout<<"RequestLength:"<<extra->req.data.length()<<std::endl;
+       // std::cout<<"RequestLength:"<<extra->req.data.length()<<std::endl; 
 		bool result = extra->agent->SendRequest(
 			dwConnID,
 			extra->req.method.c_str(),
@@ -340,7 +349,7 @@ class http_agent_listener :public IHttpAgentListener
         http_agent_extra* extra = GET_EXTRA;
         //IHttpServer* server = (IHttpServer*)extra->server->hpserver();
         //server->Disconnect(extra->connid);
-		delete extra;
+		m_agent->m_extra_queue->destory(extra);
 		return HR_OK;
 	}
 	virtual EnHandleResult OnShutdown(ITcpAgent* pSender) override
@@ -359,11 +368,15 @@ class http_agent_listener :public IHttpAgentListener
 
 		return HR_OK;
 	}
+public:
+	network::http::agent* m_agent;
+
 };
 bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network::http::proxy* proxy)
 {
 	
-	http_agent_extra* extra = new http_agent_extra;
+	http_agent_extra* extra = m_extra_queue->create();
+
     extra->connid = rp->connid();
 	extra->server = rp->server();
 
@@ -377,15 +390,35 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
 	extra->req.clear();
     // 拼接地址
     {
-        nstring pjp = rp->url().right(rp->url().length() - proxy->src.length());
-        extra->req.path.append(proxy->dst);
-        if(proxy->dst.right(1) != "/" && pjp.left(1) != "/"){
-            extra->req.path.append("/");
-        }
-        extra->req.path.append(pjp);
+		try
+		{
+
+			size_t right_length = rp->url().length() - newobj::file::pre_dir(proxy->src_str).length();
+			nstring pjp;
+			pjp.append(rp->url().c_str() + rp->url().length() - right_length, right_length);
+			extra->req.path.append(proxy->dst);
+
+			if (
+				(proxy->dst.empty() || proxy->dst[proxy->dst.length()-1] != '/') 
+				&& pjp[0] != '/') {
+				extra->req.path.append('/');
+			}
+			extra->req.path.append(pjp);
+		}
+		catch (const std::exception& e)
+		{
+			newobj::log->fatal(e.what());
+		}
+        
     }
 	extra->req.data = *rp->data();
-    extra->req.url_hout = proxy->remote_ipaddress+":"+nstring::from(proxy->remote_port)+extra->req.path;
+	extra->req.url_host;
+	{
+		extra->req.url_host.append(proxy->remote_ipaddress);
+		extra->req.url_host.append(":");
+		extra->req.url_host.append(nstring::from(proxy->remote_port));
+		extra->req.url_host.append(extra->req.path);
+	}
 	// 构造请求内容
 	{
         THeader* header = nullptr;
@@ -393,7 +426,7 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
         ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders(rp->connid(), header,header_size);
         if (header_size == 0){
             newobj::log->error("not found header,"+extra->req.path,"http_agent ");
-            delete extra;
+			m_extra_queue->destory(extra);
             return false;
         }
         header = new THeader[header_size];
@@ -443,7 +476,7 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
 	if (extra->agent->Connect(proxy->remote_ipaddress.c_str(), proxy->remote_port, &hpcid, (PVOID)extra) == false)
 	{
         newobj::log->error("connect failed.\t"+extra->req.path,"http_agent ");
-		delete extra;
+		m_extra_queue->destory(extra);
 		return false;
 	}
     // 临时附加数据
@@ -466,15 +499,19 @@ void* newobj::network::http::agent::get()
 }
 newobj::network::http::agent::agent()
 {
-	m_listener = new http_agent_listener;
-	m_agent_ssl = HP_Create_HttpsAgent(m_listener);
-	m_agent = HP_Create_HttpAgent(m_listener);
+	//m_extra_queue = new newobj::object_pool<http_agent_extra>("http_agent_extra", 10000, 60);
+	//
+	//m_listener = new http_agent_listener;
+	//m_listener->m_agent = this;
+	//m_agent_ssl = HP_Create_HttpsAgent(m_listener);
+	//m_agent = HP_Create_HttpAgent(m_listener);
 } 
 newobj::network::http::agent::~agent()
 {
     stop();
     HP_Destroy_HttpAgent((IHttpAgent*)m_agent);
     HP_Destroy_HttpsAgent((IHttpAgent*)m_agent);
+	delete m_extra_queue;
 }
 void newobj::network::http::agent::stop()
 {
@@ -485,7 +522,7 @@ void newobj::network::http::agent::stop()
 }
 bool newobj::network::http::agent::start()
 {
-	
+	return true;
 	((IHttpAgent*)m_agent_ssl)->CleanupSSLContext();
 	if (((IHttpAgent*)m_agent_ssl)->SetupSSLContext() == false)
 	{
