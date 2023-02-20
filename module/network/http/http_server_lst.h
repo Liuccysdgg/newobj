@@ -51,7 +51,6 @@ namespace newobj
             private:
                 // HPSERVER ÷∏’Î
                 network::http::server* m_server;
-
             };
         }
 

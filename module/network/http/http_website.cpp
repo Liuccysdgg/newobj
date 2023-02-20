@@ -13,13 +13,13 @@ newobj::network::http::website::website()
     m_https = false;
     m_session = new network::http::session_mgr;
     m_router = new network::http::router;
-    m_agent = new network::http::agent;
+   // m_agent = new network::http::agent;
     
 }
 
 newobj::network::http::website::~website()
 {
-    delete m_agent;
+    //delete m_agent;
     delete m_session;
     delete m_router;
 }
@@ -109,8 +109,8 @@ bool newobj::network::http::website::start(const newobj::json& config)
     }
     /*´úÀí*/
     {
-        if (m_agent->start())
-        {
+//        if (m_agent->start())
+ //       {
             for (size_t i = 0; i < config["proxy"].size(); i++)
             {
                 newobj::json proxy_cj = config["proxy"][i];
@@ -140,11 +140,11 @@ bool newobj::network::http::website::start(const newobj::json& config)
                     proxy->headers[proxy_cj["headers"][h]["key"].to<nstring>()] = proxy_cj["headers"][h]["value"].to<nstring>();
                 m_proxy.push_back(proxy);
             }
-        }
-        else
-        {
-            std::cout << "proxy start failed" << std::endl;
-        }
+   //     }
+     //   else
+       // {
+        //    std::cout << "proxy start failed" << std::endl;
+       // }
         
     }
 

@@ -2,6 +2,7 @@
 #include "public/string.h"
 #include "public/base.h"
 #include "http_define.h"
+#include "util/map.hpp"
 #if USE_NET_HTTP_WEBSITE
 class http_agent_listener;
 namespace newobj

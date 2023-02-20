@@ -18,7 +18,6 @@
 
 #define POINT_QUEUE_REQPACK_CLEAR_MAX 1000
 #define POINT_QUEUE_REQPACK_CLEAR_SEC 60
-
 namespace newobj
 
 {
@@ -26,21 +25,22 @@ namespace newobj
     {
         namespace http
         {
+            class agent;
             // 临时接收
             struct temp_recv
             {
                 temp_recv()
                 {
-                    agent = nullptr;
-                    data = nullptr;
                     agent_connid = 0;
+                    data = nullptr;
+                    agent_ssl = false;
                 }
                 // 接收数据
                 newobj::buffer *data;
                 // 代理ID
                 uint64 agent_connid;
-                // 代理服务
-                void* agent;
+                // 代理SSL
+                bool agent_ssl;
                 // URL
                 nstring url;
                 // 代理连接IP及端口

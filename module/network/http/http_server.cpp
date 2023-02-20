@@ -36,6 +36,10 @@ bool network::http::server::start()
 #endif
         return false;
     }
+    if(m_agent.start() == false)
+    {
+        newobj::log->error("agent start failed");
+    }
     return true;
 }
 
@@ -62,6 +66,7 @@ bool newobj::network::http::server::create(bool https, ushort port)
 
 bool network::http::server::close()
 {
+    m_agent.stop();
     if (m_server == nullptr)
         return true;
     /*¹Ø±ÕHP HTTPSERVER*/
@@ -88,6 +93,8 @@ bool network::http::server::close()
 
     m_server = nullptr;
     m_listener = nullptr;
+
+
 
     return true;
 }

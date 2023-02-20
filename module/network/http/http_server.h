@@ -11,6 +11,7 @@
 #include "util/json.h"
 #include "util/lock.h"
 #include "http_interface.h"
+#include "http_agent.h"
 #include "network/qps.hpp"
 namespace newobj
 {
@@ -58,6 +59,8 @@ namespace newobj
                  ******************************************************************/
                 network::qps* qps();
                 inline const ushort port() { return m_port; }
+
+                inline network::http::agent* agent(){return &m_agent;}
             public:
                 bool m_init_ssl;
             private:
@@ -73,6 +76,8 @@ namespace newobj
                 ushort m_port;
                 // QPS
                 network::qps m_qps;
+                // ¥˙¿Ì÷∏’Î
+                network::http::agent m_agent;
 			};
 		}
 		

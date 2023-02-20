@@ -226,7 +226,7 @@ bool newobj::network::http::router::is_proxy(reqpack* rp)
         if (accord == false)
             continue;
         timestamp begin_msec = time::now_msec();
-        rp->website()->agent()->request(3000,rp,proxy);
+        rp->server()->agent()->request(3000,rp,proxy);
         return true;
     }
     return false;

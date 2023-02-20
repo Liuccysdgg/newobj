@@ -86,6 +86,7 @@ inline http_agent_extra* __get_extra_to__(ITcpAgent* client, CONNID dwConnID){
     return (http_agent_extra*)extra;
 }
 #define GET_EXTRA __get_extra_to__(pSender,dwConnID)
+#define SACONNID nstring("(S:"+nstring::from(GET_EXTRA->connid)+"|A["+nstring::from((uint64)pSender)+"]:"+nstring::from((uint64)dwConnID)+")")
 class http_agent_listener :public IHttpAgentListener
 {
 	public:
@@ -96,7 +97,7 @@ class http_agent_listener :public IHttpAgentListener
 	virtual EnHttpParseResult OnMessageBegin(IHttpAgent* pSender, CONNID dwConnID) override
 	{
 	    #if HTTP_AGENT_DEBUG_PRINT == 1
-	    newobj::log->info("OnMessageBegin ("+nstring::from((uint64)dwConnID)+")","http_agent ");
+	    newobj::log->info("OnMessageBegin "+SACONNID,"http_agent ");
 	    #endif
         auto extra = GET_EXTRA;
 		extra->recv.clear();
@@ -104,20 +105,33 @@ class http_agent_listener :public IHttpAgentListener
 	}
 	virtual EnHttpParseResult OnRequestLine(IHttpAgent* pSender, CONNID dwConnID, LPCSTR lpszMethod, LPCSTR lpszUrl) override
 	{
+
+	    #if HTTP_AGENT_DEBUG_PRINT == 1
+	    newobj::log->info("OnRequestLine "+SACONNID,"http_agent ");
+	    #endif
+
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnStatusLine(IHttpAgent* pSender, CONNID dwConnID, USHORT usStatusCode, LPCSTR lpszDesc) override
 	{
+	    #if HTTP_AGENT_DEBUG_PRINT == 1
+	    newobj::log->info("OnStatusLine "+SACONNID,"http_agent ");
+	    #endif
+
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnHeader(IHttpAgent* pSender, CONNID dwConnID, LPCSTR lpszName, LPCSTR lpszValue) override
 	{
+	    #if HTTP_AGENT_DEBUG_PRINT == 1
+	    newobj::log->info("OnHeader "+SACONNID,"http_agent ");
+	    #endif
+
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnHeadersComplete(IHttpAgent* pSender, CONNID dwConnID) override
 	{
 	    #if HTTP_AGENT_DEBUG_PRINT == 1
-	    newobj::log->info("OnHeadersComplete ("+nstring::from((uint64)dwConnID)+")","http_agent ");
+	    newobj::log->info("OnHeadersComplete "+SACONNID,"http_agent ");
 	    #endif
 		http_agent_extra* extra = GET_EXTRA;
 		IHttpServer* server = (IHttpServer*)extra->server->hpserver();
@@ -151,7 +165,7 @@ class http_agent_listener :public IHttpAgentListener
 	virtual EnHttpParseResult OnBody(IHttpAgent* pSender, CONNID dwConnID, const BYTE* pData, int iLength) override
 	{
 	    #if HTTP_AGENT_DEBUG_PRINT == 1
-	    newobj::log->info("OnBody ("+nstring::from((uint64)dwConnID)+")","http_agent ");
+	    newobj::log->info("OnBody "+SACONNID,"http_agent ");
 	    #endif
         http_agent_extra* extra = GET_EXTRA;
 		IHttpServer* server = (IHttpServer*)extra->server->hpserver();
@@ -172,10 +186,14 @@ class http_agent_listener :public IHttpAgentListener
 	virtual EnHttpParseResult OnChunkHeader(IHttpAgent* pSender, CONNID dwConnID, int iLength) override
 	{
 	    #if HTTP_AGENT_DEBUG_PRINT == 1
-	    newobj::log->info("OnChunkHeader "+nstring::from(iLength)+"("+nstring::from((uint64)dwConnID)+")","http_agent ");
+	    newobj::log->info("OnChunkHeader "+nstring::from(iLength)+SACONNID,"http_agent ");
 	    #endif
         http_agent_extra* extra = GET_EXTRA;
-        extra->recv.transfer_encoding_length += iLength;
+        if(extra->recv.transfer_encoding_length == -1 ){
+            extra->recv.transfer_encoding_length = iLength;
+        }else{
+            extra->recv.transfer_encoding_length += iLength;
+        }
         
         /*
         // Chunk 头
@@ -195,13 +213,23 @@ class http_agent_listener :public IHttpAgentListener
 	virtual EnHttpParseResult OnChunkComplete(IHttpAgent* pSender, CONNID dwConnID) override
 	{
 	    #if HTTP_AGENT_DEBUG_PRINT == 1
-	    newobj::log->info("OnChunkComplete:"+nstring::from((uint64)dwConnID),"http_agent ");
+	    newobj::log->info("OnChunkComplete:"+SACONNID,"http_agent ");
 	    #endif
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnMessageComplete(IHttpAgent* pSender, CONNID dwConnID) override
 	{
+
+
+
 	    http_agent_extra* extra = GET_EXTRA;
+
+		#if HTTP_AGENT_DEBUG_PRINT == 1
+	    newobj::log->info("OnMessageComplete:"+SACONNID,"http_agent ");
+	    #endif
+
+
+
 		if(extra->recv.transfer_encoding_length >= 0){
 		    IHttpServer* server = (IHttpServer*)extra->server->hpserver();
 		    
@@ -224,17 +252,22 @@ class http_agent_listener :public IHttpAgentListener
                      (const BYTE*)"\r\n0\r\n\r\n",
                      9);
 		}
-		#if HTTP_AGENT_DEBUG_PRINT == 1
-	    newobj::log->info("OnMessageComplete:"+nstring::from((uint64)dwConnID),"http_agent ");
-	    #endif
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnUpgrade(IHttpAgent* pSender, CONNID dwConnID, EnHttpUpgradeType enUpgradeType) override
 	{
+		#if HTTP_AGENT_DEBUG_PRINT == 1
+	    newobj::log->info("OnUpgrade:"+SACONNID,"http_agent ");
+	    #endif
+
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnParseError(IHttpAgent* pSender, CONNID dwConnID, int iErrorCode, LPCSTR lpszErrorDesc) override
 	{
+#if HTTP_AGENT_DEBUG_PRINT == 1
+	    newobj::log->info("OnParsrError:"+SACONNID,"http_agent ");
+#endif
+
 		return HPR_OK;
 	}
 	virtual EnHandleResult OnWSMessageHeader(IHttpAgent* pSender, CONNID dwConnID, BOOL bFinal, BYTE iReserved, BYTE iOperationCode, const BYTE lpszMask[4], ULONGLONG ullBodyLen) override
@@ -251,9 +284,13 @@ class http_agent_listener :public IHttpAgentListener
 	}
 	virtual EnHandleResult OnHandShake(ITcpAgent* pSender, CONNID dwConnID) override
 	{
+#if HTTP_AGENT_DEBUG_PRINT == 1
+	    newobj::log->info("OnHandShake:"+SACONNID,"http_agent ");
+#endif
+
 		http_agent_extra* extra = GET_EXTRA;
 		// 发送请求
-        newobj::log->info("[request]\t\t\t("+nstring::from(extra->connid)+")\t" +extra->req.method +"\t"+newobj::network::tools::size_name((double)extra->req.data.length(),2)+"\t"+extra->req.url_hout,"http_agent ");
+        newobj::log->info("[request]\t\t\t(S:"+nstring::from(extra->connid)+"|A:"+nstring::from((uint64)dwConnID)+")\t" +extra->req.method +"\t"+newobj::network::tools::size_name((double)extra->req.data.length(),2)+"\t"+extra->req.url_hout,"http_agent ");
         THeader* local_header = new THeader[extra->req.headers.size()];
         size_t i= 0;
         for_iter(iter,extra->req.headers){
@@ -275,10 +312,18 @@ class http_agent_listener :public IHttpAgentListener
 	}
 	virtual EnHandleResult OnSend(ITcpAgent* pSender, CONNID dwConnID, const BYTE* pData, int iLength) override
 	{
+#if HTTP_AGENT_DEBUG_PRINT == 1
+	    newobj::log->info("OnSend:"+SACONNID,"http_agent ");
+#endif
+
 		return HR_OK;
 	}
 	virtual EnHandleResult OnReceive(ITcpAgent* pSender, CONNID dwConnID, const BYTE* pData, int iLength) override
 	{
+#if HTTP_AGENT_DEBUG_PRINT == 1
+	    newobj::log->info("OnReceive:"+SACONNID,"http_agent ");
+#endif
+
 		//newobj::log->info("OnReceive", "agent");
 		return HR_OK;
 	}
@@ -289,7 +334,7 @@ class http_agent_listener :public IHttpAgentListener
 	virtual EnHandleResult OnClose(ITcpAgent* pSender, CONNID dwConnID, EnSocketOperation enOperation, int iErrorCode) override
 	{
 	    #if HTTP_AGENT_DEBUG_PRINT == 1
-	    newobj::log->info("OnClose ("+nstring::from((uint64)dwConnID)+")","http_agent ");
+	    newobj::log->info("OnClose "+SACONNID,"http_agent ");
 	    #endif
 	    
         http_agent_extra* extra = GET_EXTRA;
@@ -308,33 +353,25 @@ class http_agent_listener :public IHttpAgentListener
 	}
 	virtual EnHandleResult OnConnect(ITcpAgent* pSender, CONNID dwConnID) override
 	{
+#if HTTP_AGENT_DEBUG_PRINT == 1
+	    newobj::log->info("OnConnect:"+SACONNID,"http_agent ");
+#endif
+
 		return HR_OK;
 	}
 };
 bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network::http::proxy* proxy)
 {
+	
 	http_agent_extra* extra = new http_agent_extra;
-	extra->connid = rp->connid();
+    extra->connid = rp->connid();
 	extra->server = rp->server();
-    if(proxy->ssl)
-        extra->agent = (IHttpAgent*)m_agent_ssl;
-    else
-        extra->agent = (IHttpAgent*)m_agent;
 
-    temp_recv *srv_extra = nullptr;
-    //Server Extra
-    {
-        // 临时附加数据
-        {
-            PVOID exts = 0;
-            if (((IHttpServer*)rp->server()->hpserver())->GetConnectionExtra(rp->connid(), &exts) == false)
-                return true;
-            srv_extra = (temp_recv*)exts;
-            srv_extra->agent = (void*)extra->agent;
-        }
-    }
-    // Agent ConnID
-	CONNID hpcid = 0;
+    IHttpAgent* agent = nullptr;
+    if(proxy->ssl)
+        agent = (IHttpAgent*)m_agent_ssl;
+    else
+        agent = (IHttpAgent*)m_agent;
 
 	extra->req.clear();
     // 拼接地址
@@ -353,8 +390,10 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
         THeader* header = nullptr;
         DWORD header_size = 0;
         ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders(rp->connid(), header,header_size);
-        if (header_size == 0)
+        if (header_size == 0){
+            delete extra;
             return false;
+        }
         header = new THeader[header_size];
         ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders(rp->connid(), header,header_size);
         // 浏览器真实IP
@@ -391,17 +430,28 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
         // 取请求方式
 		extra->req.method = ((IHttpServer*)rp->server()->hpserver())->GetMethod(rp->connid());
 	}
- /*   for_iter(iter,extra->req.headers){
-        std::cout<<iter->first.c_str()<<":\t"<<iter->second.c_str()<<std::endl;
+/*    std::cout<<"======================HEADER=========================="<<std::endl;
+    for(size_t i=0;i<extra->req.headers.size();i++){
+        std::cout<<extra->req.headers[i].name.c_str()<<":\t"<<extra->req.headers[i].value.c_str()<<std::endl;
     }*/
-    
+    CONNID hpcid = 0;
 	if (extra->agent->Connect(proxy->remote_ipaddress.c_str(), proxy->remote_port, &hpcid, (PVOID)extra) == false)
 	{
         newobj::log->error("connect failed.\t"+extra->req.path,"http_agent ");
 		delete extra;
 		return false;
 	}
-	srv_extra->agent_connid = hpcid;
+    // 临时附加数据
+    {
+        PVOID exts = 0;
+        if (((IHttpServer*)rp->server()->hpserver())->GetConnectionExtra(rp->connid(), &exts) == false){
+            agent->Disconnect((CONNID)hpcid);
+            return false;
+        }
+        ((temp_recv*)exts)->agent_connid = hpcid;
+        ((temp_recv*)exts)->agent_ssl = proxy->ssl;
+    }
+
 	return true;
 }
 void* newobj::network::http::agent::get()

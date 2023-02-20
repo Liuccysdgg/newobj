@@ -42,7 +42,7 @@ namespace newobj {
                 bool host(const nstring& host);
                 std::vector<network::http::proxy*>* proxy();
                 const network::http::website_info* info();
-                inline network::http::agent* agent() { return m_agent; }
+/*                inline network::http::agent* agent() { return m_agent; }*/
             private:
                 // SESSION缓存
                 network::http::session_mgr* m_session;
@@ -57,7 +57,7 @@ namespace newobj {
                 // 反向代理
                 std::vector<network::http::proxy*> m_proxy;
                 // 代理服务
-                network::http::agent* m_agent;
+/*                network::http::agent* m_agent;*/
             };
         }
     }

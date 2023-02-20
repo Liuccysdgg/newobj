@@ -46,6 +46,10 @@ EnHandleResult newobj::network::http::http_server_lst::OnAccept(ITcpServer* pSen
 
 EnHandleResult newobj::network::http::http_server_lst::OnHandShake(ITcpServer* pSender, CONNID dwConnID)
 {
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnHandShake ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
+
 	return HR_OK;
 }
 
@@ -56,12 +60,18 @@ EnHandleResult newobj::network::http::http_server_lst::OnReceive(ITcpServer* pSe
 
 EnHandleResult newobj::network::http::http_server_lst::OnReceive(ITcpServer* pSender, CONNID dwConnID, const BYTE* pData, int iLength)
 {
-	
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnReceive ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
+
 	return HR_OK;
 }
 
 EnHandleResult newobj::network::http::http_server_lst::OnSend(ITcpServer* pSender, CONNID dwConnID, const BYTE* pData, int iLength)
 {
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnSend ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
 
 	m_server->qps()->response(iLength,true);
 	return HR_OK;
@@ -84,9 +94,9 @@ EnHandleResult newobj::network::http::http_server_lst::OnClose(ITcpServer* pSend
 		if (extra != 0)
 		{
 			temp_recv* tr = (temp_recv*)extra;
-			if (tr->agent != nullptr)
+			if (tr->agent_connid != 0)
 			{
-				((IHttpAgent*)tr->agent)->Disconnect(tr->agent_connid);
+                m_server->m_agent.disconnect(tr->agent_ssl,tr->agent_connid);
 			}
 			delete (temp_recv*)extra;
 		}
@@ -116,6 +126,9 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageBegin(IHttpSe
 
 EnHttpParseResult newobj::network::http::http_server_lst::OnRequestLine(IHttpServer* pSender, CONNID dwConnID, LPCSTR lpszMethod, LPCSTR lpszUrl)
 {
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnRequestLine ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
 
 #if BARE_HP == 0
 	PVOID extra = 0;
@@ -132,12 +145,18 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnRequestLine(IHttpSer
 
 EnHttpParseResult newobj::network::http::http_server_lst::OnStatusLine(IHttpServer* pSender, CONNID dwConnID, USHORT usStatusCode, LPCSTR lpszDesc)
 {
-	
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnStatusLine ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
+
 	return HPR_OK;
 }
 
 EnHttpParseResult newobj::network::http::http_server_lst::OnHeader(IHttpServer* pSender, CONNID dwConnID, LPCSTR lpszName, LPCSTR lpszValue)
 {
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnHeader ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
 
     if(strcmp(lpszName,"Host") == 0){
         PVOID extra = 0;
@@ -160,20 +179,36 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnHeadersComplete(IHtt
 
 EnHttpParseResult newobj::network::http::http_server_lst::OnChunkHeader(IHttpServer* pSender, CONNID dwConnID, int iLength)
 {
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnChuckHeader ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
+
 	return HPR_OK;
 }
 EnHttpParseResult newobj::network::http::http_server_lst::OnChunkComplete(IHttpServer* pSender, CONNID dwConnID)
 {
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnChunkComplete ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
+
 	return HPR_OK;
 }
 
 EnHttpParseResult newobj::network::http::http_server_lst::OnUpgrade(IHttpServer* pSender, CONNID dwConnID, EnHttpUpgradeType enUpgradeType)
 {
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnUpgrade ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
+
 	return HPR_OK;
 }
 
 EnHttpParseResult newobj::network::http::http_server_lst::OnBody(IHttpServer* pSender, CONNID dwConnID, const BYTE* pData, int iLength)
 {
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnBody ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
+
 #if BARE_HP == 0
 	PVOID extra = 0;
 	if (pSender->GetConnectionExtra(dwConnID, &extra))
@@ -263,6 +298,10 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageComplete(IHtt
 
 EnHttpParseResult newobj::network::http::http_server_lst::OnParseError(IHttpServer* pSender, CONNID dwConnID, int iErrorCode, LPCSTR lpszErrorDesc)
 {
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnParseError ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
+
 	PVOID extra = 0;
 	if (pSender->GetConnectionExtra(dwConnID, &extra))
 	{
