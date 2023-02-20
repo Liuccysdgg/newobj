@@ -6,6 +6,7 @@
 #include "http_host.h"
 #include "hpsocket/hpsocket.h"
 
+#include "http_agent.h"
 #include <string.h>
 #define HPSERVER ((IHttpServer*)m_server)
 network::http::server::server()
@@ -16,11 +17,13 @@ network::http::server::server()
     m_port = 0;
 
     m_init_ssl = false;
+
+    m_agent = new network::http::agent();
 }
 
 network::http::server::~server()
 {
-
+    delete m_agent;
 }
 bool network::http::server::start()
 {
@@ -36,7 +39,7 @@ bool network::http::server::start()
 #endif
         return false;
     }
-    if(m_agent.start() == false)
+    if(m_agent->start() == false)
     {
         newobj::log->error("agent start failed");
     }
@@ -66,7 +69,7 @@ bool newobj::network::http::server::create(bool https, ushort port)
 
 bool network::http::server::close()
 {
-    m_agent.stop();
+    m_agent->stop();
     if (m_server == nullptr)
         return true;
     /*¹Ø±ÕHP HTTPSERVER*/

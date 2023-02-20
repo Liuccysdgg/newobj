@@ -19,7 +19,7 @@ namespace newobj
 				agent();
 				~agent();
 				bool start();
-				bool stop();
+				void stop();
 				void disconnect(bool ssl,uint64 connid);
 				bool request(int32 wait_msec,reqpack* rp,network::http::proxy* proxy);
 			private:

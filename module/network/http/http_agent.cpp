@@ -373,6 +373,7 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
     else
         agent = (IHttpAgent*)m_agent;
 
+    extra->agent = agent;
 	extra->req.clear();
     // Æ´½ÓµØÖ·
     {
@@ -466,7 +467,13 @@ newobj::network::http::agent::agent()
 } 
 newobj::network::http::agent::~agent()
 {
-	((IHttpAgent*)m_agent)->Stop();
+    stop();
+    HP_Destroy_HttpAgent((IHttpAgent*)m_agent);
+    HP_Destroy_HttpsAgent((IHttpAgent*)m_agent);
+}
+void newobj::network::http::agent::stop()
+{
+ 	((IHttpAgent*)m_agent)->Stop();
 	((IHttpAgent*)m_agent_ssl)->Stop();
 	((IHttpAgent*)m_agent_ssl)->Wait();
 	((IHttpAgent*)m_agent_ssl)->Wait();

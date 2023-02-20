@@ -96,7 +96,7 @@ EnHandleResult newobj::network::http::http_server_lst::OnClose(ITcpServer* pSend
 			temp_recv* tr = (temp_recv*)extra;
 			if (tr->agent_connid != 0)
 			{
-                m_server->m_agent.disconnect(tr->agent_ssl,tr->agent_connid);
+                m_server->agent()->disconnect(tr->agent_ssl,tr->agent_connid);
 			}
 			delete (temp_recv*)extra;
 		}
