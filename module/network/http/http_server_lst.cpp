@@ -14,7 +14,7 @@
 #include "http_agent.h"
 #include "http_util.h"
 #define BARE_HP 0
-#define HTTP_SERVER_DEBUG_PRINT 1
+#define HTTP_SERVER_DEBUG_PRINT 0
         
 newobj::network::http::http_server_lst::http_server_lst(server* server)
 {

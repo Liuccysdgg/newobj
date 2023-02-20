@@ -15,7 +15,7 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
-#define HTTP_AGENT_DEBUG_PRINT 1
+#define HTTP_AGENT_DEBUG_PRINT 0
 /*附加数据*/
 struct http_agent_extra
 {
@@ -189,11 +189,11 @@ class http_agent_listener :public IHttpAgentListener
 	    newobj::log->info("OnChunkHeader "+nstring::from(iLength)+SACONNID,"http_agent ");
 	    #endif
         http_agent_extra* extra = GET_EXTRA;
-        if(extra->recv.transfer_encoding_length == -1 ){
-            extra->recv.transfer_encoding_length = iLength;
-        }else{
+        //if(extra->recv.transfer_encoding_length == -1 ){
+        //    extra->recv.transfer_encoding_length = iLength;
+        //}else{
             extra->recv.transfer_encoding_length += iLength;
-        }
+        //}
         
         /*
         // Chunk 头
@@ -406,35 +406,36 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
             Kv kv;
             kv.name = header[i].name;
             kv.value = header[i].value;
-
-            if(kv.name == "X-Real-IP"){
-                if(kv.value == "{client_ipaddress}"){
-                    kv.value = ipaddress;
-                }
-            }
-            else if(kv.name == "Host"){
-                if(kv.value == "{host}"){
-                    kv.value = ipaddress = proxy->remote_ipaddress;
-                }
-            }else{
-                    // 要求协议头
-                for_iter(iter, proxy->headers){
-                    if(kv.name == iter->first){
-                        kv.value = iter->second;
-                        break;
-                    }
+            // 要求协议头
+            for_iter(iter, proxy->headers){
+                if(kv.name == iter->first){
+                    kv.value = iter->second;
+                    break;
                 }
             }
             extra->req.headers.push_back(kv);
         }
+        for_iter(iter,extra->req.headers){
+            if(iter->name == "X-Real-IP"){
+                if(iter->value == "{client_ipaddress}"){
+                    iter->value = ipaddress;
+                }
+            }
+            else if(iter->name == "Host"){
+                if(iter->value == "{host}"){
+                    iter->value  = proxy->remote_ipaddress;
+                }
+            }
+        }
+
         delete[] header;
         // 取请求方式
 		extra->req.method = ((IHttpServer*)rp->server()->hpserver())->GetMethod(rp->connid());
 	}
-/*    std::cout<<"======================HEADER=========================="<<std::endl;
+    std::cout<<"======================HEADER=========================="<<std::endl;
     for(size_t i=0;i<extra->req.headers.size();i++){
         std::cout<<extra->req.headers[i].name.c_str()<<":\t"<<extra->req.headers[i].value.c_str()<<std::endl;
-    }*/
+    }
     CONNID hpcid = 0;
 	if (extra->agent->Connect(proxy->remote_ipaddress.c_str(), proxy->remote_port, &hpcid, (PVOID)extra) == false)
 	{
