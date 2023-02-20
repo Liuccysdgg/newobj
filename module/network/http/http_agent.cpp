@@ -106,25 +106,25 @@ class http_agent_listener :public IHttpAgentListener
 	virtual EnHttpParseResult OnRequestLine(IHttpAgent* pSender, CONNID dwConnID, LPCSTR lpszMethod, LPCSTR lpszUrl) override
 	{
 
-	    #if HTTP_AGENT_DEBUG_PRINT == 1
-	    newobj::log->info("OnRequestLine "+SACONNID,"http_agent ");
-	    #endif
+//	    #if HTTP_AGENT_DEBUG_PRINT == 1
+//	    newobj::log->info("OnRequestLine "+SACONNID,"http_agent ");
+//	    #endif
 
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnStatusLine(IHttpAgent* pSender, CONNID dwConnID, USHORT usStatusCode, LPCSTR lpszDesc) override
 	{
-	    #if HTTP_AGENT_DEBUG_PRINT == 1
-	    newobj::log->info("OnStatusLine "+SACONNID,"http_agent ");
-	    #endif
+//	    #if HTTP_AGENT_DEBUG_PRINT == 1
+//	    newobj::log->info("OnStatusLine "+SACONNID,"http_agent ");
+//	    #endif
 
 		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnHeader(IHttpAgent* pSender, CONNID dwConnID, LPCSTR lpszName, LPCSTR lpszValue) override
 	{
-	    #if HTTP_AGENT_DEBUG_PRINT == 1
-	    newobj::log->info("OnHeader "+SACONNID,"http_agent ");
-	    #endif
+//	    #if HTTP_AGENT_DEBUG_PRINT == 1
+//	    newobj::log->info("OnHeader "+SACONNID,"http_agent ");
+//	    #endif
 
 		return HPR_OK;
 	}
@@ -338,8 +338,8 @@ class http_agent_listener :public IHttpAgentListener
 	    #endif
 	    
         http_agent_extra* extra = GET_EXTRA;
-        IHttpServer* server = (IHttpServer*)extra->server->hpserver();
-        server->Disconnect(extra->connid);
+        //IHttpServer* server = (IHttpServer*)extra->server->hpserver();
+        //server->Disconnect(extra->connid);
 		delete extra;
 		return HR_OK;
 	}
@@ -392,6 +392,7 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
         DWORD header_size = 0;
         ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders(rp->connid(), header,header_size);
         if (header_size == 0){
+            newobj::log->error("not found header,"+extra->req.path,"http_agent ");
             delete extra;
             return false;
         }
@@ -432,10 +433,12 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
         // 取请求方式
 		extra->req.method = ((IHttpServer*)rp->server()->hpserver())->GetMethod(rp->connid());
 	}
+#if 0
     std::cout<<"======================HEADER=========================="<<std::endl;
     for(size_t i=0;i<extra->req.headers.size();i++){
         std::cout<<extra->req.headers[i].name.c_str()<<":\t"<<extra->req.headers[i].value.c_str()<<std::endl;
     }
+#endif
     CONNID hpcid = 0;
 	if (extra->agent->Connect(proxy->remote_ipaddress.c_str(), proxy->remote_port, &hpcid, (PVOID)extra) == false)
 	{
@@ -448,6 +451,7 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
         PVOID exts = 0;
         if (((IHttpServer*)rp->server()->hpserver())->GetConnectionExtra(rp->connid(), &exts) == false){
             agent->Disconnect((CONNID)hpcid);
+            newobj::log->error("get server extra failed,"+extra->req.path,"http_agent ");
             return false;
         }
         ((temp_recv*)exts)->agent_connid = hpcid;

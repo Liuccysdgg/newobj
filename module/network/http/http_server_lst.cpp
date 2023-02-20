@@ -126,9 +126,9 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageBegin(IHttpSe
 
 EnHttpParseResult newobj::network::http::http_server_lst::OnRequestLine(IHttpServer* pSender, CONNID dwConnID, LPCSTR lpszMethod, LPCSTR lpszUrl)
 {
-#if HTTP_SERVER_DEBUG_PRINT == 1
-     newobj::log->info("OnRequestLine ("+nstring::from((uint64)dwConnID)+")","http_server");
-#endif
+//#if HTTP_SERVER_DEBUG_PRINT == 1
+//     newobj::log->info("OnRequestLine ("+nstring::from((uint64)dwConnID)+")","http_server");
+//#endif
 
 #if BARE_HP == 0
 	PVOID extra = 0;
@@ -145,18 +145,18 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnRequestLine(IHttpSer
 
 EnHttpParseResult newobj::network::http::http_server_lst::OnStatusLine(IHttpServer* pSender, CONNID dwConnID, USHORT usStatusCode, LPCSTR lpszDesc)
 {
-#if HTTP_SERVER_DEBUG_PRINT == 1
-     newobj::log->info("OnStatusLine ("+nstring::from((uint64)dwConnID)+")","http_server");
-#endif
+//#if HTTP_SERVER_DEBUG_PRINT == 1
+//     newobj::log->info("OnStatusLine ("+nstring::from((uint64)dwConnID)+")","http_server");
+//#endif
 
 	return HPR_OK;
 }
 
 EnHttpParseResult newobj::network::http::http_server_lst::OnHeader(IHttpServer* pSender, CONNID dwConnID, LPCSTR lpszName, LPCSTR lpszValue)
 {
-#if HTTP_SERVER_DEBUG_PRINT == 1
-     newobj::log->info("OnHeader ("+nstring::from((uint64)dwConnID)+")","http_server");
-#endif
+//#if HTTP_SERVER_DEBUG_PRINT == 1
+//     newobj::log->info("OnHeader ("+nstring::from((uint64)dwConnID)+")","http_server");
+//#endif
 
     if(strcmp(lpszName,"Host") == 0){
         PVOID extra = 0;
@@ -257,7 +257,7 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageComplete(IHtt
             newobj::log->warn("GET have body:"+rp->data()->to_string(),"http_server");
         }*/
     }
-	nstring logstr = "[recv   ]\t"+rp->remote()+"\t("+nstring::from(rp->connid())+")" +"\t"+ nstring(pSender->GetMethod(dwConnID)) +"\t"+size_name+"\t"+rp->host()+rp->url();
+	nstring logstr = "[recv   ]\t"+rp->remote()+"\t("+nstring::from(rp->connid())+")" +"\t\t"+ nstring(pSender->GetMethod(dwConnID)) +"\t"+size_name+"\t"+rp->host()+rp->url();
 	auto website = m_server->center()->website(rp->host());
 	if (website == nullptr)
 	{
