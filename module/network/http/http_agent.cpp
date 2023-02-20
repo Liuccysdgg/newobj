@@ -15,7 +15,7 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
-#define HTTP_AGENT_DEBUG_PRINT 0
+#define HTTP_AGENT_DEBUG_PRINT 1
 /*附加数据*/
 struct http_agent_extra
 {
@@ -37,7 +37,7 @@ struct http_agent_extra
 			data.clear();
 		}
 		// 请求头
-        std::map<nstring,nstring> headers;
+        std::vector<Kv> headers;
 		// 请求路径
 		nstring path;
 		// 请求类型
@@ -257,11 +257,11 @@ class http_agent_listener :public IHttpAgentListener
         THeader* local_header = new THeader[extra->req.headers.size()];
         size_t i= 0;
         for_iter(iter,extra->req.headers){
-            local_header[i].name = iter->first.c_str();
-            local_header[i].value = iter->second.c_str();
+            local_header[i].name = iter->name.c_str();
+            local_header[i].value = iter->value.c_str();
             i++;
         }
-
+       // std::cout<<"RequestLength:"<<extra->req.data.length()<<std::endl;
 		bool result = extra->agent->SendRequest(
 			dwConnID,
 			extra->req.method.c_str(),
@@ -293,8 +293,8 @@ class http_agent_listener :public IHttpAgentListener
 	    #endif
 	    
         http_agent_extra* extra = GET_EXTRA;
-        ///IHttpServer* server = (IHttpServer*)extra->server->hpserver();
-        //server->Disconnect(extra->connid);
+        IHttpServer* server = (IHttpServer*)extra->server->hpserver();
+        server->Disconnect(extra->connid);
 		delete extra;
 		return HR_OK;
 	}
@@ -362,31 +362,39 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
         ushort port = 0;
         rp->server()->remote(rp->connid(),ipaddress,port);
         // 请求协议头
-        for(size_t i=0;i<header_size;i++)
-            extra->req.headers[header[i].name] = header[i].value;
-        // 要求协议头
-        for_iter(iter, proxy->headers){
-            if(iter->first == "X-Real-IP"){
-                if(iter->second == "{client_ipaddress}"){
-                    extra->req.headers[iter->first] = ipaddress;
-                    continue;
+        for(size_t i=0;i<header_size;i++){
+            Kv kv;
+            kv.name = header[i].name;
+            kv.value = header[i].value;
+
+            if(kv.name == "X-Real-IP"){
+                if(kv.value == "{client_ipaddress}"){
+                    kv.value = ipaddress;
                 }
             }
-            else if(iter->first == "Host"){
-                if(iter->second == "{host}"){
-                    extra->req.headers[iter->first] = proxy->remote_ipaddress ;
-                    continue;
+            else if(kv.name == "Host"){
+                if(kv.value == "{host}"){
+                    kv.value = ipaddress = proxy->remote_ipaddress;
+                }
+            }else{
+                    // 要求协议头
+                for_iter(iter, proxy->headers){
+                    if(kv.name == iter->first){
+                        kv.value = iter->second;
+                        break;
+                    }
                 }
             }
-            extra->req.headers[iter->first] = iter->second;
+            extra->req.headers.push_back(kv);
         }
         delete[] header;
         // 取请求方式
 		extra->req.method = ((IHttpServer*)rp->server()->hpserver())->GetMethod(rp->connid());
 	}
-/*    for_iter(iter,extra->req.headers){
+ /*   for_iter(iter,extra->req.headers){
         std::cout<<iter->first.c_str()<<":\t"<<iter->second.c_str()<<std::endl;
     }*/
+    
 	if (extra->agent->Connect(proxy->remote_ipaddress.c_str(), proxy->remote_port, &hpcid, (PVOID)extra) == false)
 	{
         newobj::log->error("connect failed.\t"+extra->req.path,"http_agent ");

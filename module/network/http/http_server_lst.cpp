@@ -14,6 +14,7 @@
 #include "http_agent.h"
 #include "http_util.h"
 #define BARE_HP 0
+#define HTTP_SERVER_DEBUG_PRINT 1
         
 newobj::network::http::http_server_lst::http_server_lst(server* server)
 {
@@ -36,6 +37,10 @@ EnHandleResult newobj::network::http::http_server_lst::OnAccept(ITcpServer* pSen
 #if BARE_HP == 0
 	pSender->SetConnectionExtra(dwConnID, (PVOID)new temp_recv);
 #endif
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnAccept ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
+
 	return HR_OK;
 }
 
@@ -69,6 +74,9 @@ EnHandleResult newobj::network::http::http_server_lst::OnShutdown(ITcpServer* pS
 
 EnHandleResult newobj::network::http::http_server_lst::OnClose(ITcpServer* pSender, CONNID dwConnID, EnSocketOperation enOperation, int iErrorCode)
 {
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnClose ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
 #if BARE_HP == 0
 	PVOID extra = 0;
 	if (pSender->GetConnectionExtra(dwConnID, &extra))
@@ -90,6 +98,9 @@ EnHandleResult newobj::network::http::http_server_lst::OnClose(ITcpServer* pSend
 
 EnHttpParseResult newobj::network::http::http_server_lst::OnMessageBegin(IHttpServer* pSender, CONNID dwConnID)
 {
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnMessageBegin ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
 #if BARE_HP == 0
 	PVOID extra = 0;
 	if (pSender->GetConnectionExtra(dwConnID, &extra))
@@ -176,6 +187,9 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnBody(IHttpServer* pS
 
 EnHttpParseResult newobj::network::http::http_server_lst::OnMessageComplete(IHttpServer* pSender, CONNID dwConnID)
 {
+#if HTTP_SERVER_DEBUG_PRINT == 1
+     newobj::log->info("OnMessageComplete ("+nstring::from((uint64)dwConnID)+")","http_server");
+#endif
 #if BARE_HP == 1
 	pSender->SendResponse(dwConnID, 200, "OK", nullptr, 0, (const BYTE*)"ONLY_HP_OK", 3);
 	return HPR_OK;
@@ -204,6 +218,9 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageComplete(IHtt
             size_ld = rp->data()->length();
         }
         size_name = newobj::network::tools::size_name(size_ld,2);
+        /*if(nstring(pSender->GetMethod(dwConnID)) == "GET" && rp->data()->length() != 0){
+            newobj::log->warn("GET have body:"+rp->data()->to_string(),"http_server");
+        }*/
     }
 	nstring logstr = "[recv   ]\t"+rp->remote()+"\t("+nstring::from(rp->connid())+")" +"\t"+ nstring(pSender->GetMethod(dwConnID)) +"\t"+size_name+"\t"+rp->host()+rp->url();
 	auto website = m_server->center()->website(rp->host());
