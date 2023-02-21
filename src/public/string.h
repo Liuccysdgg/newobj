@@ -60,20 +60,6 @@ public:
 	void println() const;
 
 
-	int32 to_int32() const;
-	uint32 to_uint32() const;
-	int64 to_int64() const;
-	uint64 to_uint64() const;
-	short to_short() const;
-	ushort to_ushort() const;
-#ifndef MSVC_2010
-	decimal to_decimal() const;
-#endif
-	double to_double() const;
-	float to_float() const;
-
-	bool is_num() const;
-	bool is_decimal() const;
 
 
 	//std::vector<nstring_view> split_view(const nstring_view& value)  const;
@@ -192,6 +178,23 @@ public:
 	{
 		return ::nstring_view::equals(value.m_data, value.m_data_length);
 	}
+
+
+	int32 to_int32() const;
+	uint32 to_uint32() const;
+	int64 to_int64() const;
+	uint64 to_uint64() const;
+	short to_short() const;
+	ushort to_ushort() const;
+#ifndef MSVC_2010
+	decimal to_decimal() const;
+#endif
+	double to_double() const;
+	float to_float() const;
+
+	bool is_num() const;
+	bool is_decimal() const;
+
 public:
 	static nstring from(int32 value);
 	static nstring from(uint32 value);

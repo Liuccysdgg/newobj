@@ -412,7 +412,7 @@ bool newobj::network::http::client_plus::parseurl(const nstring& url)
 			return false;
 		}
 		pu = arr[0];
-		m_port = arr[1].to_ushort();
+		m_port = nstring(arr[1]).to_ushort();
 	}
 	m_ipaddress = pu;// network::to_ip(pu);
 #ifndef LIB_HPSOCKET_SSL

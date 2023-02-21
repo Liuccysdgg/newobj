@@ -107,7 +107,7 @@ void nstring_view::println() const
 	std::cout << std::string(m_data, m_data_length) << std::endl;
 }
 
-int32 nstring_view::to_int32() const
+int32 nstring::to_int32() const
 {
 	if (is_num())
 	{
@@ -119,11 +119,11 @@ int32 nstring_view::to_int32() const
 	}
 	return 0;
 }
-uint32 nstring_view::to_uint32() const
+uint32 nstring::to_uint32() const
 {
 	return (uint32)to_int32();
 }
-int64 nstring_view::to_int64() const
+int64 nstring::to_int64() const
 {
 	if (is_num())
 	{
@@ -139,38 +139,38 @@ int64 nstring_view::to_int64() const
 	}
 	return 0;
 }
-uint64 nstring_view::to_uint64() const
+uint64 nstring::to_uint64() const
 {
 	return (uint64)to_int64();
 }
 
-short nstring_view::to_short() const
+short nstring::to_short() const
 {
 	return (short)to_int32();
 }
-ushort nstring_view::to_ushort() const
+ushort nstring::to_ushort() const
 {
 	return (ushort)to_short();
 }
 #ifndef MSVC_2010
-decimal nstring_view::to_decimal() const
+decimal nstring::to_decimal() const
 {
 	f_ret_var(is_decimal(), 0.0);
 	return decimal(atof(this->c_str()));
 }
 #endif
-double nstring_view::to_double() const
+double nstring::to_double() const
 {
 	f_ret_var(is_decimal(), 0.0);
 	return atof(this->c_str());
 }
-float nstring_view::to_float() const
+float nstring::to_float() const
 {
 	f_ret_var(is_decimal(), 0.0f);
 	return (float)to_double();
 }
 
-bool nstring_view::is_num() const
+bool nstring::is_num() const
 {
 	if (length() == 0)
 		return false;
@@ -188,7 +188,7 @@ bool nstring_view::is_num() const
 	return true;
 }
 
-bool nstring_view::is_decimal() const
+bool nstring::is_decimal() const
 {
 	if (length() == 0)
 		return false;

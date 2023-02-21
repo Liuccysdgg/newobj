@@ -176,7 +176,7 @@ nstring  newobj::time::now_time(const nstring& format)
 nstring  newobj::time::format(timestamp time, const nstring& format)
 {
     if (time > 9999999999L)
-        time = (uint64)nstring::from((int64)time).left(10).to_int64();
+        time = (uint64)nstring(nstring::from((int64)time).left(10)).to_int64();
     else if (time < 0)
         time = 0;
 
@@ -195,7 +195,7 @@ nstring  newobj::time::format(timestamp time, const nstring& format)
 void  newobj::time::format(timestamp time, newobj::time::datetime& systime)
 {
     if (time > 9999999999L)
-        time = (uint64)nstring::from((int64)time).left(10).to_uint64();
+        time = (uint64)nstring(nstring::from((int64)time).left(10)).to_uint64();
     else if (time < 0)
         time = 0;
 
