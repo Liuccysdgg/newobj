@@ -37,7 +37,7 @@ void network::http::header::parse(const nstring &body)
     m_values.clear();
     m_param.clear();
     nstring value = body;
-    std::vector<nstring> param = value.split(";");
+    std::vector<nstring_view> param = value.split(";");
     if (param.size() == 0)
     {
         value = value.trim(' ');

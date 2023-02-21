@@ -508,11 +508,11 @@ namespace newobj
                 }
                 all_str = cpu_str + gh_str;
                 // 全部校验 ，变化率高
-                sn1 = codec::md5(codec::des::en(all_str, all_str.left(5) + "   "));
+                sn1 = codec::md5(codec::des::en(all_str, all_str.left(5)));
                 // CPU校验
-                sn2 = codec::md5(codec::des::en(cpu_str, cpu_str.left(5) + "   "));
+                sn2 = codec::md5(codec::des::en(cpu_str, cpu_str.left(5)));
                 // 显卡校验
-                sn3 = codec::md5(codec::des::en(gh_str, gh_str.left(5) + "   "));
+                sn3 = codec::md5(codec::des::en(gh_str, gh_str.left(5)));
             }
             std::vector<nstring> disk_list()
             {

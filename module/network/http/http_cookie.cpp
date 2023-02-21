@@ -22,7 +22,7 @@ void newobj::network::http::cookie::merge(const nstring& set_cookie)
         return;
     std::map<nstring, nstring> set_cookie_map;
     std::map<nstring, nstring> local_cookie_map;
-    std::vector<nstring> cookies = set_cookie.split(";");
+    std::vector<nstring_view> cookies = set_cookie.split(";");
     if (cookies.size() == 0)
     {
         auto arr = set_cookie.split("=");

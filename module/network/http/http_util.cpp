@@ -131,7 +131,7 @@ bool newobj::network::tools::parse_url(const nstring& url, nstring& httpType,nst
         httpType = "http://";
     }
 
-    std::vector<nstring> __arr = temp.split("/");
+    std::vector<nstring_view> __arr = temp.split("/");
     if (__arr.size() == 2)
     {
         temp = __arr[0];
@@ -380,7 +380,7 @@ bool network::tools::parse_url_host(const nstring &url, nstring &host)
     else if (url.substr(0, 8) == "https://")
         temp = url.substr(8, url.length() - 8);
 
-    std::vector<nstring> __arr = temp.split("/");
+    std::vector<nstring_view> __arr = temp.split("/");
     if (__arr.size() >= 1)
     {
         temp = __arr[0];
