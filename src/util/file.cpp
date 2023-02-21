@@ -367,6 +367,13 @@ namespace newobj
             file::copy_file(*iter, newobj::file::format_slash(dst) + (*iter).right(iter->length() - newobj::file::format_slash(src).length()), cover);
 		return true;
 	}
+	void file::ext(const nstring& path, nstring& ext)
+	{
+		int32 idx = path.rfind('.');
+		t_ret(idx == -1);
+		int32 sublen = path.length() - idx - 1;
+		ext.append(path.c_str() + path.length() - sublen, sublen);
+	}
 	bool  file::copy_file(const nstring& src, const nstring& dst, bool cover)
 	{
 #ifdef _WIN32
