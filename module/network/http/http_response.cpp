@@ -54,25 +54,21 @@ namespace newobj
 			{
 				
 
-				newobj::buffer send_data;
-				send_data.__set((uchar*)buf, buf_len);
-				send_data.deepcopy(false);
+				newobj::buffer end_send;
+				stream_view view(buf, buf_len);
+
+				char* send_data_p = nullptr;
+				size_t send_data_length = 0;
 #if 1
                 // 发送前回调
                 {
                     auto sendbefore_callback = m_reqpack->website()->router()->m_callback_sendbefore;
 					if (sendbefore_callback != nullptr)
 					{
-						if (buf_len != 0)
-						{
-							void* new_data = mem::malloc(buf_len);
-							memcpy(new_data,buf, buf_len);
-							send_data.__set((uchar*)new_data, buf_len);
-							send_data.deepcopy(true);
-						}
-						sendbefore_callback(&send_data);
+						sendbefore_callback(view,&end_send);
+						if (end_send.length() != 0)
+							view.reset(end_send.data(), end_send.length());
 					}
-                        
                 }
 #endif
 				t_ret_f(m_response == true);
@@ -81,7 +77,7 @@ namespace newobj
 				/*Content-Type*/
 				{
 					HEADER_SET("Content-Type", "text/html");
-					HEADER_SET("Content-Length", nstring::from((uint64)send_data.length()));
+					HEADER_SET("Content-Length", nstring::from((uint64)view.length()));
 
 					// 设置默认编码
 					{
@@ -121,8 +117,8 @@ namespace newobj
 						headers[idx].value = iter->second.c_str();
 						idx++;
 					}
-					this->m_reqpack->server()->qps()->response(send_data.length());
-                    bool result = (bool)HPSERVER->SendResponse((CONNID)m_reqpack->connid(), stateNum, stateDesc.c_str(), headers, (int32)m_headers.size(), (const BYTE*)send_data.data(), send_data.length());
+					this->m_reqpack->server()->qps()->response(view.length());
+                    bool result = (bool)HPSERVER->SendResponse((CONNID)m_reqpack->connid(), stateNum, stateDesc.c_str(), headers, (int32)m_headers.size(), (const BYTE*)view.data(), view.length());
 					delete[] headers;
 					return result;
 				}

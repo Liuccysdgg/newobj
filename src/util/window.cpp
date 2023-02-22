@@ -273,14 +273,14 @@ nstring newobj::window::content(ptr_win handle)
 	if (count > 50000)
 	{
 		uint32 tempSize = 50000;
-		data.setsize(50000);
+		data.resize(50000);
 		SendMessageA((HWND)handle, 13, tempSize + 1,(LPARAM)data.data());
 		if (data[49999] < 0)
 			data = data.left(data.length() - 1);
 	}
 	else
 	{
-		data.setsize(count);
+		data.resize(count);
 		SendMessageA((HWND)handle, 13, count, (LPARAM)data.data());
 	}
 	return data.to_string();

@@ -234,7 +234,7 @@ bool newobj::network::ftp::client::run()
 			break;
 		}
 		dwOffset = dwOffset + dwBytesReturn;
-		m_download->file->write(newobj::buffer((uchar*)pBuf, dwBytesReturn));
+		m_download->file->write(newobj::buffer((char*)pBuf, dwBytesReturn));
 		if(m_download->downloading != nullptr)
 			m_download->downloading(this, m_download->size, dwOffset,m_download->param);
 	} while (m_download->size > dwOffset);

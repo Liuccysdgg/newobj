@@ -110,12 +110,12 @@ namespace newobj {
                 /******************************************************************
                  * function：数据接收后回调
                  ******************************************************************/
-                void on_recved(std::function<void(newobj::buffer*)> callback);
+                void on_recved(std::function<void(const stream_view& begin, newobj::buffer* end)> callback);
                 /******************************************************************
                  * function：数据发送前回调
                  * desc：不支持大文件断点传输方式
                  ******************************************************************/
-                void on_sendbefore(std::function<void(newobj::buffer*)> callback);
+                void on_sendbefore(std::function<void(const stream_view& begin, newobj::buffer* end)> callback);
                 /******************************************************************
                 * function：线程回调[禁止调用]
                 * desc：put提交后投递到线程池，线程池开始执行调用该回调。
@@ -144,9 +144,9 @@ namespace newobj {
                 // [回调] 未订阅请求
                 std::function<void(network::http::request*, network::http::response*)> m_callback_other;
                 // [回调] 接收后
-                std::function<void(newobj::buffer*)> m_callback_recved;
+                std::function<void(const stream_view& begin, newobj::buffer* end)> m_callback_recved;
                 // [回调] 发送前
-                std::function<void(newobj::buffer*)> m_callback_sendbefore;
+                std::function<void(const stream_view& begin,newobj::buffer*end)> m_callback_sendbefore;
                 // 拦截器
                 network::http::interceptor* m_interceptor;
             private:

@@ -107,7 +107,7 @@ public:
 			//	nstring length = dec2hex(iLength) + "\r\n";
 			//	m_response_body.append(length);
 			//}
-			m_response_body.append(pData, iLength);
+			m_response_body.append((char*)pData, iLength);
 		}
 			
 		

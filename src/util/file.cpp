@@ -327,7 +327,7 @@ namespace newobj
             f_ret_f(file.open(_filepath, type));
 			if (size == 0)
 				return true;
-			data.setsize((size_t)size);
+			data.resize((size_t)size);
 			file.read(0, size, (char*)data.data());
 			file.close();
 			return true;

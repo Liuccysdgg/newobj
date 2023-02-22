@@ -100,11 +100,11 @@ void network::http::router::other(std::function<void(network::http::request*,net
 {
     this->m_callback_other = callback;
 }
-void newobj::network::http::router::on_recved(std::function<void(newobj::buffer*)> callback)
+void newobj::network::http::router::on_recved(std::function<void(const stream_view &begin, newobj::buffer* end)> callback)
 {
     m_callback_recved = callback;
 }
-void newobj::network::http::router::on_sendbefore(std::function<void(newobj::buffer*)> callback)
+void newobj::network::http::router::on_sendbefore(std::function<void(const stream_view &begin, newobj::buffer* end)> callback)
 {
     m_callback_sendbefore = callback;
 }

@@ -187,7 +187,7 @@ buffer newobj::network::http::controller::qry_buffer(const nstring& name)
 
 	if (form_info.start != -1 && form_info.length != -1 && form_info.length != 0)
 	{
-		return m_reqpack->data()->sub(form_info.start,form_info.length);
+		return m_reqpack->data()->substr(form_info.start,form_info.length);
 	}
 	else
 	{

@@ -120,7 +120,7 @@ namespace newobj
 				}
 				else
 				{
-					buf = buffer(pData, iLength);
+					buf = buffer((char*)pData, iLength);
 				}
 
 

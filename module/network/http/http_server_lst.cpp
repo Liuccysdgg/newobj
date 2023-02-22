@@ -214,7 +214,7 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnBody(IHttpServer* pS
 	if (pSender->GetConnectionExtra(dwConnID, &extra))
 	{
 		if (extra != 0)
-            ((temp_recv*)extra)->data->append((const unsigned char*)pData, iLength);
+            ((temp_recv*)extra)->data->append((char*)pData, iLength);
 	}
 #endif
 	return HPR_OK;
@@ -293,8 +293,14 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageComplete(IHtt
 
 #endif
 	auto recvd_callback = website->router()->m_callback_recved;
-    if(recvd_callback != nullptr)
-        recvd_callback(rp->data());
+	newobj::buffer end_data;
+	if (recvd_callback != nullptr)
+	{
+		recvd_callback(*rp->data(), &end_data);
+		if (end_data.length() != 0)
+			*rp->data() = end_data;
+	}
+        
 
 
     website->router()->push(rp);

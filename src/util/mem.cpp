@@ -10,9 +10,14 @@
 #include "mimalloc/include/mimalloc.h"
 #endif
 #endif
-
+#include "util/lock.h"
+static newobj::mutex m_mutex;
+static size_t mem_size = 0;
 void* newobj::mem::malloc(size_t size)
 {
+    m_mutex.lock();
+    mem_size++;
+    m_mutex.unlock();
     if (size > __big_size) { printf("[Warn] try to apply for too much memory, please note"); }
 
 #if defined(_WIN32) && !defined(MSVC_2010)
@@ -29,6 +34,9 @@ void* newobj::mem::malloc(size_t size)
 
 void newobj::mem::free(void* src)
 {
+    m_mutex.lock();
+    mem_size--;
+    m_mutex.unlock();
 #ifdef PRINT_MEM_INFO
     std::cout << "mem::free\t\t\t\t" << std::hex << src << std::endl;
 #endif

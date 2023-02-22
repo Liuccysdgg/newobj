@@ -235,7 +235,7 @@ void network::http::form_parser::parse_count(std::vector<uint32> &starts, std::v
         }
     }
 
-    auto idxVct = m_data->cut(cut_flag);
+    auto idxVct = m_data->find_list(cut_flag);
     for (size_t i = 0; i < idxVct.size(); i++)
     {
         int32 startIdx = idxVct[i] + cut_flag.length() + 2;
@@ -249,33 +249,29 @@ void network::http::form_parser::parse_count(std::vector<uint32> &starts, std::v
 
 void network::http::form_parser::parse_form(uint32 start,uint32 length)
 {
-    auto parse_paraminfo_secondkv=[](buffer buf)->Kv
+    auto parse_paraminfo_secondkv=[](const stream_view& buf)->Kv
     {
         Kv kv;
         buffer cutV;
-        cutV.setsize(1);
+        cutV.resize(1);
         cutV[0] = '=';
-        auto cdIdx = buf.find(0, cutV);
+        auto cdIdx = buf.find(cutV, 0);
         if (cdIdx == -1)
             return kv;
-        kv.name = buf.sub(0, cdIdx).to_string();
-        kv.value = buf.sub(cdIdx + 2, buf.length() - 3 - cdIdx).to_string();
+        kv.name = buf.substr(0, cdIdx);
+        kv.value = buf.substr(cdIdx + 2, buf.length() - 3 - cdIdx);
         return kv;
     };
 
 
-    newobj::buffer form_data;
-
-    form_data.__set((uchar*)m_data->data()+start,length);
-    form_data.deepcopy(false);
-
+    stream_view form_data(m_data->data()+start,length);
 
     newobj::buffer fh;
     newobj::buffer fh2;
     newobj::buffer cs_ln;
-    fh.setsize(2);
-    fh2.setsize(2);
-    cs_ln.setsize(2);
+    fh.resize(2);
+    fh2.resize(2);
+    cs_ln.resize(2);
     fh[0] = ';';
     fh[1] = ' ';
     fh2[0] = ':';
@@ -283,7 +279,7 @@ void network::http::form_parser::parse_form(uint32 start,uint32 length)
     cs_ln[0] = '\r';
     cs_ln[1] = '\n';
 
-    auto div = form_data.cut(cs_ln);
+    auto div = form_data.find_list(cs_ln);
     if (div.size() == -1)
         return;
 
@@ -299,36 +295,36 @@ void network::http::form_parser::parse_form(uint32 start,uint32 length)
         forminfo.start = div[2] + 2+start;
         forminfo.length = div[div.size() - 1] - 2 - div[2];
 
-        auto ContentType = form_data.sub(div[0] + 2, div[1] - 2 - div[0]);
+        auto ContentType = form_data.substr(div[0] + 2, div[1] - 2 - div[0]);
         // Content-Type
-        auto cdIdx = ContentType.find(0, fh2);
+        auto cdIdx = ContentType.find(fh2);
         if (cdIdx == -1)
             return;
-        forminfo.content_type = ContentType.sub(cdIdx + 2, ContentType.length() - 2 - cdIdx).to_string();
+        forminfo.content_type = ContentType.substr(cdIdx + 2, ContentType.length() - 2 - cdIdx);
     }
     else
         return;
 
     //≈‰÷√œÓ
-    auto info = form_data.sub(0, div[0]);
-    nstring t = info.to_string();
-    auto info_vct = info.cut(fh);
+    auto info = form_data.substr(div[0]);
+    nstring t = info;
+    auto info_vct = info.find_list(fh);
     if (info_vct.size() == 0)
         return;
 
     // Content-Disposition
-    auto contentDisposition = info.sub(0, info_vct[0]);
-    auto cdIdx = contentDisposition.find(0, fh2);
+    auto contentDisposition = info.substr(info_vct[0]);
+    auto cdIdx = contentDisposition.find(fh2);
     if (cdIdx == -1)
         return;
 
-    forminfo.disposition = contentDisposition.sub(cdIdx + 2, contentDisposition.length() - 2 - cdIdx).to_string();
+    forminfo.disposition = contentDisposition.substr(cdIdx + 2, contentDisposition.length() - 2 - cdIdx);
 
 
 
     if (info_vct.size() == 1)
     {
-        auto kv = parse_paraminfo_secondkv(info.sub(info_vct[0] + 2, info.length() - info_vct[0] - 2));
+        auto kv = parse_paraminfo_secondkv(info.substr(info_vct[0] + 2, info.length() - info_vct[0] - 2));
         if (kv.name == "name")
             forminfo.name = kv.value;
         else if (kv.name == "filename")
@@ -340,9 +336,9 @@ void network::http::form_parser::parse_form(uint32 start,uint32 length)
         {
             newobj::buffer info_sub;
             if (info_vct.size() == i + 1)
-                info_sub = info.sub(info_vct[i] + 2, info.length() - info_vct[i] - 2);
+                info_sub = info.substr(info_vct[i] + 2, info.length() - info_vct[i] - 2);
             else
-                info_sub = info.sub(info_vct[i] + 2, info_vct[i + 1] - info_vct[i] - 2);
+                info_sub = info.substr(info_vct[i] + 2, info_vct[i + 1] - info_vct[i] - 2);
             auto kv = parse_paraminfo_secondkv(info_sub);
             if (kv.name == "name")
                 forminfo.name = kv.value;

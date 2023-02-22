@@ -499,7 +499,7 @@ newobj::buffer yxyDES2::GetPlaintextAnyLength()
 void yxyDES2::EncryptAnyLength(char* _srcBytes, unsigned int _bytesLength, unsigned int keyN)
 {
 	//	memset(szFCiphertextAnyLength, 0, 8192);
-	szFCiphertextAnyLength.setsize((_bytesLength % 8 == 0 ? _bytesLength : _bytesLength + _bytesLength % 8) + 16);
+	szFCiphertextAnyLength.resize((_bytesLength % 8 == 0 ? _bytesLength : _bytesLength + _bytesLength % 8) + 16);
 	if (_bytesLength == 8)
 	{
 		EncryptData(_srcBytes, keyN);
@@ -540,7 +540,7 @@ void yxyDES2::EncryptAnyLength(char* _srcBytes, unsigned int _bytesLength, unsig
  
 void yxyDES2::DecryptAnyLength(char* _srcBytes, unsigned int _bytesLength, unsigned int keyN)
 {
-	szFPlaintextAnyLength.setsize((_bytesLength % 8 == 0 ? _bytesLength : _bytesLength + _bytesLength % 8) + 16);
+	szFPlaintextAnyLength.resize((_bytesLength % 8 == 0 ? _bytesLength : _bytesLength + _bytesLength % 8) + 16);
 	if (_bytesLength == 8)
 	{
 		DecryptData(_srcBytes, keyN);

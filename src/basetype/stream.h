@@ -14,7 +14,7 @@ public:
 	bool operator==(const stream_view& value) const;
 	bool operator!=(const stream_view& value) const;
 
-
+	void reset(const char* value,size_t len);
 	inline void clear() { m_data_length = 0; }
 	inline size_t length() const { return m_data_length; }
 	inline bool empty() const { return m_data == nullptr || m_data_length == 0; }
@@ -55,36 +55,33 @@ protected:
 	bool m_tail_blank;
 };
 
-//class NEWOBJ_API stream :public stream_view
-//{
-//public:
-//	stream();
-//	stream(size_t block_size);
-//	stream(const char* value, size_t len);
-//	stream(const stream_view& value);
-//	~stream();
-//
-//	stream& operator=(const stream_view& value);
-//	stream& operator+=(const stream_view& value);
-//
-//	stream operator+(const stream_view& value) const;
-//
-//	std::vector<stream> split(const stream_view& value)  const;
-//	std::vector<stream> split(char value)  const;
-//	void append(char data, size_t length);
-//	void append(const char* data, size_t length);
-//	void append(const stream_view& value);
-//	
-//	stream remove(const stream_view& value) const;
-//
-//
-//
-//	stream replace(size_t start, size_t len, const stream_view& value) const;
-//	stream replace(const stream_view& replacestring, const stream_view& newstring) const;
-//	stream replace(char replacestring, const stream_view& newstring) const;
-//	stream replace(char replacestring, char newstring) const;
-//	stream replace(const stream_view& replacestring, char newstring) const;
-//protected:
-//
-//
-//};
+class NEWOBJ_API stream :public stream_view
+{
+public:
+	stream();
+	stream(size_t block_size);
+	stream(const char* value, size_t len);
+	stream(const stream_view& value);
+	~stream();
+
+	//stream& operator=(const stream_view& value);
+	//stream& operator+=(const stream_view& value);
+	//stream operator+(const stream_view& value) const;
+
+	std::vector<stream> split(const stream_view& value)  const;
+	std::vector<stream> split(char value)  const;
+	void append(char data);
+	void append(char data, size_t length);
+	void append(const char* data, size_t length);
+	void append(const stream_view& value);
+	
+	void resize(size_t length);
+	void clear();
+	void set(size_t start, const stream_view& value);
+	stream remove(const stream_view& value) const;
+	stream replace(size_t start, size_t len, const stream_view& value) const;
+	stream replace(const stream_view& replacestring, const stream_view& newstring) const;
+	stream replace(char replacestring, const stream_view& newstring) const;
+	stream replace(char replacestring, char newstring) const;
+	stream replace(const stream_view& replacestring, char newstring) const;
+};

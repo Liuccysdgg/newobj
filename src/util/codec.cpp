@@ -28,7 +28,7 @@ nstring newobj::codec::url::en(const nstring& str)
     if (str.length() > NEWOBJ_BUFFER_MAX_SIZE)
         return "";
     newobj::buffer result;
-    result.setsize(str.length() * 5);
+    result.resize(str.length() * 5);
     DWORD resultLen = str.length() * 5;
     auto rcode = SYS_UrlEncode((BYTE*)str.c_str(), str.length(), (BYTE*)result.data(), resultLen);
     return result.left(resultLen);
@@ -41,7 +41,7 @@ nstring newobj::codec::url::de(const nstring& str)
     if (str.length() > NEWOBJ_BUFFER_MAX_SIZE)
         return "";
     newobj::buffer result;
-    result.setsize(str.length() * 2);
+    result.resize(str.length() * 2);
     DWORD resultLen = str.length() * 2;
     auto rcode = SYS_UrlDecode((BYTE*)str.c_str(), str.length(), (BYTE*)result.data(), resultLen);
     return result.left(resultLen);
@@ -60,21 +60,22 @@ nstring  newobj::codec::base64::en(const newobj::buffer& data)
     uint32 out_length = BASE64_ENCODE_OUT_SIZE(data.length());
     if (out_length == 0)
         return "";
-    result.setsize(out_length);
+    result.resize(out_length);
     uint32 size = base64_encode((uchar*)data.data(), data.length(), (char*)result.data());
     if(size > out_length)
         return "";
     return result.to_string();
-#endif
+#else
     DWORD resultLen = SYS_GuessBase64EncodeBound(data.length());
     if (resultLen <= 0)
         return newobj::buffer();
     if (resultLen > NEWOBJ_BUFFER_MAX_SIZE)
         return newobj::buffer();
     newobj::buffer result;
-    result.setsize(resultLen);
+    result.resize(resultLen);
     auto rcode = SYS_Base64Encode((const BYTE*)data.data(), data.length(), (BYTE*)result.data(), resultLen);
     return result.left(resultLen);
+#endif
 }
 
 newobj::buffer  newobj::codec::base64::de(const nstring& data)
@@ -84,21 +85,22 @@ newobj::buffer  newobj::codec::base64::de(const nstring& data)
     uint32 out_length = BASE64_DECODE_OUT_SIZE(data.length());
     if (out_length == 0)
         return newobj::buffer();
-    result.setsize(out_length);
-    uint32 size = base64_decode((char*)data.c_str(), data.length(), (uchar*)result.data());
+    result.resize(out_length);
+    uint32 size = base64_decode((char*)data.c_str(), data.length(), (uchar*)result.data()); 
     if (size > out_length)
         return newobj::buffer();
     return result.left(size);
-#endif
+#else
     DWORD resultLen = SYS_GuessBase64DecodeBound((const BYTE*)data.c_str(),data.length());
     if (resultLen <= 0)
         return newobj::buffer();
     if (resultLen > NEWOBJ_BUFFER_MAX_SIZE)
         return newobj::buffer();
     newobj::buffer result;
-    result.setsize(resultLen);
+    result.resize(resultLen);
     auto rcode = SYS_Base64Decode((const BYTE*)data.c_str(), data.length(), (BYTE*)result.data(), resultLen);
     return result.left(resultLen);
+#endif
 }
 nstring newobj::codec::to_utf8(const nstring& gbk)
 {
@@ -168,7 +170,7 @@ newobj::buffer  newobj::codec::ungzip(const newobj::buffer& data)
     if (size > NEWOBJ_BUFFER_MAX_SIZE)
         return newobj::buffer();
     newobj::buffer result;
-	result.setsize(size*2);
+	result.resize(size*2);
     DWORD resultLen = size*2;
 	auto rcode = SYS_GZipUncompress((const BYTE*)data.data(), data.length(), (BYTE*)result.data(), resultLen);
 	return result.left(resultLen);
@@ -176,7 +178,7 @@ newobj::buffer  newobj::codec::ungzip(const newobj::buffer& data)
 newobj::buffer  newobj::codec::gzip(const newobj::buffer& data)
 {
     newobj::buffer result;
-    result.setsize(data.length()+1024);
+    result.resize(data.length()+1024);
     DWORD resultLen = result.length();
     if (SYS_GZipCompress((const BYTE*)data.data(), data.length(), (BYTE*)result.data(), resultLen) == 0)
         return result.left(resultLen);
@@ -185,7 +187,7 @@ newobj::buffer  newobj::codec::gzip(const newobj::buffer& data)
 newobj::buffer  newobj::codec::hp_compress(const newobj::buffer& data)
 {
     newobj::buffer result;
-    result.setsize(data.length() + 1024);
+    result.resize(data.length() + 1024);
     DWORD resultLen = result.length();
     if (SYS_Compress((const BYTE*)data.data(), data.length(), (BYTE*)result.data(), resultLen) == 0)
         return result.left(resultLen);
@@ -196,7 +198,7 @@ newobj::buffer  newobj::codec::hp_uncompress(const newobj::buffer& data)
     if (data.length() < 1)
         return newobj::buffer();
     newobj::buffer result;
-    result.setsize(data.length());
+    result.resize(data.length());
     DWORD resultLen = result.length();
     auto rcode = SYS_Uncompress((const BYTE*)data.data(), data.length(), (BYTE*)result.data(), resultLen);
     if (rcode == 0)

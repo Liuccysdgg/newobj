@@ -134,7 +134,11 @@ namespace newobj
             {
                 char* dest_char = (char*)&dest;
                 for (int i = 0; i < sizeof(dest); i++)
-                    dest_char[i] = src[(reverse == true ? sizeof(dest) - 1 - i : i)];
+                {
+                    int idx = (reverse == true ? sizeof(dest) - 1 - i : i);
+                    dest_char[i] = src[idx];
+                }
+                    
                 //dest = atoi(src);
             }
             void to_uint(uint32& dest, const char* src, bool reverse)
@@ -182,7 +186,7 @@ namespace newobj
             newobj::buffer  to_buffer(short src, bool reverse)
             {
                 newobj::buffer result;
-                result.setsize(2);
+                result.resize(2);
                 to_char((char*)result.data(),(short)src,reverse);
                 return result;
             }
@@ -190,7 +194,7 @@ namespace newobj
             newobj::buffer  to_buffer(int32 src, bool reverse)
             {
                 newobj::buffer result;
-                result.setsize(4);
+                result.resize(4);
                 to_char((char*)result.data(), (int32)src, reverse);
                 return result;
             }
@@ -198,7 +202,7 @@ namespace newobj
             newobj::buffer  to_buffer(int64 src, bool reverse)
             {
                 newobj::buffer result;
-                result.setsize(8);
+                result.resize(8);
                 to_char((char*)result.data(), (int64)src, reverse);
                 return result;
             }
@@ -206,7 +210,7 @@ namespace newobj
             newobj::buffer  to_buffer(uchar src)
             {
                 newobj::buffer result;
-                result.setsize(1);
+                result.resize(1);
                 result[0] = src;
                 return result;
             }
@@ -250,7 +254,7 @@ namespace newobj
                 wchar_t* buf = new wchar_t[len];
                 MultiByteToWideChar(CP_ACP, 0, data.data(), (int)data.length(), buf, len);
                 newobj::buffer result;
-                result.append((uchar*)buf, len * 2);
+                result.append((char*)buf, len * 2);
                 delete[] buf;
                 
                 return result;
