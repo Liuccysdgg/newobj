@@ -1,7 +1,7 @@
 .vs/
 bin/
 obj/
-lib/
+/lib
 x64/
 Win32/
 out/
