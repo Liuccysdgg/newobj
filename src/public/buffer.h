@@ -31,8 +31,9 @@ namespace newobj
         ~buffer(); 
         newobj::buffer& operator=(const stream_view& value);
         newobj::buffer& operator=(const newobj::buffer& value);
+#ifdef LIB_QT
         newobj::buffer& operator=(const QByteArray& value);
-
+#endif
         newobj::buffer operator+(const newobj::buffer& value);
         newobj::buffer& operator+=(const newobj::buffer& value);
         //inline newobj::buffer operator+(const newobj::buffer& value) { return ::stream::operator+(value); }
