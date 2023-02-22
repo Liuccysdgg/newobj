@@ -41,6 +41,7 @@ aux_source_directory(OTHER_SRC ${PROJECT_SOURCE_DIR}/src/other/*.cpp)
 aux_source_directory(SDK_SRC ${PROJECT_SOURCE_DIR}/src/sdk/*.cpp)
 aux_source_directory(SDK_CODEC_SRC ${PROJECT_SOURCE_DIR}/src/sdk/codec/*.cpp)
 aux_source_directory(MGR_SRC ${PROJECT_SOURCE_DIR}/src/mgr/*.cpp)
+aux_source_directory(BASETYPE_SRC ${PROJECT_SOURCE_DIR}/src/basetype/*.cpp)
 
 file(GLOB ALGORITHM_SRC " ${PROJECT_SOURCE_DIR}/src/algorithm/*.*")
 file(GLOB DB_SRC "src/db/*.*")
@@ -52,13 +53,14 @@ file(GLOB OTHER_SRC "src/other/*.*")
 file(GLOB SDK_SRC "src/sdk/*.*")
 file(GLOB SDK_CODEC_SRC "src/sdk/codec/*.*")
 file(GLOB MGR_SRC "src/mgr/*.*")
+file(GLOB BASETYPE_SRC "src/basetype/*.*")
 
 ########################  生成路径  ########################  
 set(LIBRARY_OUTPUT_PATH  ${PROJECT_SOURCE_DIR}/lib/)    
 #######################  生成目标  ########################  
 add_library(
     "${PROJECT_NAME}_${BUILD_TYPE}"
-	STATIC ${DB_SRC} ${LOG_SRC} ${NETWORK_SRC} ${PUBLIC_SRC} ${UTIL_SRC} ${TEMPLATE_SRC} ${OTHER_SRC} ${MGR_SRC} ${SDK_SRC} ${SDK_CODEC_SRC})
+    STATIC ${DB_SRC} ${LOG_SRC} ${NETWORK_SRC} ${PUBLIC_SRC} ${UTIL_SRC} ${TEMPLATE_SRC} ${OTHER_SRC} ${MGR_SRC} ${SDK_SRC} ${SDK_CODEC_SRC} ${BASETYPE_SRC})
 #######################  其它项目  ########################  
 add_subdirectory(module/network)
 add_subdirectory(thirdparty/mysql)
