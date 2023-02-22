@@ -17,6 +17,7 @@ namespace newobj
 	public:
 		object_pool(const nstring& name,uint32 clear_size,uint32 clear_sec)
 		{
+            m_lock = true;
 			m_name = name;
 			if (clear_sec == 0)
 				clear_sec = 100;
@@ -34,6 +35,7 @@ namespace newobj
 		}
 		T* create() 
 		{
+            
 			if (m_queue.size() > m_clear_size)
 			{
 				if (time::now_sec() > m_clear_sec + m_prev_sec)
@@ -52,7 +54,9 @@ namespace newobj
 			}
 			T* p = nullptr;
 			if (m_queue.pop(p))
+            {
 				return p;
+            }
 			return new T();
 		}
 		void destory(T* p) 
@@ -61,7 +65,8 @@ namespace newobj
 			m_queue.push(p);
 		}
 	private:
-		newobj::queue<T*> m_queue;
+        bool m_lock;
+	    newobj::queue<T*> m_queue;
 		timestamp m_prev_sec;
 		uint32 m_clear_size;
 		uint32 m_clear_sec;

@@ -62,7 +62,7 @@ namespace newobj
 				float qry_float(const nstring& name, float pmin = _FLT_MIN, float pmax = _FLT_MAX);
 				bool qry_empty(const nstring& name);
 				bool qry_bool(const nstring& name);
-				buffer qry_buffer(const nstring& name);
+				stream_view qry_buffer(const nstring& name);
 
 				// ÇëÇó²ÎÊý
 				bool request_param(const nstring& name,nstring& value);

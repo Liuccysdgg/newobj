@@ -99,7 +99,7 @@ newobj::buffer  newobj::codec::base64::de(const nstring& data)
     newobj::buffer result;
     result.resize(resultLen);
     auto rcode = SYS_Base64Decode((const BYTE*)data.c_str(), data.length(), (BYTE*)result.data(), resultLen);
-    return result.left(resultLen);
+    return newobj::buffer(result.left(resultLen));
 #endif
 }
 nstring newobj::codec::to_utf8(const nstring& gbk)
@@ -173,7 +173,7 @@ newobj::buffer  newobj::codec::ungzip(const newobj::buffer& data)
 	result.resize(size*2);
     DWORD resultLen = size*2;
 	auto rcode = SYS_GZipUncompress((const BYTE*)data.data(), data.length(), (BYTE*)result.data(), resultLen);
-	return result.left(resultLen);
+	return newobj::buffer(result.left(resultLen));
 }
 newobj::buffer  newobj::codec::gzip(const newobj::buffer& data)
 {
@@ -181,7 +181,7 @@ newobj::buffer  newobj::codec::gzip(const newobj::buffer& data)
     result.resize(data.length()+1024);
     DWORD resultLen = result.length();
     if (SYS_GZipCompress((const BYTE*)data.data(), data.length(), (BYTE*)result.data(), resultLen) == 0)
-        return result.left(resultLen);
+        return newobj::buffer(result.left(resultLen));
     return result;
 }
 newobj::buffer  newobj::codec::hp_compress(const newobj::buffer& data)
@@ -190,7 +190,7 @@ newobj::buffer  newobj::codec::hp_compress(const newobj::buffer& data)
     result.resize(data.length() + 1024);
     DWORD resultLen = result.length();
     if (SYS_Compress((const BYTE*)data.data(), data.length(), (BYTE*)result.data(), resultLen) == 0)
-        return result.left(resultLen);
+        return newobj::buffer(result.left(resultLen));
     return result;
 }
 newobj::buffer  newobj::codec::hp_uncompress(const newobj::buffer& data)
@@ -203,7 +203,7 @@ newobj::buffer  newobj::codec::hp_uncompress(const newobj::buffer& data)
     auto rcode = SYS_Uncompress((const BYTE*)data.data(), data.length(), (BYTE*)result.data(), resultLen);
     if (rcode == 0)
         return newobj::buffer();
-    return result.left(resultLen);
+    return newobj::buffer(result.left(resultLen));
 }
 #endif
 #ifdef LIB_BOOST

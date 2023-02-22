@@ -177,7 +177,7 @@ bool newobj::network::http::controller::qry_bool(const nstring& name)
 	}
 	return _param_value_ == "true";
 }
-buffer newobj::network::http::controller::qry_buffer(const nstring& name)
+stream_view newobj::network::http::controller::qry_buffer(const nstring& name)
 {
 	network::http::form_info form_info;
 	if (request()->parser()->form()->get(name, form_info) == false)

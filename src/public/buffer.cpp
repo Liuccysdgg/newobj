@@ -65,17 +65,19 @@ namespace newobj
         ::stream::append(value.data(), value.length());
         return *this;
     }
+#ifdef LIB_QT
     newobj::buffer& buffer::operator=(const QByteArray& value)
     {
         clear();
         ::stream::append(value.data(), value.length());
         return *this;
     }
+#endif
     newobj::buffer buffer::operator+(const newobj::buffer& value)
     {
         	if (value.length() == 0)
                 return *this;
-	        stream result;
+            newobj::buffer result;
 	        result.append(*this);
 	        result.append(value);
 	        return result;

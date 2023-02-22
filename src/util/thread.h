@@ -42,6 +42,7 @@ namespace newobj
     public:
         static void* __thread_handle(void* param);
     public:
+        // 0=启动中 1=停止信号已发送 2=已停止
         unsigned int m_state;
         bool m_thread;
     public:
