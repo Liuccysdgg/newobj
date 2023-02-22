@@ -35,5 +35,5 @@ newobj::json script_exec(const nstring& script, const nstring& function, const n
 	newobj::lua::module::regist_vector_string(&vector_string_config, &state);
 	newobj::lua::module::regist_forstring(&forstring_config, &state);
 
-	return newobj::json::from(state[function.c_str()].call<std::string>(param.to_string().c_str()));
+	return newobj::json::from(state[function.data()].call<std::string>(param.to_string().data()));
 }

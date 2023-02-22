@@ -52,6 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\algorithm\stl.hpp" />
+    <ClInclude Include="..\src\basetype\boolean.h" />
+    <ClInclude Include="..\src\basetype\stream.h" />
+    <ClInclude Include="..\src\basetype\string.h" />
     <ClInclude Include="..\src\db\db.h" />
     <ClInclude Include="..\src\db\db_gen.hpp" />
     <ClInclude Include="..\src\db\db_sqlite3.h" />
@@ -62,19 +65,16 @@
     <ClInclude Include="..\src\other\or_task_router.hpp" />
     <ClInclude Include="..\src\other\or_task_handle.hpp" />
     <ClInclude Include="..\src\public\base.h" />
-    <ClInclude Include="..\src\public\boolean.h" />
     <ClInclude Include="..\src\public\buffer.h" />
     <ClInclude Include="..\src\public\decimal.h" />
     <ClInclude Include="..\src\public\define.h" />
     <ClInclude Include="..\src\public\exception.h" />
     <ClInclude Include="..\src\public\environment.h" />
     <ClInclude Include="..\src\public\extra_data.hpp" />
-    <ClInclude Include="..\src\public\Integer.hpp" />
     <ClInclude Include="..\src\public\macro.h" />
     <ClInclude Include="..\src\public\object.hpp" />
     <ClInclude Include="..\src\public\program.hpp" />
     <ClInclude Include="..\src\public\public.h" />
-    <ClInclude Include="..\src\public\string.h" />
     <ClInclude Include="..\src\public\struct.h" />
     <ClInclude Include="..\src\public\typedef.h" />
     <ClInclude Include="..\src\sdk\aliyun\oss.h" />
@@ -153,15 +153,17 @@
     <ClInclude Include="..\src\util\zip_test.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\basetype\boolean.cpp" />
+    <ClCompile Include="..\src\basetype\stream.cpp" />
+    <ClCompile Include="..\src\basetype\string.cpp" />
     <ClCompile Include="..\src\db\db_sqlite3.cpp" />
     <ClCompile Include="..\src\mgr\res_mgr.cpp" />
     <ClCompile Include="..\src\other\perfrecord.cpp" />
-    <ClCompile Include="..\src\public\boolean.cpp" />
     <ClCompile Include="..\src\public\buffer.cpp" />
     <ClCompile Include="..\src\public\decimal.cpp" />
     <ClCompile Include="..\src\public\exception.cpp" />
     <ClCompile Include="..\src\public\environment.cpp" />
-    <ClCompile Include="..\src\public\string.cpp" />
+    <ClCompile Include="..\SRC\PUBLIC\STRING.CPP" />
     <ClCompile Include="..\src\sdk\aliyun\oss.cpp" />
     <ClCompile Include="..\src\sdk\codec\base64.cpp" />
     <ClCompile Include="..\src\sdk\codec\qaesencryption.cpp" />

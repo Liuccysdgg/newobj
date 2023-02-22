@@ -121,6 +121,9 @@
     <Filter Include="src\sdk\mem">
       <UniqueIdentifier>{0d50e57f-00cb-4235-a66b-707e3b7e24c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\basetype">
+      <UniqueIdentifier>{f50ed71f-d1fc-403f-ac97-504cd8303975}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\util\util.h">
@@ -186,9 +189,6 @@
     <ClInclude Include="..\src\public\base.h">
       <Filter>src\public\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\public\boolean.h">
-      <Filter>src\public\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\public\buffer.h">
       <Filter>src\public\include</Filter>
     </ClInclude>
@@ -199,9 +199,6 @@
       <Filter>src\public\include</Filter>
     </ClInclude>
     <ClInclude Include="..\src\public\exception.h">
-      <Filter>src\public\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\public\string.h">
       <Filter>src\public\include</Filter>
     </ClInclude>
     <ClInclude Include="..\src\other\or_core.hpp">
@@ -233,9 +230,6 @@
     </ClInclude>
     <ClInclude Include="..\src\other\or_task_handle.hpp">
       <Filter>src\other\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\public\Integer.hpp">
-      <Filter>src\public\include</Filter>
     </ClInclude>
     <ClInclude Include="..\src\util\time.h">
       <Filter>src\util\include</Filter>
@@ -423,6 +417,15 @@
     <ClInclude Include="..\src\public\program.hpp">
       <Filter>src\public\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\basetype\boolean.h">
+      <Filter>src\basetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\basetype\stream.h">
+      <Filter>src\basetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\basetype\string.h">
+      <Filter>src\basetype</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\util\bytes.cpp">
@@ -476,16 +479,10 @@
     <ClCompile Include="..\src\template\tp_urlparam.cpp">
       <Filter>src\template\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\public\boolean.cpp">
-      <Filter>src\public\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\public\buffer.cpp">
       <Filter>src\public\src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\public\exception.cpp">
-      <Filter>src\public\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\public\string.cpp">
       <Filter>src\public\src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\other\perfrecord.cpp">
@@ -626,6 +623,16 @@
     <ClCompile Include="..\src\util\log4.cpp">
       <Filter>src\util\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\basetype\boolean.cpp">
+      <Filter>src\basetype</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\basetype\stream.cpp">
+      <Filter>src\basetype</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\basetype\string.cpp">
+      <Filter>src\basetype</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SRC\PUBLIC\STRING.CPP" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\other\or_core_config_json_template.json">

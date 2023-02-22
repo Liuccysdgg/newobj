@@ -142,10 +142,10 @@ network::http::form_parser *network::http::parser::form()
 void network::http::parser::parse_url(const nstring &url, std::map<nstring,nstring> &map)
 {
     map.clear();
-    std::vector<nstring_view> ps = url.split('&');
+    std::vector<stream_view> ps = url.split_view('&');
     for(size_t i=0;i<ps.size();i++)
     {
-        std::vector<nstring_view> pi = ps[i].split('=');
+        std::vector<stream_view> pi = ps[i].split_view('=');
         if(pi.size() == 2)
             map.insert(std::pair<nstring,nstring>(pi[0],pi[1]));
     }

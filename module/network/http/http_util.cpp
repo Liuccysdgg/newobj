@@ -131,18 +131,18 @@ bool newobj::network::tools::parse_url(const nstring& url, nstring& httpType,nst
         httpType = "http://";
     }
 
-    std::vector<nstring_view> __arr = temp.split("/");
+    std::vector<stream_view> __arr = temp.split_view('/');
     if (__arr.size() == 2)
     {
         temp = __arr[0];
         urlField = __arr[1];
     }
-    __arr = temp.split(":");
+	__arr = temp.split_view(':');
     if (__arr.size() == 2)
     {
         host = __arr[0];
         ipaddress = newobj::network::tools::to_ip(__arr[0]);
-        port = atoi(__arr[1].c_str());
+        port = nstring(__arr[1]).to_ushort();
     }
     else
     {
@@ -380,12 +380,12 @@ bool network::tools::parse_url_host(const nstring &url, nstring &host)
     else if (url.substr(0, 8) == "https://")
         temp = url.substr(8, url.length() - 8);
 
-    std::vector<nstring_view> __arr = temp.split("/");
+    std::vector<stream_view> __arr = temp.split_view('/');
     if (__arr.size() >= 1)
     {
         temp = __arr[0];
     }
-    __arr = temp.split(":");
+    __arr = temp.split_view(':');
     if (__arr.size() == 2)
         host = __arr[0];
     else

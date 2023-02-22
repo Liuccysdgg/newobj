@@ -22,7 +22,7 @@ void newobj::network::http::cookie::merge(const nstring& set_cookie)
         return;
     std::map<nstring, nstring> set_cookie_map;
     std::map<nstring, nstring> local_cookie_map;
-    std::vector<nstring_view> cookies = set_cookie.split(";");
+    std::vector<stream_view> cookies = set_cookie.split_view(nstring_view(";"));
     if (cookies.size() == 0)
     {
         auto arr = set_cookie.split("=");
@@ -33,7 +33,7 @@ void newobj::network::http::cookie::merge(const nstring& set_cookie)
     {
         for (uint32 i = 0; i < cookies.size(); i++)
         {
-            auto arr = cookies[i].split("=");
+            auto arr = cookies[i].split_view(nstring_view("="));
             if (arr.size() == 2)
                 m_param[arr[0].trim(' ')] = arr[1].trim(' ');
         }

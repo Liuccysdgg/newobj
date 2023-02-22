@@ -37,7 +37,7 @@ void network::http::header::parse(const nstring &body)
     m_values.clear();
     m_param.clear();
     nstring value = body;
-    std::vector<nstring_view> param = value.split(";");
+    std::vector<stream_view> param = value.split_view(nstring_view(";"));
     if (param.size() == 0)
     {
         value = value.trim(' ');
@@ -50,7 +50,7 @@ void network::http::header::parse(const nstring &body)
         for (uint32 i = 0; i < param.size(); i++)
         {
             param[i] = param[i].trim(' ');
-            auto arr = param[i].split("=");
+            auto arr = param[i].split_view(nstring_view("="));
             if (arr.size() != 2)
                 m_values.push_back(param[i]);
             else

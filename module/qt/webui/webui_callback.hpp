@@ -1,5 +1,5 @@
 #pragma once
-#include "public/string.h"
+#include "basetype/string.h"
 #if LIB_QT == 1 && !defined(QT_STATIC) && !defined(MSVC_2010)
 class QObject;
 namespace newobj

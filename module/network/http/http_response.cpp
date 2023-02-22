@@ -376,7 +376,7 @@ namespace newobj
 					if (hValue[0] == '-')
 					{
 						/*下载最后x字节*/
-						len = atol(hValue.substr(1, hValue.length() - 2).c_str());
+						len = atol(nstring(hValue.substr(1, hValue.length() - 2)).c_str());
 						if (len > filesize)
 							return false;
 						start = filesize - len;
@@ -384,7 +384,7 @@ namespace newobj
 					else if (hValue[hValue.length() - 1] == '-')
 					{
 						/*从x字节开始下载*/
-						start = atol(hValue.substr(0, hValue.length() - 2).c_str());
+						start = atol(nstring(hValue.substr(0, hValue.length() - 2)).c_str());
 						if (start > filesize)
 							return false;
 						len = filesize - start;

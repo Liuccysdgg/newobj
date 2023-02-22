@@ -2,6 +2,7 @@
 #include "public/define.h"
 #include "public/decimal.h"
 #include "public/object.hpp"
+#include "basetype/stream.h"
 #include <string>
 #include <vector>
 
@@ -17,55 +18,25 @@
 
 #define NSTRING_BLOCKS_SIZE 128
 
-class NEWOBJ_API nstring_view :public object
+class NEWOBJ_API nstring_view :public stream_view
 {
 public:
 	nstring_view();
-
 	nstring_view(const char* value);
 	nstring_view(const char* value, size_t len);
 	nstring_view(const std::string& value);
+	nstring_view(const stream_view& value);
 	~nstring_view();
 
 	bool operator==(const char* value) const;
 	bool operator==(const std::string& value) const;
 	bool operator==(const nstring_view& value) const;
+
 	bool operator!=(const char* value) const;
-	bool operator!=(const nstring_view& value) const;
 	bool operator!=(const std::string& value) const;
+	bool operator!=(const nstring_view& value) const;
 
-	const char* c_str() const
-	{
-		if (m_data == nullptr || m_data_length == 0)
-			return nstring_view::m_empty_string;
-		return m_data;
-	}
-
-	inline void clear() { m_data_length = 0; }
-	inline size_t length() const { return m_data_length; }
-	inline bool empty() const { return m_data == nullptr || m_data_length == 0; }
-	char& operator[](size_t index) const;
-	char at(size_t index) const;
-
-
-	bool equals(const char* value, size_t size) const;
-
-	operator std::string() const;
-#ifdef LIB_QT
-	operator QString() const;
-	operator QByteArray() const;
-#endif
-
-	void print() const;
-	void println() const;
-
-
-
-
-	//std::vector<nstring_view> split_view(const nstring_view& value)  const;
-	//std::vector<nstring_view> split_view(char value)  const;
-	//std::vector<size_t> find_list_view(const nstring_view& value, size_t start = 0) const;
-
+	bool equals(const nstring_view& value) const;
 	size_t find(char value, size_t start_idx = 0) const;
 	size_t find(const nstring_view& value, size_t start_idx = 0) const;
 	size_t rfind(const nstring_view& value) const;
@@ -77,26 +48,19 @@ public:
 	nstring_view substr(size_t start, const nstring_view& end) const;
 	nstring_view left(size_t len) const;
 	nstring_view right(size_t len) const;
-	std::vector<nstring_view> split(const nstring_view& value)  const;
-	std::vector<nstring_view> split(char value)  const;
-
-
-
 	nstring_view trim_end(char value) const;
 	nstring_view trim_begin(char value) const;
 	nstring_view trim(char value) const;
+	operator std::string() const;
+#ifdef LIB_QT
+	operator QString() const;
+	operator QByteArray() const;
+#endif
 
-
+	void print() const;
+	void println() const;
 	static size_t strlen(const char* value);
-protected:
-	int compare(const nstring_view& right) const;
-	bool lenlegal(size_t len, bool throw_exp = true) const;
-protected:
 	static char m_empty_string[1];
-	char* m_data;
-	size_t m_data_length;
-	size_t m_mem_length;
-	size_t m_block_size;
 };
 
 class NEWOBJ_API nstring :public nstring_view
@@ -109,6 +73,7 @@ public:
 	nstring(const std::string& value);
 	nstring(const nstring& value);
 	nstring(const nstring_view& value);
+	nstring(const stream_view& value);
 #if _HAS_CXX17 || __cplusplus >= 201703L
 	nstring(const std::string_view& value);
 #endif
@@ -124,6 +89,7 @@ public:
 	nstring& operator=(const nstring& value);
 	nstring& operator=(const std::string& value);
 	nstring& operator=(const nstring_view& value);
+	nstring& operator=(const stream_view& value);
 #if _HAS_CXX17 || __cplusplus >= 201703L
 	nstring& operator=(const std::string_view& value);
 #endif
@@ -143,8 +109,8 @@ public:
 	{
 		return nstring(a1) += a2;
 	}
-	std::vector<nstring> splitn(const nstring_view& value)  const;
-	std::vector<nstring> splitn(char value)  const;
+	std::vector<nstring> split(const nstring_view& value)  const;
+	std::vector<nstring> split(char value)  const;
 	void append(const char* data, size_t length);
 	void append(char value);
 	void append(char value, size_t length);
@@ -152,6 +118,7 @@ public:
 	void append(const nstring& value);
 	void append(const std::string& value);
 	void append(const nstring_view& value);
+	void append(const stream_view& value);
 #if _HAS_CXX17 || __cplusplus >= 201703L
 	void append(const std::string_view& value);
 #endif
@@ -159,7 +126,12 @@ public:
 	void append(const QString& value);
 #endif
 
-
+	const char* c_str() const
+	{
+		if (m_data == nullptr || m_data_length == 0)
+			return nstring::m_empty_string;
+		return m_data;
+	}
 
 
 	
@@ -176,7 +148,7 @@ public:
 
 	inline bool equals(const nstring& value) const
 	{
-		return ::nstring_view::equals(value.m_data, value.m_data_length);
+		return ::stream_view::equals(value.m_data, value.m_data_length);
 	}
 
 

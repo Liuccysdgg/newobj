@@ -5,97 +5,153 @@
 #include <string.h>
 #include <iostream>
 char nstring_view::m_empty_string[1] = { '\0' };
-#define INIT_STRING	m_block_size = NSTRING_BLOCKS_SIZE;m_data_length = 0;m_mem_length = m_block_size;m_data = (char*)mem::malloc(m_block_size);memset(m_data,0,m_block_size)
+#define INIT_STRING	m_tail_blank = true;m_block_size = NSTRING_BLOCKS_SIZE;m_data_length = 0;m_mem_length = m_block_size;m_data = (char*)mem::malloc(m_block_size);memset(m_data,0,m_block_size)
+nstring_view::nstring_view():stream_view()
+{
+	
+}
+nstring_view::nstring_view(const std::string& value) :stream_view(value.c_str(), value.length())
+{
 
-#define INIT_STRING_VIEW(VALUE,LENGTH)	m_block_size = 0;m_data_length = LENGTH;m_mem_length = 0;m_data = (char*)VALUE
+}
+nstring_view::nstring_view(const char* value):stream_view(value,strlen(value))
+{
 
-nstring_view::nstring_view()
-{
-	INIT_STRING_VIEW(nullptr, 0);
 }
-nstring_view::nstring_view(const std::string& value)
+nstring_view::nstring_view(const char* value, size_t len):stream_view(value,len)
 {
-	INIT_STRING_VIEW(value.c_str(), value.length());
+
 }
-nstring_view::nstring_view(const char* value)
+nstring_view::nstring_view(const stream_view& value):stream_view(value)
 {
-	INIT_STRING_VIEW(value, strlen(value));
-}
-nstring_view::nstring_view(const char* value, size_t len)
-{
-	INIT_STRING_VIEW(value, len);
+
 }
 nstring_view::~nstring_view()
 {
 
 }
-int nstring_view::compare(const nstring_view& right) const
-{
-	auto result = memcmp((const void*)m_data, (const void*)right.c_str(), std::min(m_data_length, right.length()));
-	if (result != 0) {
-		return result;
-	}
-	if (m_data_length < right.length()) {
-		return -1;
-	}
-	if (m_data_length > right.length()) {
-		return 1;
-	}
-	return 0;
-}
-char& nstring_view::operator[](size_t index) const
-{
-	lenlegal(index);
-	return m_data[index];
-}
 
-char nstring_view::at(size_t index) const
-{
-	return this->operator[](index);
-}
-
-bool nstring_view::lenlegal(size_t len, bool throw_exp) const
-{
-	if (len < 0 || len > this->length())
-	{
-		if (throw_exp)
-		{
-			//trw_str(nstring("length error。src:") + nstring(*this) + nstring(" read:") + nstring::from(len));
-			trw_str("");
-		}
-		return false;
-	}
-	return true;
-}
-
-bool nstring_view::equals(const char* value, size_t size) const
-{
-	t_ret_t(size == 0 && length() == 0);
-	t_ret_t(value == nullptr && length() == 0);
-	f_ret_f(size == length())
-
-
-		for (size_t i = 0; i < size; i++)
-		{
-			if (m_data[i] != value[i])
-				return false;
-		}
-	return true;
-}
 nstring_view::operator std::string() const
 {
-	return this->c_str();
+	return std::string(data(), length());
 }
 #ifdef LIB_QT
 nstring_view::operator QString() const
 {
-	return this->c_str();
+	return this->operator QByteArray();
 }
 nstring_view::operator QByteArray() const
 {
-	return operator QString().toLocal8Bit();
+	return QByteArray(data(),length());
 }
 #endif
+
+bool nstring_view::operator==(const char* value)  const
+{
+	return ::stream_view::equals(value, ::nstring_view::strlen(value));
+}
+bool nstring_view::operator==(const std::string& value) const
+{
+	return ::stream_view::equals(value.data(), value.length());
+}
+bool nstring_view::operator==(const nstring_view& value) const
+{
+	return ::stream_view::equals(value.data(), value.length());
+}
+bool nstring_view::operator!=(const char* value) const
+{
+	return !::stream_view::equals(value, nstring::strlen(value));
+}
+
+bool nstring_view::operator!=(const nstring_view& value) const
+{
+	return !::stream_view::equals(value.data(), value.length());
+}
+
+bool nstring_view::operator!=(const std::string& value) const
+{
+	return !::stream_view::equals(value.c_str(), value.length());
+}
+
+
+bool nstring_view::equals(const nstring_view& value) const
+{
+	return ::stream_view::equals(value.data(), value.length());
+}
+
+size_t nstring_view::find(char value, size_t start_idx) const
+{
+	return ::stream_view::find(value,start_idx);
+}
+
+size_t nstring_view::find(const nstring_view& value, size_t start_idx) const
+{
+	return ::stream_view::find(value, start_idx);
+}
+
+size_t nstring_view::rfind(const nstring_view& value) const
+{
+	return ::stream_view::rfind(value);
+}
+
+size_t nstring_view::rfind(char value) const
+{
+	return ::stream_view::rfind(value);
+}
+
+std::vector<size_t> nstring_view::find_list(const nstring_view& value, size_t start) const
+{
+	return ::stream_view::find_list(value,start);
+}
+
+nstring_view nstring_view::substr(size_t start, size_t len) const
+{
+	return ::stream_view::substr(start, len);
+}
+
+nstring_view nstring_view::substr(size_t start) const
+{
+	return ::stream_view::substr(start);
+}
+
+nstring_view nstring_view::substr(const nstring_view& start, const nstring_view& end) const
+{
+	return ::stream_view::substr(start,end);
+}
+
+nstring_view nstring_view::substr(size_t start, const nstring_view& end) const
+{
+	return ::stream_view::substr(start, end);
+}
+
+nstring_view nstring_view::left(size_t len) const
+{
+	return ::stream_view::left(len);
+}
+
+nstring_view nstring_view::right(size_t len) const
+{
+	return ::stream_view::right(len);
+}
+nstring_view nstring_view::trim_end(char value) const
+{
+	return ::stream_view::trim_end(value);
+}
+
+nstring_view nstring_view::trim_begin(char value) const
+{
+	return ::stream_view::trim_begin(value);
+}
+
+nstring_view nstring_view::trim(char value) const
+{
+	return ::stream_view::trim(value);
+}
+
+
+
+
+
 void nstring_view::print() const
 {
 	t_ret(m_data == nullptr);
@@ -111,7 +167,7 @@ int32 nstring::to_int32() const
 {
 	if (is_num())
 	{
-		return atoi(this->c_str());
+		return atoi(std::string(data(), length()).c_str());
 	}
 	else if (is_decimal())
 	{
@@ -128,9 +184,9 @@ int64 nstring::to_int64() const
 	if (is_num())
 	{
 #ifdef _WIN32
-		return _atoi64(this->c_str());
+		return _atoi64(std::string(data(), length()).c_str());
 #else
-		return atoll(this->c_str());
+		return atoll(std::string(data(), length()).c_str());
 #endif
 	}
 	else if (is_decimal())
@@ -156,13 +212,13 @@ ushort nstring::to_ushort() const
 decimal nstring::to_decimal() const
 {
 	f_ret_var(is_decimal(), 0.0);
-	return decimal(atof(this->c_str()));
+	return decimal(atof(std::string(data(), length()).c_str()));
 }
 #endif
 double nstring::to_double() const
 {
 	f_ret_var(is_decimal(), 0.0);
-	return atof(this->c_str());
+	return atof(std::string(data(), length()).c_str());
 }
 float nstring::to_float() const
 {
@@ -249,229 +305,6 @@ size_t nstring_view::strlen(const char* value)
 	return ::strlen(value);
 }
 
-size_t nstring_view::find(char value, size_t start_idx) const
-{
-	return find(nstring_view((const char*)&value, 1), start_idx);
-}
-
-size_t nstring_view::find(const nstring_view& value, size_t start_idx) const
-{
-	try
-	{
-		for (size_t i = start_idx; i < m_data_length; i++)
-		{
-			bool find = true;
-			for (size_t x = 0; x < value.length(); x++)
-			{
-				if (m_data[i + x] != value[x])
-				{
-					find = false;
-					break;
-				}
-			}
-			if (find == true)
-				return i;
-		}
-	}
-	catch (const std::exception&)
-	{
-		return -1;
-	}
-
-	return -1;
-}
-
-size_t nstring_view::rfind(const nstring_view& value) const
-{
-	try
-	{
-		for (size_t i = m_data_length - 1; i > 0; i--)
-		{
-			bool find = true;
-			for (size_t x = value.length(); x > 0; x--)
-			{
-				if (m_data[i - (value.length() - x)] != value[x - 1])
-				{
-					find = false;
-					break;
-				}
-			}
-			if (find == true)
-				return i - value.length() + 1;
-		}
-	}
-	catch (const std::exception&)
-	{
-		return -1;
-	}
-
-	return -1;
-}
-
-size_t nstring_view::rfind(char value) const
-{
-	return rfind(nstring_view((const char*)&value, 1));
-}
-
-std::vector<size_t> nstring_view::find_list(const nstring_view& value, size_t start) const
-{
-	std::vector<size_t> result;
-	size_t idx = 0;
-	while (idx != -1)
-	{
-		idx = find(value, start == 0 ? 0 : start + 1);
-		if (idx == -1)
-			break;
-		result.push_back(idx);
-		start = idx + 1;
-	}
-	return result;
-}
-
-nstring_view nstring_view::substr(size_t start, size_t len) const
-{
-	f_ret_var(lenlegal(start, false), "");
-	f_ret_var(lenlegal(start + len, false), "");
-	return nstring_view(m_data+start,len);
-}
-
-nstring_view nstring_view::substr(size_t start) const
-{
-	f_ret_var(lenlegal(start, false), "");
-	return  this->substr(start, this->m_data_length - start);
-	// ABCDE   1
-}
-
-nstring_view nstring_view::substr(const nstring_view& start, const nstring_view& end) const
-{
-	auto idx_start = this->find(start);
-	t_ret_var(idx_start == -1, "");
-	auto idx_end = this->find(end, idx_start);
-	t_ret_var(idx_end == -1, "");
-	return substr(idx_start + start.length(), idx_end - idx_start - start.length());
-}
-
-
-nstring_view nstring_view::substr(size_t start, const nstring_view& end) const
-{
-	if (start >= length())
-		return "";
-	auto idx_end = this->find(end, start);
-	t_ret_var(idx_end == -1, "");
-	return substr(start, idx_end - start);
-}
-
-nstring_view nstring_view::left(size_t len) const
-{
-	if (len >= length())
-		return *this;
-	return substr(0, len);
-}
-
-nstring_view nstring_view::right(size_t len) const
-{
-	if (len >= length())
-		return *this;
-	//lenlegal(len);
-	return substr(length() - len, len);
-}
-
-std::vector<nstring_view> nstring_view::split(const nstring_view& value) const
-{
-	auto list = find_list(value, 0);
-	std::vector<nstring_view> result;
-	for (uint32 i = 0; i < list.size(); i++)
-	{
-		if (i == 0)
-		{
-			if (list[i] != 0)
-				result.push_back(nstring_view(m_data, list[i]));
-		}
-		else
-		{
-			size_t prev_last_idx = list[i - 1] + value.length();
-			if (list[i] != prev_last_idx)
-				result.push_back(nstring_view(m_data + prev_last_idx, list[i] - prev_last_idx));
-		}
-
-		if (i == list.size() - 1)
-		{
-
-			if (list[i] + value.length() != m_data_length)
-			{
-				size_t last_length = m_data_length - list[i] - value.length();
-				result.push_back(nstring_view(m_data + list[i] + value.length(), last_length));
-			}
-		}
-	}
-	if (list.size() == 0)
-		result.push_back(*this);
-	return result;
-}
-
-std::vector<nstring_view> nstring_view::split(char value) const
-{
-	return split(nstring_view((const char*)&value, 1));
-}
-
-nstring_view nstring_view::trim_end(char value) const
-{
-	uint32 idx = 0;
-	for (uint32 i = 0; i < length(); i++)
-	{
-		if (operator[](length() - i - 1) == value)
-			idx++;
-		else
-			break;
-	}
-	return this->left(length() - idx);
-}
-
-nstring_view nstring_view::trim_begin(char value) const
-{
-	uint32 idx = 0;
-	for (uint32 i = 0; i < length(); i++)
-	{
-		if (operator[](i) == value)
-			idx++;
-		else
-			break;
-	}
-	return this->right(length() - idx);
-}
-
-nstring_view nstring_view::trim(char value) const
-{
-	return trim_begin(value).trim_end(value);
-}
-
-bool nstring_view::operator==(const char* value)  const
-{
-	return ::nstring_view::equals(value, ::nstring_view::strlen(value));
-}
-bool nstring_view::operator==(const std::string& value) const
-{
-	return ::nstring_view::equals(value.c_str(), value.length());
-}
-bool nstring_view::operator==(const nstring_view& value) const
-{
-	return ::nstring_view::equals(value.c_str(), value.length());
-}
-bool nstring_view::operator!=(const char* value) const
-{
-	return !::nstring_view::equals(value, nstring::strlen(value));
-}
-
-bool nstring_view::operator!=(const nstring_view& value) const
-{
-	return !::nstring_view::equals(value.c_str(), value.length());
-}
-
-bool nstring_view::operator!=(const std::string& value) const
-{
-	return !::nstring_view::equals(value.c_str(), value.length());
-}
-
 
 
 
@@ -480,6 +313,7 @@ bool nstring_view::operator!=(const std::string& value) const
 
 nstring::nstring()
 {
+	
 	INIT_STRING;
 }
 nstring::nstring(size_t block_size)
@@ -488,6 +322,7 @@ nstring::nstring(size_t block_size)
 	m_data_length = 0;
 	m_mem_length = m_block_size;
 	m_data = (char*)mem::malloc(m_block_size);
+	m_tail_blank = true;
 }
 nstring::nstring(const char* value)
 {
@@ -515,7 +350,12 @@ nstring::nstring(const nstring& value)
 nstring::nstring(const nstring_view& value)
 {
 	INIT_STRING;
-	append(value.c_str(),value.length());
+	append(value.data(),value.length());
+}
+nstring::nstring(const stream_view& value)
+{
+	INIT_STRING;
+	append(value.data(), value.length());
 }
 #if _HAS_CXX17 || __cplusplus >= 201703L
 nstring::nstring(const std::string_view& value)
@@ -557,7 +397,7 @@ nstring& nstring::operator=(const char* value)
 nstring& nstring::operator=(const nstring& value)
 {
 	clear();
-	append(value.c_str(), value.length());
+	append(value.data(), value.length());
 	return *this;
 }
 
@@ -570,7 +410,13 @@ nstring& nstring::operator=(const std::string& value)
 nstring& nstring::operator=(const nstring_view& value)
 {
 	clear();
-	append(value.c_str(), value.length());
+	append(value.data(), value.length());
+	return *this;
+}
+nstring& nstring::operator=(const stream_view& value)
+{
+	clear();
+	append(value.data(), value.length());
 	return *this;
 }
 #if _HAS_CXX17 || __cplusplus >= 201703L
@@ -623,9 +469,6 @@ nstring nstring::operator+(const char* value) const
 bool nstring::operator<(const nstring& right) const
 {
 	return compare(right) < 0;
-
-	//return m_length < left.length();
-	//return !equal(left.c_str(),left.length());
 }
 
 //void nstring::operator+(const char* value)
@@ -661,45 +504,22 @@ void nstring::append(const char* value)
 	// TODO: 在此处插入 return 语句
 	append(value, nstring::strlen(value));
 }
-//
-//void nstring::append(const char* value, size_t length)
-//{
-//	if (value == nullptr || length == 0)
-//		return;
-//	size_t new_len = m_length + length;
-//	char* new_data = (char*)mem::realloc(m_data, new_len + 1);
-//	if (new_data == nullptr) {
-//		new_data = (char*)mem::malloc(new_len);
-//		memcpy(new_data, m_data, m_length);
-//		memcpy(new_data + m_length, value, length);
-//		mem::free(m_data);
-//	}
-//	else {
-//		if (this->m_data == nullptr) {
-//			memcpy(new_data, value, length);
-//		}
-//		else {
-//			memcpy(new_data + m_length, value, length);
-//		}
-//
-//	}
-//	this->m_data = new_data;
-//	this->m_length = new_len;
-//	this->m_data[m_length] = 0;
-//}
-
 void nstring::append(const nstring& value)
 {
-	append(value.c_str(), value.length());
+	append(value.data(), value.length());
 }
 
 void nstring::append(const std::string& value)
 {
-	append(value.c_str(), value.length());
+	append(value.data(), value.length());
 }
 void nstring::append(const nstring_view& value)
 {
-	append(value.c_str(), value.length());
+	append(value.data(), value.length());
+}
+void nstring::append(const stream_view& value)
+{
+	append(value.data(), value.length());
 }
 #if _HAS_CXX17 || __cplusplus >= 201703L
 void nstring::append(const std::string_view& value)
@@ -881,18 +701,18 @@ nstring nstring::from(const QString& value)
 
 #endif
 
-std::vector<nstring> nstring::splitn(const nstring_view& value) const
+std::vector<nstring> nstring::split(const nstring_view& value) const
 {
-	std::vector<nstring_view> r = split(value);
+	std::vector<stream_view> r = ::stream_view::split_view(value);
 	std::vector<nstring> result;
 	for (size_t i = 0; i < r.size(); i++)
 		result.push_back(r[i]);
 	return result;
 }
 
-std::vector<nstring> nstring::splitn(char value) const
+std::vector<nstring> nstring::split(char value) const
 {
-	std::vector<nstring_view> r = split(value);
+	std::vector<stream_view> r = ::stream_view::split_view(value);
 	std::vector<nstring> result;
 	for (size_t i = 0; i < r.size(); i++)
 		result.push_back(r[i]);

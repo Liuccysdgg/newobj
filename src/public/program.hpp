@@ -1,7 +1,7 @@
 #pragma once
 #include <functional>
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/base.h"
 #include "util/system.h" 
 #if LIB_QT == 1

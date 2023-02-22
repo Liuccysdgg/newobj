@@ -2,7 +2,7 @@
 
 #include "public/var.hpp"
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "util/map.hpp"
 #ifdef MSVC_2010
 #define EXTRA_DATA_VALUE nstring
