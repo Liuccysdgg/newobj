@@ -1,7 +1,7 @@
 #pragma once
 
 #include <map>
-#include "public/string.h"
+#include "basetype/string.h"
 #include "sdk/text/htmlcxx/ParserDom.h"
 namespace newobj
 {

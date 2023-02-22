@@ -2,7 +2,7 @@
 #include "network/define.h"
 #if USE_NET_FTP
 #include "public/base.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "util/thread.h"
 #include "util/file.h"
 namespace newobj

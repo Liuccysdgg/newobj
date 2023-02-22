@@ -2,7 +2,7 @@
 #ifndef MSVC_2010
 #include "util/forstring.h"
 #include <initializer_list>
-#include "public/string.h"
+#include "basetype/string.h"
 namespace newobj
 {
 	namespace web

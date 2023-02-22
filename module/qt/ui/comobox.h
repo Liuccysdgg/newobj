@@ -13,7 +13,7 @@
 #include "Qt/qcombobox.h"
 #endif
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "util/map.hpp"
 #include <QtCore/qvariant.h>
 #include <functional>

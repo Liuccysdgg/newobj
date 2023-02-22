@@ -2,7 +2,7 @@
 #include <string>
 #include "util/thread.h"
 #include "public/define.h"
-#include "public/String.h"
+#include "basetype/string.h"
 //¿©’π÷°
 #define EFF 0x8000000U
 //‘∂≥Ã÷°

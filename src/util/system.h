@@ -1,5 +1,5 @@
 #pragma once
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/struct.h"
 #include "public/buffer.h"
 #include <vector>

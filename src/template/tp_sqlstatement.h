@@ -2,7 +2,7 @@
 #include <string>
 #include "public/define.h"
 #include <initializer_list>
-#include "public/string.h"
+#include "basetype/string.h"
 #include "util/json.h"
 #include "mysql/mysql_plus.h"
 #ifndef MSVC_2010

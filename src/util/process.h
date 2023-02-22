@@ -1,6 +1,6 @@
 #pragma once
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include <functional>
 #include "thread.h"
 #include <list>

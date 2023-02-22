@@ -7,7 +7,7 @@
 #include "util/json.h"
 #include "public/base.h"
 #include "public/buffer.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "util/lock.h"
 
 #include "util/queue.hpp"

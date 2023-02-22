@@ -1,6 +1,6 @@
 #pragma once
 #ifdef _WIN32
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/define.h"
 #include "util/system.h"
 #include "util/process.h"

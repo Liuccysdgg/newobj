@@ -2,7 +2,7 @@
 #include "define.h"
 #include <memory>
 #include<vector>
-#include "string.h"
+#include "basetype/string.h"
 #ifdef LIB_QT
 #include "QtCore/qbytearray.h"
 #endif

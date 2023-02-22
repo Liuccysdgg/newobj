@@ -1,5 +1,5 @@
 #pragma once
-#include "public/string.h"
+#include "basetype/string.h"
 #include "QtSql/qsqldatabase.h"
 #include "QtSql/qsqlquery.h"
 #include "util/lock.h"

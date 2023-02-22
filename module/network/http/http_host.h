@@ -2,7 +2,7 @@
 #include "network/define.h"
 #if USE_NET_HTTP_WEBSITE
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/base.h"
 #include "util/lock.h"
 #include <functional>

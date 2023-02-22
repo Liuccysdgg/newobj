@@ -1,6 +1,6 @@
 #pragma once
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include <vector>
 #ifndef MSVC_2010
 namespace newobj

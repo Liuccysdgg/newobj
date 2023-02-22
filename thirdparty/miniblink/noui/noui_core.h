@@ -1,7 +1,7 @@
 #pragma once
 #ifndef MSVC_2010
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #ifdef LIB_QT
 #ifdef QT4
 #include "Qt/qwidget.h"

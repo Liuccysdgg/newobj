@@ -3,7 +3,7 @@
 #include <map>
 #include "public/define.h"
 #include "public/buffer.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "network/define.h"
 #include "public/environment.h"
 #include <regex>

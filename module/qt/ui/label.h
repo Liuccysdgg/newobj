@@ -14,7 +14,7 @@
 #include "Qt/qlabel.h"
 #endif
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "util/map.hpp"
 
 #include <functional>

@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/struct.h"
 #include "util/json.h"
 #ifdef QT_CORE_LIB

@@ -1,7 +1,7 @@
 #pragma once
 #ifndef MSVC_2010
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/buffer.h"
 #include "public/struct.h"
 #include "util/json.h"

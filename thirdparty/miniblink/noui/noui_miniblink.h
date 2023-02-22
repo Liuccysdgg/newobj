@@ -2,7 +2,7 @@
 #ifndef MSVC_2010
 #pragma once
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "noui_core.h"
 #ifdef LIB_QT
 namespace newobj

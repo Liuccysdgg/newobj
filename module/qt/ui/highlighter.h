@@ -2,7 +2,7 @@
 #include "public/define.h"
 #ifdef LIB_QT
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "util/map.hpp"
 #include <QtCore/qvariant.h>
 #include <functional>

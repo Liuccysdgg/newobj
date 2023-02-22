@@ -2,7 +2,7 @@
 #include "util/lock.h"
 #include "util/json.h"
 #include "util/file.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "util/log4.h"
 #include <map>
 

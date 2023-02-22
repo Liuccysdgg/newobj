@@ -1,5 +1,5 @@
 #include "miniblink.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "miniblink.h"
 #include "public/exception.h"
 

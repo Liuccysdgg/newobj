@@ -1,6 +1,6 @@
 #pragma once
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/struct.h"
 #include <vector>
 #ifdef _WIN32

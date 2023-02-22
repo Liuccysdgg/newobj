@@ -1,5 +1,5 @@
 #include "boolean.h"
-#include "exception.h"
+#include "public/exception.h"
 #include "util/forstring.h"
 
 boolv::boolv()

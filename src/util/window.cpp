@@ -1,6 +1,6 @@
 #include "window.h"
 #include "forstring.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/buffer.h"
 #include <memory>
 #ifdef _WIN32

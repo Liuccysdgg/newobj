@@ -3,7 +3,7 @@
 #if 0
 #include "network/tcp_client.h"
 #include "bigfile_common.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include <map>
 #include "util/lock.h"
 #include "util/file.h"

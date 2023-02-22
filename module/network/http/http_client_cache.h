@@ -1,7 +1,7 @@
 #pragma once
 #include "http_define.h"
 #if USE_NET_HTTP_CLIENT
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/buffer.h"
 namespace newobj
 {

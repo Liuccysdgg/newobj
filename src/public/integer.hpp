@@ -1,6 +1,6 @@
 #pragma
 
-#include "public/string.h"
+#include "basetype/string.h"
 #include "util/lock.h"
 class integer
 {

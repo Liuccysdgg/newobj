@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/buffer.h"
 namespace newobj
 {

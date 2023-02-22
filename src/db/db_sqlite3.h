@@ -1,6 +1,6 @@
 #pragma once
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/base.h"
 #include "../thirdparty/sqlite3/sqlite3.h"
 #include <map>

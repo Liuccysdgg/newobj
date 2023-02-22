@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <functional>
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/exception.h"
 namespace newobj
 {

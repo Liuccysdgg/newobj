@@ -2,7 +2,7 @@
 #include "network/define.h"
 #if USE_NET_HTTP_UTIL
 #include <map>
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/struct.h"
 #include "util/forstring.h"
 

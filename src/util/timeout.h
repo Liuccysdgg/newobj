@@ -7,7 +7,7 @@
 #include <list>
 #include "public/define.h"
 #include <array>
-#include "public/string.h"
+#include "basetype/string.h"
 #include "lock.h"
 namespace newobj
 {

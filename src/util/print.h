@@ -1,7 +1,7 @@
 #pragma once
 #include "util/forstring.h"
 #include "public/define.h"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "public/buffer.h"
 #define CONSOLE_RESET "\033[0;0;0m"
 

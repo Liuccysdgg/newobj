@@ -1,5 +1,5 @@
 #include "string.h"
-#include "exception.h"
+#include "public/exception.h"
 #include "util/mem.h"
 #include "util/file.h"
 #include <string.h>

@@ -4,7 +4,7 @@
 #include "public/base.h"
 #include "public/buffer.h"
 #include "util/map.hpp"
-#include "public/string.h"
+#include "basetype/string.h"
 #include "http_cookie.h"
 #include "util/json.h"
 #include "make_form.h"
