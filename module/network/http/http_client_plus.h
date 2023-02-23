@@ -41,7 +41,7 @@ namespace newobj
 				inline void cookie(const network::http::cookie& ck) { m_cookie = ck; }
 
 				/*[回调] 正在下载*/
-				void on_down_ing(const std::function<bool(void* data, uint32 downsize, uint64 allsize, newobj::network::http::client_plus& client)>& callback);
+				void on_down_ing(const std::function<bool(void* data, uint32 downsize, uint64 alldownsize,uint64 allsize, newobj::network::http::client_plus& client)>& callback);
 				/*[回调] 下载结束*/
 				void on_down_end(const std::function<void(newobj::network::http::client_plus& client)>& callback);
 				/*[回调] 下载失败*/

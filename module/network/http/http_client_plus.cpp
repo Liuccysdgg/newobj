@@ -95,7 +95,8 @@ public:
 #endif
 		if (m_download_callback != nullptr)
 		{
-			if (m_download_callback((void*)pData, iLength, m_content_length, *m_client))
+			m_recv_body_length += iLength;
+			if (m_download_callback((void*)pData, iLength, m_recv_body_length,m_content_length, *m_client))
 				return EnHttpParseResult::HPR_OK;
 			else
 				return EnHttpParseResult::HPR_ERROR;
@@ -245,7 +246,7 @@ public:
 	network::http::header_list m_headers_response;
 	// ×´Ì¬Âë
 	ushort m_status;
-	std::function<bool(void* data, uint32 downsize,uint64 allsize,newobj::network::http::client_plus& client)> m_download_callback;
+	std::function<bool(void* data, uint32 downsize, uint64 alldownsize,uint64 allsize,newobj::network::http::client_plus& client)> m_download_callback;
 	std::function<void(newobj::network::http::client_plus& client)> m_download_callback_end;
 	std::function<void(newobj::network::http::client_plus& client)> m_download_callback_failed;
 };
@@ -599,7 +600,7 @@ void* newobj::network::http::client_plus::client()
 	else
 		return m_client;
 }
-void newobj::network::http::client_plus::on_down_ing(const std::function<bool(void* data, uint32 downsize, uint64 allsize, newobj::network::http::client_plus& client)>& callback)
+void newobj::network::http::client_plus::on_down_ing(const std::function<bool(void* data, uint32 downsize, uint64 alldownsize, uint64 allsize, newobj::network::http::client_plus& client) > & callback)
 { m_listener->m_download_callback = callback; }
 void newobj::network::http::client_plus::on_down_end(const std::function<void(newobj::network::http::client_plus& client)>& callback)
 { m_listener->m_download_callback_end = callback; }

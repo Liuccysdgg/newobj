@@ -56,15 +56,7 @@ namespace newobj
 			/*取本地IP列表*/
 			std::vector<nstring> MNETWORK_API iplist();
 			/*端口是否被占用*/
-			inline bool is_occupy(const nstring& ip, uint32 port)
-			{
-#ifdef LIB_HPSOCKET
-				network::tcp::server server(network::TTGen);
-				return !server.start(ip, port);
-#else
-				return false;
-#endif
-			}
+			bool is_occupy(uint32 port);
 			/*
 				取大小名称
 				B/KB/MB/GB

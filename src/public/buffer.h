@@ -34,8 +34,6 @@ namespace newobj
 #ifdef LIB_QT
         newobj::buffer& operator=(const QByteArray& value);
 #endif
-        newobj::buffer operator+(const newobj::buffer& value);
-        newobj::buffer& operator+=(const newobj::buffer& value);
         //inline newobj::buffer operator+(const newobj::buffer& value) { return ::stream::operator+(value); }
         //stream& operator=(const newobj::buffer& value);
 
@@ -46,10 +44,10 @@ namespace newobj
         static newobj::buffer from(short value);
 
         operator nstring() const;
-        inline void append(char data) { ::stream::append(data); }
-        inline void append(char data, size_t length) { ::stream::append(data,length); }
-        inline void append(const char* data, size_t length) { ::stream::append(data,length); }
-        inline void append(const stream_view& value) { ::stream::append(value); }
+        void append(char data);//
+        void append(char data, size_t length);//
+        void append(const char* data, size_t length);//
+        void append(const stream_view& value);//
 #ifndef MSVC_2010
         void append(std::initializer_list<uchar> char_list);
 #endif

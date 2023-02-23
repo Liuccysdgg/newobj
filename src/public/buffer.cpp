@@ -73,22 +73,22 @@ namespace newobj
         return *this;
     }
 #endif
-    newobj::buffer buffer::operator+(const newobj::buffer& value)
-    {
-        	if (value.length() == 0)
-                return *this;
-            newobj::buffer result;
-	        result.append(*this);
-	        result.append(value);
-	        return result;
-    }
-    newobj::buffer& buffer::operator+=(const newobj::buffer& value)
-    {
-        if (value.length() == 0)
-            return *this;
-        append(value);
-        return *this;
-    }
+    //newobj::buffer buffer::operator+(const newobj::buffer& value)
+    //{
+    //    	if (value.length() == 0)
+    //            return *this;
+    //        newobj::buffer result;
+	   //     result.append(*this);
+	   //     result.append(value);
+	   //     return result;
+    //}
+    //newobj::buffer& buffer::operator+=(const newobj::buffer& value)
+    //{
+    //    if (value.length() == 0)
+    //        return *this;
+    //    append(value);
+    //    return *this;
+    //}
     newobj::buffer buffer::from(int32 value)
     {
         return bytes::to_buffer((int32)value);
@@ -112,6 +112,22 @@ namespace newobj
     buffer::operator nstring() const
     {
         return to_string();
+    }
+    void buffer::append(char data)
+    {
+        ::stream::append(data);
+    }
+    void buffer::append(char data, size_t length)
+    {
+        ::stream::append(data, length);
+    }
+    void buffer::append(const char* data, size_t length)
+    {
+        ::stream::append(data, length);
+    }
+    void buffer::append(const stream_view& value)
+    {
+        ::stream::append(value);
     }
 #ifndef MSVC_2010
     void buffer::append(std::initializer_list<uchar> char_list)

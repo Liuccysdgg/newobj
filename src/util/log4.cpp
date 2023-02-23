@@ -3,6 +3,7 @@
 #include <iostream>
 #include "util/print.h"
 #include "util/time.h"
+#include "util/file.h"
 #include "public/exception.h"
 #include <string.h>
 #if LIB_LOG4CPLUS
@@ -16,13 +17,25 @@
 #endif
 newobj::log4::log4(const nstring& config_filepath)
 {
+
 #if LIB_LOG4CPLUS
-    log4cplus::PropertyConfigurator::doConfigure(config_filepath.c_str());
+    log4cplus::Initializer();
+    if (newobj::file::exist(config_filepath))
+    {
+        log4cplus::PropertyConfigurator::doConfigure(config_filepath.c_str());
+    }
+    else
+    {
+        printf("ERROR: log4cplus configuration file not found\r\n");
+    }
 #endif
 }
 
 newobj::log4::~log4()
 {
+#if LIB_LOG4CPLUS
+    log4cplus::Logger::shutdown();
+#endif
 }
 #if LIB_LOG4CPLUS
 inline void append_log(log4cplus::LogLevel level,const char* name,const nstring& value)

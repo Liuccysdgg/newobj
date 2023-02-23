@@ -334,6 +334,39 @@ std::vector<nstring> newobj::network::tools::iplist()
 #endif
 }
 
+bool newobj::network::tools::is_occupy(uint32 port)
+{
+	WORD wVersionRequested = 0;
+	WSADATA wsaData = {};
+	int err = 0;
+	wVersionRequested = MAKEWORD(2, 2);
+	err = WSAStartup(wVersionRequested, &wsaData);
+	if (err != 0)
+	{
+		return true;
+	}
+	if (LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2) {
+		WSACleanup();
+		return true;
+	}
+
+	SOCKET s = socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
+	sockaddr_in addr;
+	addr.sin_family = AF_INET;
+	addr.sin_port = htons(port);
+	addr.sin_addr.s_addr = htonl(INADDR_ANY);
+	bind(s, (LPSOCKADDR)&addr, sizeof(addr));
+	bool result = false;
+	if (WSAGetLastError() == WSAEADDRINUSE)
+	{
+		//端口已被占用
+		result = true;
+	}
+	closesocket(s);
+	WSACleanup();
+	return result;
+}
+
 nstring newobj::network::tools::size_name(double size, uint32 fixe)
 {
 	double num = 0.00;
