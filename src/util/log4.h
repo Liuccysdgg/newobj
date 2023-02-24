@@ -20,5 +20,7 @@ namespace newobj
          newobj::log4& fatal(const nstring& value,const nstring& name = "ALL");
          newobj::log4& warn(const nstring& value,const nstring& name = "ALL");
          newobj::log4& debug(const nstring& value,const nstring& name = "ALL");
+    private:
+        void* m_appender;
     };
 }
