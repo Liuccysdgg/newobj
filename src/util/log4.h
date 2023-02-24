@@ -22,5 +22,6 @@ namespace newobj
          newobj::log4& debug(const nstring& value,const nstring& name = "ALL");
     private:
         void* m_appender;
+        void* m_appender_console;
     };
 }

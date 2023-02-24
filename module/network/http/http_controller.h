@@ -33,6 +33,13 @@
 #define _FLT_MIN          1.175494351e-38F        // min normalized positive value
 #define _FLT_MAX          3.402823466e+38F        // max value
 using namespace newobj::network::http;
+
+// 成功回复
+#define REPLY_SUCC rpjson()["code"] = 200;return RT_OK
+// 自定义回复
+#define REPLY(CODE,MSG) rpjson()["code"] = CODE;rpjson()["msg"]=MSG;return RT_OK
+// 失败回复
+#define REPLY_ERROR(MSG) rpjson()["code"] = -1;rpjson()["msg"]=MSG;return RT_OK
 /**********************************************************
  * Class：Http控制器接口
  *********************************************************/
@@ -66,6 +73,12 @@ namespace newobj
 
 				// 请求参数
 				bool request_param(const nstring& name,nstring& value);
+
+                // 获取回复JSON
+                inline newobj::json& rpjson(){return response()->sjson["data"];}
+
+
+                
 				friend class router;
 			private:
 				network::http::reqpack* m_reqpack;

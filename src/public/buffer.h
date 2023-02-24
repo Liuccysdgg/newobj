@@ -31,7 +31,7 @@ namespace newobj
         ~buffer(); 
         newobj::buffer& operator=(const stream_view& value);
         newobj::buffer& operator=(const newobj::buffer& value);
-#ifdef LIB_QT
+#if LIB_QT == 1
         newobj::buffer& operator=(const QByteArray& value);
 #endif
         //inline newobj::buffer operator+(const newobj::buffer& value) { return ::stream::operator+(value); }
@@ -51,7 +51,7 @@ namespace newobj
 #ifndef MSVC_2010
         void append(std::initializer_list<uchar> char_list);
 #endif
-#ifdef LIB_QT
+#if LIB_QT == 1
         void append(const QByteArray& data);
         operator QString() const;
         operator QByteArray() const;

@@ -40,7 +40,7 @@ bool stream_view::operator<(const stream_view& right) const
 uchar& stream_view::operator[](size_t index) const
 {
 	lenlegal(index);
-	return (uchar)m_data[index];
+	return m_data[index];
 }
 
 uchar stream_view::at(size_t index) const
