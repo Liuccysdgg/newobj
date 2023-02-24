@@ -336,6 +336,7 @@ std::vector<nstring> newobj::network::tools::iplist()
 
 bool newobj::network::tools::is_occupy(uint32 port)
 {
+#ifdef _WIN32
 	WORD wVersionRequested = 0;
 	WSADATA wsaData = {};
 	int err = 0;
@@ -365,6 +366,10 @@ bool newobj::network::tools::is_occupy(uint32 port)
 	closesocket(s);
 	WSACleanup();
 	return result;
+#else
+	printf("linux not have is_occupy\r\n");
+	return false;
+#endif
 }
 
 nstring newobj::network::tools::size_name(double size, uint32 fixe)
