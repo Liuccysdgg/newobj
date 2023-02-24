@@ -124,6 +124,9 @@
     <Filter Include="src\basetype">
       <UniqueIdentifier>{f50ed71f-d1fc-403f-ac97-504cd8303975}</UniqueIdentifier>
     </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{3fba3720-143d-42b1-93e5-2d860900812e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\util\util.h">
@@ -645,6 +648,9 @@
       <Filter>src\sdk\mem</Filter>
     </None>
     <None Include="..\build.sh" />
+    <None Include="..\res\log.properties">
+      <Filter>res</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\CMakeLists.txt" />

@@ -18,7 +18,7 @@
 
 // Log4cplus ¿ª¹Ø
 #ifdef _WIN32
-#define LIB_LOG4CPLUS 0
+#define LIB_LOG4CPLUS 1
 #else
 #define LIB_LOG4CPLUS 1
 #endif

@@ -354,3 +354,47 @@ nstring newobj::time::now_zero_time()
 {
     return time::format(time::now_sec(), "%Y-%m-%d");
 }
+
+newobj::timer::timer()
+{
+    m_create_msec = time::now_msec();
+}
+
+newobj::timer::~timer()
+{
+}
+
+void newobj::timer::add(const nstring& name)
+{
+    m_map.insert(std::pair<nstring, timestamp>(name, time::now_msec()));
+}
+
+int32 newobj::timer::eqtime_msec(const nstring& name)
+{
+    if (m_map.size() == 0)
+    {
+        return (int32)(time::now_msec() - m_create_msec);
+    }
+    auto iter = m_map.find(name);
+    if (iter == m_map.end())
+        return -1;
+    return (int32)(time::now_msec() - iter->second);
+}
+
+int32 newobj::timer::eqtime_msec(const nstring& name1, const nstring& name2)
+{
+    auto iter1 = m_map.find(name1);
+    if (iter1 == m_map.end())
+        return -1;
+    auto iter2 = m_map.find(name2);
+    if (iter2 == m_map.end())
+        return -2;
+
+    return (int32)(iter2->second - iter1->second);
+}
+
+void newobj::timer::clear()
+{
+    m_create_msec = time::now_msec();
+    m_map.clear();
+}

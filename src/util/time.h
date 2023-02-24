@@ -1,5 +1,6 @@
 #pragma once
 #include "basetype/string.h"
+#include <map>
 namespace newobj
 {
 
@@ -96,4 +97,24 @@ namespace newobj
 			timestamp now_zero_sec();
 			nstring now_zero_time();
 		}
+
+	/*定时器*/
+	class timer
+	{
+	public:
+		timer();
+		~timer();
+		// 增加定时标记
+		void add(const nstring& name);
+		// 取时间差[毫秒]，若无上一个定时标记则取当前对象构造时间
+		int32 eqtime_msec(const nstring& name);
+		int32 eqtime_msec(const nstring& name1,const nstring& name2);
+		// 清空所有计时
+		void clear();
+	private:
+		// 构造时间
+		timestamp m_create_msec;
+		
+		std::map<nstring, timestamp> m_map;
+	};
 }
