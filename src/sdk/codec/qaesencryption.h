@@ -3,7 +3,7 @@
 #include "public/buffer.h"
 #include "public/define.h"
 
-#ifdef LIB_QT
+#if LIB_QT == 1
 #ifdef __linux__
 #ifndef __LP64__
 #define do_rdtsc _do_rdtsc

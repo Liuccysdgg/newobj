@@ -35,7 +35,7 @@ namespace newobj
     {
         ::stream::append(data, length);
     }
-#ifdef LIB_QT
+#if LIB_QT == 1
     buffer::buffer(const QByteArray& data): stream()
     {
         m_tail_blank = false;
@@ -65,7 +65,7 @@ namespace newobj
         ::stream::append(value.data(), value.length());
         return *this;
     }
-#ifdef LIB_QT
+#if LIB_QT == 1
     newobj::buffer& buffer::operator=(const QByteArray& value)
     {
         clear();
@@ -146,7 +146,7 @@ namespace newobj
         
     }
 #endif
-#ifdef LIB_QT
+#if LIB_QT == 1
     void buffer::append(const QByteArray& data)
     {
         ::stream::append(data.data(), data.length());

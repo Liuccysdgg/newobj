@@ -5,7 +5,7 @@
 #include <map>
 #include <assert.h>
 #include "util/vector.hpp"
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include "QtCore/qstring.h"
 #endif
 #ifdef UTIL_JSON_THREADSAFE

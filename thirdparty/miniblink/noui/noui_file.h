@@ -4,7 +4,7 @@
 #include "basetype/string.h"
 #include "noui_core.h"
 #include "public/buffer.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 namespace newobj
 {
     namespace browser

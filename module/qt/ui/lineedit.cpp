@@ -1,5 +1,5 @@
 #include "lineedit.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 newobj::ui::lineedit::lineedit(QWidget* parent) :QLineEdit(parent)
 {
 	m_clicked_callback = nullptr;

@@ -2,7 +2,7 @@
 #ifndef MSVC_2010
 #include "public/define.h"
 #include "basetype/string.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 #ifdef QT4
 #include "Qt/qwidget.h"
 #else
@@ -17,7 +17,7 @@ namespace newobj
     }
     namespace noui
     {
-#ifdef LIB_QT
+#if LIB_QT == 1
         class core
         {
         public:

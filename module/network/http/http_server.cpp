@@ -46,7 +46,9 @@ bool network::http::server::start()
     }
     if(m_agent->start() == false)
     {
+#if HTTP_SERVER_PRINT == 1
         newobj::log->error("agent start failed");
+#endif
     }
     return true;
 }

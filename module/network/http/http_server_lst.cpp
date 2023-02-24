@@ -13,8 +13,8 @@
 #include "http_website.h"
 #include "http_agent.h"
 #include "http_util.h"
-#define BARE_HP 0
-#define HTTP_SERVER_DEBUG_PRINT 1
+
+
         
 newobj::network::http::http_server_lst::http_server_lst(server* server)
 {
@@ -257,6 +257,7 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageComplete(IHtt
             newobj::log->warn("GET have body:"+rp->data()->to_string(),"http_server");
         }*/
     }
+#if HTTP_SERVER_PRINT == 1
 	// LOG
 	nstring logstr;
 	{
@@ -272,17 +273,21 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageComplete(IHtt
 		logstr.append(rp->host());
 		logstr.append(rp->url());
 	}
+#endif
 	auto website = m_server->center()->website(rp->host());
 	if (website == nullptr)
 	{
 	    pSender->SendResponse(dwConnID, 404, "Not Found", nullptr, 0, (const BYTE*)"No such site",12);
+#if HTTP_SERVER_PRINT == 1
         logstr.append(" not website:");
         newobj::log->error(logstr,"http_server");
+#endif
 		reqpack::destory(rp);
 		return HPR_OK;
 	}
-
+#if HTTP_SERVER_PRINT == 1
     newobj::log->info(logstr,"http_server");
+#endif
 	rp->website(website);
 #if 0
 	rp->request();

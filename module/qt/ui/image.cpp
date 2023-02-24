@@ -1,5 +1,5 @@
 #include "image.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 newobj::ui::image::image(const QString& filepath, bool fromImageSize,QWidget* parent):QLabel(parent)
 {
 	//m_movie = new QMovie;

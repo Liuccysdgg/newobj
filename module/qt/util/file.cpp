@@ -1,5 +1,5 @@
 #include "file.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 #ifdef QT4
 #include "Qt/qgraphicseffect.h"
 #include "QtCore/qfileinfo.h"

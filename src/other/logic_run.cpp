@@ -2,7 +2,7 @@
 #include "logic_run.h"
 #include "util/system.h"
 #include "util/time.h"
-#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && defined(LIB_QT)
+#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && LIB_QT == 1
 
 
 //超时回调函数指针
@@ -20,11 +20,11 @@ newobj::TimeOutRet __logic_run__callback__(
 #endif
 
 newobj::logic_run::logic_run()
-#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && defined(LIB_QT)
+#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && LIB_QT == 1
 	:QObject(nullptr)
 #endif
 {
-#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && defined(LIB_QT)
+#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && LIB_QT == 1
 	connect(&m_timer, SIGNAL(timeout()), this, SLOT(on_timer_exec()));
 	m_timer.start(500);
 #endif
@@ -57,7 +57,7 @@ bool newobj::logic_run::wait(const nstring& name, std::function<bool(nvar)> wait
 	}
 	return true;
 }
-#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && defined(LIB_QT)
+#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && LIB_QT == 1
 void newobj::logic_run::on_timer_exec()
 {
 	LogicConf* conf = nullptr;

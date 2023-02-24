@@ -3,7 +3,7 @@
 #include <memory>
 #include<vector>
 #include "basetype/string.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include "QtCore/qbytearray.h"
 #endif
 #include "basetype/stream.h"
@@ -22,7 +22,7 @@ namespace newobj
         buffer(char data);
         buffer(char data, size_t length);
         buffer(const char *data, size_t length);
-#ifdef LIB_QT
+#if LIB_QT == 1
         buffer(const QByteArray& data);
 #endif
 #ifndef MSVC_2010

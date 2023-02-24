@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#ifdef LIB_QT
+#if LIB_QT == 1
 #ifdef QT4
 #include "qt/qstring.h"
 #else
@@ -52,7 +52,7 @@ public:
 	nstring_view trim_begin(char value) const;
 	nstring_view trim(char value) const;
 	operator std::string() const;
-#ifdef LIB_QT
+#if LIB_QT == 1
 	operator QString() const;
 	operator QByteArray() const;
 #endif
@@ -77,7 +77,7 @@ public:
 #if _HAS_CXX17 || __cplusplus >= 201703L
 	nstring(const std::string_view& value);
 #endif
-#ifdef LIB_QT
+#if LIB_QT == 1
 	nstring(const QString& value);
 	nstring(const QByteArray& value);
 #endif
@@ -93,7 +93,7 @@ public:
 #if _HAS_CXX17 || __cplusplus >= 201703L
 	nstring& operator=(const std::string_view& value);
 #endif
-#ifdef LIB_QT
+#if LIB_QT == 1
 	nstring& operator=(const QString& value);
 #endif
 	nstring& operator+=(const nstring& value);
@@ -122,7 +122,7 @@ public:
 #if _HAS_CXX17 || __cplusplus >= 201703L
 	void append(const std::string_view& value);
 #endif
-#ifdef LIB_QT
+#if LIB_QT == 1
 	void append(const QString& value);
 #endif
 
@@ -130,7 +130,7 @@ public:
 	{
 		if (m_data == nullptr || m_data_length == 0)
 			return nstring::m_empty_string;
-		return m_data;
+		return (char*)m_data;
 	}
 
 
@@ -148,7 +148,7 @@ public:
 
 	inline bool equals(const nstring& value) const
 	{
-		return ::stream_view::equals(value.m_data, value.m_data_length);
+		return ::stream_view::equals((char*)value.m_data, value.m_data_length);
 	}
 
 
@@ -178,7 +178,7 @@ public:
 #endif
 	static nstring from(const nstring& value);
 	static nstring from(const std::string& value);
-#ifdef LIB_QT
+#if LIB_QT == 1
 	static nstring from(const QString& value);
 #endif
 

@@ -5,7 +5,7 @@ namespace newobj
 {
 	namespace ui
 	{
-#ifdef LIB_QT
+#if LIB_QT == 1
 		template<typename T>
 		class widget:public ui::topbar<T>,public extra_data
 		{

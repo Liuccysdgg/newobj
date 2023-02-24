@@ -1,5 +1,5 @@
 #include "comobox.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 newobj::ui::combobox::combobox(QWidget* parent):QComboBox(parent)
 {
 }

@@ -4,7 +4,7 @@
 #include "public/exception.h"
 
 #ifndef MSVC_2010
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include "QtWidgets/qwidget.h"
 #include "QtWidgets/qdialog.h"
 #include "QtGui/qwindow.h"

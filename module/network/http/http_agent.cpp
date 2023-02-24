@@ -1,6 +1,7 @@
 #include "http_agent.h"
 #if USE_NET_HTTP_WEBSITE
 #include "http_reqpack.h"
+#include "http_define.h"
 #include "hpsocket/hpsocket.h"
 //#include "hpsocket/windows/include/ssl/HPSocket-SSL.h"
 #include "util/system.h"
@@ -15,10 +16,10 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
-#define HTTP_AGENT_DEBUG_PRINT 0
 /*附加数据*/
-struct http_agent_extra
+class http_agent_extra
 {
+public:
 	// 请求体
 	struct request
 	{
@@ -425,7 +426,9 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
         DWORD header_size = 0;
         ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders(rp->connid(), header,header_size);
         if (header_size == 0){
+#if HTTP_AGENT_PRINT == 1
             newobj::log->error("not found header,"+extra->req.path,"http_agent ");
+#endif
 			m_extra_queue->destory(extra);
             return false;
         }
@@ -475,7 +478,9 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
     CONNID hpcid = 0;
 	if (extra->agent->Connect(proxy->remote_ipaddress.c_str(), proxy->remote_port, &hpcid, (PVOID)extra) == false)
 	{
+#if HTTP_AGENT_PRINT == 1
         newobj::log->error("connect failed.\t"+extra->req.path,"http_agent ");
+#endif
 		m_extra_queue->destory(extra);
 		return false;
 	}
@@ -484,7 +489,9 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
         PVOID exts = 0;
         if (((IHttpServer*)rp->server()->hpserver())->GetConnectionExtra(rp->connid(), &exts) == false){
             agent->Disconnect((CONNID)hpcid);
+#if HTTP_AGENT_PRINT == 1
             newobj::log->error("get server extra failed,"+extra->req.path,"http_agent ");
+#endif
             return false;
         }
         ((temp_recv*)exts)->agent_connid = hpcid;

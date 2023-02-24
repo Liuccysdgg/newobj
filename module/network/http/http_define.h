@@ -18,6 +18,19 @@
 
 #define POINT_QUEUE_REQPACK_CLEAR_MAX 1000
 #define POINT_QUEUE_REQPACK_CLEAR_SEC 60
+
+// http_agent 调试日志打印
+#define HTTP_AGENT_DEBUG_PRINT 0
+// http_agent 生产日志打印
+#define HTTP_AGENT_PRINT 0
+// http_server 调试日志打印
+#define HTTP_SERVER_DEBUG_PRINT 0
+// http_server 生产日志打印
+#define HTTP_SERVER_PRINT 0
+// http_router 生产日志打印
+#define HTTP_ROUTER_PRINT 0
+// http_interceptor 生产日志打印
+#define HTTP_INTERCEPTOR_PRINT 0
 namespace newobj
 
 {

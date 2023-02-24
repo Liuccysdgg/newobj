@@ -1,5 +1,5 @@
 #include "button.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 newobj::ui::button::button(QWidget* parent) :QPushButton(parent)
 {
 	m_clicked_callback = nullptr;

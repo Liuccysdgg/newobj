@@ -18,9 +18,9 @@ public:
 	inline void clear() { m_data_length = 0; }
 	inline size_t length() const { return m_data_length; }
 	inline bool empty() const { return m_data == nullptr || m_data_length == 0; }
-	char& operator[](size_t index) const;
-	char at(size_t index) const;
-	inline char* data() const { return m_data; };
+	uchar& operator[](size_t index) const;
+	uchar at(size_t index) const;
+	inline char* data() const { return (char*)m_data; };
 
 
 	bool equals(const char* value, size_t size) const;
@@ -47,7 +47,7 @@ public:
 	bool operator<(const stream_view& left) const;
 	int compare(const stream_view& right) const;
 protected:
-	char* m_data;
+	uchar* m_data;
 	size_t m_data_length;
 	size_t m_mem_length;
 	size_t m_block_size;

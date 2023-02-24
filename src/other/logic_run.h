@@ -5,7 +5,7 @@
 #include <functional>
 #include "util/queue.hpp"
 #define NEWOBJ_OTHER_LOGICRUN_QT
-#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && defined(LIB_QT)
+#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && LIB_QT == 1
 #include "QtCore/qtimer.h"
 #endif
 namespace newobj
@@ -19,11 +19,11 @@ namespace newobj
 		 * Desc：设计初衷是为了解决复杂的业务逻辑和相互牵连关系。
 		 ************************************************************************/
 		class logic_run
-#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && defined(LIB_QT)
+#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && LIB_QT == 1
 			:QObject
 #endif
 		{
-#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && defined(LIB_QT)
+#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && LIB_QT == 1
 			Q_OBJECT
 #endif
 		public:
@@ -68,7 +68,7 @@ namespace newobj
 			 *			wait_msec				：				循环延迟时间[默认=0]
 			 *			timeout_msec			：				超时时间[默认=0],如设置超时时间，并且超过该时间，则返回false。	
 			 ********************************************************************/
-#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && defined(LIB_QT)
+#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && LIB_QT == 1
 			bool wait_thread(const nstring& nam,std::function<bool(nvar)> wait_fun, std::function<void(nvar)> timeout_fun, uint32 wait_msec = 0, uint32 timeout_msec = 0);
 			void timeout(const nstring& name, std::function<void(nvar)> wait_fun,uint32 timeout_msec);
 			void __add_qt_cb(LogicConf* conf);
@@ -84,13 +84,13 @@ namespace newobj
 			 *			timeout_msec			：				超时时间[默认=0],如设置超时时间，并且超过该时间，则返回false。
 			 ********************************************************************/
 			bool wait(const nstring& name, std::function<bool(nvar)> wait_fun, uint32 wait_msec = 0, uint32 timeout_msec = 0);
-#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && defined(LIB_QT)
+#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && LIB_QT == 1
 		private slots:
 			void on_timer_exec();
 #endif
 		private:
 
-#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && defined(LIB_QT)
+#if defined(NEWOBJ_OTHER_LOGICRUN_QT) && LIB_QT == 1
 			QTimer m_timer;
 			queue<LogicConf*> m_fun;
 			newobj::timeout m_timeout;

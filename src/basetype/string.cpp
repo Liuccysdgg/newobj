@@ -5,7 +5,7 @@
 #include <string.h>
 #include <iostream>
 char nstring_view::m_empty_string[1] = { '\0' };
-#define INIT_STRING	m_tail_blank = true;m_block_size = NSTRING_BLOCKS_SIZE;m_data_length = 0;m_mem_length = m_block_size;m_data = (char*)mem::malloc(m_block_size);memset(m_data,0,m_block_size)
+#define INIT_STRING	m_tail_blank = true;m_block_size = NSTRING_BLOCKS_SIZE;m_data_length = 0;m_mem_length = m_block_size;m_data = (uchar*)mem::malloc(m_block_size);memset(m_data,0,m_block_size)
 nstring_view::nstring_view():stream_view()
 {
 	
@@ -35,7 +35,7 @@ nstring_view::operator std::string() const
 {
 	return std::string(data(), length());
 }
-#ifdef LIB_QT
+#if LIB_QT == 1
 nstring_view::operator QString() const
 {
 	return this->operator QByteArray();
@@ -155,12 +155,12 @@ nstring_view nstring_view::trim(char value) const
 void nstring_view::print() const
 {
 	t_ret(m_data == nullptr);
-	std::cout << std::string(m_data, m_data_length);
+	std::cout << std::string((char*)m_data, m_data_length);
 }
 void nstring_view::println() const
 {
 	t_ret(m_data == nullptr);
-	std::cout << std::string(m_data, m_data_length) << std::endl;
+	std::cout << std::string((char*)m_data, m_data_length) << std::endl;
 }
 
 int32 nstring::to_int32() const
@@ -321,7 +321,7 @@ nstring::nstring(size_t block_size)
 	m_block_size = block_size;
 	m_data_length = 0;
 	m_mem_length = m_block_size;
-	m_data = (char*)mem::malloc(m_block_size);
+	m_data = (uchar*)mem::malloc(m_block_size);
 	m_tail_blank = true;
 }
 nstring::nstring(const char* value)
@@ -364,7 +364,7 @@ nstring::nstring(const std::string_view& value)
 	append(value.data(), value.length());
 }
 #endif
-#ifdef LIB_QT
+#if LIB_QT == 1
 nstring::nstring(const QString& value)
 {
 	INIT_STRING;
@@ -427,7 +427,7 @@ nstring& nstring::operator=(const std::string_view& value)
 	return *this;
 }
 #endif
-#ifdef LIB_QT
+#if LIB_QT == 1
 nstring& nstring::operator=(const QString& value)
 {
 	clear();
@@ -527,7 +527,7 @@ void nstring::append(const std::string_view& value)
 	append(value.data(), value.length());
 }
 #endif
-#ifdef LIB_QT
+#if LIB_QT == 1
 void nstring::append(const QString& value)
 {
 	if (value.length() == 0)return;
@@ -540,9 +540,9 @@ nstring nstring::replace(size_t start, size_t len, const nstring& replace_str) c
 	f_ret_var(lenlegal(start + len, false), "");
 	t_ret_var(start >= len, "");
 	nstring result;
-	result.append(m_data, start);
+	result.append((char*)m_data, start);
 	result.append(replace_str);
-	result.append(m_data + start + len, m_data_length - (start + len));
+	result.append((char*)m_data + start + len, m_data_length - (start + len));
 	return result;
 }
 
@@ -557,13 +557,13 @@ nstring nstring::remove(const nstring& value) const
 		if (i == 0)
 		{
 			if (list[i] != 0)
-				result.append(m_data, list[i]);
+				result.append((char*)m_data, list[i]);
 		}
 		else
 		{
 			size_t prev_last_idx = list[i - 1] + value.length();
 			if (list[i] != prev_last_idx)
-				result.append(m_data + prev_last_idx, list[i] - prev_last_idx);
+				result.append((char*)m_data + prev_last_idx, list[i] - prev_last_idx);
 		}
 
 		if (i == list.size() - 1)
@@ -572,7 +572,7 @@ nstring nstring::remove(const nstring& value) const
 			if (list[i] + value.length() != m_data_length)
 			{
 				size_t last_length = m_data_length - list[i] + value.length();
-				result.append(m_data + list[i] + value.length(), last_length);
+				result.append((char*)m_data + list[i] + value.length(), last_length);
 			}
 		}
 	}
@@ -591,7 +591,7 @@ nstring nstring::replace(const nstring& replacestring, const nstring& newstring)
 		{
 			if (list[i] != 0)
 			{
-				result.append(m_data, list[i]);
+				result.append((char*)m_data, list[i]);
 				result.append(newstring);
 			}
 
@@ -601,7 +601,7 @@ nstring nstring::replace(const nstring& replacestring, const nstring& newstring)
 			size_t prev_last_idx = list[i - 1] + replacestring.length();
 			if (list[i] != prev_last_idx)
 			{
-				result.append(m_data + prev_last_idx, list[i] - prev_last_idx);
+				result.append((char*)m_data + prev_last_idx, list[i] - prev_last_idx);
 				result.append(newstring);
 			}
 		}
@@ -611,7 +611,7 @@ nstring nstring::replace(const nstring& replacestring, const nstring& newstring)
 			if (list[i] + replacestring.length() != m_data_length)
 			{
 				size_t last_length = m_data_length - list[i] + replacestring.length();
-				result.append(m_data + list[i] + replacestring.length(), last_length);
+				result.append((char*)m_data + list[i] + replacestring.length(), last_length);
 			}
 		}
 	}
@@ -693,7 +693,7 @@ nstring nstring::from(const std::string& value)
 {
 	return value.c_str();
 }
-#ifdef LIB_QT
+#if LIB_QT == 1
 nstring nstring::from(const QString& value)
 {
 	return nstring(value.toLocal8Bit());
@@ -760,7 +760,7 @@ void nstring::append(const char* data, size_t length)
 	}
 	this->m_data_length = m_data_length + length;
 	this->m_mem_length = new_len;
-	this->m_data = new_data;
+	this->m_data = (uchar*)new_data;
 	this->m_data[this->m_data_length] = 0;
 }
 

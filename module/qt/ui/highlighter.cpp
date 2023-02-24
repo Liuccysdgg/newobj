@@ -1,5 +1,5 @@
 #include "highlighter.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include <QtGui/qfont.h>
 #if (QT_VERSION > QT_VERSION_CHECK(5,0,0))
 newobj::ui::highlighter::highlighter(QTextDocument* parent):QSyntaxHighlighter(parent)

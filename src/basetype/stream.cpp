@@ -5,8 +5,8 @@
 #include <string.h>
 #include <iostream>
 #if 1
-#define INIT_STREAM	m_block_size = STREAM_BLOCKS_SIZE;m_data_length = 0;m_mem_length = m_block_size;m_data = (char*)mem::malloc(m_block_size);memset(m_data,0,m_block_size)
-#define INIT_STREAM_VIEW(VALUE,LENGTH)	m_block_size = 0;m_data_length = LENGTH;m_mem_length = 0;m_data = (char*)VALUE
+#define INIT_STREAM	m_block_size = STREAM_BLOCKS_SIZE;m_data_length = 0;m_mem_length = m_block_size;m_data = (uchar*)mem::malloc(m_block_size);memset(m_data,0,m_block_size)
+#define INIT_STREAM_VIEW(VALUE,LENGTH)	m_block_size = 0;m_data_length = LENGTH;m_mem_length = 0;m_data = (uchar*)VALUE
 stream_view::stream_view()
 {
 	INIT_STREAM_VIEW(nullptr, 0);
@@ -37,13 +37,13 @@ bool stream_view::operator<(const stream_view& right) const
 {
 	return compare(right) < 0;
 }
-char& stream_view::operator[](size_t index) const
+uchar& stream_view::operator[](size_t index) const
 {
 	lenlegal(index);
-	return m_data[index];
+	return (uchar)m_data[index];
 }
 
-char stream_view::at(size_t index) const
+uchar stream_view::at(size_t index) const
 {
 	return this->operator[](index);
 }
@@ -166,7 +166,7 @@ stream_view stream_view::substr(size_t start, size_t len) const
 {
 	f_ret_var(lenlegal(start, false), stream_view(nullptr,0));
 	f_ret_var(lenlegal(start + len, false), stream_view(nullptr,0));
-	return stream_view(m_data+start,len);
+	return stream_view((char*)m_data+start,len);
 }
 
 stream_view stream_view::substr(size_t start) const
@@ -219,13 +219,13 @@ std::vector<stream_view> stream_view::split_view(const stream_view& value) const
 		if (i == 0)
 		{
 			if (list[i] != 0)
-				result.push_back(stream_view(m_data, list[i]));
+				result.push_back(stream_view((char*)m_data, list[i]));
 		}
 		else
 		{
 			size_t prev_last_idx = list[i - 1] + value.length();
 			if (list[i] != prev_last_idx)
-				result.push_back(stream_view(m_data + prev_last_idx, list[i] - prev_last_idx));
+				result.push_back(stream_view((char*)m_data + prev_last_idx, list[i] - prev_last_idx));
 		}
 
 		if (i == list.size() - 1)
@@ -234,7 +234,7 @@ std::vector<stream_view> stream_view::split_view(const stream_view& value) const
 			if (list[i] + value.length() != m_data_length)
 			{
 				size_t last_length = m_data_length - list[i] - value.length();
-				result.push_back(stream_view(m_data + list[i] + value.length(), last_length));
+				result.push_back(stream_view((char*)m_data + list[i] + value.length(), last_length));
 			}
 		}
 	}
@@ -302,7 +302,7 @@ stream::stream(size_t block_size)
 	m_block_size = block_size;
 	m_data_length = 0;
 	m_mem_length = m_block_size;
-	m_data = (char*)mem::malloc(m_block_size);
+	m_data = (uchar*)mem::malloc(m_block_size);
 }
 
 stream::stream(const char* value, size_t len)
@@ -383,9 +383,9 @@ stream stream::replace(size_t start, size_t len, const stream_view& replace_str)
 	f_ret_var(lenlegal(start + len, false), stream());
 	t_ret_var(start >= len, stream());
 	stream result;
-	result.append(m_data, start);
+	result.append((char*)m_data, start);
 	result.append(replace_str);
-	result.append(m_data + start + len, m_data_length - (start + len));
+	result.append((char*)m_data + start + len, m_data_length - (start + len));
 	return result;
 }
 
@@ -400,13 +400,13 @@ stream stream::remove(const stream_view& value) const
 		if (i == 0)
 		{
 			if (list[i] != 0)
-				result.append(m_data, list[i]);
+				result.append((char*)m_data, list[i]);
 		}
 		else
 		{
 			size_t prev_last_idx = list[i - 1] + value.length();
 			if (list[i] != prev_last_idx)
-				result.append(m_data + prev_last_idx, list[i] - prev_last_idx);
+				result.append((char*)m_data + prev_last_idx, list[i] - prev_last_idx);
 		}
 
 		if (i == list.size() - 1)
@@ -415,7 +415,7 @@ stream stream::remove(const stream_view& value) const
 			if (list[i] + value.length() != m_data_length)
 			{
 				size_t last_length = m_data_length - list[i] + value.length();
-				result.append(m_data + list[i] + value.length(), last_length);
+				result.append((char*)m_data + list[i] + value.length(), last_length);
 			}
 		}
 	}
@@ -434,7 +434,7 @@ stream stream::replace(const stream_view& replacestring, const stream_view& news
 		{
 			if (list[i] != 0)
 			{
-				result.append(m_data, list[i]);
+				result.append((char*)m_data, list[i]);
 				result.append(newstring);
 			}
 
@@ -444,7 +444,7 @@ stream stream::replace(const stream_view& replacestring, const stream_view& news
 			size_t prev_last_idx = list[i - 1] + replacestring.length();
 			if (list[i] != prev_last_idx)
 			{
-				result.append(m_data + prev_last_idx, list[i] - prev_last_idx);
+				result.append((char*)m_data + prev_last_idx, list[i] - prev_last_idx);
 				result.append(newstring);
 			}
 		}
@@ -454,7 +454,7 @@ stream stream::replace(const stream_view& replacestring, const stream_view& news
 			if (list[i] + replacestring.length() != m_data_length)
 			{
 				size_t last_length = m_data_length - list[i] + replacestring.length();
-				result.append(m_data + list[i] + replacestring.length(), last_length);
+				result.append((char*)m_data + list[i] + replacestring.length(), last_length);
 			}
 		}
 	}
@@ -542,7 +542,7 @@ void stream::append(const char* data, size_t length)
 	}
 	this->m_data_length = m_data_length + length;
 	this->m_mem_length = new_len;
-	this->m_data = new_data;
+	this->m_data = (uchar*)new_data;
 	if (m_tail_blank)
 		this->m_data[this->m_data_length] = 0;
 }

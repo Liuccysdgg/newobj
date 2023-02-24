@@ -1,7 +1,7 @@
 #pragma once
 #include "public/define.h"
 
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include "QtGui/qpixmap.h"
 namespace newobj
 {

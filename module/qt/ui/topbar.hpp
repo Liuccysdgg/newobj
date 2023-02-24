@@ -1,6 +1,6 @@
 #pragma once
 #include "public/define.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 #ifdef QT4
 #include <QWidget>
 #include <QMouseEvent>
@@ -16,7 +16,7 @@
 #include "util/system.h"
 namespace newobj
 {
-#ifdef LIB_QT
+#if LIB_QT == 1
     namespace ui
     {
         template<typename T>

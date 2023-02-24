@@ -24,12 +24,12 @@
     auto logger = log4cplus::Logger::getInstance(NAME);       \
     logger.addAppender(APPENDER);                                      \
     LOG4CPLUS_MACRO_BODY(logger, VALUE, LEVEL);              
-newobj::log4::log4(const nstring& config_filepath)
+newobj::log4::log4(const nstring& filepath)
 {
-
+    newobj::file::create_dir(newobj::file::pre_dir(filepath),true);
 #if LIB_LOG4CPLUS
     log4cplus::Initializer();
-    m_appender = new log4cplus::SharedAppenderPtr(new log4cplus::RollingFileAppender("./log/log.log", 1024 * 1024, 100));
+    m_appender = new log4cplus::SharedAppenderPtr(new log4cplus::RollingFileAppender(filepath.c_str(), 1024 * 1024, 100));
     APPENDER->setName("error");
     APPENDER->setLayout(std::unique_ptr<log4cplus::Layout>(new log4cplus::PatternLayout("%D{%Y-%m-%d %H:%M:%S.%q} [%-5p] [%c] -  %m %n")));
 

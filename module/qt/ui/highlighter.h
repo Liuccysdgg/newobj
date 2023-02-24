@@ -1,6 +1,6 @@
 #pragma once
 #include "public/define.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include "public/define.h"
 #include "basetype/string.h"
 #include "util/map.hpp"

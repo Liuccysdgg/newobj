@@ -1,6 +1,6 @@
 #include "util/config.h"
 #include "util/file.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include "QtCore/qsettings.h"
 #endif
 #ifdef WIN32
@@ -22,7 +22,7 @@ bool newobj::config::ini::read(const nstring& filepath, const nstring& node, con
 		value.append(result, resultLength);
 	return true;
 #else
-#ifdef LIB_QT
+#if LIB_QT == 1
     QSettings setting(newobj::file::format_slash(filepath),QSettings::IniFormat);
     QString key = QString(node.c_str()) + "/" + QString(name.c_str());
     value = setting.value(key).toString();
@@ -45,7 +45,7 @@ bool newobj::config::ini::write(const nstring& filepath, const nstring& node, co
 #ifdef WIN32
 	return WritePrivateProfileStringA(node.c_str(), name.c_str(), value.c_str(), filepath.c_str());
 #else
-#ifdef LIB_QT
+#if LIB_QT == 1
     QSettings setting(newobj::file::format_slash(filepath),QSettings::IniFormat);
     setting.beginGroup(node.c_str());
     setting.setValue(name.c_str(),value.c_str());

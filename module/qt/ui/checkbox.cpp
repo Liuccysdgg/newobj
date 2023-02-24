@@ -1,6 +1,6 @@
 #include "checkbox.h"
 
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include "QtGui/qevent.h"
 newobj::ui::checkbox::checkbox(QWidget* parent):QCheckBox(parent)
 {

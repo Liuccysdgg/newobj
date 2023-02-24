@@ -72,7 +72,9 @@ network::http::interceptor* network::http::router::interceptor(){
 
 void network::http::router::subscribe(const nstring &path, network::http::method method, std::function<void(network::http::request*,network::http::response*)> callback)
 {
+#if HTTP_ROUTER_PRINT == 1
     newobj::log->info("[subscribe][func] express:"+path+" method:"+method_to_string(method),"router");
+#endif
     network::http::subscribe_info *svie = new network::http::subscribe_info;
     svie->controller = false;
     svie->method = method;
@@ -87,7 +89,9 @@ void network::http::router::subscribe(
     network::http::method method
 )
 {
+#if HTTP_ROUTER_PRINT == 1
     newobj::log->info("[subscribe][ctl] express:"+path+" method:"+method_to_string(method),"router");
+#endif
     network::http::subscribe_info *svie = new network::http::subscribe_info;
     svie->controller = true;
     svie->method = method;
@@ -158,12 +162,16 @@ void newobj::network::http::router::__thread_callback(reqpack* rp)
                     /*普通回调*/
                     sub->callback(rp->request(), rp->response());
                 }
+#if HTTP_ROUTER_PRINT == 1
                 newobj::log->info("["+rp->exec_msec()+" ms] controller url:"+rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true),"router"); 
+#endif
             }
             catch (const std::exception& e)
             {
+#if HTTP_ROUTER_PRINT == 1
                 // 通用异常返回
                 newobj::log->error("business processing exception:" + nstring(e.what()) + ", url:" + rp->filepath()+" ip:"+rp->request()->remote_ipaddress(true),"router");
+#endif
                 rp->response()->send((nstring)e.what(), 500, "Internal Server Error");
             }
             break;
@@ -252,7 +260,9 @@ bool newobj::network::http::router::run()
                 nstring ipaddress;
                 ushort port = 0;
                 tp_info->reqpack->server()->remote(rp->connid(), ipaddress, port);
+#if HTTP_ROUTER_PRINT == 1
                 newobj::log->error("Thread posting failed,Remote: "+ ipaddress+",Filepath: " + rp->filepath(),"router");
+#endif
                 // 发送繁忙回复
                 ((IHttpServer*)tp_info->reqpack->server()->hpserver())->SendResponse((CONNID)rp->connid(), 503, "Service Unavailable");
                 // 销毁资源

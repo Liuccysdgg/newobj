@@ -26,6 +26,7 @@
 #include <cmath>
 #include "util/math.h"
 #include <string.h>
+#pragma warning(disable: 4996)
 void newobj::network::tools::content_type(const nstring& extName, nstring& type)
 {
     {

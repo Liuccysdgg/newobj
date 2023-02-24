@@ -14,7 +14,7 @@
 #ifdef _WIN32
 #include <Windows.h>
 #endif
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include "QtCore/quuid.h"
 #include "QtCore/qcryptographichash.h"
 #endif
@@ -252,7 +252,7 @@ buffer newobj::codec::sha1(const char* buff, uint32 len)
 
 nstring newobj::codec::uuid()
 {
-#ifdef LIB_QT
+#if LIB_QT == 1
     auto uuid = nstring::from(QUuid::createUuid().toString());
     for (size_t i = 0; i < uuid.length(); i++)
     {
@@ -266,7 +266,7 @@ nstring newobj::codec::uuid()
 	return "";
 #endif
 }
-#ifdef LIB_QT
+#if LIB_QT == 1
 buffer  newobj::codec::aes::en(const buffer& src, const nstring& key_param, int type)
 {
     if(src.length() == 0)

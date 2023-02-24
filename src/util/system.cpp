@@ -7,7 +7,7 @@
 #include "util/print.h"
 #include "util/time.h"
 #include <iostream>
-#ifdef LIB_QT
+#if LIB_QT == 1
 #ifdef QT5
 #include "QtGui/qscreen.h"
 #endif
@@ -47,7 +47,7 @@
 #include "util/codec.h"
 #include <time.h>
 #ifndef _WIN32
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include "QtWidgets/qapplication.h"
 #endif
 #endif
@@ -660,7 +660,7 @@ Size newobj::system::screen::device_size()
     result.width = GetSystemMetrics(SM_CXSCREEN);
     result.height = GetSystemMetrics(SM_CYSCREEN);
 #else
-#ifdef LIB_QT
+#if LIB_QT == 1
     QScreen* screen = QApplication::primaryScreen();
     result.width = screen->size().width();
     result.height = screen->size().height();

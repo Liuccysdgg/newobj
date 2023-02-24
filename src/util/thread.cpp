@@ -9,7 +9,7 @@
 #include <thread>
 #endif
 
-#ifdef LIB_QT
+#if LIB_QT == 1
 #ifdef QT4
 #include "Qt/qdatetime.h"
 #include "Qt/qcoreapplication.h"

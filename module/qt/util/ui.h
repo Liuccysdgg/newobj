@@ -1,7 +1,7 @@
 #pragma once
 #include "public/define.h"
 #include "public/buffer.h"
-#if defined(QT_CORE_LIB) || defined(LIB_QT)
+#if defined(QT_CORE_LIB) || LIB_QT == 1
 #ifdef QT4
 #include "Qt/qwidget.h"
 #include "Qt/qlabel.h"

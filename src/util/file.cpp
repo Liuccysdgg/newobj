@@ -15,7 +15,7 @@
 #ifdef LIB_BOOST
 #include <boost/filesystem.hpp>
 #endif
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include <QtCore/qfile.h>
 #endif
 #include "public/exception.h"
@@ -308,7 +308,7 @@ namespace newobj
 			return false;
         if (_filepath[0] == ':')
 		{
-#ifdef LIB_QT
+#if LIB_QT == 1
             QFile file(_filepath);
 			f_ret_f(file.open(QIODevice::ReadOnly));
 			data.append(file.readAll());

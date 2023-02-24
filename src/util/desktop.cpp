@@ -3,7 +3,7 @@
 #ifdef _WIN32
 #include <Windows.h>
 #endif
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include "QtCore/qprocess.h"
 #ifdef QT5
 #include "QtGui/qguiapplication.h"
@@ -108,7 +108,7 @@ ptr newobj::desktop::handle()
 {
     return m_desktop;
 }
-#if defined(LIB_QT) && defined(QT5)
+#if LIB_QT == 1 && defined(QT5)
 QPixmap newobj::desktop::screenshot()
 {
     return QGuiApplication::primaryScreen()->grabWindow(winhandle());

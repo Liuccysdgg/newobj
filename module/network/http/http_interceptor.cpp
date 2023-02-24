@@ -30,7 +30,9 @@ bool network::http::interceptor::trigger(const nstring& url, network::http::reqp
         if(std::regex_match(url.c_str(),info->express)){
             bool result = info->callback(rp);
             if(result == false){
+#if HTTP_INTERCEPTOR_PRINT == 1
                 newobj::log->warn("["+rp->exec_msec()+" ms] false url:"+url+"\t"+" express:"+info->express_string+" ip:"+rp->request()->remote_ipaddress(true),"interceptor");
+#endif
             }
             return result;
         }

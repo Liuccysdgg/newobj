@@ -1,5 +1,5 @@
 #include "label.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 newobj::ui::label::label(QWidget* parent) :QLabel(parent)
 {
 	m_clicked_callback = nullptr;

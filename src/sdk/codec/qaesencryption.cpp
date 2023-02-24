@@ -1,5 +1,5 @@
 #include "qaesencryption.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include "qaesencryption.h"
 
 #pragma warning(disable:4838)

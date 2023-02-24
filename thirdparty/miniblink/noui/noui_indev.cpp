@@ -2,7 +2,7 @@
 #include "noui_indev.h"
 #include "miniblink/miniblink.h"
 
-#ifdef LIB_QT
+#if LIB_QT == 1
 newobj::noui::indev::indev(newobj::browser::miniblink* miniblink)
 	:noui::core(miniblink)
 {

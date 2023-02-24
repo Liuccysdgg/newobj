@@ -3,7 +3,7 @@
 #include "miniblink/miniblink.h"
 #include "util/config.h"
 #include "util/codec.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 newobj::noui::ini::ini(newobj::browser::miniblink* miniblink)
 	:noui::core(miniblink)
 {

@@ -1,7 +1,7 @@
 #ifndef MSVC_2010
 #include "noui_miniblink.h"
 #include "miniblink/miniblink.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 newobj::noui::miniblink::miniblink()
 	:noui::core(nullptr)
 {

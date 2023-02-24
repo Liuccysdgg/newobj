@@ -5,7 +5,7 @@
 #include "util/system.h"
 #include "util/process.h"
 #include <vector>
-#ifdef LIB_QT
+#if LIB_QT == 1
 #ifdef QT5
 #include "QtGui/qpixmap.h"
 #endif
@@ -32,7 +32,7 @@ namespace newobj
 			void destoryAllProcesses(bool subproc = true);
 			/*È¡¾ä±ú*/
 			ptr handle();
-#if defined(LIB_QT) && defined(QT5)
+#if LIB_QT == 1 && defined(QT5)
 			/*½ØÍ¼*/
 			QPixmap screenshot();
 #endif

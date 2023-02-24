@@ -26,10 +26,11 @@
 #ifdef _WIN32
 #define LIB_QT 1
 #else
+#define LIB_QT 0
 // Linux平台请设置CMakeLists.txt,默认关闭QT链接
 #endif
 // QT
-#ifdef LIB_QT
+#if LIB_QT == 1
 #ifdef MSVC_2010
 // QT4
 #define QT4 1
@@ -38,7 +39,7 @@
 #define QT5 1
 #endif
 /****************************[ QT ]************************************/
-#ifdef LIB_QT
+#if LIB_QT == 1
 #define QSENDER(TO_OBJ) qobject_cast<TO_OBJ>(sender())
 #define QT_WAIT(TIMEOUT_MSEC,LOGIC)                                     \
             {                                                                                           \
@@ -48,7 +49,7 @@
                     QCoreApplication::processEvents();                              \
             }
 #endif
-#ifdef LIB_QT
+#if LIB_QT == 1
 #ifndef QT4
 #define QTSTR(TEXT) QStringLiteral(TEXT)
 #else

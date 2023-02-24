@@ -10,7 +10,7 @@
 #include "curl/curl.h"
 #include <iostream>
 #include "http_client_cache.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 #ifdef QT5
 #include "QtCore/qtimer.h"
 #include "QtCore/qdatetime.h"

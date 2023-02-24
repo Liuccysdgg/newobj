@@ -1,5 +1,5 @@
 #include "sqlite.h"
-#ifdef LIB_QT
+#if LIB_QT == 1
 #include "QtCore/qplugin.h"
 #include "QtSql/qsqlerror.h"
 #include "QtCore/qvariant.h"
