@@ -71,7 +71,7 @@ bool stream_view::equals(const char* value, size_t size) const
 
 		for (size_t i = 0; i < size; i++)
 		{
-			if (m_data[i] != value[i])
+			if (m_data[i] != (uchar)value[i])
 				return false;
 		}
 	return true;

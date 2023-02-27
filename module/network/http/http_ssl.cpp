@@ -5,11 +5,12 @@
 #include "hpsocket/hpsocket.h"
 #ifdef LIB_HPSOCKET_SSL
 #define HPSERVER ((IHttpServer*)m_server->hpserver())
-newobj::network::http::ssl::ssl(network::http::server* server,ssl_verify_type verify_type, const nstring& pem_cert, const nstring& pem_key, const nstring& password)
+newobj::network::http::ssl::ssl(network::http::server* server,ssl_verify_type verify_type, const nstring& pem_cert, const nstring& pem_key, const nstring& pem_ca, const nstring& password)
 {
 	m_verify_type = verify_type;
 	m_pem_cert =  newobj::file::read(pem_cert).to_string();
 	m_pem_key = newobj::file::read(pem_key).to_string();
+	m_pem_ca = newobj::file::read(pem_ca).to_string();
 	//m_pem_cert =  pem_cert;
 	//m_pem_key = pem_key;
 
@@ -33,7 +34,8 @@ bool newobj::network::http::ssl::regist()
                                               (EnSSLVerifyMode)m_verify_type,
                                               m_pem_cert.c_str(),
                                               m_pem_key.c_str(),
-                                              m_pem_password.c_str()) == false)
+                                              m_pem_password.c_str(),
+											  m_pem_key.c_str()) == false)
         {
             m_lastErrorDesc = "SetupSSLContextByMemory Failed, code:"+nstring::from((uint64)SYS_GetLastError());
             return false;

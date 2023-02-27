@@ -26,9 +26,10 @@ namespace newobj {
                  *          verify_type                               ：                                  验证方式
                  *          pem_cert                                 ：                                   证书内容
                  *          pem_key                                  ：                                   证书密钥
+                 *          pem_ca                                    ：                                   CA证书
                  *          password                                 ：                                   证书密码，没有留空
                  **********************************************************************************************/
-                ssl(network::http::server* server,ssl_verify_type verify_type,const nstring& pem_cert,const nstring&pem_key,const nstring& password = "");
+                ssl(network::http::server* server,ssl_verify_type verify_type,const nstring& pem_cert,const nstring&pem_key, const nstring& pem_ca = "", const nstring& password = "");
                 ~ssl();
                 /**********************************************************************************************
                  * function：注册证书
@@ -42,6 +43,7 @@ namespace newobj {
                 ssl_verify_type m_verify_type;
                 nstring m_pem_cert;
                 nstring m_pem_key;
+                nstring m_pem_ca;
                 nstring m_pem_password;
                 network::http::server* m_server;
                 int32 m_index;

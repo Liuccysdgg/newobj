@@ -68,6 +68,7 @@ bool newobj::network::http::website::start(const newobj::json& config)
                     (network::http::ssl_verify_type)host_config["ssl_type"].to<int>(),
                     ssl_config["pem_cert"].to<nstring>(),
                     ssl_config["pem_key"].to<nstring>(),
+                    ssl_config["pem_ca"].to<nstring>(),
                     ssl_config["pem_password"].to<nstring>());
                 /*×¢²áSSL*/
                 if (ssl->regist() == false)
