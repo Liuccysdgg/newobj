@@ -26,11 +26,11 @@ public:
 	bool equals(const char* value, size_t size) const;
 	bool equals(const stream_view& view) const;
 
-	size_t find(char value, size_t start_idx = 0) const;
-	size_t find(const stream_view& value, size_t start_idx = 0) const;
-	size_t rfind(const stream_view& value) const;
-	size_t rfind(char value) const;
-	std::vector<size_t> find_list(const stream_view& value, size_t start = 0) const;
+	int find(char value, size_t start_idx = 0) const;
+	int find(const stream_view& value, size_t start_idx = 0) const;
+	int rfind(const stream_view& value) const;
+	int rfind(char value) const;
+	std::vector<int> find_list(const stream_view& value, size_t start = 0) const;
 	stream_view substr(size_t start, size_t len) const;
 	stream_view substr(size_t start) const;
 	stream_view substr(const stream_view& start, const stream_view& end) const;

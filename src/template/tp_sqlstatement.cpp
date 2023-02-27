@@ -12,10 +12,6 @@ inline size_t sets(newobj::mysql_plus::prepare_statement *ppst,size_t start_inde
             ppst->set_int32(index++,std::any_cast<int32>(values[i]));
         else if(typeid(uint32) == values[i].type())
             ppst->set_string(index++,std::any_cast<uint32>(values[i]));
-        else if(typeid(nstring) == values[i].type())
-            ppst->set_string(index++,std::any_cast<int64>(values[i]));
-        else if(typeid(nstring) == values[i].type())
-            ppst->set_string(index++,std::any_cast<uint64>(values[i]));
         else if(typeid(float) == values[i].type())
             ppst->set_double(index++,std::any_cast<float>(values[i]));
         else if(typeid(double) == values[i].type())

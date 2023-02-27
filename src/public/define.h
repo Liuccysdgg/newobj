@@ -24,7 +24,7 @@
 #endif
 
 #ifdef _WIN32
-#define LIB_QT 1
+#define LIB_QT 0
 #else
 #define LIB_QT 0
 // Linux平台请设置CMakeLists.txt,默认关闭QT链接

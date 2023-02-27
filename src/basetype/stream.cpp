@@ -83,12 +83,12 @@ bool stream_view::equals(const stream_view& view) const
 }
 
 
-size_t stream_view::find(char value, size_t start_idx) const
+int stream_view::find(char value, size_t start_idx) const
 {
 	return find(stream_view((const char*)&value, 1), start_idx);
 }
 
-size_t stream_view::find(const stream_view& value, size_t start_idx) const
+int stream_view::find(const stream_view& value, size_t start_idx) const
 {
 	try
 	{
@@ -115,7 +115,7 @@ size_t stream_view::find(const stream_view& value, size_t start_idx) const
 	return -1;
 }
 
-size_t stream_view::rfind(const stream_view& value) const
+int stream_view::rfind(const stream_view& value) const
 {
 	try
 	{
@@ -142,14 +142,14 @@ size_t stream_view::rfind(const stream_view& value) const
 	return -1;
 }
 
-size_t stream_view::rfind(char value) const
+int stream_view::rfind(char value) const
 {
 	return rfind(stream_view((const char*)&value, 1));
 }
 
-std::vector<size_t> stream_view::find_list(const stream_view& value, size_t start) const
+std::vector<int> stream_view::find_list(const stream_view& value, size_t start) const
 {
-	std::vector<size_t> result;
+	std::vector<int> result;
 	size_t idx = 0;
 	while (idx != -1)
 	{

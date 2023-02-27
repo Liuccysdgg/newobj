@@ -79,27 +79,27 @@ bool nstring_view::equals(const nstring_view& value) const
 	return ::stream_view::equals(value.data(), value.length());
 }
 
-size_t nstring_view::find(char value, size_t start_idx) const
+int nstring_view::find(char value, size_t start_idx) const
 {
 	return ::stream_view::find(value,start_idx);
 }
 
-size_t nstring_view::find(const nstring_view& value, size_t start_idx) const
+int nstring_view::find(const nstring_view& value, size_t start_idx) const
 {
 	return ::stream_view::find(value, start_idx);
 }
 
-size_t nstring_view::rfind(const nstring_view& value) const
+int nstring_view::rfind(const nstring_view& value) const
 {
 	return ::stream_view::rfind(value);
 }
 
-size_t nstring_view::rfind(char value) const
+int nstring_view::rfind(char value) const
 {
 	return ::stream_view::rfind(value);
 }
 
-std::vector<size_t> nstring_view::find_list(const nstring_view& value, size_t start) const
+std::vector<int> nstring_view::find_list(const nstring_view& value, size_t start) const
 {
 	return ::stream_view::find_list(value,start);
 }

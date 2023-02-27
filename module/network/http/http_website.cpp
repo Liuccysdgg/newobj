@@ -65,7 +65,7 @@ bool newobj::network::http::website::start(const newobj::json& config)
             {
                 ssl = new network::http::ssl(
                     center()->server(port),
-                    network::http::SVT_VERIFY_FAIL_IF_NO_PEER_CERT,
+                    (network::http::ssl_verify_type)host_config["ssl_type"].to<int>(),
                     ssl_config["pem_cert"].to<nstring>(),
                     ssl_config["pem_key"].to<nstring>(),
                     ssl_config["pem_password"].to<nstring>());

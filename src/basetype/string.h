@@ -37,11 +37,11 @@ public:
 	bool operator!=(const nstring_view& value) const;
 
 	bool equals(const nstring_view& value) const;
-	size_t find(char value, size_t start_idx = 0) const;
-	size_t find(const nstring_view& value, size_t start_idx = 0) const;
-	size_t rfind(const nstring_view& value) const;
-	size_t rfind(char value) const;
-	std::vector<size_t> find_list(const nstring_view& value, size_t start = 0) const;
+	int find(char value, size_t start_idx = 0) const;
+	int find(const nstring_view& value, size_t start_idx = 0) const;
+	int rfind(const nstring_view& value) const;
+	int rfind(char value) const;
+	std::vector<int> find_list(const nstring_view& value, size_t start = 0) const;
 	nstring_view substr(size_t start, size_t len) const;
 	nstring_view substr(size_t start) const;
 	nstring_view substr(const nstring_view& start, const nstring_view& end) const;

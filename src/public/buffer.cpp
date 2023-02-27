@@ -135,7 +135,7 @@ namespace newobj
         if (char_list.size() == 0)
             return;
         char* new_buf = (char*)mem::malloc(char_list.size());
-        uint64 idx = 0;
+        size_t idx = 0;
         for (auto c : char_list)
         {
             new_buf[idx] = c;

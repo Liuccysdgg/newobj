@@ -155,7 +155,7 @@ class http_agent_listener :public IHttpAgentListener
         pSender->GetAllHeaders(dwConnID, local_header, local_hsize);
 		// 取请求方式
 		server->SendResponse(
-			extra->connid,
+			(CONNID)extra->connid,
 			pSender->GetStatusCode(dwConnID),
 			nullptr,
 			local_header,
@@ -186,7 +186,7 @@ class http_agent_listener :public IHttpAgentListener
 		    extra->recv.data.append((const char*)pData,iLength);
 		}else{
 		    server->Send(
-                     extra->connid,
+                     (CONNID)extra->connid,
                      pData,
                      iLength);
 		}
@@ -247,18 +247,18 @@ class http_agent_listener :public IHttpAgentListener
 		    nstring length = dec2hex(extra->recv.transfer_encoding_length+1)+"\r\n";   
 		    // 分块长度
 		    server->Send(
-				extra->connid,
+				(CONNID)extra->connid,
 				(const BYTE*)length.c_str(),
 				length.length());
 			// 数据包
 		    server->Send(
-		            extra->connid,
+				(CONNID)extra->connid,
                      (const BYTE*)extra->recv.data.data(),
                      extra->recv.data.length()
                      );
             // 结尾
 		    server->Send(
-                     extra->connid,
+				(CONNID)extra->connid,
                      (const BYTE*)"\r\n0\r\n\r\n",
                      9);
 		}
@@ -424,7 +424,7 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
 	{
         THeader* header = nullptr;
         DWORD header_size = 0;
-        ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders(rp->connid(), header,header_size);
+        ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders((CONNID)rp->connid(), header,header_size);
         if (header_size == 0){
 #if HTTP_AGENT_PRINT == 1
             newobj::log->error("not found header,"+extra->req.path,"http_agent ");
@@ -433,7 +433,7 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
             return false;
         }
         header = new THeader[header_size];
-        ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders(rp->connid(), header,header_size);
+        ((IHttpServer*)rp->server()->hpserver())->GetAllHeaders((CONNID)rp->connid(), header,header_size);
         // 浏览器真实IP
         nstring ipaddress;
         ushort port = 0;
@@ -467,7 +467,7 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
 
         delete[] header;
         // 取请求方式
-		extra->req.method = ((IHttpServer*)rp->server()->hpserver())->GetMethod(rp->connid());
+		extra->req.method = ((IHttpServer*)rp->server()->hpserver())->GetMethod((CONNID)rp->connid());
 	}
 #if 0
     std::cout<<"======================HEADER=========================="<<std::endl;
@@ -487,7 +487,7 @@ bool newobj::network::http::agent::request(int32 wait_msec,reqpack* rp, network:
     // 临时附加数据
     {
         PVOID exts = 0;
-        if (((IHttpServer*)rp->server()->hpserver())->GetConnectionExtra(rp->connid(), &exts) == false){
+        if (((IHttpServer*)rp->server()->hpserver())->GetConnectionExtra((CONNID)rp->connid(), &exts) == false){
             agent->Disconnect((CONNID)hpcid);
 #if HTTP_AGENT_PRINT == 1
             newobj::log->error("get server extra failed,"+extra->req.path,"http_agent ");

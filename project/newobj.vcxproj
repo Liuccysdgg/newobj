@@ -677,7 +677,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\pthread;$(SolutionDir)src;$(SolutionDir)include;$(SolutionDir)thirdparty;$(SolutionDir)include\qt\5.9.9_static;$(SolutionDir)module;$(SolutionDir)thirdparty\libzip;$(SolutionDir)thirdparty\log4cplus\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
