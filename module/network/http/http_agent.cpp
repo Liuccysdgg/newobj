@@ -506,18 +506,20 @@ void* newobj::network::http::agent::get()
 }
 newobj::network::http::agent::agent()
 {
-	//m_extra_queue = new newobj::object_pool<http_agent_extra>("http_agent_extra", 10000, 60);
+	m_agent = nullptr;
+	m_agent_ssl = nullptr;
+	m_extra_queue = new newobj::object_pool<http_agent_extra>("http_agent_extra", 10000, 60);
 	//
-	//m_listener = new http_agent_listener;
-	//m_listener->m_agent = this;
-	//m_agent_ssl = HP_Create_HttpsAgent(m_listener);
-	//m_agent = HP_Create_HttpAgent(m_listener);
+	m_listener = new http_agent_listener;
+	m_listener->m_agent = this;
+	m_agent_ssl = HP_Create_HttpsAgent(m_listener);
+	m_agent = HP_Create_HttpAgent(m_listener);
 } 
 newobj::network::http::agent::~agent()
 {
     stop();
     HP_Destroy_HttpAgent((IHttpAgent*)m_agent);
-    HP_Destroy_HttpsAgent((IHttpAgent*)m_agent);
+    HP_Destroy_HttpsAgent((IHttpAgent*)m_agent_ssl);
 	delete m_extra_queue;
 }
 void newobj::network::http::agent::stop()
@@ -529,7 +531,7 @@ void newobj::network::http::agent::stop()
 }
 bool newobj::network::http::agent::start()
 {
-	return true;
+	//return true;
 	((IHttpAgent*)m_agent_ssl)->CleanupSSLContext();
 	if (((IHttpAgent*)m_agent_ssl)->SetupSSLContext() == false)
 	{
