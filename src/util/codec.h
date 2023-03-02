@@ -23,7 +23,7 @@ namespace newobj
 			namespace base64
 			{
 				nstring NEWOBJ_API en(const nstring& str);
-				nstring NEWOBJ_API en(const newobj::buffer& data);
+				nstring NEWOBJ_API en(const stream_view& data);
 				newobj::buffer NEWOBJ_API de(const nstring& data);
 			}
 
@@ -36,26 +36,26 @@ namespace newobj
 			namespace des
 			{
 				/*ECB NoPadding*/
-				buffer NEWOBJ_API en(const buffer& src, const nstring& key_param);
-				buffer NEWOBJ_API de(const buffer& src, const nstring& key_param);
+				buffer NEWOBJ_API en(const stream_view& src, const nstring& key_param);
+				buffer NEWOBJ_API de(const stream_view& src, const nstring& key_param);
 			}
 			namespace aes
-			{
+			{ 
 				/*256 ECB*/
-				buffer NEWOBJ_API en(const buffer& src, const nstring& key_param,int type = 2/*0=128 1=192 2=256*/);
-				buffer NEWOBJ_API de(const buffer& src, const nstring& key_param,int type = 2/*0=128 1=192 2=256*/);
+				buffer NEWOBJ_API en(const stream_view& src, const nstring& key_param,int type = 2/*0=128 1=192 2=256*/);
+				buffer NEWOBJ_API de(const stream_view& src, const nstring& key_param,int type = 2/*0=128 1=192 2=256*/);
 			}
 
 			nstring uuid();
 
 			nstring  NEWOBJ_API md5(const nstring& value);
-			nstring  NEWOBJ_API md5(const newobj::buffer& value);
+			nstring  NEWOBJ_API md5(const stream_view& value);
 #ifdef LIB_HPSOCKET
-			newobj::buffer NEWOBJ_API ungzip(const newobj::buffer& data);
-			newobj::buffer NEWOBJ_API gzip(const newobj::buffer& data);
+			newobj::buffer NEWOBJ_API ungzip(const stream_view& data);
+			newobj::buffer NEWOBJ_API gzip(const stream_view& data);
 
-			newobj::buffer NEWOBJ_API hp_compress(const newobj::buffer& data);
-			newobj::buffer NEWOBJ_API hp_uncompress(const newobj::buffer& data);
+			newobj::buffer NEWOBJ_API hp_compress(const stream_view& data);
+			newobj::buffer NEWOBJ_API hp_uncompress(const stream_view& data);
 #endif
 		}
 }

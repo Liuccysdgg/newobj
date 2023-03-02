@@ -51,7 +51,7 @@ nstring  newobj::codec::base64::en(const nstring& str)
     return newobj::codec::base64::en(newobj::buffer(str));
 }
 
-nstring  newobj::codec::base64::en(const newobj::buffer& data)
+nstring  newobj::codec::base64::en(const stream_view& data)
 {
 #if 0
     if (data.length() == 0)
@@ -162,7 +162,7 @@ nstring newobj::codec::to_gbk(const nstring& utf8)
 #endif
 }
 #ifdef LIB_HPSOCKET
-newobj::buffer  newobj::codec::ungzip(const newobj::buffer& data)
+newobj::buffer  newobj::codec::ungzip(const stream_view& data)
 {
     uint32 size = SYS_GZipGuessUncompressBound((const BYTE*)data.data(),data.length());
     if (size <= 0)
@@ -175,7 +175,7 @@ newobj::buffer  newobj::codec::ungzip(const newobj::buffer& data)
 	auto rcode = SYS_GZipUncompress((const BYTE*)data.data(), data.length(), (BYTE*)result.data(), resultLen);
 	return newobj::buffer(result.left(resultLen));
 }
-newobj::buffer  newobj::codec::gzip(const newobj::buffer& data)
+newobj::buffer  newobj::codec::gzip(const stream_view& data)
 {
     newobj::buffer result;
     result.resize(data.length()+1024);
@@ -184,7 +184,7 @@ newobj::buffer  newobj::codec::gzip(const newobj::buffer& data)
         return newobj::buffer(result.left(resultLen));
     return result;
 }
-newobj::buffer  newobj::codec::hp_compress(const newobj::buffer& data)
+newobj::buffer  newobj::codec::hp_compress(const stream_view& data)
 {
     newobj::buffer result;
     result.resize(data.length() + 1024);
@@ -193,7 +193,7 @@ newobj::buffer  newobj::codec::hp_compress(const newobj::buffer& data)
         return newobj::buffer(result.left(resultLen));
     return result;
 }
-newobj::buffer  newobj::codec::hp_uncompress(const newobj::buffer& data)
+newobj::buffer  newobj::codec::hp_uncompress(const stream_view& data)
 {
     if (data.length() < 1)
         return newobj::buffer();
@@ -267,7 +267,7 @@ nstring newobj::codec::uuid()
 #endif
 }
 #if LIB_QT == 1
-buffer  newobj::codec::aes::en(const buffer& src, const nstring& key_param, int type)
+buffer  newobj::codec::aes::en(const stream_view& src, const nstring& key_param, int type)
 {
     if(src.length() == 0)
         return src;
@@ -283,7 +283,7 @@ buffer  newobj::codec::aes::en(const buffer& src, const nstring& key_param, int 
     return newobj::buffer(encryption.encode(en_data, key_param));
 }
 
-buffer  newobj::codec::aes::de(const buffer& src, const nstring& key_param, int type)
+buffer  newobj::codec::aes::de(const stream_view& src, const nstring& key_param, int type)
 {
     if (src.length() == 0)
         return src;

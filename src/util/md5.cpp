@@ -85,7 +85,7 @@ namespace newobj
         //////////////////////////////////////////////
 
         // nifty shortcut ctor, compute MD5 for string and finalize it right away
-        MD5::MD5(const newobj::buffer& value)
+        MD5::MD5(const stream_view& value)
         {
             init();
             update((const char*)value.data(), (newobj::MD5::size_type)value.length());
@@ -337,7 +337,7 @@ namespace newobj
                 return md5(newobj::buffer(value));
             }
 
-            nstring  md5(const newobj::buffer& value)
+            nstring  md5(const stream_view& value)
             {
                 MD5 md5 = MD5(value);
                 return md5.hexdigest();

@@ -583,7 +583,7 @@ void yxyDES2::DecryptAnyLength(char* _srcBytes, unsigned int _bytesLength, unsig
 }
 
 
-buffer  newobj::codec::des::en(const buffer& src, const nstring& key_param)
+buffer  newobj::codec::des::en(const stream_view& src, const nstring& key_param)
 {
 	if (src.length() == 0)
 		return newobj::buffer();
@@ -602,7 +602,7 @@ buffer  newobj::codec::des::en(const buffer& src, const nstring& key_param)
 	return des.GetCiphertextAnyLength();
 }
 
-buffer  newobj::codec::des::de(const buffer& src, const nstring& key_param)
+buffer  newobj::codec::des::de(const stream_view& src, const nstring& key_param)
 {
 	if (src.length() == 0)
 		return newobj::buffer();

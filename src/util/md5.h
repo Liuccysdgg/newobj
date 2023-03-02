@@ -15,7 +15,7 @@ namespace newobj
             typedef unsigned int size_type; // must be 32bit
 
             MD5();
-            MD5(const newobj::buffer& value);
+            MD5(const stream_view& value);
             void update(const unsigned char* buf, size_type length);
             void update(const char* buf, size_type length);
             MD5& finalize();
