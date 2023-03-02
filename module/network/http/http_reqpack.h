@@ -59,7 +59,7 @@ namespace newobj {
                     if (m_filepath.empty())
                     {
                         
-                        m_filepath = ((IHttpServer*)m_server->hpserver())->GetUrlField((CONNID)m_connid, EnHttpUrlField::HUF_PATH);
+                        m_filepath = ((IHttpServer*)m_server->hpserver())->GetUrlField((CONNID)m_connid, HUF_PATH);
                         // 防止访问上级目录
                         m_filepath = m_filepath.remove("..");
                     }

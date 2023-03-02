@@ -305,7 +305,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\src;C:\Qt\4.8.5\include;$(SolutionDir)\module\qt</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>

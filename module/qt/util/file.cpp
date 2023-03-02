@@ -16,4 +16,10 @@ QPixmap newobj::ui::get_icon(const QString& path, uint32 width, uint32 height)
 	QFileIconProvider icon;
 	return icon.icon(fileInfo).pixmap(width, height);
 }
+QByteArray MQT_API newobj::ui::read(const QString& path)
+{
+	QFile file(path);
+	file.open(QIODevice::ReadOnly);
+	return file.readAll();
+}
 #endif

@@ -51,7 +51,7 @@ EnHandleResult newobj::network::tcp::tcp_agent_lst::OnClose(ITcpAgent* pSender, 
 			AutoFreeAgentConnID_* conf = (AutoFreeAgentConnID_*)extra_data;
 			conf->map->del(conf->connid);
 			delete conf;
-			return TimeOutRet::TOR_CLOSE;
+			return TOR_CLOSE;
 		}, 3000, (ptr)param);
 
     return HR_OK;

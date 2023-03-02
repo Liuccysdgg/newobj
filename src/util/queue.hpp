@@ -2,7 +2,6 @@
 #include <queue>
 #include "public/define.h"
 #include "lock.h"
-#include <atomic>
 #include <stdio.h>
 namespace newobj
 {

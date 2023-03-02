@@ -18,13 +18,17 @@
 
 // Log4cplus 开关
 #ifdef _WIN32
-#define LIB_LOG4CPLUS 1
+#define LIB_LOG4CPLUS 0
 #else
 #define LIB_LOG4CPLUS 1
 #endif
 
 #ifdef _WIN32
+#ifdef MSVC_2010
+#define LIB_QT 0
+#else
 #define LIB_QT 1
+#endif
 #else
 #define LIB_QT 0
 // Linux平台请设置CMakeLists.txt,默认关闭QT链接

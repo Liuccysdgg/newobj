@@ -50,14 +50,16 @@ void newobj::ui::lineedit::mousePressEvent(QMouseEvent* e)
 }
 void newobj::ui::lineedit::focusInEvent(QFocusEvent* event)
 {
-	::QLineEdit::focusInEvent(event);
+	
 	if (this->m_focus_in_callback != nullptr)
 		this->m_focus_in_callback(this,event);
+	::QLineEdit::focusInEvent(event);
 }
 void newobj::ui::lineedit::focusOutEvent(QFocusEvent* event)
 {
-	::QLineEdit::focusInEvent(event);
+	
 	if (this->m_focus_out_callback != nullptr)
 		this->m_focus_out_callback(this, event);
+	::QLineEdit::focusOutEvent(event);
 }
 #endif
