@@ -26,11 +26,11 @@
 // http_server 调试日志打印
 #define HTTP_SERVER_DEBUG_PRINT 0
 // http_server 生产日志打印
-#define HTTP_SERVER_PRINT 0
+#define HTTP_SERVER_PRINT 1
 // http_router 生产日志打印
-#define HTTP_ROUTER_PRINT 0
+#define HTTP_ROUTER_PRINT 1
 // http_interceptor 生产日志打印
-#define HTTP_INTERCEPTOR_PRINT 0
+#define HTTP_INTERCEPTOR_PRINT 1
 namespace newobj
 
 {
