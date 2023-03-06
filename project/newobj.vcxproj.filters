@@ -635,7 +635,6 @@
     <ClCompile Include="..\src\basetype\string.cpp">
       <Filter>src\basetype</Filter>
     </ClCompile>
-    <ClCompile Include="..\SRC\PUBLIC\STRING.CPP" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\other\or_core_config_json_template.json">

@@ -163,7 +163,6 @@
     <ClCompile Include="..\src\public\decimal.cpp" />
     <ClCompile Include="..\src\public\exception.cpp" />
     <ClCompile Include="..\src\public\environment.cpp" />
-    <ClCompile Include="..\SRC\PUBLIC\STRING.CPP" />
     <ClCompile Include="..\src\sdk\aliyun\oss.cpp" />
     <ClCompile Include="..\src\sdk\codec\base64.cpp" />
     <ClCompile Include="..\src\sdk\codec\qaesencryption.cpp" />
