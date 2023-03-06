@@ -92,7 +92,33 @@ namespace newobj
 				result = nstring(&fill, 1) + result;
 			return result;
 		}
-	
+        nstring NEWOBJ_API from_hex(const nstring& hex)
+        {
+            nstring result;
+            for (size_t i = 0; i < hex.length(); i += 2)
+            {
+                nstring byte = hex.substr(i, 2);
+                char chr = (char)(int)strtol(byte.c_str(), NULL, 16);
+                result.append(chr);
+
+            }
+            return result;
+        }
+        nstring NEWOBJ_API to_hex(const nstring& value)
+        {
+            static const char* const lut = "0123456789ABCDEF";
+            size_t len = value.length();
+            nstring output;
+            for (size_t i = 0; i < len; ++i)
+            {
+                const unsigned char c = value[i];
+                output.append(lut[c >> 4]);
+                output.append(lut[c & 15]);
+
+            }
+            return output;
+        }
+
 
 	}
 }

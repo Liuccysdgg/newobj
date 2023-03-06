@@ -42,6 +42,8 @@ namespace newobj
 			nstring NEWOBJ_API replenish_begin(const nstring& value, uint32 max_size, char fill);
 
 
+            nstring NEWOBJ_API from_hex(const nstring& hex);
+            nstring NEWOBJ_API to_hex(const nstring& value);
 
 			/************************************************************************
 			 *	Function: JSONÎÞ×Ó¼¯£¬A-ZÅÅÐò

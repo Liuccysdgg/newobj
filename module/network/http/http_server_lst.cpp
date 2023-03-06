@@ -279,7 +279,7 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageComplete(IHtt
 	{
 	    pSender->SendResponse(dwConnID, 404, "Not Found", nullptr, 0, (const BYTE*)"No such site",12);
 #if HTTP_SERVER_PRINT == 1
-        logstr.append(" not website:");
+        logstr.append(" not website("+rp->host()+"):");
         newobj::log->error(logstr,"http_server");
 #endif
 		reqpack::destory(rp);

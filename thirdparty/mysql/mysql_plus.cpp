@@ -296,9 +296,17 @@ mysql_plus::result::~result()
 {
     if(RESULT_SET != nullptr)
     {
-        while (RESULT_SET->next())
-           RESULT_SET->close();
-       delete RESULT_SET;
+        try
+        {
+            while (RESULT_SET->next())
+                RESULT_SET->close();
+        }
+        catch(const std::exception& e)
+        {
+
+        }
+
+        delete RESULT_SET;
     }
 
 }

@@ -115,7 +115,7 @@ namespace newobj
 				if (this->m_tcpServer->m_pfun_onfilter != nullptr)
 				{
 					buf = this->m_tcpServer->m_pfun_onfilter(this->m_tcpServer, dwConnID, (const char*)pData, iLength);
-					if (buf.data() == nullptr)
+					if (buf.length() == 0)
 						return;
 				}
 				else
@@ -132,23 +132,9 @@ namespace newobj
 					{
 
 						TcpServerRecvSt* tsrs = new TcpServerRecvSt;
-
-						if (this->m_tcpServer->m_pfun_onfilter == nullptr)
-						{
-							tsrs->pData = new char[iLength];
-							memcpy(tsrs->pData, (const char*)pData, iLength);
-							tsrs->iLength = iLength;
-						}
-						else
-						{
-							tsrs->pData = (char*)pData;
-							tsrs->iLength = iLength;
-						}
-
-
+                        tsrs->pData = (char*)buf.data();
+                        tsrs->iLength = buf.length();
 						tsrs->dwConnID = dwConnID;
-
-
 						tsrs->pSender = pSender;
 						tsrs->pServer = (iserver*)this->m_tcpServer;
 						tsrs->callback = this->m_tcpServer->m_pfun_onrecv;
