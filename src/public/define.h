@@ -25,7 +25,7 @@
 
 #ifdef _WIN32
 #ifdef MSVC_2010
-#define LIB_QT 0
+#define LIB_QT 1
 #else
 #define LIB_QT 1
 #endif

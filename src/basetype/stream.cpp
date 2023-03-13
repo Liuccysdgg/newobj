@@ -291,6 +291,7 @@ bool stream_view::operator!=(const stream_view& value) const
 
 void stream_view::reset(const char* value, size_t len)
 {
+	clear();
 	INIT_STREAM_VIEW(value, len);
 }
 stream::stream()

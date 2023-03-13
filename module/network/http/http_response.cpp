@@ -65,6 +65,7 @@ namespace newobj
                     auto sendbefore_callback = m_reqpack->website()->router()->m_callback_sendbefore;
 					if (sendbefore_callback != nullptr)
 					{
+						
 						sendbefore_callback(view,&end_send);
 						if (end_send.length() != 0)
 							view.reset(end_send.data(), end_send.length());

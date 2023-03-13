@@ -2,7 +2,7 @@
 #include "public/define.h"
 #include "public/buffer.h"
 #if defined(QT_CORE_LIB) || LIB_QT == 1
-#ifdef QT4
+#if QT4 == 1
 #include "Qt/qwidget.h"
 #include "Qt/qlabel.h"
 #include "Qt/qpushbutton.h"

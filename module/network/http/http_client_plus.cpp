@@ -43,14 +43,14 @@ public:
 		m_response_body.clear();
 		m_recv_body_length = 0;
 		m_status = 0;
-		return EnHttpParseResult::HPR_OK;
+		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnRequestLine(IHttpClient* pSender, CONNID dwConnID, LPCSTR lpszMethod, LPCSTR lpszUrl) override
 	{
 #ifdef _DEBUG_CLIENT
 		std::cout << "[OnRequestLine]:\t" << dwConnID<<"\t"<<lpszMethod<<"\t"<<lpszUrl << std::endl;
 #endif
-		return EnHttpParseResult::HPR_OK;
+		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnStatusLine(IHttpClient* pSender, CONNID dwConnID, USHORT usStatusCode, LPCSTR lpszDesc) override
 	{
@@ -58,7 +58,7 @@ public:
 		std::cout << "[OnStatusLine]:\t" << dwConnID << "\t" << usStatusCode << "\t" << lpszDesc << std::endl;
 #endif
 		m_status = usStatusCode;
-		return EnHttpParseResult::HPR_OK;
+		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnHeader(IHttpClient* pSender, CONNID dwConnID, LPCSTR lpszName, LPCSTR lpszValue) override
 	{
@@ -70,14 +70,14 @@ public:
 			m_content_length = nstring(lpszValue).to_uint64();
 		}
 		m_headers_response.set(lpszName,lpszValue);
-		return EnHttpParseResult::HPR_OK;
+		return HPR_OK;
 	}
 	virtual EnHttpParseResult OnHeadersComplete(IHttpClient* pSender, CONNID dwConnID) override
 	{
 #ifdef _DEBUG_CLIENT
 		std::cout << "[OnHeadersComplete]"<< std::endl;
 #endif
-		return EnHttpParseResult::HPR_OK;
+		return HPR_OK;
 	}
 	std::string dec2hex(int i) //将int转成16进制字符串
 	{

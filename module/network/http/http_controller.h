@@ -43,6 +43,12 @@ using namespace newobj::network::http;
 /**********************************************************
  * Class：Http控制器接口
  *********************************************************/
+#define qry_json_string(NAME) request()->parser()->json()[NAME].to<nstring>()
+#define qry_json_uint32(NAME) request()->parser()->json()[NAME].to<uint32>()
+#define qry_json_int32(NAME) request()->parser()->json()[NAME].to<int32>()
+#define qry_json_double(NAME) request()->parser()->json()[NAME].to<double>()
+#define qry_json_short(NAME) request()->parser()->json()[NAME].to<short>()
+#define qry_json_bool(NAME) request()->parser()->json()[NAME].to<bool>()
 namespace newobj
 {
 	namespace network
@@ -76,7 +82,6 @@ namespace newobj
 
                 // 获取回复JSON
                 inline newobj::json& rpjson(){return response()->sjson["data"];}
-
 
                 
 				friend class router;

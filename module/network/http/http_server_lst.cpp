@@ -1,6 +1,7 @@
 #include "http_server_lst.h"
 #if USE_NET_HTTP_WEBSITE
 #include "util/forstring.h"
+#include "util/codec.h"
 #include "http_server.h"
 #include "hpsocket/hpsocket.h"
 #include <algorithm>
@@ -246,6 +247,7 @@ EnHttpParseResult newobj::network::http::http_server_lst::OnMessageComplete(IHtt
         rp->init(tr->url,tr->host,tr->data,(uint64)dwConnID,m_server);
 		tr->data = nullptr;
     }
+	newobj::log->info("OnRecv:"+codec::to_gbk(rp->data()->to_string()));
     nstring size_name;
     {
         double size_ld = 0;
