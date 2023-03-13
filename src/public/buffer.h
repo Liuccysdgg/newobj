@@ -44,10 +44,21 @@ namespace newobj
         static newobj::buffer from(short value);
 
         operator nstring() const;
-        void append(char data);//
         void append(char data, size_t length);//
         void append(const char* data, size_t length);//
         void append(const stream_view& value);//
+        
+        void append_c(const char& value);
+        void append_uc(const uchar& value);
+        void append_bool(const bool& value);
+        void append_us(const ushort& value,bool reverse = false);
+        void append_s(const short& value,bool reverse = false);
+        void append_i32(const int32& value,bool reverse = false);
+        void append_ui32(const uint32& value,bool reverse = false);
+        void append_i64(const int64& value,bool reverse = false);
+        void append_ui64(const uint64& value,bool reverse = false);
+        void append_double(const double& value,bool reverse = false);
+        void append_float(const float& value,bool reverse = false);
 #ifndef MSVC_2010
         void append(std::initializer_list<uchar> char_list);
 #endif

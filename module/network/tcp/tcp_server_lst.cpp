@@ -132,9 +132,8 @@ namespace newobj
 					{
 
 						TcpServerRecvSt* tsrs = new TcpServerRecvSt;
-                        tsrs->pData = (char*)buf.data();
-                        tsrs->iLength = buf.length();
-						tsrs->dwConnID = dwConnID;
+						tsrs->data = buf;
+                        tsrs->dwConnID = dwConnID;
 						tsrs->pSender = pSender;
 						tsrs->pServer = (iserver*)this->m_tcpServer;
 						tsrs->callback = this->m_tcpServer->m_pfun_onrecv;
@@ -146,12 +145,8 @@ namespace newobj
 							if (this->m_tcpServer->sport_poliy() > 0)
 							{
 								if (this->m_tcpServer->m_pfun_ondiscard != NULL)
-									this->m_tcpServer->m_pfun_ondiscard(this->m_tcpServer, dwConnID, tsrs->pData, tsrs->iLength);
+									this->m_tcpServer->m_pfun_ondiscard(this->m_tcpServer, dwConnID, tsrs->data.data(), tsrs->data.length());
 							}
-
-							//Ê§°ÜÊÍ·Å×ÊÔ´
-							if (tsrs->pData != NULL)
-								delete[] tsrs->pData;
 							delete tsrs;
 						}
 					}
@@ -171,9 +166,7 @@ namespace newobj
 			void __HP_CALL callback_thread_recv_tcp(PVOID param)
 			{
 				TcpServerRecvSt* tsrs = (TcpServerRecvSt*)param;
-				tsrs->callback(tsrs->pServer, tsrs->dwConnID, tsrs->pData, tsrs->iLength);
-				if (tsrs->pData != NULL)
-					delete[] tsrs->pData;
+				tsrs->callback(tsrs->pServer, tsrs->dwConnID, tsrs->data.data(), tsrs->data.length());
 				delete tsrs;
 			}
 		}

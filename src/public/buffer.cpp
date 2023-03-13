@@ -113,10 +113,6 @@ namespace newobj
     {
         return to_string();
     }
-    void buffer::append(char data)
-    {
-        ::stream::append(data);
-    }
     void buffer::append(char data, size_t length)
     {
         ::stream::append(data, length);
@@ -187,7 +183,8 @@ namespace newobj
     {
         unsigned char highByte, lowByte;
         size_t length = ::stream::length();
-        nstring dest("0", length*2);
+        nstring dest;
+        dest.append((char)'0',length*2);
         for (size_t i = 0; i < length; i++)
         {
             highByte = (*this)[i] >> 4;
@@ -222,4 +219,77 @@ namespace newobj
         }
         return result;
     }
+    inline void __reverse(char* value,int32 length)
+    {
+        char temp = 0;
+        for(size_t i=0;i<length/2;i++){
+            temp = value[i];
+            temp = value[length-1-i];
+            value[length-1-i] = value[i];
+            value[i] = temp;
+        }
+    }
+#define REVERSE(VALUE,LENGTH) if(reverse == true){__reverse((char*)&VALUE,LENGTH);}
+    void buffer::append_c(const char& data)
+    {
+        ::stream::append(data);
+    }
+   void buffer::append_uc(const uchar& data)
+    {
+        ::stream::append(data);
+    }
+
+    void buffer::append_i32(const int32& value,bool reverse )
+    {
+        REVERSE(value,4);
+        ::newobj::buffer::append((const char*)&value,4);
+    }
+
+    void buffer::append_i64(const int64& value,bool reverse )
+    {
+        REVERSE(value,8);
+        ::newobj::buffer::append((const char*)&value,8);
+    }
+
+    void buffer::append_s(const short& value,bool reverse )
+    {
+        REVERSE(value,2);
+        ::newobj::buffer::append((const char*)&value,2);
+    }
+
+    void buffer::append_ui32(const uint32& value,bool reverse )
+    {
+        REVERSE(value,4);
+        ::newobj::buffer::append((const char*)&value,4);
+    }
+
+    void buffer::append_ui64(const uint64& value,bool reverse )
+    {
+        REVERSE(value,8);
+        ::newobj::buffer::append((const char*)&value,8);
+    }
+
+    void buffer::append_us(const ushort& value,bool reverse )
+    {
+        REVERSE(value,2);
+        ::newobj::buffer::append((const char*)&value,2);
+    }
+
+    void buffer::append_bool(const bool& value)
+    {
+        ::newobj::buffer::append((const char*)&value,1);
+    }
+
+    void buffer::append_float(const float& value,bool reverse )
+    {
+        REVERSE(value,4);
+        ::newobj::buffer::append((const char*)&value,4);
+    }
+
+    void buffer::append_double(const double& value,bool reverse )
+    {
+        REVERSE(value,8);
+        ::newobj::buffer::append((const char*)&value,8);
+    }
+
 }

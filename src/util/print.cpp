@@ -13,7 +13,7 @@ void newobj::print::com_str(char* line,uint32 max_length,nstring content, int co
 {
 	if (content.length() > max_length)
 		content = content.substr(0, max_length);
-#if ((defined  _WIN32) && (defined _DEBUG) || (defined LINUX))
+#if ((defined  _WIN32) && (defined _DEBUG) || (!defined _WIN32))
 #ifdef _WIN32
 	 SPRINTF(line, max_length,"\33[%d;%d;%dm%s\33[0;0;0m", attr, color, bg, content.c_str());
 #else
@@ -30,7 +30,7 @@ void newobj::print::com_str(char* line,uint32 max_length,nstring content, int co
 
 void newobj::print::str(const nstring& content, int color, int bg, int attr)
 {
-#if ((defined  _WIN32) && (defined _DEBUG) || (defined LINUX))
+#if ((defined  _WIN32) && (defined _DEBUG) || (!defined _WIN32))
 	printf("\33[%d;%d;%dm%s\33[0;0;0m", attr, color, bg, content.c_str());
 #else
 	printf("%s", content.c_str());

@@ -231,7 +231,7 @@ void network::http::form_parser::parse_count(std::vector<uint32> &starts, std::v
                 break;
             }
             else
-                cut_flag.append(c);
+                cut_flag.append_c(c);
         }
     }
 

@@ -16,15 +16,12 @@ namespace newobj
                 TcpServerRecvSt()
                 {
                     dwConnID = 0;
-                    pData = NULL;
-                    iLength = 0;
                     pSender = NULL;
                     pServer = NULL;
                     callback = NULL;
                 }
                 uint64 dwConnID;
-                char* pData ;
-                uint32 iLength ;
+                newobj::buffer data;
                 ITcpServer* pSender ;
                 newobj::network::iserver* pServer ;
                 std::function<void(newobj::network::iserver*, uint64, const char*, uint32)> callback ;

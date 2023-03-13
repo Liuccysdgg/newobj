@@ -14,7 +14,7 @@
 // HPSocket 支持SSL
 #define LIB_HPSOCKET_SSL
 // mimalloc 内存池
-#define LIB_MIMALLOC 0
+#define LIB_MIMALLOC 1
 
 // Log4cplus 开关
 #ifdef _WIN32

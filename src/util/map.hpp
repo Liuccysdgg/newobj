@@ -90,9 +90,9 @@ namespace newobj
 				this->m_mutex.unlock();
 			return true;
 		}
-		bool del(const KEY& key_)
+		bool del(const KEY& key_,bool locked = true)
 		{
-			____lock____(this->m_mutex, m_lock);
+			____lock____(this->m_mutex, locked);
 			typename std::map<KEY, VAL>::iterator iter = ::std::map<KEY, VAL>::find(key_);
 			if (iter == ::std::map<KEY, VAL>::end())
 				return false;
